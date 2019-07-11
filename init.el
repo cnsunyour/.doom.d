@@ -9,7 +9,7 @@
 ;; found in modules/README.org.
 
 (doom! :input
-       ;; chinese
+       chinese
        ;; japanese
 
        :completion
@@ -24,7 +24,7 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;fill-column       ; a `fill-column' indicator
-       ;; hl-todo           ; highlight TODO/FIXME/NOTE tags
+       hl-todo           ; highlight TODO/FIXME/NOTE tags
        ;;indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
@@ -64,8 +64,8 @@
 
        :term
        eshell            ; a consistent, cross-platform shell (WIP)
-       ;;term              ; terminals in Emacs
-       ;;vterm             ; another terminals in Emacs
+       ;; term              ; terminals in Emacs
+       vterm             ; another terminals in Emacs
 
        :tools
        ;;ansible
@@ -77,13 +77,13 @@
        eval              ; run code, run (also, repls)
        flycheck          ; tasing you for every semicolon you forget
        ;;flyspell          ; tasing you for misspelling mispelling
-       ;;gist              ; interacting with github gists
+       gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
        ;;lsp
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
-       ;;make              ; run make tasks from Emacs
+       make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
@@ -156,7 +156,7 @@
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
        :app
-       ;; calendar
+       calendar
        ;;irc              ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
@@ -182,9 +182,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-refile-targets
+   (quote
+    (("~/Dropbox/org/inbox.org" :level . 1)
+     ("~/Dropbox/gtd/personal.org" :level . 1)
+     ("~/Dropbox/gtd/family.org" :level . 1)
+     ("~/Dropbox/gtd/dbuav.org" :level . 1)
+     ("~/Dropbox/gtd/project.org" :level . 1))))
  '(pyim-dicts
    (quote
-    ((:name "Qingge" :file "/Users/yaohui/.local/pyim/pyim-wbdict-qingge.pyim")))))
+    ((:name "Qingge" :file "/Users/yaohui/.local/pyim/pyim-wbdict-qingge.pyim"))))
+ '(python-pytest-arguments (quote ("--color"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

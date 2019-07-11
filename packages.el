@@ -9,4 +9,6 @@
 ;; (package! cnfonts)
 (package! cal-china-x)
 (package! org2blog)
-(package! fcitx)
+(package! pangu-spacing :disable t)
+(package! org-pomodoro)
+(package! counsel-org-clock)
