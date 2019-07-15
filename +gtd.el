@@ -73,7 +73,7 @@
   ;; set archive tag
   (setq org-archive-tag "ARCHIVE")
   ;; set archive file
-  (setq org-archive-location (concat org-gtd-directory "archive.org::* From %s"))
+  (setq org-archive-location "::* Archived Tasks")
   ;; refiling targets include any file contributing to the agenda - up to 2 levels deep
   (setq org-refile-targets '((nil :maxlevel . 2)
                              (org-agenda-files :level . 1)))
