@@ -104,7 +104,7 @@
   ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
   (setq org-clock-out-remove-zero-time-clocks t)
   ;; show agenda as the only window
-  (setq org-agenda-window-setup 'only-window)
+  (setq org-agenda-window-setup 'current-window)
   ;; define stuck projects
   (setq org-stuck-projects '("+LEVEL=2/-DONE-ABORT" ("TODO" "NEXT" "STARTED") ("@Launchtime") "\\<IGNORE\\>"))
   ;; perform actions before finalizing agenda view
@@ -134,7 +134,8 @@
   ;; retain ignore options in tags-todo search
   (setq org-agenda-tags-todo-honor-ignore-options t)
   ;; hide certain tags from agenda view
-  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJECT" "FLAGGED")))
+  (setq org-agenda-hide-tags-regexp
+        (regexp-opt '("PROJECT" "REFILE" "NOTE" "JOURNAL")))
   ;; remove completed deadline tasks from the agenda view
   (setq org-agenda-skip-deadline-if-done t)
   ;; remove completed scheduled tasks from the agenda view
@@ -174,7 +175,7 @@
            ((org-agenda-files (list org-agenda-file-journal))
             (org-agenda-overriding-header "Journals:")
             (org-tags-match-list-sublevels t)))
-          (" " "Simple Agenda View"
+          (" " "<SPC> Awesome Agenda View"
            ((agenda "" ((org-agenda-overriding-header "Today's Schedule:")
                         (org-agenda-show-log t)
                         (org-agenda-log-mode-items '(clock state))
@@ -187,6 +188,8 @@
             (agenda "" ((org-agenda-overriding-header "Upcoming Deadlines:")
                         (org-agenda-entry-types '(:deadline))
                         (org-agenda-span 'day)
+                        (org-agenda-start-day "+0d")
+                        (org-agenda-start-on-weekday nil)
                         (org-deadline-warning-days 30)
                         (org-agenda-time-grid nil)))
             (agenda "" ((org-agenda-overriding-header "Week at a Glance:")
@@ -205,6 +208,9 @@
                         (org-agenda-todo-ignore-deadlines t)
                         (org-agenda-todo-ignore-timestamp t)
                         (org-agenda-todo-ignore-with-date t)))
+            (tags-todo "-REFILE-PROJECT-ABORT/!"
+                       ((org-agenda-overriding-header "Un-timestamp Tasks:")
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))))
             )
            ;; ((org-agenda-compact-blocks t))
            )
