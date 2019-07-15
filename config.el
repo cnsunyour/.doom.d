@@ -37,22 +37,22 @@
 
 
 ;; 猫神出的很好用的多标签管理插件
-;; (require 'awesome-tab)
-;; (awesome-tab-mode t)
-;; (global-set-key (kbd "s-[") 'awesome-tab-backward-tab)
-;; (global-set-key (kbd "s-]") 'awesome-tab-forward-tab)
-;; (global-set-key (kbd "s-{") 'awesome-tab-select-beg-tab)
-;; (global-set-key (kbd "s-}") 'awesome-tab-select-end-tab)
-;; (global-set-key (kbd "s-1") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-2") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-3") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-4") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-5") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-6") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-7") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-8") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-9") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-0") 'awesome-tab-select-visible-tab)
+(require 'awesome-tab)
+(awesome-tab-mode t)
+(global-set-key (kbd "s-[") 'awesome-tab-backward-tab)
+(global-set-key (kbd "s-]") 'awesome-tab-forward-tab)
+(global-set-key (kbd "s-{") 'awesome-tab-select-beg-tab)
+(global-set-key (kbd "s-}") 'awesome-tab-select-end-tab)
+(global-set-key (kbd "s-1") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-2") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-3") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-4") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-5") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-6") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-7") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-8") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-9") 'awesome-tab-select-visible-tab)
+(global-set-key (kbd "s-0") 'awesome-tab-select-visible-tab)
 
 ;; 英文自动补全和翻译，激活命令toggle-company-english-helper
 (require 'company-english-helper)
@@ -64,7 +64,7 @@
 (require 'sdcv)
 (global-set-key "\C-cd" 'sdcv-search-pointer+)
 (global-set-key "\C-cD" 'sdcv-search-pointer)
-;; (setq sdcv-say-word-p t)        ;; 是否读出语音
+(setq sdcv-say-word-p t)        ;; 是否读出语音
 (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic"))
 (setq sdcv-dictionary-simple-list       ;setup dictionary list for simple search
       '("懒虫简明英汉词典"
@@ -162,6 +162,10 @@
          "/usr/local/opt/nss/lib/pkgconfig" path-separator
          (getenv "PKG_CONFIG_PATH")))
 
+;; 调整启动时的窗口大小
+(pushnew! initial-frame-alist
+          '(width . 200)
+          '(height . 55))
 
 ;; 启动python虚拟环境
-(pyvenv-workon "myvw-3.7")
+;; (pyvenv-workon "myvw-3.7")
