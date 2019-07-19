@@ -208,9 +208,6 @@
                         (org-agenda-todo-ignore-deadlines t)
                         (org-agenda-todo-ignore-timestamp t)
                         (org-agenda-todo-ignore-with-date t)))
-            (tags-todo "-REFILE-PROJECT-ABORT/!"
-                       ((org-agenda-overriding-header "Un-timestamp Tasks:")
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))))
             )
            ;; ((org-agenda-compact-blocks t))
            )
