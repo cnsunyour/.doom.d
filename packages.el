@@ -12,3 +12,4 @@
 (package! pangu-spacing :disable t)
 (package! org-pomodoro)
 (package! counsel-org-clock)
+(package! company-tabnine)
