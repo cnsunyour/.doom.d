@@ -6,8 +6,8 @@
 ;; Maintainer: Andy Stewart <lazycat.manatee@gmail.com>
 ;; Copyright (C) 2018, Andy Stewart, all rights reserved.
 ;; Created: 2018-09-17 22:14:34
-;; Version: 4.7
-;; Last-Updated: 2019-07-01 22:16:44
+;; Version: 5.1
+;; Last-Updated: 2019-07-18 08:05:14
 ;;           By: Andy Stewart
 ;; URL: http://www.emacswiki.org/emacs/download/awesome-tab.el
 ;; Keywords:
@@ -91,6 +91,18 @@
 ;;
 
 ;;; Change log:
+;;
+;; 2019/07/18
+;;      * Use ema2159's way to render icon.
+;;
+;; 2019/07/17
+;;      * Init `header-line' height from `default' face,
+;;        `header-line' default inhibit from `mode-line',
+;;        awesome-tab icon will disappear if `mode-line' height set with 0.1 by other plugins (such as awesome-tray).
+;;      * Use `stringp' instead `ignore-errors' in `awesome-tab-icon-for-tab'.
+;;
+;; 2019/07/15
+;;      * Don't call `awesome-tab-adjust-buffer-order' if user use mouse click tab.
 ;;
 ;; 2019/07/01
 ;;      * Make awesome-tab's colors change with user selected theme, thank you so much AmaiKinono.
@@ -628,7 +640,7 @@ influence of C1 on the result."
     ;; Because tab separator is XPM object, we need re-init those XPM object after change theme.
     (awesome-tab-separator-init-vars)
     ;; Make `header-line' background same as default face.
-    (set-face-attribute 'header-line nil :background bg)
+    (set-face-attribute 'header-line nil :background bg :height (face-attribute 'default :height))
     ;; Make tab background same as default face.
     (awesome-tab-select-separator-style awesome-tab-style)
     ;; Make tab foreground change with theme.
@@ -1423,52 +1435,48 @@ That is, a string used to represent it on the tab bar."
      ;; Tab icon.
      (awesome-tab-icon-for-tab tab tab-face)
      ;; Tab label.
-     (propertize
-      (format " %s "
-              (let ((bufname (awesome-tab-buffer-name (car tab))))
-                (if (> awesome-tab-label-fixed-length 0)
-                    (awesome-tab-truncate-string  awesome-tab-label-fixed-length bufname)
-                  bufname)))
-      'face tab-face)
+     (propertize (awesome-tab-tab-name tab) 'face tab-face)
      ;; Tab right edge.
      (awesome-tab-separator-render awesome-tab-style-right tab-face)
      )))
 
+(defun awesome-tab-tab-name (tab)
+  "Render tab's name.
+Tab name will truncate if option `awesome-tab-truncate-string' big than zero."
+  (format " %s "
+          (let ((bufname (awesome-tab-buffer-name (car tab))))
+            (if (> awesome-tab-label-fixed-length 0)
+                (awesome-tab-truncate-string  awesome-tab-label-fixed-length bufname)
+              bufname))))
+
 (defun awesome-tab-icon-for-tab (tab face)
   "When tab buffer's file is exists, use `all-the-icons-icon-for-file' to fetch file icon.
 Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
-  (ignore-errors
-    (when (and awesome-tab-display-icon
-               (featurep 'all-the-icons))
-      (let* ((tab-buffer (car tab))
-             (tab-file (buffer-file-name tab-buffer))
-             (icon
-              (cond
-               ;; Use `all-the-icons-icon-for-file' if current file is exists.
-               ((and
-                 tab-file
-                 (file-exists-p tab-file))
-                (all-the-icons-icon-for-file tab-file :v-adjust -0.1 :height 1))
-               ;; Use `all-the-icons-icon-for-buffer' for current tab buffer at last.
-               (t
-                (with-current-buffer tab-buffer
-                  (all-the-icons-icon-for-buffer))))))
-        (when icon
-          (awesome-tab-change-icon-background icon (face-background face))
-          ;; Add space before icon if found one.
-          (concat (propertize " " 'face face) icon))))))
-
-(defun awesome-tab-change-icon-background (icon background-color)
-  ;; Dynamic adjust icon's background,
-  ;; don't use propertized wrap icon, it will cause elisp icon render wrong graphics.
-  ;;
-  ;; Thanks ema2159 for code block ;)
-  (let ((original-props (get-text-property 0 'face icon)))
-    (remove-text-properties 0 1 '(face nil) icon)
-    (unless (<= (length original-props) 6)
-      (pop original-props))
-    (add-face-text-property 0 1 original-props nil icon)
-    (add-face-text-property 0 1 `(:background ,background-color) nil icon)))
+  (when (and awesome-tab-display-icon
+             (featurep 'all-the-icons))
+    (let* ((tab-buffer (car tab))
+           (tab-file (buffer-file-name tab-buffer))
+           (background (face-background face))
+           (icon
+            (cond
+             ;; Use `all-the-icons-icon-for-file' if current file is exists.
+             ((and
+               tab-file
+               (file-exists-p tab-file))
+              (all-the-icons-icon-for-file tab-file :v-adjust -0.1 :height 1))
+             ;; Use `all-the-icons-icon-for-buffer' for current tab buffer at last.
+             (t
+              (with-current-buffer tab-buffer
+                (all-the-icons-icon-for-buffer))))))
+      (when (and icon
+                 ;; `get-text-property' need icon is string type.
+                 (stringp icon))
+        ;; Thanks ema2159 for code block ;)
+        (propertize
+         icon
+         'face `(:inherit ,(get-text-property 0 'face icon)
+                          :background ,background
+                          ))))))
 
 (defun awesome-tab-buffer-name (tab-buffer)
   "Get buffer name of tab.
@@ -1874,8 +1882,8 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
         (when (featurep 'helm)
           (require 'helm)
           (helm-build-sync-source "Awesome-Tab Group"
-                                  :candidates #'awesome-tab-get-groups
-                                  :action '(("Switch to group" . awesome-tab-switch-group))))))
+            :candidates #'awesome-tab-get-groups
+            :action '(("Switch to group" . awesome-tab-switch-group))))))
 
 ;;;###autoload
 (defun awesome-tab-counsel-switch-group ()
@@ -1938,7 +1946,9 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
   "Put the two buffers switched to the adjacent position after current buffer changed."
   ;; Don't trigger by awesome-tab command, it's annoying.
   ;; This feature should trigger by search plugins, such as ibuffer, helm or ivy.
-  (unless (string-prefix-p "awesome-tab" (format "%s" this-command))
+  (unless (or (string-prefix-p "awesome-tab" (format "%s" this-command))
+              (string-prefix-p "mouse-drag-header-line" (format "%s" this-command))
+              (string-prefix-p "(lambda (event) (interactive e) (awesome-tab-buffer-select-tab" (format "%s" this-command)))
     ;; Just continue when buffer changed.
     (when (and (not (eq (current-buffer) awesome-tab-last-focus-buffer))
                (not (minibufferp)))
