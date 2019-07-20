@@ -158,7 +158,7 @@
   (setq org-src-fontify-natively t)
   ;; custom agenda commands
   (setq org-agenda-custom-commands
-        '(("r" "Archivable" todo "DONE"
+        '(("r" "Archivable" todo "DONE|ABORT"
            ((org-agenda-overriding-header "Tasks to Archive:")
             (org-tags-match-list-sublevels nil)))
           ("f" "Flagged" tags-todo "+FLAGGED/!"
