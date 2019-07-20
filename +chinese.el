@@ -36,9 +36,8 @@
   (cnsunyour/better-font))
 
 ;; 取消pangu-spacing包里默认的在中英文字符之间增加空格的设置
-;; 已经在package.el中禁止掉pangu-spacing包，为防万一，此处也设置一下全局和本地变量
-(global-pangu-spacing-mode 0)
-(set (make-local-variable 'pangu-spacing-real-insert-separtor) nil)
+;; (global-pangu-spacing-mode 0)
+;; (set (make-local-variable 'pangu-spacing-real-insert-separtor) nil)
 
 ;; 修改pyim默认输入法为五笔，使用posframe能使输入法tooltip显示更顺畅
 (setq pyim-default-scheme 'wubi)
