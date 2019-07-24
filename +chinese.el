@@ -39,6 +39,8 @@
 ;; (global-pangu-spacing-mode 0)
 ;; (set (make-local-variable 'pangu-spacing-real-insert-separtor) nil)
 
-;; 修改pyim默认输入法为五笔，使用posframe能使输入法tooltip显示更顺畅
-(setq pyim-default-scheme 'wubi)
+;; 使用posframe能使输入法tooltip显示更顺畅
 (setq pyim-page-tooltip 'posframe)
+
+;; 修改pyim默认输入法为五笔
+(setq pyim-default-scheme 'wubi)
