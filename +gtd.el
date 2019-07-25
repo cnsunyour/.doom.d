@@ -59,6 +59,7 @@
   (setq org-agenda-file-gtd (expand-file-name "inbox.org" org-gtd-directory))
   (setq org-agenda-file-note (expand-file-name "note.org" org-directory))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
+  (setq org-agenda-file-project (expand-file-name "project.org" org-gtd-directory))
   ;; set capture templates
   (setq org-capture-templates
         '(("i" "New Todo Task" entry (file+headline org-agenda-file-gtd "Tasks")
@@ -69,6 +70,9 @@
            :prepend t :clock-in t :clock-resume t :empty-lines-before 0 :empty-lines-after 1)
           ("j" "Keeping Journals" entry (file+olp+datetree org-agenda-file-journal)
            "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?"
+           :prepend t :clock-in t :clock-resume t :empty-lines-before 0 :empty-lines-after 1)
+          ("p" "Project Task" entry (file+headline org-agenda-file-project "Projects")
+           "* TODO [#B] %^{Project Task}\n:PROPERTIES:\n:Created: %U\n:END:"
            :prepend t :clock-in t :clock-resume t :empty-lines-before 0 :empty-lines-after 1)))
   ;; set archive tag
   (setq org-archive-tag "ARCHIVE")
