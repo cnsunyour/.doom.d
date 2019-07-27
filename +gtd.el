@@ -14,42 +14,36 @@
   ;; set agenda files
   (setq org-agenda-files (list org-gtd-directory))
   ;; set task states
-  (setq org-todo-keywords
-        '((sequence "TODO(t!)" "NEXT(n!)" "STARTED(s!)" "|" "DONE(d!)")
-          (sequence "WAITING(w@/!)" "SOMEDAY(y@/!)" "|" "ABORT(a@/!)")))
-  (setq org-todo-keyword-faces
-        '(("TODO" :foreground "orange" :weight bold)
-          ("NEXT" :foreground "yellow" :weight bold)
-          ("STARTED" :foreground "white" :weight bold)
-          ("WAITING" :foreground "brown" :weight bold)
-          ("SOMEDAY" :foreground "purple" :weight bold)
-          ("DONE" :foreground "green" :weight bold)
-          ("ABORT" :foreground "red" :weight bold)))
-  (setq org-tag-alist
-        '(("FLAGGED" . ?f)
-          ("@Office" . ?o)
-          ("@Home" . ?h)
-          ("@Way" . ?w)
-          ("@Computer" . ?c)
-          ("@Errands" . ?e)
-          ("@Lunchtime" . ?l)))
-  (setq org-tag-persistent-alist
-        org-tag-alist)
-  (setq org-priority-faces
-        '((?A . (:foreground "red"))
-          (?B . (:foreground "yellow"))
-          (?C . (:foreground "green"))))
+  (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "STARTED(s!)" "|" "DONE(d!)")
+                            (sequence "WAITING(w@/!)" "SOMEDAY(y@/!)" "|" "ABORT(a@/!)")))
+  (setq org-todo-keyword-faces '(("TODO" :foreground "orange" :weight bold)
+                                 ("NEXT" :foreground "yellow" :weight bold)
+                                 ("STARTED" :foreground "white" :weight bold)
+                                 ("WAITING" :foreground "brown" :weight bold)
+                                 ("SOMEDAY" :foreground "purple" :weight bold)
+                                 ("DONE" :foreground "green" :weight bold)
+                                 ("ABORT" :foreground "red" :weight bold)))
+  (setq org-tag-alist '(("FLAGGED" . ?f)
+                        ("@Office" . ?o)
+                        ("@Home" . ?h)
+                        ("@Way" . ?w)
+                        ("@Computer" . ?c)
+                        ("@Errands" . ?e)
+                        ("@Lunchtime" . ?l)))
+  (setq org-tag-persistent-alist org-tag-alist)
+  (setq org-priority-faces '((?A . (:foreground "red"))
+                             (?B . (:foreground "yellow"))
+                             (?C . (:foreground "green"))))
 
   ;; trigger task states
-  (setq org-todo-state-tags-triggers
-        (quote (("ABORT" ("ABORT" . t))
-                ("WAITING" ("SOMEDAY") ("WAITING" . t))
-                ("SOMEDAY" ("WAITING") ("SOMEDAY" . t))
-                (done ("WAITING") ("SOMEDAY"))
-                ("TODO" ("WAITING") ("ABORT") ("SOMEDAY"))
-                ("NEXT" ("WAITING") ("ABORT") ("SOMEDAY"))
-                ("STARTED" ("WAITING") ("ABORT") ("SOMEDAY"))
-                ("DONE" ("WAITING") ("ABORT") ("SOMEDAY")))))
+  (setq org-todo-state-tags-triggers (quote (("ABORT" ("ABORT" . t))
+                                             ("WAITING" ("SOMEDAY") ("WAITING" . t))
+                                             ("SOMEDAY" ("WAITING") ("SOMEDAY" . t))
+                                             (done ("WAITING") ("SOMEDAY"))
+                                             ("TODO" ("WAITING") ("ABORT") ("SOMEDAY"))
+                                             ("NEXT" ("WAITING") ("ABORT") ("SOMEDAY"))
+                                             ("STARTED" ("WAITING") ("ABORT") ("SOMEDAY"))
+                                             ("DONE" ("WAITING") ("ABORT") ("SOMEDAY")))))
   ;; exclude PROJECT tag from being inherited
   (setq org-tags-exclude-from-inheritance '("PROJECT"))
   ;; show inherited tags in agenda view
@@ -138,8 +132,7 @@
   ;; retain ignore options in tags-todo search
   (setq org-agenda-tags-todo-honor-ignore-options t)
   ;; hide certain tags from agenda view
-  (setq org-agenda-hide-tags-regexp
-        (regexp-opt '("PROJECT" "REFILE" "NOTE" "JOURNAL")))
+  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJECT" "REFILE" "NOTE" "JOURNAL")))
   ;; remove completed deadline tasks from the agenda view
   (setq org-agenda-skip-deadline-if-done t)
   ;; remove completed scheduled tasks from the agenda view
@@ -211,10 +204,7 @@
                         (org-agenda-todo-ignore-scheduled t)
                         (org-agenda-todo-ignore-deadlines t)
                         (org-agenda-todo-ignore-timestamp t)
-                        (org-agenda-todo-ignore-with-date t)))
-            )
-           ;; ((org-agenda-compact-blocks t))
-           )
+                        (org-agenda-todo-ignore-with-date t)))))
           ))
 
   (defun gtd-inbox() (interactive) (find-file org-agenda-file-gtd))
