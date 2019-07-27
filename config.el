@@ -170,3 +170,6 @@
 (pushnew! initial-frame-alist
           '(width . 200)
           '(height . 55))
+
+;; 使用相对行号
+(setq display-line-numbers-type 'relative)
