@@ -2,8 +2,16 @@
 
 ;; Place your private configuration here
 
-;; 增加自定义的.el文件路径
-(add-to-list 'load-path (expand-file-name "~/.doom.d/elisp"))
+;; 增加自定义的load-path路径
+;; (add-to-list 'load-path (expand-file-name "~/git/aweshell"))
+;; (add-to-list 'load-path (expand-file-name "~/git/awesome-tab"))
+;; (add-to-list 'load-path (expand-file-name "~/git/awesome-pair"))
+(add-to-list 'load-path (expand-file-name "~/git/company-english-helper"))
+(add-to-list 'load-path (expand-file-name "~/git/insert-translated-name"))
+(add-to-list 'load-path (expand-file-name "~/git/highlight-matching-tag"))
+(add-to-list 'load-path (expand-file-name "~/git/instant-rename-tag"))
+(add-to-list 'load-path (expand-file-name "~/git/sdcv"))
+;; (add-to-list 'load-path (expand-file-name "~/git/snails"))
 
 ;; 让flycheck检查载入el文件时从load-path里搜索
 (setq flycheck-emacs-lisp-load-path 'inherit)
@@ -104,6 +112,11 @@
 (require 'highlight-matching-tag)
 (highlight-matching-tag 1)
 
+;; A modern, easy-to-expand fuzzy search framework
+;; M-x snails or M-x snails-search-point
+;; (require 'snails)
+
+
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
 ;; operations about highlighted symbols. It was originally inspired by
@@ -122,7 +135,6 @@
 ;; "s" -> symbol-overlay-isearch-literally
 ;; "q" -> symbol-overlay-query-replace
 ;; "r" -> symbol-overlay-rename
-(require 'symbol-overlay)
 (global-set-key (kbd "M-i") 'symbol-overlay-put)
 (global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
 (global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
@@ -153,18 +165,18 @@
       (funcall quote-fn name)
       (funcall quote-fn note)))))
 
+;; tabnine，一个非常牛的补全插件
 (def-package! company-tabnine
   :when (featurep! :completion company)
   :config
   (add-to-list 'company-backends #'company-tabnine))
 
 ;; define environmental variable for some works
-(setenv "PKG_CONFIG_PATH"
-        (concat
-         "/usr/local/opt/libffi/lib/pkgconfig" path-separator
-         "/usr/local/opt/qt/lib/pkgconfig" path-separator
-         "/usr/local/opt/nss/lib/pkgconfig" path-separator
-         (getenv "PKG_CONFIG_PATH")))
+(setenv "PKG_CONFIG_PATH" (concat
+                           "/usr/local/opt/libffi/lib/pkgconfig" path-separator
+                           "/usr/local/opt/qt/lib/pkgconfig" path-separator
+                           "/usr/local/opt/nss/lib/pkgconfig" path-separator
+                           (getenv "PKG_CONFIG_PATH")))
 
 ;; 设置自动换行的宽度为120列，默认的80列太窄了，真的太窄了
 (setq fill-column 120)
