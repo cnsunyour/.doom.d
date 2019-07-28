@@ -14,3 +14,6 @@
 (package! counsel-org-clock)
 (package! company-tabnine)
 (package! posframe)
+(package! alert)
+(package! symbol-overlay)
+;; (package! exec-path-from-shell)
