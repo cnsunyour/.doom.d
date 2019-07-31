@@ -1,5 +1,10 @@
 ;;;  -*- lexical-binding: t; -*-
 
+;; 对换Command和Option键
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'super))
+
 ;; general keybindings
 (map!
  (:leader
@@ -72,8 +77,8 @@ respectively."
 
  ("C-M-t" . sp-transpose-sexp)
  ("C-M-k" . sp-kill-sexp)
- ("C-k"   . sp-kill-hybrid-sexp)
- ("M-k"   . sp-backward-kill-sexp)
+ ("C-S-k"   . sp-kill-hybrid-sexp)
+ ("M-S-k"   . sp-backward-kill-sexp)
  ("C-M-w" . sp-copy-sexp)
  ("C-M-d" . delete-sexp)
 
