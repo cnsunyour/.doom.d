@@ -23,7 +23,7 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;;fill-column       ; a `fill-column' indicator
+       fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
        ;;indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -72,7 +72,7 @@
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
        flycheck          ; tasing you for every semicolon you forget
@@ -140,7 +140,7 @@
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
        ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
@@ -162,9 +162,9 @@
        ;;irc              ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-       ;;(write            ; emacs as a word processor (latex + org + markdown)
-       ;; +wordnut         ; wordnet (wn) search
-       ;; +langtool)       ; a proofreader (grammar/style check) for Emacs
+       (write            ; emacs as a word processor (latex + org + markdown)
+       +wordnut         ; wordnet (wn) search
+       +langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :collab
        ;;floobits          ; peer programming for a price
