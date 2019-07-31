@@ -16,4 +16,4 @@
 (package! posframe)
 (package! alert)
 (package! symbol-overlay)
-;; (package! exec-path-from-shell)
+(package! exec-path-from-shell)
