@@ -8,10 +8,11 @@
 ;; (add-to-list 'load-path (expand-file-name "~/git/awesome-pair"))
 (add-to-list 'load-path (expand-file-name "~/git/company-english-helper"))
 (add-to-list 'load-path (expand-file-name "~/git/insert-translated-name"))
-(add-to-list 'load-path (expand-file-name "~/git/highlight-matching-tag"))
-(add-to-list 'load-path (expand-file-name "~/git/instant-rename-tag"))
+;; (add-to-list 'load-path (expand-file-name "~/git/highlight-matching-tag"))
+;; (add-to-list 'load-path (expand-file-name "~/git/instant-rename-tag"))
 (add-to-list 'load-path (expand-file-name "~/git/sdcv"))
-;; (add-to-list 'load-path (expand-file-name "~/git/snails"))
+(add-to-list 'load-path (expand-file-name "~/git/snails"))
+(add-to-list 'load-path (expand-file-name "~/git/fuz.el"))
 
 ;; 让flycheck检查载入el文件时从load-path里搜索
 (setq flycheck-emacs-lisp-load-path 'inherit)
@@ -22,6 +23,10 @@
 (load! "+gtd")
 (load! "+myblog")
 (load! "+pretty_src_block")
+
+(def-package! exec-path-from-shell
+  :config
+  (setq exec-path-from-shell-arguments '("-l")))
 
 ;; load packages related to org-mode
 (def-package! org-pomodoro
@@ -61,6 +66,14 @@
 ;; (global-set-key (kbd "s-8") 'awesome-tab-select-visible-tab)
 ;; (global-set-key (kbd "s-9") 'awesome-tab-select-visible-tab)
 ;; (global-set-key (kbd "s-0") 'awesome-tab-select-visible-tab)
+
+;; (require 'aweshell)
+;; (defun cnsunyour/call-aweshell-new ()
+;;   (interactive)
+;;   (progn
+;;     (aweshell-new)
+;;     (delete-other-windows)))
+;; (global-set-key (kbd "s-'") 'cnsunyour/call-aweshell-new)
 
 ;; 英文自动补全和翻译，激活命令toggle-company-english-helper
 (require 'company-english-helper)
@@ -106,16 +119,15 @@
                 :mode 'eshell-mode
                 :style 'notifications)
 
-
 ;; web-mode下标签改名和高亮插件
-(require 'instant-rename-tag)
-(require 'highlight-matching-tag)
-(highlight-matching-tag 1)
+;; (require 'instant-rename-tag)
+;; (require 'highlight-matching-tag)
+;; (highlight-matching-tag 1)
 
 ;; A modern, easy-to-expand fuzzy search framework
 ;; M-x snails or M-x snails-search-point
-;; (require 'snails)
-
+(require 'snails)
+(map! (:leader (:desc "Snails" :gnv "os" #'snails)))
 
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
@@ -141,30 +153,6 @@
 (global-set-key (kbd "<f7>") 'symbol-overlay-mode)
 (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
 
-
-;; 从 Emacs 往 OmniFocus 添加任务
-(defun omnifocus-capture (name note)
-  "Add task to OmniFocus, NAME as the task name and NOTE as the task note."
-  (interactive "sTask name: \nsTask note: ")
-  (let ((quote-fn
-         (lambda (s)
-           "Quote S for passing as a string to AppleScript."
-           (mapconcat
-            (lambda (char)
-              (pcase char
-                (?\" (string ?\\ ?\"))
-                (?\\ (string ?\\ ?\\))
-                (_   (string char))))
-            s ""))))
-    (do-applescript
-     (format
-      (concat
-       "tell front document of application \"Omnifocus\"\n"
-       "  make new inbox task with properties {name:\"%s\", note:\"%s\"}\n"
-       "end tell")
-      (funcall quote-fn name)
-      (funcall quote-fn note)))))
-
 ;; tabnine，一个非常牛的补全插件
 (def-package! company-tabnine
   :when (featurep! :completion company)
@@ -179,7 +167,8 @@
                            (getenv "PKG_CONFIG_PATH")))
 
 ;; 设置自动换行的宽度为120列，默认的80列太窄了，真的太窄了
-(setq fill-column 120)
+(setq-default fill-column 120)
+(setq-local fill-column 120)
 
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)
