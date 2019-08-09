@@ -267,14 +267,12 @@
 (defun twinkle-live-time ()
   "Display the live time of my son."
   (interactive)
-  (let*
-      ((birth-time (encode-time 0 43 13 16 9 2013))
-       (live-time  (time-subtract (current-time) birth-time))
-       (lt-secs    (float-time live-time)))
+  (let* ((birth-time (encode-time 0 43 13 16 9 2013))
+         (live-time  (time-subtract (current-time) birth-time))
+         (lt-secs    (float-time live-time)))
     (message
      (format "Twinkle: %d days; %.2f months; %.2f weeks; -- %s"
              (floor (/ lt-secs 86400))
              (/ lt-secs 2628000) ;; 1 y = 12 m, 1 m ~= 30.4166667 d
              (/ lt-secs 604800)
-             (format-seconds "%Y, %D, %H, %M%z" lt-secs)
-             ))))
+             (format-seconds "%Y, %D, %H, %M%z" lt-secs)))))
