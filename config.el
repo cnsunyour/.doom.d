@@ -13,6 +13,7 @@
 (add-to-list 'load-path (expand-file-name "~/git/sdcv"))
 (add-to-list 'load-path (expand-file-name "~/git/snails"))
 (add-to-list 'load-path (expand-file-name "~/git/fuz.el"))
+(add-to-list 'load-path (expand-file-name "~/git/theme-changer"))
 
 ;; 让flycheck检查载入el文件时从load-path里搜索
 (setq flycheck-emacs-lisp-load-path 'inherit)
@@ -52,20 +53,20 @@
 ;; 猫神出的很好用的多标签管理插件
 ;; (require 'awesome-tab)
 ;; (awesome-tab-mode t)
-;; (global-set-key (kbd "s-[") 'awesome-tab-backward-tab)
-;; (global-set-key (kbd "s-]") 'awesome-tab-forward-tab)
-;; (global-set-key (kbd "s-{") 'awesome-tab-select-beg-tab)
-;; (global-set-key (kbd "s-}") 'awesome-tab-select-end-tab)
-;; (global-set-key (kbd "s-1") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-2") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-3") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-4") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-5") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-6") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-7") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-8") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-9") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-0") 'awesome-tab-select-visible-tab)
+;; (map! (:g "s-[" #'awesome-tab-backward-tab)
+;;       (:g "s-]" #'awesome-tab-forward-tab)
+;;       (:g "s-{" #'awesome-tab-select-beg-tab)
+;;       (:g "s-}" #'awesome-tab-select-end-tab)
+;;       (:g "s-1" #'awesome-tab-select-visible-tab)
+;;       (:g "s-2" #'awesome-tab-select-visible-tab)
+;;       (:g "s-3" #'awesome-tab-select-visible-tab)
+;;       (:g "s-4" #'awesome-tab-select-visible-tab)
+;;       (:g "s-5" #'awesome-tab-select-visible-tab)
+;;       (:g "s-6" #'awesome-tab-select-visible-tab)
+;;       (:g "s-7" #'awesome-tab-select-visible-tab)
+;;       (:g "s-8" #'awesome-tab-select-visible-tab)
+;;       (:g "s-9" #'awesome-tab-select-visible-tab)
+;;       (:g "s-0" #'awesome-tab-select-visible-tab))
 
 ;; (require 'aweshell)
 ;; (defun cnsunyour/call-aweshell-new ()
@@ -73,7 +74,7 @@
 ;;   (progn
 ;;     (aweshell-new)
 ;;     (delete-other-windows)))
-;; (global-set-key (kbd "s-'") 'cnsunyour/call-aweshell-new)
+;; (map! :g "s-'" #'cnsunyour/call-aweshell-new)
 
 ;; 英文自动补全和翻译，激活命令toggle-company-english-helper
 (require 'company-english-helper)
@@ -83,16 +84,16 @@
 
 ;; 翻译当前单词
 (require 'sdcv)
-(global-set-key "\C-cd" 'sdcv-search-pointer+)
-(global-set-key "\C-cD" 'sdcv-search-pointer)
+(map! (:g "\C-cd" #'sdcv-search-pointer+)
+      (:g "\C-cD" #'sdcv-search-pointer))
 ;; (setq sdcv-say-word-p t)        ;; 是否读出语音
 (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic"))
-(setq sdcv-dictionary-simple-list       ;setup dictionary list for simple search
+(setq sdcv-dictionary-simple-list     ;setup dictionary list for simple search
       '("懒虫简明英汉词典"
         "懒虫简明汉英词典"
         "朗道英汉字典5.0"
         "朗道汉英字典5.0"))
-(setq sdcv-dictionary-complete-list     ;setup dictionary list for complete search
+(setq sdcv-dictionary-complete-list   ;setup dictionary list for complete search
       '("懒虫简明英汉词典"
         "懒虫简明汉英词典"
         "朗道英汉字典5.0"
@@ -105,7 +106,7 @@
         "高级汉语大词典"))
 
 ;; 在Eshell中发送桌面通知
-;; (require 'alert)
+(require 'alert)
 (defun eshell-command-alert (process status)
   "Send `alert' with severity based on STATUS when PROCESS finished."
   (let* ((cmd (process-command process))
@@ -127,7 +128,14 @@
 ;; A modern, easy-to-expand fuzzy search framework
 ;; M-x snails or M-x snails-search-point
 (require 'snails)
-(map! (:leader (:desc "Snails" :gnv "os" #'snails)))
+(map! (:leader (:desc "Snails" :gnv "os" #'snails))
+      (:map snails-mode-map
+        :e "s-h" #'snails-quit
+        :e "s-n" #'snails-select-next-item
+        :e "s-p" #'snails-select-prev-item
+        :e "s-j" #'snails-select-next-backend
+        :e "s-k" #'snails-select-prev-backend))
+(add-hook! 'snails-mode-hook #'(lambda () (evil-emacs-state)))
 
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
@@ -147,28 +155,65 @@
 ;; "s" -> symbol-overlay-isearch-literally
 ;; "q" -> symbol-overlay-query-replace
 ;; "r" -> symbol-overlay-rename
-(global-set-key (kbd "M-i") 'symbol-overlay-put)
-(global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
-(global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
-(global-set-key (kbd "<f7>") 'symbol-overlay-mode)
-(global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
+(map! (:g "M-i" 'symbol-overlay-put)
+      (:g "M-n" 'symbol-overlay-switch-forward)
+      (:g "M-p" 'symbol-overlay-switch-backward)
+      (:g "<f7>" 'symbol-overlay-mode)
+      (:g "<f8>" 'symbol-overlay-remove-all))
+
 
 ;; tabnine，一个非常牛的补全插件
 (def-package! company-tabnine
   :when (featurep! :completion company)
   :config
-  (add-to-list 'company-backends #'company-tabnine))
+  (add-to-list 'company-backends #'company-tabnine)
+  (set-company-backend! '(c-mode
+                          c++-mode
+                          java-mode
+                          swift-mode
+                          haskell-mode
+                          emacs-lisp-mode
+                          lisp-mode
+                          sh-mode
+                          perl-mode
+                          php-mode
+                          python-mode
+                          go-mode
+                          lua-mode
+                          ruby-mode
+                          rust-mode
+                          js-mode
+                          css-mode
+                          web-mode)
+    'company-tabnine)
+
+  ;; Trigger completion immediately.
+  ;; (setq company-idle-delay 0)
+
+  ;; Number the candidates (use M-1, M-2 etc to select completions).
+  ;; (setq company-show-numbers t)
+
+  ;; Use the tab-and-go frontend.
+  ;; Allows TAB to select and complete at the same time.
+  (company-tng-configure-default)
+  (setq company-frontends
+        '(company-tng-frontend
+          company-pseudo-tooltip-frontend
+          company-echo-metadata-frontend))
+  )
+
 
 ;; define environmental variable for some works
-(setenv "PKG_CONFIG_PATH" (concat
-                           "/usr/local/opt/libffi/lib/pkgconfig" path-separator
-                           "/usr/local/opt/qt/lib/pkgconfig" path-separator
-                           "/usr/local/opt/nss/lib/pkgconfig" path-separator
-                           (getenv "PKG_CONFIG_PATH")))
+(setenv "PKG_CONFIG_PATH"
+        (concat
+         "/usr/local/opt/libffi/lib/pkgconfig" path-separator
+         "/usr/local/opt/qt/lib/pkgconfig" path-separator
+         "/usr/local/opt/nss/lib/pkgconfig" path-separator
+         (getenv "PKG_CONFIG_PATH")))
 
-;; 设置自动换行的宽度为120列，默认的80列太窄了，真的太窄了
-(setq-default fill-column 120)
-(setq-local fill-column 120)
+;; 80列太窄，120列太宽，看着都不舒服，100列正合适
+;; (setq-default fill-column 100)
+;; (setq-local fill-column 100)
 
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)
@@ -176,21 +221,26 @@
 ;; 调整启动时的窗口大小
 (pushnew! initial-frame-alist '(width . 200) '(height . 55))
 
-;; 在Mac平台, Emacs不能进入Mac原生的全屏模式,否则会导致 `make-frame' 创建时也集成原生全屏属性后造成白屏和左右滑动现象.
-;; 所以先设置 `ns-use-native-fullscreen' 和 `ns-use-fullscreen-animation' 禁止Emacs使用Mac原生的全屏模式.
-;; 而是采用传统的全屏模式, 传统的全屏模式, 只会在当前工作区全屏,而不是切换到Mac那种单独的全屏工作区,
-;; 这样执行 `make-frame' 先关代码或插件时,就不会因为Mac单独工作区左右滑动产生的bug.
+;; 在Mac平台, Emacs不能进入Mac原生的全屏模式,否则会导致 `make-frame' 创建时也集
+;; 成原生全屏属性后造成白屏和左右滑动现象. 所以先设置 `ns-use-native-fullscreen'
+;; 和 `ns-use-fullscreen-animation' 禁止Emacs使用Mac原生的全屏模式. 而是采用传统
+;; 的全屏模式, 传统的全屏模式, 只会在当前工作区全屏,而不是切换到Mac那种单独的全
+;; 屏工作区,这样执行 `make-frame' 先关代码或插件时,就不会因为Mac单独工作区左右滑
+;; 动产生的bug.
 ;;
-;; Mac平台下,不能直接使用 `set-frame-parameter' 和 `fullboth' 来设置全屏,
-;; 那样也会导致Mac窗口管理器直接把Emacs窗口扔到单独的工作区, 从而对 `make-frame' 产生同样的Bug.
-;; 所以, 启动的时候通过 `set-frame-parameter' 和 `maximized' 先设置Emacs为最大化窗口状态, 启动5秒以后再设置成全屏状态,
-;; Mac就不会移动Emacs窗口到单独的工作区, 最终解决Mac平台下原生全屏窗口导致 `make-frame' 左右滑动闪烁的问题.
+;; Mac平台下,不能直接使用 `set-frame-parameter' 和 `fullboth' 来设置全屏,那样也
+;; 会导致Mac窗口管理器直接把Emacs窗口扔到单独的工作区, 从而对 `make-frame' 产生
+;; 同样的Bug. 所以, 启动的时候通过`set-frame-parameter' 和 `maximized' 先设置
+;; Emacs为最大化窗口状态, 启动5秒以后再设置成全屏状态, Mac就不会移动Emacs窗口到
+;; 单独的工作区, 最终解决Mac平台下原生全屏窗口导致 `make-frame' 左右滑动闪烁的问
+;; 题.
 (setq ns-use-native-fullscreen nil)
 (setq ns-use-fullscreen-animation nil)
 (run-at-time "1sec" nil
              (lambda ()
                (let ((fullscreen (frame-parameter (selected-frame) 'fullscreen)))
-                 ;; If emacs has in fullscreen status, maximized window first, drag from Mac's single space.
+                 ;; If emacs has in fullscreen status, maximized window first,
+                 ;; drag from Mac's single space.
                  (when (memq fullscreen '(fullscreen fullboth))
                    (set-frame-parameter (selected-frame) 'fullscreen 'maximized))
                  ;; Manipulating a frame without waiting for the fullscreen
@@ -199,3 +249,32 @@
                  (when (featurep 'cocoa) (sleep-for 0.5))
                  ;; Call `toggle-frame-fullscreen' to fullscreen emacs.
                  (toggle-frame-fullscreen))))
+
+
+;; 每天根据日出日落时间换主题
+(require 'theme-changer)
+(change-theme 'doom-nord-light 'doom-Iosvkem)
+
+
+;; elisp eval
+(defun eval-this-buffer ()
+  (interactive)
+  (eval-buffer nil (get-buffer-create "output"))
+  (switch-to-buffer-other-window "output"))
+
+
+;; 显示儿子的成长时间
+(defun twinkle-live-time ()
+  "Display the live time of my son."
+  (interactive)
+  (let*
+      ((birth-time (encode-time 0 43 13 16 9 2013))
+       (live-time  (time-subtract (current-time) birth-time))
+       (lt-secs    (float-time live-time)))
+    (message
+     (format "Twinkle: %d days; %.2f months; %.2f weeks; -- %s"
+             (floor (/ lt-secs 86400))
+             (/ lt-secs 2628000) ;; 1 y = 12 m, 1 m ~= 30.4166667 d
+             (/ lt-secs 604800)
+             (format-seconds "%Y, %D, %H, %M%z" lt-secs)
+             ))))
