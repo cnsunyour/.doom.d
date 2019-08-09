@@ -73,7 +73,7 @@
   ;; set archive file
   (setq org-archive-location "::* Archived Tasks")
   ;; refiling targets include any file contributing to the agenda - up to 2 levels deep
-  (setq org-refile-targets '((nil :maxlevel . 2)
+  (setq org-refile-targets '((nil :maxlevel . 3)
                              (org-agenda-files :level . 1)))
   ;; show refile targets simultaneously
   (setq org-outline-path-complete-in-steps nil)
@@ -144,7 +144,7 @@
   ;; 设置超过Headline的重复任务不再显示
   (setq org-agenda-skip-scheduled-if-deadline-is-shown 'repeated-after-deadline)
   ;; include entries from the Emacs diary
-  (setq org-agenda-include-diary t)
+  (setq org-agenda-include-diary nil)
   ;; custom diary file to org-ddirectory
   (setq diary-file (expand-file-name "diary" org-directory))
   ;; 使用最后的clock-out时间作为条目关闭时间
@@ -214,11 +214,4 @@
   (defun gtd-journal() (interactive) (find-file org-agenda-file-journal))
   (global-set-key (kbd "C-c j") 'gtd-journal)
 
-  ;; open files with default apps
-  (setq org-file-apps
-        '(("\\.docx\\'" . default)
-          ("\\.pdf\\'" . default)
-          ("\\.png\\'" . default)
-          ("\\.odt\\'" . default)
-          (auto-mode . emacs)))
   )
