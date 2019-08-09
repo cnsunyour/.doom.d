@@ -9,7 +9,7 @@
 ;; found in modules/README.org.
 
 (doom! :input
-       chinese
+       ;; chinese
        ;; japanese
 
        :completion
@@ -72,7 +72,7 @@
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       editorconfig      ; let someone else argue about tabs vs spaces
+       ;; editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
        flycheck          ; tasing you for every semicolon you forget
@@ -98,7 +98,7 @@
        ;;assembly          ; assembly for fun or debugging
        cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
-       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
@@ -109,11 +109,13 @@
        emacs-lisp        ; drown in parentheses
        ;;ess               ; emacs speaks statistics
        ;;fsharp           ; ML stands for Microsoft's Language
-       go                ; the hipster dialect
+       (go                ; the hipster dialect
+        +lsp)
        ;;(haskell +intero) ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       (java +meghanada) ; the poster child for carpal tunnel syndrome
+       (java             ; the poster child for carpal tunnel syndrome
+        +meghanada)
        javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -184,6 +186,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("34c99997eaa73d64b1aaa95caca9f0d64229871c200c5254526d0062f8074693" default)))
  '(org-refile-targets
    (quote
     (("~/Dropbox/org/inbox.org" :level . 1)

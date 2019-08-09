@@ -7,9 +7,12 @@
 ;; (package! builtin-package :disable t)
 
 ;; (package! cnfonts)
+;; (package! pangu-spacing :disable t)
+(package! pyim)
+(package! fcitx)
+(package! ace-pinyin)
 (package! cal-china-x)
 (package! org2blog)
-(package! pangu-spacing :disable t)
 (package! org-pomodoro)
 (package! counsel-org-clock)
 (package! company-tabnine)
