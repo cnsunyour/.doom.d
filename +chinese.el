@@ -35,12 +35,54 @@
     (add-hook 'after-make-frame-functions #'cnsunyour/init-font)
   (cnsunyour/better-font))
 
-;; 取消pangu-spacing包里默认的在中英文字符之间增加空格的设置
-;; (global-pangu-spacing-mode 0)
-;; (set (make-local-variable 'pangu-spacing-real-insert-separtor) nil)
+(use-package! fcitx
+  :after evil
+  :config
+  (when (executable-find "fcitx-remote")
+    (fcitx-evil-turn-on)))
 
-;; 使用posframe能使输入法tooltip显示更顺畅
-(setq pyim-page-tooltip 'posframe)
+(use-package! ace-pinyin
+  :after avy
+  :init (setq ace-pinyin-use-avy t)
+  :config (ace-pinyin-global-mode t))
 
-;; 修改pyim默认输入法为五笔
-(setq pyim-default-scheme 'wubi)
+
+;;
+;;; Hack
+;;;
+(defadvice! +chinese--org-html-paragraph-a (args)
+  "Join consecutive Chinese lines into a single long line without
+unwanted space when exporting org-mode to html."
+  :filter-args #'org-html-paragraph
+  (cl-destructuring-bind (paragraph content info) args
+    (let* ((fix-regexp "[[:multibyte:]a-zA-Z0-9]")
+           (origin-contents content)
+           (fixed-contents
+            (replace-regexp-in-string
+             (concat "\\("
+                     fix-regexp
+                     "\\) *\\(<[Bb][Rr] */>\\)?\n *\\("
+                     fix-regexp
+                     "\\)")
+             "\\1\\3"
+             origin-contents)))
+      (list paragraph fixed-contents info))))
+
+
+
+(use-package! pyim
+  :after-call after-find-file pre-command-hook
+  :config
+  (setq pyim-dcache-directory (concat doom-cache-dir "pyim/")
+        pyim-page-tooltip t
+        default-input-method "pyim"
+        pyim-default-scheme 'wubi
+        pyim-page-tooltip 'posframe))
+
+(map! :map 'pyim-mode-map
+      ";" (lambda ()
+            (interactive)
+            (pyim-page-select-word-by-number 2))
+      "'" (lambda ()
+            (interactive)
+            (pyim-page-select-word-by-number 3)))
