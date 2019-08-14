@@ -4,36 +4,22 @@
 ;; (def-package! cnfonts
 ;;   :config
 ;;   (cnfonts-enable)
-;;   (setq cnfonts-use-face-font-rescale t)
-;;   )
+;;   (setq cnfonts-use-face-font-rescale t))
 
-;; 中文字体配置
-(defun cnsunyour/better-font()
-  (interactive)
-  (when (display-graphic-p)
-    (progn
-      (set-face-attribute
-       'default nil
-       :font (font-spec :name "-*-PragmataPro-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-                        :weight 'normal
-                        :slant 'normal
-                        :size 14.0))
-      (dolist (charset '(kana han symbol cjk-misc bopomofo))
-        (set-fontset-font
-         (frame-parameter nil 'font)
-         charset
-         (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-                    :weight 'normal
-                    :slant 'normal
-                    :size 14.5)))
-      )))
-(defun cnsunyour/init-font(frame)
-  (with-selected-frame frame
-    (when (display-graphic-p)
-      (cnsunyour/better-font))))
-(if (and (fboundp 'daemonp) (daemonp))
-    (add-hook 'after-make-frame-functions #'cnsunyour/init-font)
-  (cnsunyour/better-font))
+(set-face-attribute
+ 'default nil
+ :font (font-spec :name "-*-PragmataPro-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+                  :weight 'normal
+                  :slant 'normal
+                  :size 14.0))
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font
+   (frame-parameter nil 'font)
+   charset
+   (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+              :weight 'normal
+              :slant 'normal)))
+
 
 (use-package! fcitx
   :after evil
