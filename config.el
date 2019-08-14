@@ -2,12 +2,14 @@
 
 ;; Place your private configuration here
 
+;; 让flycheck检查载入el文件时从load-path里搜索
+(setq flycheck-emacs-lisp-load-path 'inherit)
+
+
 ;; 增加自定义的load-path路径
 ;; (add-to-list 'load-path (expand-file-name "~/git/aweshell"))
 ;; (add-to-list 'load-path (expand-file-name "~/git/awesome-tab"))
 ;; (add-to-list 'load-path (expand-file-name "~/git/awesome-pair"))
-(add-to-list 'load-path (expand-file-name "~/git/company-english-helper"))
-(add-to-list 'load-path (expand-file-name "~/git/insert-translated-name"))
 ;; (add-to-list 'load-path (expand-file-name "~/git/highlight-matching-tag"))
 ;; (add-to-list 'load-path (expand-file-name "~/git/instant-rename-tag"))
 (add-to-list 'load-path (expand-file-name "~/git/sdcv"))
@@ -15,8 +17,6 @@
 (add-to-list 'load-path (expand-file-name "~/git/fuz.el"))
 (add-to-list 'load-path (expand-file-name "~/git/theme-changer"))
 
-;; 让flycheck检查载入el文件时从load-path里搜索
-(setq flycheck-emacs-lisp-load-path 'inherit)
 
 (load! "+bindings")
 (load! "+chinese")
@@ -24,16 +24,20 @@
 (load! "+gtd")
 (load! "+myblog")
 (load! "+pretty_src_block")
+(load! "+translate")
+
 
 (def-package! exec-path-from-shell
   :config
   (setq exec-path-from-shell-arguments '("-l")))
+
 
 ;; load packages related to org-mode
 (def-package! org-pomodoro
   :commands org-pomodoro)
 (def-package! counsel-org-clock
   :commands (counsel-org-clock-context counsel-org-clock-history))
+
 
 ;; 设置latex编辑tex文件时用skim同步显示pdf
 (setq TeX-source-correlate-mode t)
@@ -68,6 +72,7 @@
 ;;       (:g "s-9" #'awesome-tab-select-visible-tab)
 ;;       (:g "s-0" #'awesome-tab-select-visible-tab))
 
+
 ;; (require 'aweshell)
 ;; (defun cnsunyour/call-aweshell-new ()
 ;;   (interactive)
@@ -76,34 +81,6 @@
 ;;     (delete-other-windows)))
 ;; (map! :g "s-'" #'cnsunyour/call-aweshell-new)
 
-;; 英文自动补全和翻译，激活命令toggle-company-english-helper
-(require 'company-english-helper)
-
-;; 输入insert-translated-name-insert激活命令，可以输入中文后按空格翻译成英文插入当前位置。
-(require 'insert-translated-name)
-
-;; 翻译当前单词
-(require 'sdcv)
-(map! (:g "\C-cd" #'sdcv-search-pointer+)
-      (:g "\C-cD" #'sdcv-search-pointer))
-;; (setq sdcv-say-word-p t)        ;; 是否读出语音
-(setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic"))
-(setq sdcv-dictionary-simple-list     ;setup dictionary list for simple search
-      '("懒虫简明英汉词典"
-        "懒虫简明汉英词典"
-        "朗道英汉字典5.0"
-        "朗道汉英字典5.0"))
-(setq sdcv-dictionary-complete-list   ;setup dictionary list for complete search
-      '("懒虫简明英汉词典"
-        "懒虫简明汉英词典"
-        "朗道英汉字典5.0"
-        "朗道汉英字典5.0"
-        "21世纪英汉汉英双向词典"
-        "牛津英汉双解美化版"
-        "英汉汉英专业词典"
-        "新世纪英汉科技大词典"
-        "现代汉语词典"
-        "高级汉语大词典"))
 
 ;; 在Eshell中发送桌面通知
 (require 'alert)
@@ -120,10 +97,12 @@
                 :mode 'eshell-mode
                 :style 'notifications)
 
+
 ;; web-mode下标签改名和高亮插件
 ;; (require 'instant-rename-tag)
 ;; (require 'highlight-matching-tag)
 ;; (highlight-matching-tag 1)
+
 
 ;; A modern, easy-to-expand fuzzy search framework
 ;; M-x snails or M-x snails-search-point
@@ -136,6 +115,7 @@
         :e "s-j" #'snails-select-next-backend
         :e "s-k" #'snails-select-prev-backend))
 (add-hook! 'snails-mode-hook #'(lambda () (evil-emacs-state)))
+
 
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
@@ -210,6 +190,7 @@
          "/usr/local/opt/qt/lib/pkgconfig" path-separator
          "/usr/local/opt/nss/lib/pkgconfig" path-separator
          (getenv "PKG_CONFIG_PATH")))
+
 
 ;; 80列太窄，120列太宽，看着都不舒服，100列正合适
 ;; (setq-default fill-column 100)
