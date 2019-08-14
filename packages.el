@@ -7,7 +7,7 @@
 ;; (package! builtin-package :disable t)
 
 ;; (package! cnfonts)
-;; (package! pangu-spacing :disable t)
+(package! pangu-spacing :disable t)
 (package! pyim)
 (package! fcitx)
 (package! ace-pinyin)
@@ -20,3 +20,6 @@
 (package! alert)
 (package! symbol-overlay)
 (package! exec-path-from-shell)
+(package! youdao-dictionary)
+(package! google-translate)
+(package! company-go :disable t)
