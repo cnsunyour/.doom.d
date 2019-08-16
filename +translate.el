@@ -3,7 +3,7 @@
 
 ;; (add-to-list 'load-path (expand-file-name "~/git/company-english-helper"))
 (add-to-list 'load-path (expand-file-name "~/git/insert-translated-name"))
-
+(add-to-list 'load-path (expand-file-name "~/git/sdcv"))
 
 ;; 英文自动补全和翻译，激活命令toggle-company-english-helper
 ;; (require 'company-english-helper)
@@ -98,6 +98,14 @@
   (setq google-translate-tooltip-last-point (point))
   (setq google-translate-tooltip-last-scroll-offset (window-start)))
 
+(defun -region-or-word ()
+  (if (use-region-p)
+      (buffer-substring-no-properties (region-beginning) (region-end))
+    (thing-at-point 'word t)))
+
+(defun -chinese-word-p (word)
+  (if (and word (string-match "\\cc" word)) t nil))
+
 (defun -translate-request (source-language target-language text)
   (let* ((json (google-translate-request source-language
                                          target-language
@@ -150,11 +158,27 @@
   (%google-translate-at-point++ override-p nil))
 
 (defun google-translate-at-point-reverse++ (&optional override-p)
-  "Translate at point and show result with posframe."
+  "Translate reverse at point and show result with posframe."
   (interactive "P")
   (%google-translate-at-point++ override-p t))
 
-(map! (:g "C-c t" #'google-translate-at-point++)
-      (:g "C-c T" #'google-translate-at-point)
-      (:g "C-c r" #'google-translate-at-point-reverse++)
-      (:g "C-c R" #'google-translate-at-point-reverse))
+(defun google-translate-chinese-at-point++ (&optional override-p)
+  "如果当前位置是中文，则自动调用反向进行中转英翻译，否则进行正向
+英转中翻译。并在posframe提示框里显示结果。此方法只能用于点词翻译，
+不能用于划词翻译，至于原因，我还没弄明白。"
+  (interactive "P")
+  (if (-chinese-word-p(-region-or-word))
+      (%google-translate-at-point++ override-p t)
+    (%google-translate-at-point++ override-p nil)))
+
+(defun google-translate-chinese-at-point (&optional override-p)
+  "如果当前位置是中文，则自动调用反向进行中转英翻译，否则进行正向
+英转中翻译。并在另一个buffer里显示结果。此方法既可用于点词翻译，
+也可用于划词翻译。"
+  (interactive "P")
+  (if (-chinese-word-p(-region-or-word))
+      (%google-translate-at-point override-p t)
+    (%google-translate-at-point override-p nil)))
+
+(map! (:g "C-c t" #'google-translate-chinese-at-point++)
+      (:g "C-c T" #'google-translate-chinese-at-point))
