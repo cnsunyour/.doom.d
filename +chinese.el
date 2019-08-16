@@ -1,10 +1,14 @@
 ;;; ~/.doom.d/+chinese.el -*- lexical-binding: t; -*-
 
 ;; 中文字体包
-;; (def-package! cnfonts
+;; (use-package! cnfonts
 ;;   :config
 ;;   (cnfonts-enable)
 ;;   (setq cnfonts-use-face-font-rescale t))
+
+(setq doom-font (font-spec :family "PragmataPro" :size 14)
+      doom-variable-pitch-font (font-spec :family "PragmataPro")
+      doom-serif-font (font-spec :family "PragmataPro"))
 
 (set-face-attribute
  'default nil
@@ -19,7 +23,6 @@
    (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
               :weight 'normal
               :slant 'normal)))
-
 
 (use-package! fcitx
   :after evil
