@@ -1,10 +1,5 @@
 ;;;  -*- lexical-binding: t; -*-
 
-;; 对换Command和Option键
-;; (when (eq system-type 'darwin)
-;;   (setq mac-command-modifier 'meta)
-;;   (setq mac-option-modifier 'super))
-
 ;; general keybindings
 (map! (:leader
         (:desc "Org Agenda" :gnv "a" #'org-agenda)
@@ -15,10 +10,57 @@
       (:after org-agenda
         (:map org-agenda-mode-map "C-c o" #'org-pomodoro))
 
-      (:i "C-h" (kbd "<left>"))
-      (:i "C-l" (kbd "<right>"))
-      (:i "C-j" (kbd "<down>"))
-      (:i "C-k" (kbd "<up>")))
+      :m "M-j" #'multi-next-line
+      :m "M-k" #'multi-previous-line
+
+      ;; Easier window movement
+      :n "C-h" #'evil-window-left
+      :n "C-j" #'evil-window-down
+      :n "C-k" #'evil-window-up
+      :n "C-l" #'evil-window-right
+
+      (:map vterm-mode-map
+        ;; Easier window movement
+        :i "C-h" #'evil-window-left
+        :i "C-j" #'evil-window-down
+        :i "C-k" #'evil-window-up
+        :i "C-l" #'evil-window-right)
+
+      (:map evil-treemacs-state-map
+        "C-h" #'evil-window-left
+        "C-l" #'evil-window-right
+        "M-j" #'multi-next-line
+        "M-k" #'multi-previous-line)
+
+      (:when IS-LINUX
+        "s-x" #'execute-extended-command
+        "s-;" #'eval-expression
+        ;; use super for window/frame navigation/manipulation
+        "s-w" #'delete-window
+        "s-W" #'delete-frame
+        "s-n" #'+default/new-buffer
+        "s-N" #'make-frame
+        "s-q" (if (daemonp) #'delete-frame #'evil-quit-all)
+        ;; Restore OS undo, save, copy, & paste keys (without cua-mode, because
+        ;; it imposes some other functionality and overhead we don't need)
+        "s-z" #'undo
+        "s-c" (if (featurep 'evil) #'evil-yank #'copy-region-as-kill)
+        "s-v" #'yank
+        "s-s" #'save-buffer
+        ;; Buffer-local font scaling
+        "s-+" #'doom/reset-font-size
+        "s-=" #'doom/increase-font-size
+        "s--" #'doom/decrease-font-size
+        ;; Conventional text-editing keys
+        "s-a" #'mark-whole-buffer
+        :gi [s-return]    #'+default/newline-below
+        :gi [s-S-return]  #'+default/newline-above
+        :gi [s-backspace] #'doom/backward-kill-to-bol-and-indent)
+
+      :leader
+      (:prefix "f"
+        "t" #'find-in-dotfiles
+        "T" #'browse-dotfiles))
 
 ;; set initial state to emacs for org-agenda
 ;; (add-hook! org-agenda-mode
