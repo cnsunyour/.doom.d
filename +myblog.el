@@ -1,14 +1,24 @@
 ;;; ~/.doom.d/+org2blog.el -*- lexical-binding: t; -*-
 
-(after! 'org2blog
+(use-package! org2blog
+  :defer t
+  :config
   ;; org2blog相关设置
   (setq org2blog/wp-default-title nil)
   (setq org2blog/wp-default-categories (list "个人" "技术" "家庭" "生活"))
 
+  ;; 启用epa-file，可以解密.authinfo.gpg文件
+  (require 'epa-file)
+  (epa-file-enable)
+
+  ;; 启用auth-source-pass，可以使用.password-store里的密码
+  (require 'auth-source-pass)
+  (auth-source-pass-enable)
+
   (require 'auth-source) ;; or nothing if already in the load-path
   (let (credentials)
     ;; only required if your auth file is not already in the list of auth-sources
-    (add-to-list 'auth-sources "~/.netrc")
+    ;; (add-to-list 'auth-sources "~/.authinfo")
     (setq credentials (auth-source-user-and-password "myblog"))
     (setq org2blog/wp-blog-alist
           `(("myblog"
@@ -52,6 +62,4 @@
              ", ")
             ))
   (setq org2blog/wp-buffer-format-function 'org2blog/wp-format-buffer-with-author)
-  (setq org2blog/wp-show-post-in-browser 'show)
-
-  )
+  (setq org2blog/wp-show-post-in-browser 'show))
