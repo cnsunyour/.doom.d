@@ -2,12 +2,6 @@
 
 ;; 日历及纪念日相关设置
 
-;; 设置我所在地方的经纬度，calendar里有个功能是日月食的预测，和你的经纬度相联系的。
-;; 让emacs能计算日出日落的时间，在 calendar 上用 S 即可看到
-(setq calendar-latitude +39.9055472)
-(setq calendar-longitude +116.3887056)
-(setq calendar-location-name "北京")
-
 ;; 定义可以设置农历纪念日的函数
 (defun cnsunyour/diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
   (if year
