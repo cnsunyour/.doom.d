@@ -1,22 +1,23 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
+(setq user-full-name "Sunn Yao"
+      user-mail-address "sunyour@gmail.com"
+      epa-file-encrypt-to user-mail-address)
+
+;; 设置我所在地方的经纬度，calendar里有个功能是日月食的预测，和经纬度相联系的。
+;; 让emacs能计算日出日落的时间，在 calendar 上用 S 即可看到
+;; 另外根据日出日落时间切换主题也需要经纬度
+(setq calendar-location-name "北京")
+(setq calendar-latitude +39.9055472)
+(setq calendar-longitude +116.3887056)
 
 ;; 让flycheck检查载入el文件时从load-path里搜索
 (setq flycheck-emacs-lisp-load-path 'inherit)
 
-
-;; 增加自定义的load-path路径
-;; (add-to-list 'load-path (expand-file-name "~/git/aweshell"))
-;; (add-to-list 'load-path (expand-file-name "~/git/awesome-tab"))
-;; (add-to-list 'load-path (expand-file-name "~/git/awesome-pair"))
-;; (add-to-list 'load-path (expand-file-name "~/git/highlight-matching-tag"))
-;; (add-to-list 'load-path (expand-file-name "~/git/instant-rename-tag"))
-(add-to-list 'load-path (expand-file-name "~/git/sdcv"))
-(add-to-list 'load-path (expand-file-name "~/git/snails"))
-(add-to-list 'load-path (expand-file-name "~/git/fuz.el"))
-(add-to-list 'load-path (expand-file-name "~/git/theme-changer"))
-
+(use-package! exec-path-from-shell
+  :config
+  (setq exec-path-from-shell-arguments '("-l")))
 
 (load! "+bindings")
 (load! "+chinese")
@@ -25,19 +26,22 @@
 (load! "+myblog")
 (load! "+pretty_src_block")
 (load! "+translate")
+(load! "+manateelazycat")
 
-
-(def-package! exec-path-from-shell
+(use-package! fuz
   :config
-  (setq exec-path-from-shell-arguments '("-l")))
+  (unless (require 'fuz-core nil t)
+    (fuz-build-and-load-dymod)))
 
+(use-package! pinentry
+  :config
+  (pinentry-start))
 
 ;; load packages related to org-mode
-(def-package! org-pomodoro
+(use-package! org-pomodoro
   :commands org-pomodoro)
-(def-package! counsel-org-clock
+(use-package! counsel-org-clock
   :commands (counsel-org-clock-context counsel-org-clock-history))
-
 
 ;; 设置latex编辑tex文件时用skim同步显示pdf
 (setq TeX-source-correlate-mode t)
@@ -50,37 +54,6 @@
 ;; 使用xelatex一步生成PDF
 (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
                               "xelatex -interaction nonstopmode %f"))
-(setq org-latex-to-pdf-process '("xelatex -interaction nonstopmode %f"
-                                 "xelatex -interaction nonstopmode %f"))
-
-
-;; 猫神出的很好用的多标签管理插件
-;; (require 'awesome-tab)
-;; (awesome-tab-mode t)
-;; (map! (:g "s-[" #'awesome-tab-backward-tab)
-;;       (:g "s-]" #'awesome-tab-forward-tab)
-;;       (:g "s-{" #'awesome-tab-select-beg-tab)
-;;       (:g "s-}" #'awesome-tab-select-end-tab)
-;;       (:g "s-1" #'awesome-tab-select-visible-tab)
-;;       (:g "s-2" #'awesome-tab-select-visible-tab)
-;;       (:g "s-3" #'awesome-tab-select-visible-tab)
-;;       (:g "s-4" #'awesome-tab-select-visible-tab)
-;;       (:g "s-5" #'awesome-tab-select-visible-tab)
-;;       (:g "s-6" #'awesome-tab-select-visible-tab)
-;;       (:g "s-7" #'awesome-tab-select-visible-tab)
-;;       (:g "s-8" #'awesome-tab-select-visible-tab)
-;;       (:g "s-9" #'awesome-tab-select-visible-tab)
-;;       (:g "s-0" #'awesome-tab-select-visible-tab))
-
-
-;; (require 'aweshell)
-;; (defun cnsunyour/call-aweshell-new ()
-;;   (interactive)
-;;   (progn
-;;     (aweshell-new)
-;;     (delete-other-windows)))
-;; (map! :g "s-'" #'cnsunyour/call-aweshell-new)
-
 
 ;; 在Eshell中发送桌面通知
 (require 'alert)
@@ -96,26 +69,6 @@
 (alert-add-rule :status '(buried) ;only send alert when buffer not visible
                 :mode 'eshell-mode
                 :style 'notifications)
-
-
-;; web-mode下标签改名和高亮插件
-;; (require 'instant-rename-tag)
-;; (require 'highlight-matching-tag)
-;; (highlight-matching-tag 1)
-
-
-;; A modern, easy-to-expand fuzzy search framework
-;; M-x snails or M-x snails-search-point
-(require 'snails)
-(map! (:leader (:desc "Snails" :gnv "os" #'snails))
-      (:map snails-mode-map
-        :e "s-h" #'snails-quit
-        :e "s-n" #'snails-select-next-item
-        :e "s-p" #'snails-select-prev-item
-        :e "s-j" #'snails-select-next-backend
-        :e "s-k" #'snails-select-prev-backend))
-(add-hook! 'snails-mode-hook #'(lambda () (evil-emacs-state)))
-
 
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
@@ -141,31 +94,15 @@
       (:g "<f7>" 'symbol-overlay-mode)
       (:g "<f8>" 'symbol-overlay-remove-all))
 
-
 ;; tabnine，一个非常牛的补全插件
-(def-package! company-tabnine
+(use-package! company-tabnine
   :when (featurep! :completion company)
   :config
   (add-to-list 'company-backends #'company-tabnine)
-  (set-company-backend! '(c-mode
-                          c++-mode
-                          java-mode
-                          swift-mode
-                          haskell-mode
-                          emacs-lisp-mode
-                          lisp-mode
-                          sh-mode
-                          perl-mode
-                          php-mode
-                          python-mode
-                          go-mode
-                          lua-mode
-                          ruby-mode
-                          rust-mode
-                          js-mode
-                          css-mode
-                          web-mode)
-    'company-tabnine)
+  (set-company-backend! 'prog-mode
+    'company-tabnine 'company-capf 'company-yasnippet)
+  ;; (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
+  (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
 
   ;; Trigger completion immediately.
   ;; (setq company-idle-delay 0)
@@ -182,7 +119,6 @@
           company-echo-metadata-frontend))
   )
 
-
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
         (concat
@@ -191,58 +127,34 @@
          "/usr/local/opt/nss/lib/pkgconfig" path-separator
          (getenv "PKG_CONFIG_PATH")))
 
-
 ;; 80列太窄，120列太宽，看着都不舒服，100列正合适
-;; (setq-default fill-column 100)
-;; (setq-local fill-column 100)
+(setq-default fill-column 100)
+(setq-local fill-column 100)
 
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)
 
-;; 调整启动时的窗口大小
-(pushnew! initial-frame-alist '(width . 200) '(height . 55))
+;; 调整Mac下窗口和全屏显示方式
+(when IS-MAC
+  (setq ns-use-thin-smoothing t)
+  (setq ns-use-native-fullscreen nil)
+  (setq ns-use-fullscreen-animation nil))
 
-;; 在Mac平台, Emacs不能进入Mac原生的全屏模式,否则会导致 `make-frame' 创建时也集
-;; 成原生全屏属性后造成白屏和左右滑动现象. 所以先设置 `ns-use-native-fullscreen'
-;; 和 `ns-use-fullscreen-animation' 禁止Emacs使用Mac原生的全屏模式. 而是采用传统
-;; 的全屏模式, 传统的全屏模式, 只会在当前工作区全屏,而不是切换到Mac那种单独的全
-;; 屏工作区,这样执行 `make-frame' 先关代码或插件时,就不会因为Mac单独工作区左右滑
-;; 动产生的bug.
-;;
-;; Mac平台下,不能直接使用 `set-frame-parameter' 和 `fullboth' 来设置全屏,那样也
-;; 会导致Mac窗口管理器直接把Emacs窗口扔到单独的工作区, 从而对 `make-frame' 产生
-;; 同样的Bug. 所以, 启动的时候通过`set-frame-parameter' 和 `maximized' 先设置
-;; Emacs为最大化窗口状态, 启动5秒以后再设置成全屏状态, Mac就不会移动Emacs窗口到
-;; 单独的工作区, 最终解决Mac平台下原生全屏窗口导致 `make-frame' 左右滑动闪烁的问
-;; 题.
-(setq ns-use-native-fullscreen nil)
-(setq ns-use-fullscreen-animation nil)
-(run-at-time "1sec" nil
-             (lambda ()
-               (let ((fullscreen (frame-parameter (selected-frame) 'fullscreen)))
-                 ;; If emacs has in fullscreen status, maximized window first,
-                 ;; drag from Mac's single space.
-                 (when (memq fullscreen '(fullscreen fullboth))
-                   (set-frame-parameter (selected-frame) 'fullscreen 'maximized))
-                 ;; Manipulating a frame without waiting for the fullscreen
-                 ;; animation to complete can cause a crash, or other unexpected
-                 ;; behavior, on macOS (bug#28496).
-                 (when (featurep 'cocoa) (sleep-for 0.5))
-                 ;; Call `toggle-frame-fullscreen' to fullscreen emacs.
-                 (toggle-frame-fullscreen))))
-
+;; 调整启动时窗口大小/最大化/全屏
+;; (pushnew! initial-frame-alist '(width . 200) '(height . 55))
+(add-hook 'window-setup-hook #'toggle-frame-maximized t)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
 ;; 每天根据日出日落时间换主题
-(require 'theme-changer)
-(change-theme 'doom-nord-light 'doom-Iosvkem)
-
+(use-package! theme-changer
+  :config
+  (change-theme 'doom-nord-light 'doom-Iosvkem))
 
 ;; elisp eval
 (defun eval-this-buffer ()
   (interactive)
   (eval-buffer nil (get-buffer-create "output"))
   (switch-to-buffer-other-window "output"))
-
 
 ;; 显示儿子的成长时间
 (defun twinkle-live-time ()
