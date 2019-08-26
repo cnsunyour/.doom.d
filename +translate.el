@@ -1,54 +1,21 @@
 ;;; ~/.doom.d/+translate.el -*- lexical-binding: t; -*-
 
-
-;; (add-to-list 'load-path (expand-file-name "~/git/company-english-helper"))
-(add-to-list 'load-path (expand-file-name "~/git/insert-translated-name"))
-(add-to-list 'load-path (expand-file-name "~/git/sdcv"))
-
-;; 英文自动补全和翻译，激活命令toggle-company-english-helper
-;; (require 'company-english-helper)
-;; (map! (:g "C-c T" #'toggle-company-english-helper))
-
-;; 输入insert-translated-name-insert激活命令，可以输入中文后按空格翻译成英文插入当前位置。
-(require 'insert-translated-name)
-(map! (:g "C-c m" #'insert-translated-name-insert-original-translation)
-      (:g "C-c M" #'insert-translated-name-replace))
-
-;; sdcv翻译当前单词
-(require 'sdcv)
-(map! (:g "C-c d" #'sdcv-search-pointer+)
-      (:g "C-c D" #'sdcv-search-pointer))
-;; (setq sdcv-say-word-p t)        ;; 是否读出语音
-(setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic"))
-(setq sdcv-dictionary-simple-list     ;setup dictionary list for simple search
-      '("懒虫简明英汉词典"
-        "懒虫简明汉英词典"
-        "朗道英汉字典5.0"
-        "朗道汉英字典5.0"))
-(setq sdcv-dictionary-complete-list   ;setup dictionary list for complete search
-      '("懒虫简明英汉词典"
-        "懒虫简明汉英词典"
-        "朗道英汉字典5.0"
-        "朗道汉英字典5.0"
-        "21世纪英汉汉英双向词典"
-        "牛津英汉双解美化版"
-        "英汉汉英专业词典"
-        "新世纪英汉科技大词典"
-        "现代汉语词典"
-        "高级汉语大词典"))
-
-
 ;; 有道词典
 (use-package! youdao-dictionary
+  :defer t
+  :init
+  (map! (:leader
+          :gnv "yy" #'youdao-dictionary-search-at-point++
+          :gnv "yY" #'youdao-dictionary-search-at-point)
+        (:g "C-c y" #'youdao-dictionary-search-at-point++)
+        (:g "C-c Y" #'youdao-dictionary-search-at-point))
   :config
   (setq youdao-dictionary-api-app-key "702073188172eb7d")
   (setq youdao-dictionary-api-app-secret "hORHRHI3pXFl95ARploOVQHHZrr5mcBp")
   ;; Enable Cache
   (setq url-automatic-caching t)
   ;; Enable Chinese word segmentation support (支持中文分词)
-  (setq youdao-dictionary-use-chinese-word-segmentation t)
-  (map! (:g "C-c y" #'youdao-dictionary-search-at-point++)
-        (:g "C-c Y" #'youdao-dictionary-search-at-point)))
+  (setq youdao-dictionary-use-chinese-word-segmentation t))
 
 
 ;; Google translate
@@ -92,7 +59,7 @@
   (posframe-show google-translate-tooltip-name
                  :string text
                  :position (point)
-                 :timeout 10
+                 :timeout 8
                  :internal-border-width 10)
   (add-hook 'post-command-hook 'google-translate-hide-tooltip-after-move)
   (setq google-translate-tooltip-last-point (point))
@@ -180,5 +147,8 @@
       (%google-translate-at-point override-p t)
     (%google-translate-at-point override-p nil)))
 
-(map! (:g "C-c t" #'google-translate-chinese-at-point++)
+(map! (:leader
+        :gnv "yt" #'google-translate-chinese-at-point++
+        :gnv "yT" #'google-translate-chinese-at-point)
+      (:g "C-c t" #'google-translate-chinese-at-point++)
       (:g "C-c T" #'google-translate-chinese-at-point))
