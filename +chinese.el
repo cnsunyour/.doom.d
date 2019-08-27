@@ -6,23 +6,24 @@
 ;;   (cnfonts-enable)
 ;;   (setq cnfonts-use-face-font-rescale t))
 
-(setq doom-font (font-spec :family "PragmataPro" :size 14)
-      doom-variable-pitch-font (font-spec :family "PragmataPro")
-      doom-serif-font (font-spec :family "PragmataPro"))
+;; (setq doom-font (font-spec :family "PragmataPro" :size 14)
+;;       doom-variable-pitch-font (font-spec :family "PragmataPro")
+;;       doom-serif-font (font-spec :family "PragmataPro"))
 
-(set-face-attribute
- 'default nil
- :font (font-spec :name "-*-PragmataPro-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-                  :weight 'normal
-                  :slant 'normal
-                  :size 14.0))
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-  (set-fontset-font
-   (frame-parameter nil 'font)
-   charset
-   (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-              :weight 'normal
-              :slant 'normal)))
+(when (display-graphic-p)
+  (set-face-attribute
+   'default nil
+   :font (font-spec :name "-*-PragmataPro-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+                    :weight 'normal
+                    :slant 'normal
+                    :size 14.0))
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font
+     (frame-parameter nil 'font)
+     charset
+     (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+                :weight 'normal
+                :slant 'normal))))
 
 (use-package! fcitx
   :after evil
