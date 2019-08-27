@@ -6,9 +6,9 @@
   :init
   (map! (:leader
           :gnv "yy" #'youdao-dictionary-search-at-point++
-          :gnv "yY" #'youdao-dictionary-search-at-point)
-        (:g "C-c y" #'youdao-dictionary-search-at-point++)
-        (:g "C-c Y" #'youdao-dictionary-search-at-point))
+          :gnv "yY" #'youdao-dictionary-search-at-point
+          :gnv "yp" #'youdao-dictionary-play-voice-at-point
+          :gnv "yP" #'youdao-dictionary-play-voice-from-input))
   :config
   (setq youdao-dictionary-api-app-key "702073188172eb7d")
   (setq youdao-dictionary-api-app-secret "hORHRHI3pXFl95ARploOVQHHZrr5mcBp")
@@ -149,6 +149,4 @@
 
 (map! (:leader
         :gnv "yt" #'google-translate-chinese-at-point++
-        :gnv "yT" #'google-translate-chinese-at-point)
-      (:g "C-c t" #'google-translate-chinese-at-point++)
-      (:g "C-c T" #'google-translate-chinese-at-point))
+        :gnv "yT" #'google-translate-chinese-at-point))
