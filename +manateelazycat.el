@@ -23,25 +23,22 @@
   :init
   (map! (:leader
           :gnv "yd" #'sdcv-search-pointer+
-          :gnv "yD" #'sdcv-search-pointer)
-        (:g "C-c d" #'sdcv-search-pointer+)
-        (:g "C-c D" #'sdcv-search-pointer))
+          :gnv "yD" #'sdcv-search-pointer))
   :config
   (set-face-background 'sdcv-tooltip-face nil)
   (set-face-foreground 'sdcv-tooltip-face nil)
   (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic"))
   (setq sdcv-dictionary-simple-list     ;setup dictionary list for simple search
-        '("KDic11万英汉词典"
-          "懒虫简明英汉词典"
+        '("懒虫简明英汉词典"
           "懒虫简明汉英词典"
           "朗道英汉字典5.0"
           "朗道汉英字典5.0"))
   (setq sdcv-dictionary-complete-list   ;setup dictionary list for complete search
-        '("KDic11万英汉词典"
-          "懒虫简明英汉词典"
+        '("懒虫简明英汉词典"
           "懒虫简明汉英词典"
           "朗道英汉字典5.0"
           "朗道汉英字典5.0"
+          "KDic11万英汉词典"
           "XDICT英汉辞典"
           "XDICT汉英辞典"
           "21世纪英汉汉英双向词典"
