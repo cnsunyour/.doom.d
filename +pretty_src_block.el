@@ -1,7 +1,7 @@
 ;;; ~/.doom.d/+pretty_src_block.el -*- lexical-binding: t; -*-
 
 ;; PRETTY ORG BABEL BLOCKS
-(with-eval-after-load 'org
+(after! org
   (defvar-local rasmus/org-at-src-begin -1
     "Variable that holds whether last position was a ")
 
