@@ -1,9 +1,13 @@
 ;;;  -*- lexical-binding: t; -*-
 
+(when IS-MAC
+  (setq mac-command-modifier 'super
+        mac-option-modifier 'meta))
+
 ;; general keybindings
 (map! (:leader
-        (:desc "Org Agenda" :gnv "a" #'org-agenda)
-        (:desc "CFW Calendar" :gnv "oc" #'cfw:open-org-calendar))
+        (:desc "Org Agenda" :g "a" #'org-agenda)
+        (:desc "CFW Calendar" :g "oc" #'cfw:open-org-calendar))
 
       (:after org
         (:map org-mode-map "C-c o" #'org-pomodoro))
