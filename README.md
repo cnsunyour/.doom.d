@@ -21,6 +21,6 @@ git clone git@github.com:cnsunyour/.doom.d.git ~/.doom.d
 4. 执行doom启动检查脚本
 
 ``` shell
-~/.emacs.d/bin/doom quickstart
+~/.emacs.d/bin/doom install
 ```
 5. 启动Emacs

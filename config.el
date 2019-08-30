@@ -148,7 +148,14 @@
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer
   :config
-  (change-theme 'doom-nord-light 'doom-Iosvkem))
+  (change-theme '(doom-nord-light
+                  doom-opera-light
+                  doom-solarized-light)
+                '(doom-one
+                  doom-city-lights
+                  doom-Iosvkem
+                  doom-nord
+                  doom-peacock)))
 
 ;; elisp eval
 (defun eval-this-buffer ()
