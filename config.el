@@ -16,15 +16,16 @@
 (setq flycheck-emacs-lisp-load-path 'inherit)
 
 (use-package! exec-path-from-shell
+  :when IS-MAC
   :config
-  (setq exec-path-from-shell-arguments '("-l")))
+  (setq exec-path-from-shell-arguments '("-l"))
+  (exec-path-from-shell-initialize))
 
 (load! "+bindings")
 (load! "+chinese")
 (load! "+calendar")
 (load! "+gtd")
 (load! "+myblog")
-(load! "+pretty_src_block")
 (load! "+translate")
 (load! "+manateelazycat")
 
@@ -55,21 +56,6 @@
 (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
                               "xelatex -interaction nonstopmode %f"))
 
-;; 在Eshell中发送桌面通知
-(require 'alert)
-(defun eshell-command-alert (process status)
-  "Send `alert' with severity based on STATUS when PROCESS finished."
-  (let* ((cmd (process-command process))
-         (buffer (process-buffer process))
-         (msg (format "%s: %s" (mapconcat 'identity cmd " ") status)))
-    (if (string-prefix-p "finished" status)
-        (alert msg :buffer buffer :severity 'normal)
-      (alert msg :buffer buffer :severity 'urgent))))
-(add-hook 'eshell-kill-hook #'eshell-command-alert)
-(alert-add-rule :status '(buried) ;only send alert when buffer not visible
-                :mode 'eshell-mode
-                :style 'notifications)
-
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
 ;; operations about highlighted symbols. It was originally inspired by
@@ -88,11 +74,11 @@
 ;; "s" -> symbol-overlay-isearch-literally
 ;; "q" -> symbol-overlay-query-replace
 ;; "r" -> symbol-overlay-rename
-(map! (:g "M-i" 'symbol-overlay-put)
-      (:g "M-n" 'symbol-overlay-switch-forward)
-      (:g "M-p" 'symbol-overlay-switch-backward)
-      (:g "<f7>" 'symbol-overlay-mode)
-      (:g "<f8>" 'symbol-overlay-remove-all))
+(map! :g "M-i" 'symbol-overlay-put
+      :g "M-n" 'symbol-overlay-switch-forward
+      :g "M-p" 'symbol-overlay-switch-backward
+      :g "<f7>" 'symbol-overlay-mode
+      :g "<f8>" 'symbol-overlay-remove-all)
 
 ;; tabnine，一个非常牛的补全插件
 (use-package! company-tabnine
@@ -119,6 +105,30 @@
           company-echo-metadata-frontend))
   )
 
+
+;; Change plantuml exec mode to `executable', other mode execute error.
+(setq plantuml-default-exec-mode 'executable)
+;; Add `:cmdline -charset utf-8' to org-src-block:plantuml
+;; Fix `@start' prefix execute error
+(use-package! ob-plantuml
+  :when (featurep! :lang plantuml)
+  :after plantuml-mode
+  :init
+  (defadvice! +fixstart--org-babel-execute:plantuml (args)
+    :filter-args #'org-babel-execute:plantuml
+    (cl-destructuring-bind (body params) args
+      (let* ((origin-body body)
+             (fix-body
+              (replace-regexp-in-string
+               "^\\w*\\(@start\\)"
+               "\\\\\\1"
+               origin-body)))
+        (list fix-body params))))
+  :config
+  (add-to-list 'org-babel-default-header-args:plantuml
+               '(:cmdline . "-charset utf-8")))
+
+
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
         (concat
@@ -140,22 +150,28 @@
   (setq ns-use-native-fullscreen nil)
   (setq ns-use-fullscreen-animation nil))
 
-;; 调整启动时窗口大小/最大化/全屏
-;; (pushnew! initial-frame-alist '(width . 200) '(height . 55))
+;; 调整启动时窗口最大化/全屏
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
-;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
+(add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer
   :config
-  (change-theme '(doom-nord-light
+  (change-theme '(doom-one-light
+                  doom-nord-light
                   doom-opera-light
+                  doom-tomorrow-day
                   doom-solarized-light)
                 '(doom-one
+                  doom-vibrant
+                  doom-dracula
+                  doom-molokai
+                  doom-opera
+                  doom-outrun-electric
+                  doom-tomorrow-night
                   doom-city-lights
-                  doom-Iosvkem
-                  doom-nord
-                  doom-peacock)))
+                  doom-challenger-deep
+                  doom-Iosvkem)))
 
 ;; elisp eval
 (defun eval-this-buffer ()
@@ -164,15 +180,16 @@
   (switch-to-buffer-other-window "output"))
 
 ;; 显示儿子的成长时间
-(defun twinkle-live-time ()
-  "Display the live time of my son."
-  (interactive)
-  (let* ((birth-time (encode-time 0 43 13 16 9 2013))
-         (live-time  (time-subtract (current-time) birth-time))
-         (lt-secs    (float-time live-time)))
-    (message
-     (format "Twinkle: %d days; %.2f months; %.2f weeks; -- %s"
-             (floor (/ lt-secs 86400))
-             (/ lt-secs 2628000) ;; 1 y = 12 m, 1 m ~= 30.4166667 d
-             (/ lt-secs 604800)
-             (format-seconds "%Y, %D, %H, %M%z" lt-secs)))))
+(map! :leader :desc "Twinkle's live time." :g "k"
+      (defun twinkle-live-time ()
+        "Display the live time of my son."
+        (interactive)
+        (let* ((birth-time (encode-time 0 43 13 16 9 2013))
+               (live-time  (time-subtract (current-time) birth-time))
+               (lt-secs    (float-time live-time)))
+          (message
+           (format "Twinkle: %d days; %.2f months; %.2f weeks; -- %s"
+                   (floor (/ lt-secs 86400))
+                   (/ lt-secs 2628000) ;; 1 y = 12 m, 1 m ~= 30.4166667 d
+                   (/ lt-secs 604800)
+                   (format-seconds "%Y, %D, %H, %M%z" lt-secs))))))
