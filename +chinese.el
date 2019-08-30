@@ -1,29 +1,27 @@
 ;;; ~/.doom.d/+chinese.el -*- lexical-binding: t; -*-
 
+(setq doom-font (font-spec :family "PragmataPro" :size 16))
+
 ;; 中文字体包
 ;; (use-package! cnfonts
 ;;   :config
 ;;   (cnfonts-enable)
 ;;   (setq cnfonts-use-face-font-rescale t))
 
-;; (setq doom-font (font-spec :family "PragmataPro" :size 14)
-;;       doom-variable-pitch-font (font-spec :family "PragmataPro")
-;;       doom-serif-font (font-spec :family "PragmataPro"))
-
-(when (display-graphic-p)
-  (set-face-attribute
-   'default nil
-   :font (font-spec :name "-*-PragmataPro-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-                    :weight 'normal
-                    :slant 'normal
-                    :size 14.0))
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font
-     (frame-parameter nil 'font)
-     charset
-     (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-                :weight 'normal
-                :slant 'normal))))
+;; (when (display-graphic-p)
+;;   (set-face-attribute
+;;    'default nil
+;;    :font (font-spec :name "-*-PragmataPro-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+;;                     :weight 'normal
+;;                     :slant 'normal
+;;                     :size 14.0))
+;;   (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;     (set-fontset-font
+;;      (frame-parameter nil 'font)
+;;      charset
+;;      (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+;;                 :weight 'normal
+;;                 :slant 'normal))))
 
 (use-package! fcitx
   :after evil
@@ -45,16 +43,16 @@
 unwanted space when exporting org-mode to html."
   :filter-args #'org-html-paragraph
   (cl-destructuring-bind (paragraph content info) args
-    (let* ((fix-regexp "[[:multibyte:]a-zA-Z0-9]")
-           (origin-contents content)
+    (let* ((fix-regexp "[[:multibyte:]]")
+           (origin-contents
+            (replace-regexp-in-string
+             "<[Bb][Rr] */>"
+             ""
+             content))
            (fixed-contents
             (replace-regexp-in-string
-             (concat "\\("
-                     fix-regexp
-                     "\\) *\\(<[Bb][Rr] */>\\)?\n *\\("
-                     fix-regexp
-                     "\\)")
-             "\\1\\3"
+             (concat "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)")
+             "\\1\\2"
              origin-contents)))
       (list paragraph fixed-contents info))))
 
