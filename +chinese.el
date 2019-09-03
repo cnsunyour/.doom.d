@@ -1,7 +1,5 @@
 ;;; ~/.doom.d/+chinese.el -*- lexical-binding: t; -*-
 
-(setq doom-font (font-spec :family "PragmataPro" :size 16))
-
 ;; 中文字体包
 ;; (use-package! cnfonts
 ;;   :config
@@ -57,7 +55,6 @@ unwanted space when exporting org-mode to html."
       (list paragraph fixed-contents info))))
 
 
-
 (use-package! pyim
   :after-call after-find-file pre-command-hook
   :config
@@ -65,12 +62,11 @@ unwanted space when exporting org-mode to html."
         pyim-page-tooltip t
         default-input-method "pyim"
         pyim-default-scheme 'wubi
-        pyim-page-tooltip 'posframe))
-
-(map! :map 'pyim-mode-map
-      ";" (lambda ()
-            (interactive)
-            (pyim-page-select-word-by-number 2))
-      "'" (lambda ()
-            (interactive)
-            (pyim-page-select-word-by-number 3)))
+        pyim-page-tooltip 'posframe)
+  (map! :map 'pyim-mode-map
+        ";" (lambda ()
+              (interactive)
+              (pyim-page-select-word-by-number 2))
+        "'" (lambda ()
+              (interactive)
+              (pyim-page-select-word-by-number 3))))
