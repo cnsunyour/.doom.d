@@ -26,6 +26,7 @@
 (package! theme-changer)
 (package! pinentry)
 (package! fuz)
+(package! grip-mode)
 
 ;; manateelazycat's packages
 (package! company-english-helper :disable t

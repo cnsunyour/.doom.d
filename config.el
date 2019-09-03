@@ -5,6 +5,9 @@
       user-mail-address "sunyour@gmail.com"
       epa-file-encrypt-to user-mail-address)
 
+;; Set doom font family and size
+(setq doom-font (font-spec :family "Iosevka" :size 16))
+
 ;; 设置我所在地方的经纬度，calendar里有个功能是日月食的预测，和经纬度相联系的。
 ;; 让emacs能计算日出日落的时间，在 calendar 上用 S 即可看到
 ;; 另外根据日出日落时间切换主题也需要经纬度
@@ -20,6 +23,13 @@
   :config
   (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize))
+
+;; 启用epa-file，可以解密.authinfo.gpg文件
+;; (use-package! epa-file :config (epa-file-enable))
+;; 启用auth-source-pass，可以使用.password-store里的密码
+;; (use-package! auth-source-pass :config (auth-source-pass-enable))
+;; 启用auto-soure，读取.autoinfo或.authinfo.gpg里的难信息
+;; (use-package! auth-source)
 
 (load! "+bindings")
 (load! "+chinese")
@@ -40,9 +50,26 @@
 
 ;; load packages related to org-mode
 (use-package! org-pomodoro
-  :commands org-pomodoro)
+  :commands (org-pomodoro))
 (use-package! counsel-org-clock
   :commands (counsel-org-clock-context counsel-org-clock-history))
+
+(use-package! grip-mode
+  :defer t
+  :commands (grip-mode)
+  :init
+  (map! (:map (markdown-mode-map org-mode-map)
+          :localleader
+          :n "v" #'grip-mode))
+  :config
+  (let (credentials)
+    (setq credentials (auth-source-user-and-password "mygrip"))
+    (setq grip-github-user (car credentials)
+          grip-github-password (cadr credentials))))
+
+;; To fix the issue: Unable to load color "brightblack"
+(after! hl-fill-column
+  (set-face-background 'hl-fill-column-face "#555555"))
 
 ;; 设置latex编辑tex文件时用skim同步显示pdf
 (setq TeX-source-correlate-mode t)
@@ -106,10 +133,10 @@
   )
 
 
-;; Change plantuml exec mode to `executable', other mode execute error.
+;; Change plantuml exec mode to `executable', other mode failed.
 (setq plantuml-default-exec-mode 'executable)
 ;; Add `:cmdline -charset utf-8' to org-src-block:plantuml
-;; Fix `@start' prefix execute error
+;; Fix `@start' prefix execute error when action `C-c C-c' in ob-plantuml
 (use-package! ob-plantuml
   :when (featurep! :lang plantuml)
   :after plantuml-mode
@@ -138,8 +165,8 @@
          (getenv "PKG_CONFIG_PATH")))
 
 ;; 80列太窄，120列太宽，看着都不舒服，100列正合适
-(setq-default fill-column 100)
-(setq-local fill-column 100)
+;; (setq-default fill-column 100)
+;; (setq-local fill-column 100)
 
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)
@@ -150,9 +177,10 @@
   (setq ns-use-native-fullscreen nil)
   (setq ns-use-fullscreen-animation nil))
 
-;; 调整启动时窗口最大化/全屏
+;; 调整启动时窗口大小/最大化/全屏
+;; (pushnew! initial-frame-alist '(width . 200) '(height . 55))
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
-(add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer
@@ -166,9 +194,6 @@
                   doom-vibrant
                   doom-dracula
                   doom-molokai
-                  doom-opera
-                  doom-outrun-electric
-                  doom-tomorrow-night
                   doom-city-lights
                   doom-challenger-deep
                   doom-Iosvkem)))

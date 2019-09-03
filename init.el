@@ -33,8 +33,8 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       ;; pretty-code       ; replace bits of code with pretty symbols
-       ;; tabbar            ; FIXME an (incomplete) tab bar for Emacs
+       (pretty-code +fira)       ; replace bits of code with pretty symbols
+       ;; tabs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
@@ -53,12 +53,10 @@
        ;;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
+       word-wrap
 
        :emacs
-       (dired            ; making dired pretty [functional]
-        +ranger         ; bringing the goodness of ranger to dired
-        +icons          ; colorful icons for dired-mode
-        )
+       (dired +ranger +icons)
        electric          ; smarter, keyword-based electric-indent
        vc                ; version-control and Emacs, sitting in a tree
 
@@ -78,8 +76,7 @@
        flycheck          ; tasing you for every semicolon you forget
        ;;flyspell          ; tasing you for misspelling mispelling
        gist              ; interacting with github gists
-       (lookup           ; helps you navigate your code and documentation
-        +docsets)        ; ...or in Dash docsets locally
+       (lookup +docsets) 
        lsp
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
@@ -98,7 +95,7 @@
        ;;assembly          ; assembly for fun or debugging
        (cc +lsp)               ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
-       common-lisp       ; if you've seen one lisp, you've seen them all
+       ;; common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
@@ -114,9 +111,7 @@
        ;;+intero)
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       (java             ; the poster child for carpal tunnel syndrome
-        +lsp
-        +meghanada)
+       (java +lsp +meghanada)
        (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -136,21 +131,18 @@
        ;; php               ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python            ; beautiful is better than ugly
-        +lsp
-        +pyenv
-        +conda)
+       (python +lsp +pyenv)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
        ;;ruby            ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       (sh +lsp)                ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
+       (web +lsp)               ; the tubes
        ;;vala              ; GObjective-C
 
        :email
