@@ -33,10 +33,10 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       (pretty-code +fira)       ; replace bits of code with pretty symbols
+       (pretty-code +hasklig)       ; replace bits of code with pretty symbols
        ;; tabs
        treemacs          ; a project drawer, like neotree but cooler
-       ;;unicode           ; extended unicode support for various languages
+       ;; unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
@@ -124,11 +124,12 @@
        ;;ocaml           ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; file drag & drop support
+        +gnuplot
         +ipython         ; ipython support for babel
         +pandoc          ; pandoc integration into org's exporter
         +present)        ; using Emacs for presentations
        ;; perl              ; write code no one else can comprehend
-       ;; php               ; perl's insecure younger brother
+       (php +lsp)                ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +lsp +pyenv)

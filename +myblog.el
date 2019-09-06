@@ -1,5 +1,10 @@
 ;;; ~/.doom.d/+org2blog.el -*- lexical-binding: t; -*-
 
+(use-package! ox-hugo
+  :after ox
+  :config
+  (setq org-hugo-section "post"))
+
 (use-package! org2blog
   :defer t
   :config
