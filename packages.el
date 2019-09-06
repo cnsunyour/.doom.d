@@ -27,6 +27,7 @@
 (package! pinentry)
 (package! fuz)
 (package! grip-mode)
+(package! ox-hugo)
 
 ;; manateelazycat's packages
 (package! company-english-helper :disable t

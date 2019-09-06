@@ -34,7 +34,7 @@
 (load! "+bindings")
 (load! "+chinese")
 (load! "+calendar")
-(load! "+gtd")
+(load! "+org")
 (load! "+myblog")
 (load! "+translate")
 (load! "+manateelazycat")
@@ -48,29 +48,6 @@
   :config
   (pinentry-start))
 
-;; load packages related to org-mode
-(use-package! org-pomodoro
-  :commands (org-pomodoro))
-(use-package! counsel-org-clock
-  :commands (counsel-org-clock-context counsel-org-clock-history))
-
-(use-package! grip-mode
-  :defer t
-  :commands (grip-mode)
-  :init
-  (map! (:map (markdown-mode-map org-mode-map)
-          :localleader
-          :n "v" #'grip-mode))
-  :config
-  (let (credentials)
-    (setq credentials (auth-source-user-and-password "mygrip"))
-    (setq grip-github-user (car credentials)
-          grip-github-password (cadr credentials))))
-
-;; To fix the issue: Unable to load color "brightblack"
-(after! hl-fill-column
-  (set-face-background 'hl-fill-column-face "#555555"))
-
 ;; 设置latex编辑tex文件时用skim同步显示pdf
 (setq TeX-source-correlate-mode t)
 (setq TeX-source-correlate-start-server t)
@@ -78,10 +55,6 @@
 (setq TeX-view-program-list
       '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
 (setq TeX-view-program-selection '((output-pdf "Skim")))
-
-;; 使用xelatex一步生成PDF
-(setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
-                              "xelatex -interaction nonstopmode %f"))
 
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
@@ -129,32 +102,7 @@
   (setq company-frontends
         '(company-tng-frontend
           company-pseudo-tooltip-frontend
-          company-echo-metadata-frontend))
-  )
-
-
-;; Change plantuml exec mode to `executable', other mode failed.
-(setq plantuml-default-exec-mode 'executable)
-;; Add `:cmdline -charset utf-8' to org-src-block:plantuml
-;; Fix `@start' prefix execute error when action `C-c C-c' in ob-plantuml
-(use-package! ob-plantuml
-  :when (featurep! :lang plantuml)
-  :after plantuml-mode
-  :init
-  (defadvice! +fixstart--org-babel-execute:plantuml (args)
-    :filter-args #'org-babel-execute:plantuml
-    (cl-destructuring-bind (body params) args
-      (let* ((origin-body body)
-             (fix-body
-              (replace-regexp-in-string
-               "^\\w*\\(@start\\)"
-               "\\\\\\1"
-               origin-body)))
-        (list fix-body params))))
-  :config
-  (add-to-list 'org-babel-default-header-args:plantuml
-               '(:cmdline . "-charset utf-8")))
-
+          company-echo-metadata-frontend)))
 
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
@@ -164,9 +112,16 @@
          "/usr/local/opt/nss/lib/pkgconfig" path-separator
          (getenv "PKG_CONFIG_PATH")))
 
+;; 设定popup的窗口形式为右侧开启，宽度为80
+(set-popup-rule! "^\\*" :side 'right :size 0.4 :select t)
+
 ;; 80列太窄，120列太宽，看着都不舒服，100列正合适
-;; (setq-default fill-column 100)
-;; (setq-local fill-column 100)
+(setq-default fill-column 100)
+(setq-local fill-column 100)
+
+;; To fix the issue: Unable to load color "brightblack"
+(after! hl-fill-column
+  (set-face-background 'hl-fill-column-face "#555555"))
 
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)

@@ -7,6 +7,52 @@
 ;; and kandread's doom-emacs config
 ;; https://github.com/kandread/doom-emacs-private
 
+(use-package! org-pomodoro
+  :commands (org-pomodoro))
+(use-package! counsel-org-clock
+  :commands (counsel-org-clock-context counsel-org-clock-history))
+
+;; Change plantuml exec mode to `executable', other mode failed.
+(setq plantuml-default-exec-mode 'executable)
+;; Add `:cmdline -charset utf-8' to org-src-block:plantuml
+;; Fix `@start' prefix execute error when action `C-c C-c' in ob-plantuml
+(use-package! ob-plantuml
+  :when (featurep! :lang plantuml)
+  :after plantuml-mode
+  :init
+  (defadvice! +fixstart--org-babel-execute:plantuml (args)
+    :filter-args #'org-babel-execute:plantuml
+    (cl-destructuring-bind (body params) args
+      (let* ((origin-body body)
+             (fix-body
+              (replace-regexp-in-string
+               "^\\w*\\(@start\\)"
+               "\\\\\\1"
+               origin-body)))
+        (list fix-body params))))
+  :config
+  (add-hook! 'org-babel-after-execute-hook #'org-redisplay-inline-images)
+  (add-to-list 'org-babel-default-header-args:plantuml
+               '(:cmdline . "-charset utf-8")))
+
+;; 使用xelatex一步生成PDF
+(setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
+                              "xelatex -interaction nonstopmode %f"))
+
+(use-package! grip-mode
+  :defer t
+  :commands (grip-mode)
+  :init
+  (map! (:map (markdown-mode-map org-mode-map)
+          :localleader
+          :n "v" #'grip-mode))
+  :config
+  (let (credentials)
+    (setq credentials (auth-source-user-and-password "mygrip"))
+    (setq grip-github-user (car credentials)
+          grip-github-password (cadr credentials))))
+
+
 (after! org
   ;; set org file directory
   (setq org-directory "~/Dropbox/org/")
@@ -31,9 +77,9 @@
                         ("@Errands" . ?e)
                         ("@Lunchtime" . ?l)))
   (setq org-tag-persistent-alist org-tag-alist)
-  (setq org-priority-faces '((?A . (:foreground "red"))
-                             (?B . (:foreground "yellow"))
-                             (?C . (:foreground "green"))))
+  (setq org-priority-faces '((?A . error)
+                             (?B . warning)
+                             (?C . success)))
 
   ;; trigger task states
   (setq org-todo-state-tags-triggers (quote (("ABORT" ("ABORT" . t))
@@ -51,23 +97,43 @@
   ;; set default notes file
   (setq org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory))
   (setq org-agenda-file-gtd (expand-file-name "inbox.org" org-gtd-directory))
+  (setq org-agenda-file-project (expand-file-name "project.org" org-gtd-directory))
   (setq org-agenda-file-note (expand-file-name "note.org" org-directory))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
-  (setq org-agenda-file-project (expand-file-name "project.org" org-gtd-directory))
+  (setq org-agenda-file-hugo (expand-file-name "posts.org" org-directory))
   ;; set capture templates
-  (setq org-capture-templates
-        '(("i" "New Todo Task" entry (file+headline org-agenda-file-gtd "Tasks")
-           "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:"
-           :prepend t :clock-in t :clock-resume t :empty-lines-before 0 :empty-lines-after 1)
-          ("n" "Taking Notes" entry (file+olp+datetree org-agenda-file-note)
-           "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?"
-           :prepend t :clock-in t :clock-resume t :empty-lines-before 0 :empty-lines-after 1)
-          ("j" "Keeping Journals" entry (file+olp+datetree org-agenda-file-journal)
-           "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?"
-           :prepend t :clock-in t :clock-resume t :empty-lines-before 0 :empty-lines-after 1)
-          ("p" "Project Task" entry (file+headline org-agenda-file-project "Projects")
-           "* TODO [#B] %^{Project Task}\n:PROPERTIES:\n:Created: %U\n:END:"
-           :prepend t :clock-in t :clock-resume t :empty-lines-before 0 :empty-lines-after 1)))
+  (after! org-capture
+    (defun org-hugo-new-subtree-post-capture-template ()
+      "Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information."
+      (let* ((title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+             (fname (org-hugo-slug title)))
+        (mapconcat #'identity
+                   `(,(concat "* TODO " title)
+                     ":PROPERTIES:"
+                     ":Created: %U"
+                     ,(concat ":EXPORT_FILE_NAME: " fname)
+                     ":END:"
+                     "%?\n")          ;Place the cursor here finally
+                   "\n")))
+    (setq org-capture-templates
+          '(("i" "New Todo Task" entry (file+headline org-agenda-file-gtd "Tasks")
+             "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+             :prepend t :clock-in t :clock-resume t :kill-buffer t)
+            ("p" "Project Task" entry (file+headline org-agenda-file-project "Projects")
+             "* TODO [#B] %^{Project Task}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+             :prepend t :clock-in t :clock-resume t :kill-buffer t)
+            ("n" "Taking Notes" entry (file+olp+datetree org-agenda-file-note)
+             ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
+             (function org-hugo-new-subtree-post-capture-template)
+             :prepend t :clock-in t :clock-resume t :kill-buffer t)
+            ("j" "Keeping Journals" entry (file+olp+datetree org-agenda-file-journal)
+             ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
+             (function org-hugo-new-subtree-post-capture-template)
+             :prepend t :clock-in t :clock-resume t :kill-buffer t)
+            ("h" "Hugo post" entry (file+olp+datetree org-agenda-file-hugo)
+             (function org-hugo-new-subtree-post-capture-template)
+             :prepend t :clock-in t :clock-resume t :kill-buffer t))))
   ;; set archive tag
   (setq org-archive-tag "ARCHIVE")
   ;; set archive file
@@ -132,7 +198,7 @@
   ;; retain ignore options in tags-todo search
   (setq org-agenda-tags-todo-honor-ignore-options t)
   ;; hide certain tags from agenda view
-  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJECT" "REFILE" "NOTE" "JOURNAL")))
+  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJECT" "REFILE")))
   ;; remove completed deadline tasks from the agenda view
   (setq org-agenda-skip-deadline-if-done t)
   ;; remove completed scheduled tasks from the agenda view
@@ -164,13 +230,17 @@
           ("p" "Projects" tags-todo "+PROJECT-LEVEL=1/!"
            ((org-agenda-overriding-header "Project Tasks:")
             (org-tags-match-list-sublevels 'indented)))
-          ("n" "Notes" tags "+NOTE-LEVEL=1-LEVEL=2-LEVEL=3"
+          ("n" "Notes" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
            ((org-agenda-files (list org-agenda-file-note))
             (org-agenda-overriding-header "Notes:")
             (org-tags-match-list-sublevels t)))
-          ("j" "Journals" tags "+JOURNAL-LEVEL=1-LEVEL=2-LEVEL=3"
+          ("j" "Journals" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
            ((org-agenda-files (list org-agenda-file-journal))
             (org-agenda-overriding-header "Journals:")
+            (org-tags-match-list-sublevels t)))
+          ("h" "Hugo Posts" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
+           ((org-agenda-files (list org-agenda-file-hugo))
+            (org-agenda-overriding-header "Hugo Posts:")
             (org-tags-match-list-sublevels t)))
           (" " "<SPC> Awesome Agenda View"
            ((agenda "" ((org-agenda-overriding-header "Today's Schedule:")
@@ -207,11 +277,9 @@
                         (org-agenda-todo-ignore-with-date t)))))
           ))
 
-  (defun gtd-inbox() (interactive) (find-file org-agenda-file-gtd))
-  (global-set-key (kbd "C-c i") 'gtd-inbox)
-  (defun gtd-note() (interactive) (find-file org-agenda-file-note))
-  (global-set-key (kbd "C-c n") 'gtd-note)
-  (defun gtd-journal() (interactive) (find-file org-agenda-file-journal))
-  (global-set-key (kbd "C-c j") 'gtd-journal)
-
+  (map! :leader
+        :desc "gtd-inbox"   :g "oai" #'(lambda () (interactive) (find-file org-agenda-file-gtd))
+        :desc "gtd-note"    :g "oan" #'(lambda () (interactive) (find-file org-agenda-file-note))
+        :desc "gtd-journal" :g "oaj" #'(lambda () (interactive) (find-file org-agenda-file-journal))
+        :desc "gtd-hugo"    :g "oah" #'(lambda () (interactive) (find-file org-agenda-file-hugo)))
   )
