@@ -40,17 +40,30 @@
   "Join consecutive Chinese lines into a single long line without
 unwanted space when exporting org-mode to html."
   :filter-args #'org-html-paragraph
+  (++chinese--org-paragraph args))
+
+(defadvice! +chinese--org-hugo-paragraph-a (args)
+  "Join consecutive Chinese lines into a single long line without
+unwanted space when exporting org-mode to hugo markdown."
+  :filter-args #'org-hugo-paragraph
+  (++chinese--org-paragraph args))
+
+(defun ++chinese--org-paragraph (args)
   (cl-destructuring-bind (paragraph content info) args
-    (let* ((fix-regexp "[[:multibyte:]]")
-           (origin-contents
+    (let* ((origin-contents
             (replace-regexp-in-string
-             "<[Bb][Rr] */>"
+             "<[Bb][Rr][[:blank:]]*/>"
              ""
              content))
+           (origin-contents
+            (replace-regexp-in-string
+             "\\([[:multibyte:]]\\)[[:blank:]]*\n[[:blank:]]*\\([[:multibyte:]]\\)"
+             "\\1\\2"
+             origin-contents))
            (fixed-contents
             (replace-regexp-in-string
-             (concat "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)")
-             "\\1\\2"
+             "\\([^[:blank:]]\\)[[:blank:]]*\n[[:blank:]]*\\([^[:blank:]]\\)"
+             "\\1 \\2"
              origin-contents)))
       (list paragraph fixed-contents info))))
 
@@ -59,11 +72,12 @@ unwanted space when exporting org-mode to html."
   :after-call after-find-file pre-command-hook
   :config
   (setq pyim-dcache-directory (concat doom-cache-dir "pyim/")
-        pyim-page-tooltip t
         default-input-method "pyim"
         pyim-default-scheme 'wubi
         pyim-page-tooltip 'posframe)
   (map! :map 'pyim-mode-map
+        "." 'pyim-page-next-page
+        "," 'pyim-page-previous-page
         ";" (lambda ()
               (interactive)
               (pyim-page-select-word-by-number 2))
