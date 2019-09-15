@@ -96,4 +96,4 @@
         (:g "oS" #'snails-search-point))
   :config
   (add-to-list 'snails-default-backends #'snails-backend-current-buffer t)
-  (add-hook 'snails-mode-hook (lambda () (evil-emacs-state))))
+  (add-hook 'snails-mode-hook #'evil-emacs-state))
