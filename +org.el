@@ -13,27 +13,12 @@
   :commands (counsel-org-clock-context counsel-org-clock-history))
 
 ;; Change plantuml exec mode to `executable', other mode failed.
-(setq plantuml-default-exec-mode 'executable)
+(after! plantuml-mode
+  (setq plantuml-default-exec-mode 'executable))
 ;; Add `:cmdline -charset utf-8' to org-src-block:plantuml
 ;; Fix `@start' prefix execute error when action `C-c C-c' in ob-plantuml
-(use-package! ob-plantuml
-  :when (featurep! :lang plantuml)
-  :after plantuml-mode
-  :init
-  (defadvice! +fixstart--org-babel-execute:plantuml (args)
-    :filter-args #'org-babel-execute:plantuml
-    (cl-destructuring-bind (body params) args
-      (let* ((origin-body body)
-             (fix-body
-              (replace-regexp-in-string
-               "^\\w*\\(@start\\)"
-               "\\\\\\1"
-               origin-body)))
-        (list fix-body params))))
-  :config
-  (add-hook! 'org-babel-after-execute-hook #'org-redisplay-inline-images)
-  (add-to-list 'org-babel-default-header-args:plantuml
-               '(:cmdline . "-charset utf-8")))
+(after! ob-plantuml
+  (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
 
 ;; 使用xelatex一步生成PDF
 (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
@@ -51,7 +36,6 @@
     (setq credentials (auth-source-user-and-password "mygrip"))
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
-
 
 (after! org
   ;; set org file directory
@@ -100,21 +84,21 @@
   (setq org-agenda-file-project (expand-file-name "project.org" org-gtd-directory))
   (setq org-agenda-file-note (expand-file-name "note.org" org-directory))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
-  (setq org-agenda-file-hugo (expand-file-name "posts.org" org-directory))
   ;; set capture templates
   (after! org-capture
     (defun org-hugo-new-subtree-post-capture-template ()
       "Returns `org-capture' template string for new Hugo post.
 See `org-capture-templates' for more information."
-      (let* ((title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+      (let* ((title (read-string "Post Title: ")) ;Prompt to enter the post title
              (fname (org-hugo-slug title)))
         (mapconcat #'identity
-                   `(,(concat "* TODO " title)
+                   `(,(concat "* " title)
                      ":PROPERTIES:"
                      ":Created: %U"
                      ,(concat ":EXPORT_FILE_NAME: " fname)
+                     ":EXPORT_DATE: %<%4Y-%2m-%2d>"
                      ":END:"
-                     "%?\n")          ;Place the cursor here finally
+                     "　%?\n")          ;Place the cursor here finally
                    "\n")))
     (setq org-capture-templates
           '(("i" "New Todo Task" entry (file+headline org-agenda-file-gtd "Tasks")
@@ -129,9 +113,6 @@ See `org-capture-templates' for more information."
              :prepend t :clock-in t :clock-resume t :kill-buffer t)
             ("j" "Keeping Journals" entry (file+olp+datetree org-agenda-file-journal)
              ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
-             (function org-hugo-new-subtree-post-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("h" "Hugo post" entry (file+olp+datetree org-agenda-file-hugo)
              (function org-hugo-new-subtree-post-capture-template)
              :prepend t :clock-in t :clock-resume t :kill-buffer t))))
   ;; set archive tag
@@ -157,6 +138,8 @@ See `org-capture-templates' for more information."
   (setq org-clock-in-switch-to-state #'+org-gtd/clock-in-to-next)
   ;; separate drawers for clocking and logs
   (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+  ;; insert state change notes and time stamps into a drawer
+  (setq org-log-into-drawer t)
   ;; clock out when moving task to a done state
   (setq org-clock-out-when-done t)
   ;; save the running clock and all clock history when exiting Emacs, load it on startup
@@ -238,10 +221,6 @@ See `org-capture-templates' for more information."
            ((org-agenda-files (list org-agenda-file-journal))
             (org-agenda-overriding-header "Journals:")
             (org-tags-match-list-sublevels t)))
-          ("h" "Hugo Posts" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
-           ((org-agenda-files (list org-agenda-file-hugo))
-            (org-agenda-overriding-header "Hugo Posts:")
-            (org-tags-match-list-sublevels t)))
           (" " "<SPC> Awesome Agenda View"
            ((agenda "" ((org-agenda-overriding-header "Today's Schedule:")
                         (org-agenda-show-log t)
@@ -274,12 +253,11 @@ See `org-capture-templates' for more information."
                         (org-agenda-todo-ignore-scheduled t)
                         (org-agenda-todo-ignore-deadlines t)
                         (org-agenda-todo-ignore-timestamp t)
-                        (org-agenda-todo-ignore-with-date t)))))
-          ))
+                        (org-agenda-todo-ignore-with-date t)))))))
 
   (map! :leader
         :desc "gtd-inbox"   :g "oai" #'(lambda () (interactive) (find-file org-agenda-file-gtd))
         :desc "gtd-note"    :g "oan" #'(lambda () (interactive) (find-file org-agenda-file-note))
-        :desc "gtd-journal" :g "oaj" #'(lambda () (interactive) (find-file org-agenda-file-journal))
-        :desc "gtd-hugo"    :g "oah" #'(lambda () (interactive) (find-file org-agenda-file-hugo)))
-  )
+        :desc "gtd-journal" :g "oaj" #'(lambda () (interactive) (find-file org-agenda-file-journal)))
+  
+  ) ;;after! org
