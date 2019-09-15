@@ -32,7 +32,7 @@
   (setq google-translate--tkk-url "http://translate.google.cn/"
         google-translate-base-url "http://translate.google.cn/translate_a/single"
         google-translate-listen-url "http://translate.google.cn/translate_tts"
-        google-translate-backend-method 'curl
+        ;; google-translate-backend-method 'curl
         google-translate-default-source-language "en"
         google-translate-default-target-language "zh-CN")
 
