@@ -28,6 +28,8 @@
 (package! fuz)
 (package! grip-mode)
 (package! ox-hugo)
+;; (package! ansible)
+;; (package! telega)
 
 ;; manateelazycat's packages
 (package! company-english-helper :disable t

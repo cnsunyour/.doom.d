@@ -1,17 +1,23 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
-(setq user-full-name "Sunn Yao"
+(setq user-full-name "CnSunyour"
+      frame-title-format (concat "%b - " user-full-name "'s Emacs")
       user-mail-address "sunyour@gmail.com"
       epa-file-encrypt-to user-mail-address)
 
 ;; Set doom font family and size
 (setq doom-font (font-spec :family "Iosevka" :size 16))
 
+;; System locale to use for formatting time values.
+(setq system-time-locale "C")         ; Make sure that the weekdays in the
+                                      ; time stamps of your Org mode files and
+                                      ; in the agenda appear in English.
+
 ;; 设置我所在地方的经纬度，calendar里有个功能是日月食的预测，和经纬度相联系的。
 ;; 让emacs能计算日出日落的时间，在 calendar 上用 S 即可看到
 ;; 另外根据日出日落时间切换主题也需要经纬度
-(setq calendar-location-name "北京")
+(setq calendar-location-name "Beijing, China")
 (setq calendar-latitude +39.9055472)
 (setq calendar-longitude +116.3887056)
 
@@ -84,11 +90,11 @@
 (use-package! company-tabnine
   :when (featurep! :completion company)
   :config
-  (add-to-list 'company-backends #'company-tabnine)
+  ;; (add-to-list 'company-backends #'company-tabnine)
   (set-company-backend! 'prog-mode
     'company-tabnine 'company-capf 'company-yasnippet)
-  ;; (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
-  (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
+  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
+  ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
 
   ;; Trigger completion immediately.
   ;; (setq company-idle-delay 0)
@@ -104,6 +110,50 @@
           company-pseudo-tooltip-frontend
           company-echo-metadata-frontend)))
 
+;; 设定plantuml的jar文件路径
+(after! plantuml-mode
+  (setq plantuml-jar-path
+        (cond
+         (IS-MAC
+          "/usr/local/opt/plantuml/libexec/plantuml.jar")
+         (IS-LINUX
+          "/usr/share/java/plantuml/plantuml.jar"))
+        org-plantuml-jar-path plantuml-jar-path))
+
+;; beancount复式账簿记账
+(use-package! beancount
+  :load-path "~/hg/beancount/editors/emacs"
+  :defer t
+  :commands beancount-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
+  (add-to-list 'auto-mode-alist '("\\.bean\\'" . beancount-mode))
+  :config
+  (add-hook 'beancount-mode-hook #'yas-minor-mode-on t))
+
+;; (use-package! ansible
+;;   :after yaml-mode
+;;   :config
+;;   (add-hook 'ansible-hook 'ansible-auto-decrypt-encrypt)
+;;   (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
+;;   (add-to-list 'company-backends 'company-ansible))
+
+;; (use-package! telega
+;;   :commands (telega)
+;;   :defer t
+;;   :bind ("C-c t" . #'telega)
+;;   :config
+;;   (setq telega-proxies
+;;       (list
+;;        '(:server "127.0.0.1" :port 1086 :enable t
+;;                  :type (:@type "proxyTypeSocks5"))))
+;;   (add-hook! '(telega-root-mode-hook telega-chat-mode-hook) #'evil-emacs-state)
+;;   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
+;;   (set-popup-rule! "^\\*Telega Root" :side 'right :size 95 :quit t)
+;;   (set-popup-rule! "^◀\\[.*@.*\\]" :side 'right :size 95 :quit t :modeline t)
+;;   (telega-mode-line-mode 1)
+;;   (telega-notifications-mode 1))
+
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
         (concat
@@ -112,30 +162,56 @@
          "/usr/local/opt/nss/lib/pkgconfig" path-separator
          (getenv "PKG_CONFIG_PATH")))
 
-;; 设定popup的窗口形式为右侧开启，宽度为80
+;; 设定popup的窗口形式为右侧开启，宽度为40%
 (set-popup-rule! "^\\*" :side 'right :size 0.4 :select t)
 
 ;; 80列太窄，120列太宽，看着都不舒服，100列正合适
-(setq-default fill-column 100)
-(setq-local fill-column 100)
+;; (setq-default fill-column 100)
+;; (setq-local fill-column 100)
 
 ;; To fix the issue: Unable to load color "brightblack"
 (after! hl-fill-column
   (set-face-background 'hl-fill-column-face "#555555"))
 
+(after! doom-modeline
+  (setq doom-modeline-icon t
+        doom-modeline-major-mode-icon t
+        doom-modeline-major-mode-color-icon t
+        doom-modeline-buffer-state-icon t
+        doom-modeline-buffer-modification-icon t
+        doom-modeline-enable-word-count t
+        doom-modeline-indent-info t))
+
+(after! lsp-ui
+  (setq lsp-ui-doc-position 'at-point
+        lsp-ui-flycheck-enable t
+        lsp-ui-sideline-ignore-duplicate t
+        lsp-ui-sideline-update-mode 'point
+        lsp-ui-doc-enable t)
+  (if (featurep 'xwidget-internal)
+      (setq lsp-ui-doc-use-webkit t)))
+
+(when IS-MAC
+  (setq mac-system-move-file-to-trash-use-finder t
+        delete-by-moving-to-trash t))
+
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)
 
+;; Enabling Font Ligatures in emacs-mac-port
+(when (eq window-system 'mac)
+  (mac-auto-operator-composition-mode))
+
 ;; 调整Mac下窗口和全屏显示方式
-(when IS-MAC
+(when (eq window-system 'ns)
   (setq ns-use-thin-smoothing t)
   (setq ns-use-native-fullscreen nil)
   (setq ns-use-fullscreen-animation nil))
 
 ;; 调整启动时窗口大小/最大化/全屏
-;; (pushnew! initial-frame-alist '(width . 200) '(height . 55))
+;; (pushnew! initial-frame-alist '(width . 200) '(height . 50))
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
-;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
+(add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer
