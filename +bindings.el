@@ -14,6 +14,8 @@
       (:after org-agenda
         (:map org-agenda-mode-map "C-c o" #'org-pomodoro))
 
+      :g "C-!" #'kill-buffer-and-window
+
       :m "M-j" #'multi-next-line
       :m "M-k" #'multi-previous-line
 
