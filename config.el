@@ -1,13 +1,13 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
-(setq user-full-name "CnSunyour"
+(setq user-full-name "Sunn Yao"
       frame-title-format (concat "%b - " user-full-name "'s Emacs")
       user-mail-address "sunyour@gmail.com"
       epa-file-encrypt-to user-mail-address)
 
 ;; Set doom font family and size
-(setq doom-font (font-spec :family "Iosevka" :size 16))
+(setq doom-font (font-spec :family "Iosevka" :size 14))
 
 ;; System locale to use for formatting time values.
 (setq system-time-locale "C")         ; Make sure that the weekdays in the
@@ -93,7 +93,7 @@
   ;; (add-to-list 'company-backends #'company-tabnine)
   (set-company-backend! 'prog-mode
     'company-tabnine 'company-capf 'company-yasnippet)
-  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
+  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
   ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
 
   ;; Trigger completion immediately.
@@ -104,14 +104,17 @@
 
   ;; Use the tab-and-go frontend.
   ;; Allows TAB to select and complete at the same time.
-  (company-tng-configure-default)
-  (setq company-frontends
-        '(company-tng-frontend
-          company-pseudo-tooltip-frontend
-          company-echo-metadata-frontend)))
+  ;; (company-tng-configure-default)
+  ;; (setq company-frontends
+  ;;       '(company-tng-frontend
+  ;;         company-pseudo-tooltip-frontend
+  ;;         company-echo-metadata-frontend)))
 
-;; 设定plantuml的jar文件路径
+;; plantuml-mode & ob-plantuml
 (after! plantuml-mode
+  ;; Change plantuml exec mode to `executable', other mode failed.
+  (setq plantuml-default-exec-mode 'executable)
+  ;; 设定plantuml的jar文件路径
   (setq plantuml-jar-path
         (cond
          (IS-MAC
@@ -119,6 +122,8 @@
          (IS-LINUX
           "/usr/share/java/plantuml/plantuml.jar"))
         org-plantuml-jar-path plantuml-jar-path))
+(after! ob-plantuml
+  (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
 
 ;; beancount复式账簿记账
 (use-package! beancount
@@ -131,6 +136,13 @@
   :config
   (add-hook 'beancount-mode-hook #'yas-minor-mode-on t))
 
+(use-package! docker
+  :defer t
+  :bind ("C-c d" . docker)
+  :custom (docker-image-run-arguments '("-i" "-t" "--rm")))
+
+(use-package! weechat :defer t)
+
 ;; (use-package! ansible
 ;;   :after yaml-mode
 ;;   :config
@@ -138,21 +150,21 @@
 ;;   (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
 ;;   (add-to-list 'company-backends 'company-ansible))
 
-;; (use-package! telega
-;;   :commands (telega)
-;;   :defer t
-;;   :bind ("C-c t" . #'telega)
-;;   :config
-;;   (setq telega-proxies
-;;       (list
-;;        '(:server "127.0.0.1" :port 1086 :enable t
-;;                  :type (:@type "proxyTypeSocks5"))))
-;;   (add-hook! '(telega-root-mode-hook telega-chat-mode-hook) #'evil-emacs-state)
-;;   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
-;;   (set-popup-rule! "^\\*Telega Root" :side 'right :size 95 :quit t)
-;;   (set-popup-rule! "^◀\\[.*@.*\\]" :side 'right :size 95 :quit t :modeline t)
-;;   (telega-mode-line-mode 1)
-;;   (telega-notifications-mode 1))
+(use-package! telega
+  :commands (telega)
+  :defer t
+  :bind ("C-c t" . #'telega)
+  :config
+  (setq telega-proxies
+      (list
+       '(:server "127.0.0.1" :port 1086 :enable t
+                 :type (:@type "proxyTypeSocks5"))))
+  (add-hook! '(telega-root-mode-hook telega-chat-mode-hook) #'evil-emacs-state)
+  (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
+  (set-popup-rule! "^\\*Telega Root" :side 'right :size 100 :quit t)
+  (set-popup-rule! "^◀\\[.*\\]" :side 'right :size 100 :quit t :modeline t)
+  (telega-mode-line-mode 1)
+  (telega-notifications-mode 1))
 
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
@@ -163,11 +175,15 @@
          (getenv "PKG_CONFIG_PATH")))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
-(set-popup-rule! "^\\*" :side 'right :size 0.4 :select t)
+;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
 
 ;; 80列太窄，120列太宽，看着都不舒服，100列正合适
 ;; (setq-default fill-column 100)
-;; (setq-local fill-column 100)
+
+;; 虚拟换行设置
+;; (setq-default visual-fill-column-width 120)
+;; (global-visual-fill-column-mode 1)
+;; (global-visual-line-mode 1)
 
 ;; To fix the issue: Unable to load color "brightblack"
 (after! hl-fill-column
@@ -187,6 +203,7 @@
         lsp-ui-flycheck-enable t
         lsp-ui-sideline-ignore-duplicate t
         lsp-ui-sideline-update-mode 'point
+        lsp-enable-file-watchers nil
         lsp-ui-doc-enable t)
   (if (featurep 'xwidget-internal)
       (setq lsp-ui-doc-use-webkit t)))
@@ -210,8 +227,10 @@
 
 ;; 调整启动时窗口大小/最大化/全屏
 ;; (pushnew! initial-frame-alist '(width . 200) '(height . 50))
-(add-hook 'window-setup-hook #'toggle-frame-maximized t)
-(add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
+(add-hook! 'window-setup-hook
+           :append
+           #'toggle-frame-maximized
+           #'toggle-frame-fullscreen)
 
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer

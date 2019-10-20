@@ -12,7 +12,7 @@
 (package! fcitx)
 (package! ace-pinyin)
 (package! cal-china-x)
-(package! org2blog)
+;; (package! org2blog)
 (package! org-pomodoro)
 (package! counsel-org-clock)
 (package! company-tabnine)
@@ -27,9 +27,9 @@
 (package! pinentry)
 (package! fuz)
 (package! grip-mode)
-(package! ox-hugo)
 ;; (package! ansible)
-;; (package! telega)
+(package! telega)
+(package! weechat)
 
 ;; manateelazycat's packages
 (package! company-english-helper :disable t

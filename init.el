@@ -51,10 +51,10 @@
        ;;lispy             ; vim for lisp, for people who dont like vim
        multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
-       ;;parinfer          ; turn lisp into python, sort of
+       parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
-       word-wrap
+       ;; word-wrap
 
        :emacs
        (dired +ranger +icons)
@@ -70,7 +70,7 @@
        ;;ansible
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       ;;docker
+       docker
        ;; editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
@@ -96,7 +96,7 @@
        ;;assembly          ; assembly for fun or debugging
        (cc +lsp)               ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
-       ;; common-lisp       ; if you've seen one lisp, you've seen them all
+       common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
@@ -126,10 +126,11 @@
        (org              ; organize your plain life in plain text
         +dragndrop       ; file drag & drop support
         +gnuplot
+        +hugo
         +ipython         ; ipython support for babel
         +pandoc          ; pandoc integration into org's exporter
         +present)        ; using Emacs for presentations
-       ;; perl              ; write code no one else can comprehend
+       perl              ; write code no one else can comprehend
        (php +lsp)                ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -161,8 +162,8 @@
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
        (write            ; emacs as a word processor (latex + org + markdown)
-       +wordnut         ; wordnet (wn) search
-       +langtool)       ; a proofreader (grammar/style check) for Emacs
+        +wordnut         ; wordnet (wn) search
+        +langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :collab
        ;;floobits          ; peer programming for a price
@@ -185,6 +186,7 @@
  '(custom-safe-themes
    (quote
     ("34c99997eaa73d64b1aaa95caca9f0d64229871c200c5254526d0062f8074693" default)))
+ '(docker-image-run-arguments (quote ("-i" "-t" "--rm")) t)
  '(org-refile-targets
    (quote
     (("~/Dropbox/org/inbox.org" :level . 1)
@@ -195,7 +197,8 @@
  '(pyim-dicts
    (quote
     ((:name "Qingge" :file "/Users/yaohui/.local/pyim/pyim-wbdict-qingge.pyim"))))
- '(python-pytest-arguments (quote ("--color"))))
+ '(python-pytest-arguments (quote ("--color")))
+ '(safe-local-variable-values (quote ((eval progn (pp-buffer) (indent-buffer))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
