@@ -12,14 +12,6 @@
 (use-package! counsel-org-clock
   :commands (counsel-org-clock-context counsel-org-clock-history))
 
-;; Change plantuml exec mode to `executable', other mode failed.
-(after! plantuml-mode
-  (setq plantuml-default-exec-mode 'executable))
-;; Add `:cmdline -charset utf-8' to org-src-block:plantuml
-;; Fix `@start' prefix execute error when action `C-c C-c' in ob-plantuml
-(after! ob-plantuml
-  (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
-
 ;; 使用xelatex一步生成PDF
 (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
                               "xelatex -interaction nonstopmode %f"))
@@ -258,6 +250,4 @@ See `org-capture-templates' for more information."
   (map! :leader
         :desc "gtd-inbox"   :g "oai" #'(lambda () (interactive) (find-file org-agenda-file-gtd))
         :desc "gtd-note"    :g "oan" #'(lambda () (interactive) (find-file org-agenda-file-note))
-        :desc "gtd-journal" :g "oaj" #'(lambda () (interactive) (find-file org-agenda-file-journal)))
-  
-  ) ;;after! org
+        :desc "gtd-journal" :g "oaj" #'(lambda () (interactive) (find-file org-agenda-file-journal))))
