@@ -151,6 +151,7 @@
 ;;   (add-to-list 'company-backends 'company-ansible))
 
 (use-package! telega
+  :when (display-graphic-p)
   :commands (telega)
   :defer t
   :bind ("C-c t" . #'telega)
