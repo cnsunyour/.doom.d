@@ -1,0 +1,4 @@
+# name: beancount
+# key: bc
+# --
+`(format-time-string "%Y-%m-%d")` * "$1" "$2"
