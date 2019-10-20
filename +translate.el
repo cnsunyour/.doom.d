@@ -10,6 +10,8 @@
         :g "yp" #'youdao-dictionary-play-voice-at-point
         :g "yP" #'youdao-dictionary-play-voice-from-input)
   :config
+  (set-popup-rule! "^\\*Youdao Dictionary\\*" :side 'right :size 0.4 :select t)
+  ;; 设定youdao api id和key
   (setq youdao-dictionary-api-app-key "702073188172eb7d")
   (setq youdao-dictionary-api-app-secret "hORHRHI3pXFl95ARploOVQHHZrr5mcBp")
   ;; Enable Cache
@@ -41,6 +43,8 @@
         :g "yT" #'google-translate-chinese-at-point)
 
   :config
+  (set-popup-rule! "^\\*Google Translate\\*" :side 'right :size 0.4 :select t)
+
   (defcustom google-translate-tooltip-name "*google-translate-posframe*"
     "The name of google translate tooltip name."
     :type 'string

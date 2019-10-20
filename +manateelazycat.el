@@ -23,6 +23,7 @@
         :g "yd" #'sdcv-search-pointer+
         :g "yD" #'sdcv-search-pointer)
   :config
+  (set-popup-rule! "^\\*SDCV\\*" :side 'right :size 0.4 :select t)
   (set-face-background 'sdcv-tooltip-face nil)
   (set-face-foreground 'sdcv-tooltip-face nil)
   (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic"))
