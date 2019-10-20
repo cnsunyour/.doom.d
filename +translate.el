@@ -12,8 +12,9 @@
   :config
   (set-popup-rule! "^\\*Youdao Dictionary\\*" :side 'right :size 0.4 :select t)
   ;; 设定youdao api id和key
-  (setq youdao-dictionary-api-app-key "702073188172eb7d")
-  (setq youdao-dictionary-api-app-secret "hORHRHI3pXFl95ARploOVQHHZrr5mcBp")
+  (setq credentials (auth-source-user-and-password "youdao-api"))
+  (setq youdao-dictionary-api-app-key (car credentials)
+        youdao-dictionary-api-app-secret (cadr credentials))
   ;; Enable Cache
   (setq url-automatic-caching t)
   ;; Enable Chinese word segmentation support (支持中文分词)
