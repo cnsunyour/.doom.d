@@ -95,13 +95,10 @@
     'company-tabnine 'company-capf 'company-yasnippet)
   (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
   ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
-
   ;; Trigger completion immediately.
   ;; (setq company-idle-delay 0)
-
   ;; Number the candidates (use M-1, M-2 etc to select completions).
   ;; (setq company-show-numbers t)
-
   ;; Use the tab-and-go frontend.
   ;; Allows TAB to select and complete at the same time.
   ;; (company-tng-configure-default)
@@ -122,8 +119,6 @@
          (IS-LINUX
           "/usr/share/java/plantuml/plantuml.jar"))
         org-plantuml-jar-path plantuml-jar-path))
-(after! ob-plantuml
-  (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
 
 ;; beancount复式账簿记账
 (use-package! beancount
