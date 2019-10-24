@@ -213,7 +213,7 @@ See `org-capture-templates' for more information."
            ((org-agenda-files (list org-agenda-file-journal))
             (org-agenda-overriding-header "Journals:")
             (org-tags-match-list-sublevels t)))
-          (" " "<SPC> Awesome Agenda View"
+          ("v" "Awesome Agenda View"
            ((agenda "" ((org-agenda-overriding-header "Today's Schedule:")
                         (org-agenda-show-log t)
                         (org-agenda-log-mode-items '(clock state))
