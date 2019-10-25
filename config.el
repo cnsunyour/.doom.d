@@ -123,11 +123,10 @@
 ;; beancount复式账簿记账
 (use-package! beancount
   :load-path "~/hg/beancount/editors/emacs"
+  :ensure nil
   :defer t
-  :commands beancount-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
-  (add-to-list 'auto-mode-alist '("\\.bean\\'" . beancount-mode))
+  :mode
+  ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
   :config
   (add-hook 'beancount-mode-hook #'yas-minor-mode-on t))
 
