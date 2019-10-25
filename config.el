@@ -7,7 +7,7 @@
       epa-file-encrypt-to user-mail-address)
 
 ;; Set doom font family and size
-(setq doom-font (font-spec :family "Iosevka" :size 14))
+(setq doom-font (font-spec :family "Iosevka" :size 16))
 
 ;; System locale to use for formatting time values.
 (setq system-time-locale "C")         ; Make sure that the weekdays in the
