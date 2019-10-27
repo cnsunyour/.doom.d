@@ -93,7 +93,11 @@
   ;; (add-to-list 'company-backends #'company-tabnine)
   (set-company-backend! 'prog-mode
     'company-tabnine 'company-capf 'company-yasnippet)
-  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
+  (set-company-backend! 'text-mode
+    'company-tabnine 'company-dabbrev 'company-yasnippet 'company-ispell)
+  (set-company-backend! 'conf-mode
+    'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
+  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
   ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
   ;; Trigger completion immediately.
   ;; (setq company-idle-delay 0)
@@ -101,11 +105,11 @@
   ;; (setq company-show-numbers t)
   ;; Use the tab-and-go frontend.
   ;; Allows TAB to select and complete at the same time.
-  ;; (company-tng-configure-default)
-  ;; (setq company-frontends
-  ;;       '(company-tng-frontend
-  ;;         company-pseudo-tooltip-frontend
-  ;;         company-echo-metadata-frontend)))
+  (company-tng-configure-default)
+  (setq company-frontends
+        '(company-tng-frontend
+          company-pseudo-tooltip-frontend
+          company-echo-metadata-frontend)))
 
 ;; plantuml-mode & ob-plantuml
 (after! plantuml-mode
@@ -122,9 +126,11 @@
 
 ;; beancount复式账簿记账
 (use-package! beancount
-  :load-path "~/hg/beancount/editors/emacs"
+  :load-path "~/repos/beancount/editors/emacs"
   :ensure nil
   :defer t
+  :bind
+  ("C-c b" . (lambda() (interactive) (find-file "~/Dropbox/beancount/main.bean")))
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
   :config
@@ -136,13 +142,6 @@
   :custom (docker-image-run-arguments '("-i" "-t" "--rm")))
 
 (use-package! weechat :defer t)
-
-;; (use-package! ansible
-;;   :after yaml-mode
-;;   :config
-;;   (add-hook 'ansible-hook 'ansible-auto-decrypt-encrypt)
-;;   (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
-;;   (add-to-list 'company-backends 'company-ansible))
 
 (use-package! telega
   :when (display-graphic-p)

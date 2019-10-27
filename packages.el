@@ -27,7 +27,6 @@
 (package! pinentry)
 (package! fuz)
 (package! grip-mode)
-;; (package! ansible)
 (package! telega)
 (package! weechat)
 
