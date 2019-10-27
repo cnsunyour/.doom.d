@@ -88,7 +88,7 @@
 ;; A modern, easy-to-expand fuzzy search framework
 ;; M-x snails or M-x snails-search-point
 (use-package! snails
-  :load-path "/Users/yaohui/git/snails"
+  :load-path "/Users/yaohui/repos/snails"
   :defer t
   :commands snails snails-search-point
   :init
