@@ -220,7 +220,7 @@
   (setq ns-use-fullscreen-animation nil))
 
 ;; 调整启动时窗口大小/最大化/全屏
-;; (pushnew! initial-frame-alist '(width . 200) '(height . 50))
+(pushnew! initial-frame-alist '(width . 200) '(height . 48))
 (add-hook! 'window-setup-hook
            :append
            #'toggle-frame-maximized
