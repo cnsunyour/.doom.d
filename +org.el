@@ -220,6 +220,7 @@ See `org-capture-templates' for more information."
                         (org-agenda-span 'day)
                         (org-agenda-start-day "+0d")
                         (org-agenda-start-on-weekday nil)
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "ABORT")))
                         (org-agenda-todo-ignore-deadlines nil)))
             (tags-todo "-ABORT/!NEXT|STARTED"
                        ((org-agenda-overriding-header "Next and Active Tasks:")))
@@ -229,6 +230,7 @@ See `org-capture-templates' for more information."
                         (org-agenda-start-day "+0d")
                         (org-agenda-start-on-weekday nil)
                         (org-deadline-warning-days 30)
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "ABORT")))
                         (org-agenda-time-grid nil)))
             (agenda "" ((org-agenda-overriding-header "Week at a Glance:")
                         (org-agenda-span 5)
