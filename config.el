@@ -7,7 +7,7 @@
       epa-file-encrypt-to user-mail-address)
 
 ;; Set doom font family and size
-(setq doom-font (font-spec :family "Iosevka" :size 16))
+(setq doom-font (font-spec :family "Sarasa Mono SC" :size 16))
 
 ;; System locale to use for formatting time values.
 (setq system-time-locale "C")         ; Make sure that the weekdays in the
@@ -150,13 +150,14 @@
   :bind ("C-c t" . #'telega)
   :config
   (setq telega-proxies
-      (list
-       '(:server "127.0.0.1" :port 1086 :enable t
-                 :type (:@type "proxyTypeSocks5"))))
+        (list '(:server "127.0.0.1" :port 1086 :enable t
+                        :type (:@type "proxyTypeSocks5"))))
   (add-hook! '(telega-root-mode-hook telega-chat-mode-hook) #'evil-emacs-state)
   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
-  (set-popup-rule! "^\\*Telega Root" :side 'right :size 100 :quit t)
-  (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)" :side 'right :size 100 :quit t :modeline t)
+  (set-popup-rule! "^\\*Telega Root"
+    :side 'right :size 100 :quit t)
+  (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)"
+    :side 'right :size 100 :quit t :modeline t)
   (telega-mode-line-mode 1)
   (telega-notifications-mode 1))
 
@@ -175,9 +176,9 @@
 ;; (setq-default fill-column 100)
 
 ;; 虚拟换行设置
-;; (setq-default visual-fill-column-width 120)
-;; (global-visual-fill-column-mode 1)
-;; (global-visual-line-mode 1)
+(setq-default visual-fill-column-width 120)
+(global-visual-fill-column-mode 1)
+(global-visual-line-mode 1)
 
 ;; To fix the issue: Unable to load color "brightblack"
 (after! hl-fill-column
@@ -221,10 +222,9 @@
 
 ;; 调整启动时窗口大小/最大化/全屏
 (pushnew! initial-frame-alist '(width . 200) '(height . 48))
-(add-hook! 'window-setup-hook
-           :append
-           #'toggle-frame-maximized
-           #'toggle-frame-fullscreen)
+(add-hook! 'window-setup-hook :append
+           #'toggle-frame-maximized)
+           ;; #'toggle-frame-fullscreen)
 
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer
