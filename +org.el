@@ -250,6 +250,6 @@ See `org-capture-templates' for more information."
                         (org-agenda-todo-ignore-with-date t)))))))
 
   (map! :leader
-        :desc "gtd-inbox"   :g "oai" #'(lambda () (interactive) (find-file org-agenda-file-gtd))
-        :desc "gtd-note"    :g "oan" #'(lambda () (interactive) (find-file org-agenda-file-note))
-        :desc "gtd-journal" :g "oaj" #'(lambda () (interactive) (find-file org-agenda-file-journal))))
+        :desc "gtd-inbox"   :g "oai" (λ! (find-file org-agenda-file-gtd))
+        :desc "gtd-note"    :g "oan" (λ! (find-file org-agenda-file-note))
+        :desc "gtd-journal" :g "oaj" (λ! (find-file org-agenda-file-journal))))

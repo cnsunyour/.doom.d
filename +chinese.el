@@ -78,9 +78,5 @@ unwanted space when exporting org-mode to hugo markdown."
   (map! :map 'pyim-mode-map
         "." 'pyim-page-next-page
         "," 'pyim-page-previous-page
-        ";" (lambda ()
-              (interactive)
-              (pyim-page-select-word-by-number 2))
-        "'" (lambda ()
-              (interactive)
-              (pyim-page-select-word-by-number 3))))
+        ";" (λ! (pyim-page-select-word-by-number 2))
+        "'" (λ! (pyim-page-select-word-by-number 3))))
