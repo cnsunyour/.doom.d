@@ -156,7 +156,7 @@
   (add-hook! '(telega-root-mode-hook telega-chat-mode-hook) #'evil-emacs-state)
   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
   (set-popup-rule! "^\\*Telega Root" :side 'right :size 100 :quit t)
-  (set-popup-rule! "^◀\\[.*\\]" :side 'right :size 100 :quit t :modeline t)
+  (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)" :side 'right :size 100 :quit t :modeline t)
   (telega-mode-line-mode 1)
   (telega-notifications-mode 1))
 
