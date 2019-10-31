@@ -97,7 +97,7 @@
     'company-tabnine 'company-dabbrev 'company-yasnippet 'company-ispell)
   (set-company-backend! 'conf-mode
     'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
-  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
+  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
   ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
   ;; Trigger completion immediately.
   ;; (setq company-idle-delay 0)
@@ -105,11 +105,11 @@
   ;; (setq company-show-numbers t)
   ;; Use the tab-and-go frontend.
   ;; Allows TAB to select and complete at the same time.
-  (company-tng-configure-default)
-  (setq company-frontends
-        '(company-tng-frontend
-          company-pseudo-tooltip-frontend
-          company-echo-metadata-frontend)))
+  ;; (company-tng-configure-default)
+  ;; (setq company-frontends
+  ;;       '(company-tng-frontend
+  ;;         company-pseudo-tooltip-frontend
+  ;;         company-echo-metadata-frontend)))
 
 ;; plantuml-mode & ob-plantuml
 (after! plantuml-mode
@@ -153,14 +153,22 @@
         (list '(:server "127.0.0.1" :port 1086 :enable t
                         :type (:@type "proxyTypeSocks5"))))
   (add-hook! '(telega-root-mode-hook telega-chat-mode-hook) #'evil-emacs-state)
-  (add-hook 'telega-chat-mode-hook #'yas-minor-mode)
+  (add-hook! 'telega-chat-mode-hook :append
+            #'yas-minor-mode
+            (lambda ()
+              (set-company-backend! 'telega-chat-mode
+                (append '(telega-company-emoji
+                          telega-company-username
+                          telega-company-hashtag)
+                        (when (telega-chat-bot-p telega-chatbuf--chat)
+                          '(telega-company-botcmd))))
+              (company-mode 1)))
   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
   (set-popup-rule! "^\\*Telega Root"
-    :side 'right :size 100 :quit nil)
+    :side 'right :size 100 :quit nil :modeline t)
   (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)"
     :side 'right :size 100 :quit nil :modeline t)
-  (telega-mode-line-mode 1)
-  (telega-notifications-mode 1))
+  (telega-mode-line-mode 1))
 
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
