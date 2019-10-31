@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Report user to policr_bot in telegram group
+# key: rep
+# condition: t
+# --
+/report@policr_bot$0

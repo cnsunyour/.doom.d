@@ -1,4 +1,6 @@
-# name: beancount
+# -*- mode: snippet -*-
+# name: New beancount entry
 # key: bc
+# condition: t
 # --
 `(format-time-string "%Y-%m-%d")` * "$1" "$2"

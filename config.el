@@ -153,11 +153,12 @@
         (list '(:server "127.0.0.1" :port 1086 :enable t
                         :type (:@type "proxyTypeSocks5"))))
   (add-hook! '(telega-root-mode-hook telega-chat-mode-hook) #'evil-emacs-state)
+  (add-hook 'telega-chat-mode-hook #'yas-minor-mode)
   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
   (set-popup-rule! "^\\*Telega Root"
-    :side 'right :size 100 :quit t)
+    :side 'right :size 100 :quit nil)
   (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)"
-    :side 'right :size 100 :quit t :modeline t)
+    :side 'right :size 100 :quit nil :modeline t)
   (telega-mode-line-mode 1)
   (telega-notifications-mode 1))
 
