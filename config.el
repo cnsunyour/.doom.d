@@ -141,7 +141,10 @@
   :bind ("C-c d" . docker)
   :custom (docker-image-run-arguments '("-i" "-t" "--rm")))
 
-(use-package! weechat :defer t)
+(use-package! weechat
+  :defer t
+  :config
+  (add-hook 'weechat-mode-hook #'evil-emacs-state))
 
 (use-package! telega
   :when (display-graphic-p)
@@ -165,9 +168,9 @@
               (company-mode 1)))
   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
   (set-popup-rule! "^\\*Telega Root"
-    :side 'right :size 100 :quit nil :modeline t)
+    :side 'right :size 95 :quit nil :modeline t)
   (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)"
-    :side 'right :size 100 :quit nil :modeline t)
+    :side 'right :size 95 :quit nil :modeline t)
   (telega-mode-line-mode 1))
 
 ;; define environmental variable for some works
