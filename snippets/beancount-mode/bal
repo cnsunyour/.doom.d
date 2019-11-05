@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: balance
+# uuid:
+# key: bal
+# condition: t
+# --
+`(format-time-string "%Y-%m-%d")` balance $0
