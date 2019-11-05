@@ -75,6 +75,16 @@ unwanted space when exporting org-mode to hugo markdown."
         default-input-method "pyim"
         pyim-default-scheme 'wubi
         pyim-page-tooltip 'posframe)
+
+  (setq-default pyim-english-input-switch-functions
+                '(pyim-probe-program-mode
+                  pyim-probe-org-structure-template))
+  (setq-default pyim-punctuation-half-width-functions
+                '(pyim-probe-punctuation-line-beginning
+                  pyim-probe-punctuation-after-punctuation))
+
+  (add-hook 'emacs-startup-hook #'(lambda () (pyim-restart-1 t)))
+
   (map! :map 'pyim-mode-map
         "." 'pyim-page-next-page
         "," 'pyim-page-previous-page
