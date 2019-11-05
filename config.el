@@ -91,12 +91,12 @@
   :when (featurep! :completion company)
   :config
   ;; (add-to-list 'company-backends #'company-tabnine)
+  ;; (set-company-backend! 'text-mode
+  ;;   'company-tabnine 'company-dabbrev 'company-yasnippet 'company-ispell)
+  ;; (set-company-backend! 'conf-mode
+  ;;   'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
   (set-company-backend! 'prog-mode
     'company-tabnine 'company-capf 'company-yasnippet)
-  (set-company-backend! 'text-mode
-    'company-tabnine 'company-dabbrev 'company-yasnippet 'company-ispell)
-  (set-company-backend! 'conf-mode
-    'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
   (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
   ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
   ;; Trigger completion immediately.
@@ -130,7 +130,7 @@
   :ensure nil
   :defer t
   :bind
-  ("C-c b" . (lambda() (interactive) (find-file "~/Dropbox/beancount/main.bean")))
+  ("C-c b" . (lambda() (interactive) (find-file "~/Dropbox/beancount/*.bean" t)))
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
   :config
@@ -143,8 +143,15 @@
 
 (use-package! weechat
   :defer t
+  :commands (weechat-monitor-buffer weechat-switch-buffer)
+  :bind
+  ("C-c RET" . #'weechat-monitor-buffer)
+  ("C-c C-b" . #'weechat-switch-buffer)
   :config
-  (add-hook 'weechat-mode-hook #'evil-emacs-state))
+  (add-hook 'weechat-mode-hook #'evil-emacs-state)
+  (unless (weechat-connected-p)
+    (weechat-connect "googlecloud.sunyour.org" 29009 nil t)))
+  ;; (run-at-time 5 nil (lambda() (weechat-monitor-all-buffers))))
 
 (use-package! telega
   :when (display-graphic-p)
@@ -157,15 +164,15 @@
                         :type (:@type "proxyTypeSocks5"))))
   (add-hook! '(telega-root-mode-hook telega-chat-mode-hook) #'evil-emacs-state)
   (add-hook! 'telega-chat-mode-hook :append
-            #'yas-minor-mode
-            (lambda ()
-              (set-company-backend! 'telega-chat-mode
-                (append '(telega-company-emoji
-                          telega-company-username
-                          telega-company-hashtag)
-                        (when (telega-chat-bot-p telega-chatbuf--chat)
-                          '(telega-company-botcmd))))
-              (company-mode 1)))
+             #'yas-minor-mode
+             (lambda ()
+               (set-company-backend! 'telega-chat-mode
+                 (append '(telega-company-emoji
+                           telega-company-username
+                           telega-company-hashtag)
+                         (when (telega-chat-bot-p telega-chatbuf--chat)
+                           '(telega-company-botcmd))))
+               (company-mode 1)))
   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
   (set-popup-rule! "^\\*Telega Root"
     :side 'right :size 95 :quit nil :modeline t)
@@ -235,8 +242,8 @@
 ;; 调整启动时窗口大小/最大化/全屏
 (pushnew! initial-frame-alist '(width . 200) '(height . 48))
 (add-hook! 'window-setup-hook :append
-           #'toggle-frame-maximized)
-           ;; #'toggle-frame-fullscreen)
+           #'toggle-frame-maximized
+           #'toggle-frame-fullscreen)
 
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer
