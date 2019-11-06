@@ -74,7 +74,10 @@ unwanted space when exporting org-mode to hugo markdown."
   (setq pyim-dcache-directory (concat doom-cache-dir "pyim/")
         default-input-method "pyim"
         pyim-default-scheme 'wubi
-        pyim-page-tooltip 'posframe)
+        pyim-assistant-scheme 'quanpin
+        pyim-page-tooltip 'posframe
+        pyim-page-length 5
+        pyim-translate-trigger-char "z")
 
   (setq-default pyim-english-input-switch-functions
                 '(pyim-probe-program-mode
@@ -82,8 +85,6 @@ unwanted space when exporting org-mode to hugo markdown."
   (setq-default pyim-punctuation-half-width-functions
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation))
-
-  (add-hook 'emacs-startup-hook #'(lambda () (pyim-restart-1 t)))
 
   (map! :map 'pyim-mode-map
         "." 'pyim-page-next-page
