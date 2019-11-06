@@ -30,6 +30,11 @@
   (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize))
 
+;; 判断网络是否连通
+(defun internet-up-p (&optional host)
+    (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
+                       (if host host "www.google.com"))))
+
 ;; 启用epa-file，可以解密.authinfo.gpg文件
 ;; (use-package! epa-file :config (epa-file-enable))
 ;; 启用auth-source-pass，可以使用.password-store里的密码
@@ -142,16 +147,18 @@
   :custom (docker-image-run-arguments '("-i" "-t" "--rm")))
 
 (use-package! weechat
-  :defer t
-  :commands (weechat-monitor-buffer weechat-switch-buffer)
+  :defer 5
   :bind
-  ("C-c RET" . #'weechat-monitor-buffer)
+  ("C-c RET" . #'weechat-monitor-all-buffers)
   ("C-c C-b" . #'weechat-switch-buffer)
+  :init
+  (setq weechat-host-default "googlecloud.sunyour.org"
+        weechat-port-default 29009
+        weechat-mode-default 'ssl)
   :config
   (add-hook 'weechat-mode-hook #'evil-emacs-state)
-  (unless (weechat-connected-p)
-    (weechat-connect "googlecloud.sunyour.org" 29009 nil t)))
-  ;; (run-at-time 5 nil (lambda() (weechat-monitor-all-buffers))))
+  (when (internet-up-p weechat-host-default)
+    (weechat-connect)))
 
 (use-package! telega
   :when (display-graphic-p)
@@ -175,9 +182,9 @@
                (company-mode 1)))
   (add-hook 'telega-chat-pre-message-hook #'telega-msg-ignore-blocked-sender)
   (set-popup-rule! "^\\*Telega Root"
-    :side 'right :size 95 :quit nil :modeline t)
+    :side 'right :size 100 :quit nil :modeline t)
   (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)"
-    :side 'right :size 95 :quit nil :modeline t)
+    :side 'right :size 100 :quit nil :modeline t)
   (telega-mode-line-mode 1))
 
 ;; define environmental variable for some works
