@@ -156,7 +156,7 @@
         weechat-port-default 29009
         weechat-mode-default 'ssl)
   :config
-  (add-hook 'weechat-mode-hook #'evil-emacs-state)
+  ;; (add-hook 'weechat-mode-hook #'evil-emacs-state)
   (when (internet-up-p weechat-host-default)
     (weechat-connect)))
 
