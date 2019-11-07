@@ -156,7 +156,7 @@
         weechat-port-default 29009
         weechat-mode-default 'ssl)
   :config
-  ;; (add-hook 'weechat-mode-hook #'evil-emacs-state)
+  (add-hook 'weechat-mode-hook #'evil-emacs-state)
   (when (internet-up-p weechat-host-default)
     (weechat-connect)))
 
@@ -165,6 +165,8 @@
   :commands (telega)
   :defer t
   :bind ("C-c t" . #'telega)
+  :init
+  (unless (display-graphic-p) (setq telega-use-images nil))
   :config
   (setq telega-proxies
         (list '(:server "127.0.0.1" :port 1086 :enable t
