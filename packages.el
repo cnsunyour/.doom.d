@@ -29,6 +29,8 @@
 (package! grip-mode)
 (package! telega)
 (package! weechat)
+(package! dash-at-point)
+(package! nov)
 
 ;; manateelazycat's packages
 (package! company-english-helper :disable t
@@ -37,7 +39,7 @@
   :recipe (:host github :repo "manateelazycat/insert-translated-name"))
 (package! sdcv
   :recipe (:host github :repo "manateelazycat/sdcv"))
-(package! awesome-tab :disable t
+(package! awesome-tab
   :recipe (:host github :repo "manateelazycat/awesome-tab"))
 (package! aweshell :disable t
   :recipe (:host github :repo "manateelazycat/aweshell"))
