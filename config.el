@@ -102,10 +102,10 @@
   ;;   'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
   (set-company-backend! 'prog-mode
     'company-tabnine 'company-capf 'company-yasnippet)
-  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
+  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
   ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
-  ;; Trigger completion immediately.
-  ;; (setq company-idle-delay 0)
+  ;;慢一点，不要太快出来提示框，会影响思路的
+  (setq company-idle-delay 1))
   ;; Number the candidates (use M-1, M-2 etc to select completions).
   ;; (setq company-show-numbers t)
   ;; Use the tab-and-go frontend.
@@ -141,13 +141,22 @@
   :config
   (add-hook 'beancount-mode-hook #'yas-minor-mode-on t))
 
+;; 阅读epub格式电子书
+(use-package! nov
+  :defer t
+  :mode
+  ("\\.epub\\'" . nov-mode))
+
+;; docker management
 (use-package! docker
   :defer t
   :bind ("C-c d" . docker)
   :custom (docker-image-run-arguments '("-i" "-t" "--rm")))
 
+;; irc client for weechat relay server
 (use-package! weechat
-  :defer 5
+  :defer t
+  :commands (weechat-monitor-all-buffers)
   :bind
   ("C-c RET" . #'weechat-monitor-all-buffers)
   ("C-c C-b" . #'weechat-switch-buffer)
@@ -160,8 +169,8 @@
   (when (internet-up-p weechat-host-default)
     (weechat-connect)))
 
+;; telegram client for emacs
 (use-package! telega
-  :when (display-graphic-p)
   :commands (telega)
   :defer t
   :bind ("C-c t" . #'telega)
@@ -188,6 +197,14 @@
   (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)"
     :side 'right :size 100 :quit nil :modeline t)
   (telega-mode-line-mode 1))
+
+;; Search the word at point with Dash
+(use-package! dash-at-point
+  :defer t
+  :init
+  (map! :leader
+        :g "dd" #'dash-at-point
+        :g "de" #'dash-at-point-with-docset))
 
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
