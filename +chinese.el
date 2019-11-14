@@ -71,7 +71,7 @@ unwanted space when exporting org-mode to hugo markdown."
 (use-package! pyim
   :after-call after-find-file pre-command-hook
   :config
-  (setq pyim-dcache-directory (concat doom-cache-dir "pyim/")
+  (setq pyim-dcache-directory "/Users/yaohui/.local/pyim/cache/"
         default-input-method "pyim"
         pyim-default-scheme 'wubi
         pyim-assistant-scheme 'quanpin
