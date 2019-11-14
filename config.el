@@ -145,7 +145,9 @@
 (use-package! nov
   :defer t
   :mode
-  ("\\.epub\\'" . nov-mode))
+  ("\\.epub\\'" . nov-mode)
+  :config
+  (evil-set-initial-state 'nov-mode 'emacs))
 
 ;; docker management
 (use-package! docker
@@ -164,8 +166,9 @@
   (setq weechat-host-default "googlecloud.sunyour.org"
         weechat-port-default 29009
         weechat-mode-default 'ssl)
+  :hook
+  (weechat-mode . evil-emacs-state)
   :config
-  (add-hook 'weechat-mode-hook #'evil-emacs-state)
   (when (internet-up-p weechat-host-default)
     (weechat-connect)))
 
