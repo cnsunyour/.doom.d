@@ -138,8 +138,8 @@
   ("C-c b" . (lambda() (interactive) (find-file "~/Dropbox/beancount/*.bean" t)))
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
-  :config
-  (add-hook 'beancount-mode-hook #'yas-minor-mode-on t))
+  :hook
+  ('beancount-mode #'yas-minor-mode-on))
 
 ;; 阅读epub格式电子书
 (use-package! nov
