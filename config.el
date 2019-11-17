@@ -139,7 +139,7 @@
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
   :hook
-  ('beancount-mode #'yas-minor-mode-on))
+  ('beancount-mode . #'yas-minor-mode-on))
 
 ;; 阅读epub格式电子书
 (use-package! nov
@@ -167,7 +167,7 @@
         weechat-port-default 29009
         weechat-mode-default 'ssl)
   :hook
-  (weechat-mode . evil-emacs-state)
+  ('weechat-mode . #'evil-emacs-state)
   :config
   (when (internet-up-p weechat-host-default)
     (weechat-connect)))
