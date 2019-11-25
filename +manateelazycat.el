@@ -106,8 +106,9 @@
   :commands snails snails-search-point
   :init
   (map! :leader
-        (:g "os" #'snails)
-        (:g "oS" #'snails-search-point))
+        (:g "sn" #'snails)
+        (:g "sN" #'snails-search-point))
+  :hook
+  ('snails-mode . #'evil-emacs-state)
   :config
-  (add-to-list 'snails-default-backends #'snails-backend-current-buffer t)
-  (add-hook 'snails-mode-hook #'evil-emacs-state))
+  (add-to-list 'snails-default-backends #'snails-backend-current-buffer t))
