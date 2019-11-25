@@ -272,6 +272,10 @@
   (setq mac-system-move-file-to-trash-use-finder t
         delete-by-moving-to-trash t))
 
+;; 拆分窗口时默认把焦点定在新窗口，doom为了和vim保持一致，竟然把这点改回去了
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)
 
