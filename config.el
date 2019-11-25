@@ -182,25 +182,43 @@
   :hook
   ('telega-root-mode . #'evil-emacs-state)
   ('telega-chat-mode . #'evil-emacs-state)
-  ('telega-chat-mode . #'yas-minor-mode)
+  ('telega-chat-mode . #'yas-minor-mode-on)
+  ('telega-chat-mode . #'doom-mark-buffer-as-real-h)
   ('telega-chat-mode . (lambda ()
-                              (set-company-backend! 'telega-chat-mode
-                                (append '(telega-company-emoji
-                                          telega-company-username
-                                          telega-company-hashtag)
-                                        (when (telega-chat-bot-p telega-chatbuf--chat)
-                                          '(telega-company-botcmd))))
-                              (company-mode 1)))
+                         (set-company-backend! 'telega-chat-mode
+                           (append '(telega-company-emoji
+                                     telega-company-username
+                                     telega-company-hashtag)
+                                   (when (telega-chat-bot-p telega-chatbuf--chat)
+                                     '(telega-company-botcmd))))))
   ('telega-chat-pre-message . #'telega-msg-ignore-blocked-sender)
   :config
-  (setq telega-proxies
-        (list '(:server "127.0.0.1" :port 1086 :enable t
-                        :type (:@type "proxyTypeSocks5"))))
-  (set-popup-rule! "^\\*Telega Root"
+  (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
+                                       :type (:@type "proxyTypeSocks5")))
+        telega-known-inline-bots '("@policr_bot"
+                                   "@GBReborn_bot"
+                                   "@emacs_china_rss_bot"
+                                   "@GroupButler_bot")
+        telega-chat-use-markdown-formatting t
+        telega-animation-play-inline t
+        telega-use-tracking t
+        telega-sticker-set-download t)
+  (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :quit nil :modeline t)
   (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)"
     :side 'right :size 100 :quit nil :modeline t)
-  (telega-mode-line-mode 1))
+  (telega-mode-line-mode 1)
+  (after! all-the-icons
+    (add-to-list 'all-the-icons-mode-icon-alist
+                 '(telega-root-mode all-the-icons-fileicon "telegram"
+                                    :heigt 1.0
+                                    :v-adjust -0.2
+                                    :face all-the-icons-yellow))
+    (add-to-list 'all-the-icons-mode-icon-alist
+                 '(telega-chat-mode all-the-icons-fileicon "telegram"
+                                    :heigt 1.0
+                                    :v-adjust -0.2
+                                    :face all-the-icons-blue))))
 
 ;; Search the word at point with Dash
 (use-package! dash-at-point
@@ -225,9 +243,9 @@
 ;; (setq-default fill-column 100)
 
 ;; 虚拟换行设置
-(setq-default visual-fill-column-width 120)
-(global-visual-fill-column-mode 1)
-(global-visual-line-mode 1)
+;; (setq-default visual-fill-column-width 120)
+;; (global-visual-fill-column-mode 1)
+;; (global-visual-line-mode 1)
 
 ;; To fix the issue: Unable to load color "brightblack"
 (after! hl-fill-column
@@ -270,10 +288,9 @@
   (setq ns-use-fullscreen-animation nil))
 
 ;; 调整启动时窗口大小/最大化/全屏
-(pushnew! initial-frame-alist '(width . 200) '(height . 48))
-(add-hook! 'window-setup-hook :append
-           #'toggle-frame-maximized
-           #'toggle-frame-fullscreen)
+;; (pushnew! initial-frame-alist '(width . 200) '(height . 48))
+(add-hook 'window-setup-hook #'toggle-frame-maximized)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer
