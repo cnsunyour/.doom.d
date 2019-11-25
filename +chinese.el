@@ -68,24 +68,34 @@ unwanted space when exporting org-mode to hugo markdown."
       (list paragraph fixed-contents info))))
 
 
+;; (use-package! liberime-config
+;;   :load-path "/Users/yaohui/repos/liberime"
+;;   :init
+;;   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
+;;         liberime-user-data-dir (file-truename "~/.local/pyim/rime"))
+;;   :hook
+;;   ('after-liberime-load . (lambda ()
+;;                             (liberime-select-schema "wubi86"))))
+
 (use-package! pyim
+  ;; :after liberime-config
   :after-call after-find-file pre-command-hook
+  :bind
+  ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
   :config
-  (setq pyim-dcache-directory "/Users/yaohui/.local/pyim/cache/"
+  (setq pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/")
         default-input-method "pyim"
         pyim-default-scheme 'wubi
         pyim-assistant-scheme 'quanpin
         pyim-page-tooltip 'posframe
-        pyim-page-length 5
-        pyim-translate-trigger-char "z")
-
+        pyim-page-length 5)
   (setq-default pyim-english-input-switch-functions
                 '(pyim-probe-program-mode
+                  pyim-probe-org-speed-commands
                   pyim-probe-org-structure-template))
   (setq-default pyim-punctuation-half-width-functions
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation))
-
   (map! :map 'pyim-mode-map
         "." 'pyim-page-next-page
         "," 'pyim-page-previous-page
