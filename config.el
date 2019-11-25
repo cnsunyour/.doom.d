@@ -166,8 +166,6 @@
   (setq weechat-host-default "googlecloud.sunyour.org"
         weechat-port-default 29009
         weechat-mode-default 'ssl)
-  :hook
-  ('weechat-mode . #'evil-emacs-state)
   :config
   (when (internet-up-p weechat-host-default)
     (weechat-connect)))
