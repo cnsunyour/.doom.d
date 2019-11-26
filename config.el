@@ -152,7 +152,6 @@
 ;; docker management
 (use-package! docker
   :defer t
-  :bind ("C-c d" . docker)
   :custom (docker-image-run-arguments '("-i" "-t" "--rm")))
 
 ;; irc client for weechat relay server
@@ -168,7 +167,12 @@
         weechat-mode-default 'ssl)
   :config
   (when (internet-up-p weechat-host-default)
-    (weechat-connect)))
+    (weechat-connect))
+  (after! all-the-icons
+    (add-to-list 'all-the-icons-mode-icon-alist
+                 '(weechat-mode all-the-icons-fileicon "circle-ci"
+                                    :heigt 1.0
+                                    :v-adjust -0.2))))
 
 ;; telegram client for emacs
 (use-package! telega
@@ -203,9 +207,11 @@
         telega-sticker-set-download t)
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :quit nil :modeline t)
-  (set-popup-rule! "^◀\\(\\[\\|<\\|{\\).*\\(\\]\\|>\\|}\\)"
+  (set-popup-rule! "◀[[({<].*[\])}>]$"
     :side 'right :size 100 :quit nil :modeline t)
   (telega-mode-line-mode 1)
+  (when (featurep! :completion ivy)
+    (load! "+ivy-telega"))
   (after! all-the-icons
     (add-to-list 'all-the-icons-mode-icon-alist
                  '(telega-root-mode all-the-icons-fileicon "telegram"
@@ -224,7 +230,7 @@
   :init
   (map! :leader
         :g "dd" #'dash-at-point
-        :g "de" #'dash-at-point-with-docset))
+        :g "dD" #'dash-at-point-with-docset))
 
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
