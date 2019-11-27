@@ -24,5 +24,5 @@
 
 (setq telega-completing-read-function 'ivy-completing-read)
 
-(map! (:leader :g "jt" #'ivy-telega-chat-with)
-      (:g "C-c i" #'ivy-telega-chat-with))
+(map! (:leader :g "jv" #'ivy-telega-chat-with)
+      (:g "C-c v" #'ivy-telega-chat-with))
