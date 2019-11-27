@@ -204,11 +204,12 @@
         telega-chat-use-markdown-formatting t
         telega-animation-play-inline t
         telega-use-tracking t
-        telega-sticker-set-download t)
+        telega-sticker-set-download t
+        telega-chat-footer-show-pinned-message nil)
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size 100 :quit nil :modeline t)
+    :side 'right :size 100 :quit t :modeline t)
   (set-popup-rule! "◀[[({<].*[\])}>]$"
-    :side 'right :size 100 :quit nil :modeline t)
+    :side 'right :size 100 :quit t :modeline t)
   (telega-mode-line-mode 1)
   (when (featurep! :completion ivy)
     (load! "+ivy-telega"))
