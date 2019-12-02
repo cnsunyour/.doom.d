@@ -172,7 +172,8 @@
     (add-to-list 'all-the-icons-mode-icon-alist
                  '(weechat-mode all-the-icons-fileicon "circle-ci"
                                     :heigt 1.0
-                                    :v-adjust -0.2))))
+                                    :v-adjust -0.2)))
+  (add-to-list 'weechat-modules 'weechat-image t))
 
 ;; telegram client for emacs
 (use-package! telega
@@ -185,7 +186,6 @@
   ('telega-root-mode . #'evil-emacs-state)
   ('telega-chat-mode . #'evil-emacs-state)
   ('telega-chat-mode . #'yas-minor-mode-on)
-  ('telega-chat-mode . #'doom-mark-buffer-as-real-h)
   ('telega-chat-mode . (lambda ()
                          (set-company-backend! 'telega-chat-mode
                            (append '(telega-company-emoji
