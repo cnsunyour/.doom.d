@@ -150,9 +150,8 @@
   (evil-set-initial-state 'nov-mode 'emacs))
 
 ;; docker management
-(use-package! docker
-  :defer t
-  :custom (docker-image-run-arguments '("-i" "-t" "--rm")))
+(after! docker
+  (setq docker-image-run-arguments '("-i" "-t" "--rm")))
 
 ;; irc client for weechat relay server
 (use-package! weechat
