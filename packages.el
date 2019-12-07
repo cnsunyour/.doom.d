@@ -25,7 +25,7 @@
 (package! google-translate)
 (package! theme-changer)
 (package! pinentry)
-(package! fuz)
+(package! fuz :disable t)
 (package! grip-mode)
 (package! telega)
 (package! weechat)
@@ -49,5 +49,5 @@
   :recipe (:host github :repo "manateelazycat/highlight-matching-tag"))
 (package! instant-rename-tag :disable t
   :recipe (:host github :repo "manateelazycat/instant-rename-tag"))
-;; (package! snails
-;;   :recipe (:host github :repo "manateelazycat/snails"))
+(package! snails :disable t
+  :recipe (:host github :repo "manateelazycat/snails"))
