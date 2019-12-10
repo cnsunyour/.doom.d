@@ -50,11 +50,6 @@
 (load! "+translate")
 (load! "+manateelazycat")
 
-(use-package! fuz
-  :config
-  (unless (require 'fuz-core nil t)
-    (fuz-build-and-load-dymod)))
-
 (use-package! pinentry
   :config
   (pinentry-start))

@@ -98,6 +98,12 @@
   :config
   (highlight-matching-tag 1))
 
+;; fuz.el
+(use-package! fuz
+  :config
+  (unless (require 'fuz-core nil t)
+    (fuz-build-and-load-dymod)))
+
 ;; A modern, easy-to-expand fuzzy search framework
 ;; M-x snails or M-x snails-search-point
 (use-package! snails
