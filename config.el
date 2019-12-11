@@ -309,6 +309,7 @@
                   doom-molokai
                   doom-city-lights
                   doom-challenger-deep
+                  doom-gruvbox
                   doom-Iosvkem)))
 
 ;; elisp eval
