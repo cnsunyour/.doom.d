@@ -159,6 +159,8 @@
   (setq weechat-host-default "googlecloud.sunyour.org"
         weechat-port-default 29009
         weechat-mode-default 'ssl)
+  :hook
+  ('weechat-mode . #'toggle-truncate-lines)
   :config
   (when (internet-up-p weechat-host-default)
     (weechat-connect))
@@ -299,18 +301,27 @@
 (use-package! theme-changer
   :config
   (change-theme '(doom-one-light
+                  doom-acario-light
                   doom-nord-light
                   doom-opera-light
-                  doom-tomorrow-day
-                  doom-solarized-light)
+                  doom-solarized-light
+                  doom-tomorrow-day)
                 '(doom-one
-                  doom-vibrant
-                  doom-dracula
-                  doom-molokai
+                  doom-acario-dark
                   doom-city-lights
                   doom-challenger-deep
+                  doom-dracula
                   doom-gruvbox
-                  doom-Iosvkem)))
+                  doom-Iosvkem
+                  doom-vibrant
+                  doom-molokai
+                  doom-moonlight
+                  doom-oceanic-next
+                  doom-outrun-electric
+                  doom-peacock
+                  doom-spacegrey
+                  doom-snazzy
+                  doom-wilmersdorf)))
 
 ;; elisp eval
 (defun eval-this-buffer ()
