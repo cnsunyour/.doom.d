@@ -111,6 +111,15 @@
   ;;         company-pseudo-tooltip-frontend
   ;;         company-echo-metadata-frontend)))
 
+;; init ccls include path
+(after! ccls
+  (when IS-MAC
+    (setq ccls-initialization-options
+          `(:clang ,(list :extraArgs ["-isystem/Library/Developer/CommandLineTools/usr/include/c++/v1"
+                                      "-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include"
+                                      "-isystem/usr/local/include"]
+                          :resourceDir (string-trim (shell-command-to-string "clang -print-resource-dir")))))))
+
 ;; plantuml-mode & ob-plantuml
 (after! plantuml-mode
   ;; Change plantuml exec mode to `executable', other mode failed.
