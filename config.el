@@ -160,14 +160,14 @@
 ;; irc client for weechat relay server
 (use-package! weechat
   :defer t
-  :commands (weechat-monitor-all-buffers)
+  :commands (weechat-switch-buffer)
   :bind
-  ("C-c RET" . #'weechat-monitor-all-buffers)
   ("C-c C-b" . #'weechat-switch-buffer)
   :init
   (setq weechat-host-default "googlecloud.sunyour.org"
         weechat-port-default 29009
-        weechat-mode-default 'ssl)
+        weechat-mode-default 'ssl
+        weechat-auto-monitor-buffers t)
   :hook
   ('weechat-mode . #'toggle-truncate-lines)
   :config
@@ -202,10 +202,6 @@
   :config
   (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
                                        :type (:@type "proxyTypeSocks5")))
-        telega-known-inline-bots '("@policr_bot"
-                                   "@GBReborn_bot"
-                                   "@emacs_china_rss_bot"
-                                   "@GroupButler_bot")
         telega-chat-use-markdown-formatting t
         telega-animation-play-inline t
         telega-use-tracking t
