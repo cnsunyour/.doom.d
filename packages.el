@@ -30,7 +30,6 @@
 (package! weechat)
 (package! dash-at-point)
 (package! nov)
-(package! winum)
 
 ;; manateelazycat's packages
 (package! company-english-helper :disable t
