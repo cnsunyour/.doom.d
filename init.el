@@ -130,8 +130,8 @@
         +ipython         ; ipython support for babel
         +pandoc          ; pandoc integration into org's exporter
         +present)        ; using Emacs for presentations
-       perl              ; write code no one else can comprehend
-       (php +lsp)                ; perl's insecure younger brother
+       ;; perl              ; write code no one else can comprehend
+       ;; (php +lsp)                ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +lsp +pyenv)
