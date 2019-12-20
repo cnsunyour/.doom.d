@@ -101,15 +101,6 @@
   ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
   ;;慢一点，不要太快出来提示框，会影响思路的
   (setq company-idle-delay 1))
-  ;; Number the candidates (use M-1, M-2 etc to select completions).
-  ;; (setq company-show-numbers t)
-  ;; Use the tab-and-go frontend.
-  ;; Allows TAB to select and complete at the same time.
-  ;; (company-tng-configure-default)
-  ;; (setq company-frontends
-  ;;       '(company-tng-frontend
-  ;;         company-pseudo-tooltip-frontend
-  ;;         company-echo-metadata-frontend)))
 
 ;; init ccls include path
 (after! ccls
