@@ -175,7 +175,7 @@
 (use-package! telega
   :commands (telega)
   :defer t
-  :bind ("C-c t" . #'telega)
+  :bind ("C-M-S-s-t" . #'telega)
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
   :hook
@@ -196,13 +196,15 @@
         telega-chat-use-markdown-formatting t
         telega-animation-play-inline t
         telega-use-tracking t
+        telega-emoji-use-images nil
         telega-sticker-set-download t
         telega-chat-footer-show-pinned-message nil)
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :quit t :modeline t)
-  (set-popup-rule! "◀[[({<].*[\])}>]$"
+  (set-popup-rule! "^◀[[({<].*[\])}>]$"
     :side 'right :size 100 :quit t :modeline t)
   (telega-mode-line-mode 1)
+  (telega-url-shorten-mode 1)
   (when (featurep! :completion ivy)
     (load! "+ivy-telega"))
   (after! all-the-icons
@@ -224,6 +226,17 @@
   (map! :leader
         :g "dd" #'dash-at-point
         :g "dD" #'dash-at-point-with-docset))
+
+
+(defun cnsunyour/insert-image-from-clipboard ()
+  "保存剪切板图片为 Y-m-d-H-M-S.png，插入 Markdown/Org/telega 图片链接."
+  (interactive)
+  (setq file (format-time-string"%Y-%m-%d-%H-%M-%S.jpg"))
+  (cond ((derived-mode-p 'telega-chat-mode)
+         (call-process-shell-command (format "pngpaste ~/.telega/temp/%s" file))
+         (telega-chatbuf--attach-tmp-photo (format "~/.telega/temp/%s" file)))
+        (t (insert file))))
+(map! :g "C-M-S-s-v" #'cnsunyour/insert-image-from-clipboard)
 
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
@@ -333,11 +346,6 @@
                   doom-snazzy
                   doom-wilmersdorf)))
 
-;; elisp eval
-(defun eval-this-buffer ()
-  (interactive)
-  (eval-buffer nil (get-buffer-create "output"))
-  (switch-to-buffer-other-window "output"))
 
 ;; 显示儿子的成长时间
 (map! :leader :desc "Twinkle's live time." :g "k"
