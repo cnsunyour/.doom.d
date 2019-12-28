@@ -69,7 +69,7 @@ unwanted space when exporting org-mode to hugo markdown."
 
 
 ;; (use-package! liberime-config
-;;   :load-path "/Users/yaohui/repos/liberime"
+;;   :load-path "~/repos/liberime"
 ;;   :init
 ;;   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
 ;;         liberime-user-data-dir (file-truename "~/.local/pyim/rime"))
