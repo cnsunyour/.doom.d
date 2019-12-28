@@ -6,6 +6,12 @@
       user-mail-address "sunyour@gmail.com"
       epa-file-encrypt-to user-mail-address)
 
+;; dashboard banner image
+(setq fancy-splash-image
+      (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
+             (banner (elt banners (random (length banners)))))
+        banner))
+
 ;; Set doom font family and size
 (setq doom-font (font-spec :family "Sarasa Mono SC" :size 16))
 
