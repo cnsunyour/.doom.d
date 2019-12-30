@@ -199,7 +199,7 @@
   :config
   (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
                                        :type (:@type "proxyTypeSocks5")))
-        telega-chat-use-markdown-formatting t
+        telega-chat-use-markdown-formatting nil
         telega-animation-play-inline t
         telega-use-tracking t
         telega-emoji-use-images nil
