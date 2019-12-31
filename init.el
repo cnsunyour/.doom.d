@@ -180,4 +180,4 @@
        (default +bindings +smartparens))
 
 (setq custom-file (expand-file-name ".custom.el" doom-private-dir))
-(load custom-file)
+(load custom-file t)
