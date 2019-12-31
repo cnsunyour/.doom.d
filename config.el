@@ -12,8 +12,14 @@
              (banner (elt banners (random (length banners)))))
         banner))
 
+;; 当前系统分辨率超过1600X100,则判断为大显示器
+(defun cnsunyour/is-large-display-p()
+  (let* ((display-width (x-display-pixel-width))
+         (display-height (x-display-pixel-height)))
+    (and (>= display-width 1600) (>= display-height 1000))))
+
 ;; Set doom font family and size
-(setq doom-font (font-spec :family "Sarasa Mono SC" :size 16))
+(setq doom-font (font-spec :family "Sarasa Mono SC" :size (if (cnsunyour/is-large-display-p) 16 14)))
 
 ;; System locale to use for formatting time values.
 (setq system-time-locale "C")         ; Make sure that the weekdays in the
