@@ -178,30 +178,6 @@
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
        (default +bindings +smartparens))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("34c99997eaa73d64b1aaa95caca9f0d64229871c200c5254526d0062f8074693" default)))
- '(docker-image-run-arguments (quote ("-i" "-t" "--rm")) t)
- '(org-refile-targets
-   (quote
-    (("~/Dropbox/org/inbox.org" :level . 1)
-     ("~/Dropbox/gtd/personal.org" :level . 1)
-     ("~/Dropbox/gtd/family.org" :level . 1)
-     ("~/Dropbox/gtd/dbuav.org" :level . 1)
-     ("~/Dropbox/gtd/project.org" :level . 1))))
- '(pyim-dicts
-   (quote
-    ((:name "Qingge" :file "/Users/yaohui/.local/pyim/pyim-wbdict-qingge.pyim"))))
- '(python-pytest-arguments (quote ("--color")))
- '(safe-local-variable-values (quote ((eval progn (pp-buffer) (indent-buffer))))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+(setq custom-file (expand-file-name ".custom.el" doom-private-dir))
+(load custom-file)
