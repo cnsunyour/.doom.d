@@ -109,10 +109,8 @@
   ;;   'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
   (set-company-backend! 'prog-mode
     'company-tabnine 'company-capf 'company-yasnippet)
-  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
+  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
   ;; (setq +lsp-company-backend '(company-tabnine :with company-lsp :separate))
-  ;;慢一点，不要太快出来提示框，会影响思路的
-  (setq company-idle-delay 1))
 
 ;; init ccls include path
 (after! ccls
@@ -352,7 +350,6 @@
                   doom-molokai
                   doom-moonlight
                   doom-oceanic-next
-                  doom-outrun-electric
                   doom-peacock
                   doom-spacegrey
                   doom-snazzy
