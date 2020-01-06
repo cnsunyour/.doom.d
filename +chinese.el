@@ -92,13 +92,11 @@ unwanted space when exporting org-mode to hugo markdown."
   (setq-default pyim-english-input-switch-functions
                 '(pyim-probe-program-mode
                   pyim-probe-org-speed-commands
-                  pyim-probe-isearch-mode
                   pyim-probe-org-structure-template
                   (lambda() (button-at (point)))))
   (setq-default pyim-punctuation-half-width-functions
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation))
-  (pyim-isearch-mode 1) ;开启拼音搜索功能
   (map! :map 'pyim-mode-map
         "." 'pyim-page-next-page
         "," 'pyim-page-previous-page
