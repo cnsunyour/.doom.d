@@ -7,7 +7,8 @@
 ;; general keybindings
 (map! (:leader
         (:desc "Org Agenda" :g "a" #'org-agenda)
-        (:desc "CFW Calendar" :g "oc" #'cfw:open-org-calendar))
+        (:desc "CFW Calendar" :g "oc" #'cfw:open-org-calendar)
+        (:desc "Elfeed" :g "ve" #'elfeed))
 
       (:after org
         (:map org-mode-map "C-c o" #'org-pomodoro))
