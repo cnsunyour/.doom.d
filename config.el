@@ -346,7 +346,6 @@
                   doom-solarized-light
                   doom-tomorrow-day)
                 '(doom-one
-                  doom-acario-dark
                   doom-city-lights
                   doom-challenger-deep
                   doom-dracula
