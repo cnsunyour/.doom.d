@@ -82,8 +82,6 @@ unwanted space when exporting org-mode to hugo markdown."
   :after-call after-find-file pre-command-hook
   :init
   (setq pyim-title "ㄓ")
-  :hook
-  ('telega-chat-mode . #'toggle-input-method)
   :bind
   ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
   :config

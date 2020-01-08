@@ -189,6 +189,7 @@
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
   :hook
+  ('telega-chat-mode . #'toggle-input-method) ;; 激活输入法必须在hook列表的最后才有效
   ('telega-root-mode . #'evil-emacs-state)
   ('telega-chat-mode . #'evil-emacs-state)
   ('telega-chat-mode . #'yas-minor-mode-on)
