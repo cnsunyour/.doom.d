@@ -93,30 +93,28 @@ unwanted space when exporting org-mode to hugo markdown."
         pyim-page-length 5)
 
   ;; 大探针函数定义方式一
-  ;; (defun cnsunyour/pyim-probe-modes()
+  ;; (defun cnsunyour/pyim-english-probe-modes()
   ;;   (interactive)
-  ;;   (let ((isEnglish (button-at (point))))
+  ;;   (let ((isEnglish nil))
   ;;     (unless (derived-mode-p 'telega-chat-mode)
   ;;       (setq isEnglish
-  ;;             (or isEnglish
-  ;;                 (pyim-probe-program-mode)
+  ;;             (or (pyim-probe-program-mode)
   ;;                 (pyim-probe-org-speed-commands)
   ;;                 (pyim-probe-org-structure-template))))
   ;;     isEnglish))
 
   ;; 大探针函数定义方式二
-  (defun cnsunyour/pyim-probe-modes()
+  (defun cnsunyour/pyim-english-probe-modes()
     (interactive)
-    (if (derived-mode-p 'telega-chat-mode)
-        (button-at (point))
-      (or (button-at (point))
-          (pyim-probe-program-mode)
+    (unless (derived-mode-p 'telega-chat-mode)
+      (or (pyim-probe-program-mode)
           (pyim-probe-org-speed-commands)
           (pyim-probe-org-structure-template))))
 
   ;; 采用自定义大探针方式，探讨函数见上
   (setq-default pyim-english-input-switch-functions
-                '(cnsunyour/pyim-probe-modes))
+                '(cnsunyour/pyim-english-probe-modes
+                  (lambda() (button-at (point)))))
 
   ;; 采用标准探针设置方式
   ;; (setq-default pyim-english-input-switch-functions
