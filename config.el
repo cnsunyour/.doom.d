@@ -237,6 +237,12 @@
         :g "dd" #'dash-at-point
         :g "dD" #'dash-at-point-with-docset))
 
+;; custom elfeed's configuration
+(after! elfeed
+  (add-hook 'elfeed-show-mode-hook #'evil-emacs-state)
+  (when (featurep! :editor evil +everywhere)
+    (evil-define-key 'normal elfeed-search-mode-map
+      "R" #'elfeed-search-fetch)))
 
 (defun cnsunyour/insert-image-from-clipboard ()
   "保存剪切板图片为 Y-m-d-H-M-S.png，插入 Markdown/Org/telega 图片链接."
