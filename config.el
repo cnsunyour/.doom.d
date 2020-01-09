@@ -144,7 +144,9 @@
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
   :hook
-  ('beancount-mode . #'yas-minor-mode-on))
+  ('beancount-mode . #'yas-minor-mode-on)
+  :config
+  (setq beancount-accounts-files (directory-files "~/Dropbox/beancount/accounts" 'full (rx ".bean" eos))))
 
 ;; 阅读epub格式电子书
 (use-package! nov
