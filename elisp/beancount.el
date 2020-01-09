@@ -471,7 +471,7 @@ With an argument move to the next non cleared transaction."
             (list (match-beginning 1) (match-end 1) completion-table))))))))
 
 (defun beancount-collect (regexp n &optional files)
-  "Return a unique list of REGEXP group N in the current buffer. Optionally,
+  "Return an unique list of REGEXP group N in the current buffer. Optionally,
 also look at data in selected files."
   (let ((pos (point)))
     (save-excursion
@@ -488,6 +488,7 @@ also look at data in selected files."
           (when files
             (dolist (f files)
               (with-current-buffer (find-file-noselect f)
+                (goto-char (point-min))
                 (while (re-search-forward regexp nil t)
                   (puthash (match-string-no-properties n) nil hash)))))
           (hash-table-keys hash))))))
