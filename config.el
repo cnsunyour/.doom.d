@@ -140,7 +140,7 @@
   :ensure nil
   :defer t
   :bind
-  ("C-M-S-s-b" . (lambda() (interactive) (find-file "~/Dropbox/beancount/*.bean" t)))
+  ("C-M-S-s-b" . (lambda() (interactive) (find-file "~/Dropbox/beancount/main.bean")))
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
   :hook
