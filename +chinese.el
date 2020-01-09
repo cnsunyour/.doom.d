@@ -94,25 +94,26 @@ unwanted space when exporting org-mode to hugo markdown."
 
   (defun cnsunyour/pyim-english-probe-modes()
     "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
-    (let ((useEnglish nil))
+    (let ((use-en (button-at (point))))
       (if (derived-mode-p 'telega-chat-mode)
-          (setq useEnglish (pyim-probe-auto-english))
+          (setq use-en (or use-en
+                           (pyim-probe-auto-english)))
         (when (derived-mode-p 'text-mode)
-          (setq useEnglish (pyim-probe-auto-english)))
-        (setq useEnglish (or useEnglish
-                             (pyim-probe-program-mode)
-                             (pyim-probe-org-speed-commands)
-                             (pyim-probe-org-structure-template))))
-      useEnglish))
+          (setq use-en (or use-en
+                           (pyim-probe-auto-english))))
+        (setq use-en (or use-en
+                         (pyim-probe-program-mode)
+                         (pyim-probe-org-speed-commands)
+                         (pyim-probe-org-structure-template))))
+      use-en))
   ;; 设置英文输入探针方式，采用自定义探针函数
   (setq-default pyim-english-input-switch-functions
-                '(cnsunyour/pyim-english-probe-modes
-                  (lambda() (button-at (point)))))
+                '(cnsunyour/pyim-english-probe-modes))
 
   (defun cnsunyour/pyim-punctuation-probe-modes(char)
     "自定义标点符号半角探针函数，用于在不同mode下使用不同的探针列表"
-      (or (pyim-probe-punctuation-line-beginning char)
-          (pyim-probe-punctuation-after-punctuation char)))
+    (or (pyim-probe-punctuation-line-beginning char)
+        (pyim-probe-punctuation-after-punctuation char)))
   ;; 设置标点符号半角探针方式，采用自定义探针函数
   (setq-default pyim-punctuation-half-width-functions
                 '(cnsunyour/pyim-punctuation-probe-modes))
