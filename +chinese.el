@@ -92,42 +92,28 @@ unwanted space when exporting org-mode to hugo markdown."
         pyim-page-tooltip 'posframe
         pyim-page-length 5)
 
-  ;; 大探针函数定义方式一
-  ;; (defun cnsunyour/pyim-english-probe-modes()
-  ;;   (interactive)
-  ;;   (let ((isEnglish nil))
-  ;;     (unless (derived-mode-p 'telega-chat-mode)
-  ;;       (setq isEnglish
-  ;;             (or (pyim-probe-program-mode)
-  ;;                 (pyim-probe-org-speed-commands)
-  ;;                 (pyim-probe-org-structure-template))))
-  ;;     isEnglish))
-
-  ;; 大探针函数定义方式二
   (defun cnsunyour/pyim-english-probe-modes()
+    "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
     (interactive)
     (if (derived-mode-p 'telega-chat-mode)
         (pyim-probe-auto-english)
       (or (pyim-probe-program-mode)
           (pyim-probe-org-speed-commands)
           (pyim-probe-org-structure-template))))
-
-  ;; 采用自定义大探针方式，探讨函数见上
+  ;; 设置英文输入探针方式，采用自定义探针函数
   (setq-default pyim-english-input-switch-functions
                 '(cnsunyour/pyim-english-probe-modes
                   (lambda() (button-at (point)))))
 
-  ;; 采用标准探针设置方式
-  ;; (setq-default pyim-english-input-switch-functions
-  ;;               '(pyim-probe-program-mode
-  ;;                 pyim-probe-org-speed-commands
-  ;;                 pyim-probe-org-structure-template
-  ;;                 (lambda() (button-at (point)))))
-
-  ;; 设置标点符号半角探针方式
+  (defun cnsunyour/pyim-punctuation-probe-modes(char)
+    "自定义标点符号半角探针函数，用于在不同mode下使用不同的探针列表"
+    (interactive)
+    (unless (derived-mode-p 'telega-chat-mode)
+      (or (pyim-probe-punctuation-line-beginning char)
+          (pyim-probe-punctuation-after-punctuation char))))
+  ;; 设置标点符号半角探针方式，采用自定义探针函数
   (setq-default pyim-punctuation-half-width-functions
-                '(pyim-probe-punctuation-line-beginning
-                  pyim-probe-punctuation-after-punctuation))
+                '(cnsunyour/pyim-punctuation-probe-modes))
 
   (map! :map 'pyim-mode-map
         "." 'pyim-page-next-page
