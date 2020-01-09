@@ -95,7 +95,8 @@ unwanted space when exporting org-mode to hugo markdown."
   (defun cnsunyour/pyim-english-probe-modes()
     "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
     (interactive)
-    (unless (derived-mode-p 'telega-chat-mode)
+    (if (derived-mode-p 'telega-chat-mode)
+        (pyim-probe-auto-english)
       (or (pyim-probe-program-mode)
           (pyim-probe-org-speed-commands)
           (pyim-probe-org-structure-template))))
