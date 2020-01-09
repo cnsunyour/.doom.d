@@ -111,9 +111,8 @@ unwanted space when exporting org-mode to hugo markdown."
 
   (defun cnsunyour/pyim-punctuation-probe-modes(char)
     "自定义标点符号半角探针函数，用于在不同mode下使用不同的探针列表"
-    (unless (derived-mode-p 'telega-chat-mode)
       (or (pyim-probe-punctuation-line-beginning char)
-          (pyim-probe-punctuation-after-punctuation char))))
+          (pyim-probe-punctuation-after-punctuation char)))
   ;; 设置标点符号半角探针方式，采用自定义探针函数
   (setq-default pyim-punctuation-half-width-functions
                 '(cnsunyour/pyim-punctuation-probe-modes))
