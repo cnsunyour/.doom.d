@@ -136,7 +136,7 @@
 
 ;; beancount复式账簿记账
 (use-package! beancount
-  :load-path (concat doom-private-dir "elisp")
+  :load-path "~/.doom.d/elisp"
   :ensure nil
   :defer t
   :bind
