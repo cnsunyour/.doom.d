@@ -8,6 +8,5 @@
 (package! dash-at-point)
 (package! posframe)
 (package! alert)
-(package! fuz :disable t) ;; 目前只有snails在用
-(package! snails :disable t
-  :recipe (:host github :repo "manateelazycat/snails"))
+(package! fuz) ;; 目前只有snails在用
+;; (package! snails :disable t)
