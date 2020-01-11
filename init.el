@@ -14,7 +14,7 @@
 
        :completion
        (company +childframe)           ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
+       ;;(helm +childframe)              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy +childframe +icons)               ; a search engine for love and life
 
@@ -59,12 +59,18 @@
        :emacs
        (dired +ranger +icons)
        electric          ; smarter, keyword-based electric-indent
+       ibuffer
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
        eshell            ; a consistent, cross-platform shell (WIP)
        ;; term              ; terminals in Emacs
        vterm             ; another terminals in Emacs
+
+       :checkers
+       (syntax +childframe)              ; tasing you for every semicolon you forget
+       ;;spell             ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
 
        :tools
        ansible
@@ -74,8 +80,6 @@
        ;; editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
-       flycheck          ; tasing you for every semicolon you forget
-       ;;flyspell          ; tasing you for misspelling mispelling
        gist              ; interacting with github gists
        (lookup +docsets) 
        lsp
@@ -161,9 +165,6 @@
        ;; irc              ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-       (write            ; emacs as a word processor (latex + org + markdown)
-        +wordnut         ; wordnet (wn) search
-        +langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :collab
        ;;floobits          ; peer programming for a price
