@@ -4,12 +4,9 @@
 ;; tabnine，一个非常牛的补全插件
 (use-package! company-tabnine
   :when (featurep! :completion company)
-  :custom
-  (company-tabnine-max-num-results 9)
   :hook
   (kill-emacs . company-tabnine-kill-process)
   (lsp-after-open . (lambda ()
-                      (setq company-tabnine-max-num-results 3)
                       (add-to-list 'company-transformers 'company//sort-by-tabnine t)
                       (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))))
   :config
@@ -21,6 +18,9 @@
   ;; (set-company-backend! 'prog-mode
   ;;   'company-tabnine 'company-capf 'company-yasnippet)
   ;; (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
+  (map! (:leader
+          :desc "Use company default backend" "clo" #'company-other-backend
+          :desc "Use company tabnine backend" "clt" #'company-tabnine))
   ;; Integrate company-tabnine with lsp-mode
   (defun company//sort-by-tabnine (candidates)
     (if (or (functionp company-backend)
