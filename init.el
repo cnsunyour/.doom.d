@@ -177,7 +177,25 @@
        ;; The default module sets reasonable defaults for Emacs. It also
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
-       (default +bindings +smartparens))
+       (default +bindings +smartparens)
+
+       :cnsunyour
+       bindings
+       beancount
+       blog
+       calendar
+       chinese
+       ebook
+       irc
+       org
+       plantuml
+       rss
+       tabnine
+       telega
+       tools
+       translate
+       ui
+       love)
 
 (setq custom-file (expand-file-name ".custom.el" doom-private-dir))
 (load custom-file t)

@@ -1,0 +1,16 @@
+;;; cnsunyour/beancount/config.el -*- lexical-binding: t; -*-
+
+
+;; beancount复式账簿记账
+(use-package! beancount
+  :load-path "~/.doom.d/elisp"
+  :ensure nil
+  :defer t
+  :bind
+  ("C-M-S-s-b" . (lambda() (interactive) (find-file "~/Dropbox/beancount/main.bean")))
+  :mode
+  ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
+  :hook
+  ('beancount-mode . #'yas-minor-mode-on)
+  :config
+  (setq beancount-accounts-files (directory-files "~/Dropbox/beancount/accounts" 'full (rx ".bean" eos))))
