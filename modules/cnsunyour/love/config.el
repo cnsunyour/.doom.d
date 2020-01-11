@@ -17,4 +17,4 @@
 (map! :leader
       (:prefix-map ("k" . "Lover's live time")
         :desc "Twinkle's live time" "k" (lambda! (cnsunyour/lover-live-time "Twinkle" 2013 9 16 13 43 0))
-        :desc "Marry passed time" "m" (lambda! (cnsunyour/lover-live-time "Married" 2002 10 4 12 0 0))))
+        :desc "Marry passed time" "m" (lambda! (cnsunyour/lover-live-time "Married" 2002 10 4 9 0 0))))
