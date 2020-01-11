@@ -16,6 +16,7 @@
 (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
                               "xelatex -interaction nonstopmode %f"))
 
+;; 预览 org 和 markdown 文件
 (use-package! grip-mode
   :defer t
   :commands (grip-mode)
@@ -29,6 +30,7 @@
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
 
+;; org 个性化配置
 (after! org
   ;; set org file directory
   (setq org-directory "~/Dropbox/org/")
@@ -249,6 +251,7 @@ See `org-capture-templates' for more information."
                         (org-agenda-todo-ignore-timestamp t)
                         (org-agenda-todo-ignore-with-date t)))))))
 
+  ;; 打开gtd文件的设置
   (map! :leader
         :desc "gtd-inbox"   :g "oai" (λ! (find-file org-agenda-file-gtd))
         :desc "gtd-note"    :g "oan" (λ! (find-file org-agenda-file-note))
