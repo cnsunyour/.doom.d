@@ -42,6 +42,7 @@
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        (window-select +numbers)     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
+       zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -70,7 +71,7 @@
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
        ;;spell             ; tasing you for misspelling mispelling
-       ;;grammar           ; tasing grammar mistake every you make
+       grammar           ; tasing grammar mistake every you make
 
        :tools
        ansible
@@ -81,7 +82,7 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
        gist              ; interacting with github gists
-       (lookup +docsets) 
+       (lookup +dictionary +docsets)
        lsp
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
