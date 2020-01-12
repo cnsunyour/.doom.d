@@ -47,6 +47,10 @@
       :g "<f7>" 'symbol-overlay-mode
       :g "<f8>" 'symbol-overlay-remove-all)
 
+;; ispell: fix "zh_CN" dict error
+(after! ispell
+  (ispell-change-dictionary "american" t))
+
 ;; docker management
 (after! docker
   (setq docker-image-run-arguments '("-i" "-t" "--rm")))
