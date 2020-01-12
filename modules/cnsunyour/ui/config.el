@@ -87,7 +87,7 @@
 
 ;; 每天根据日出日落时间换主题
 (use-package! theme-changer
-  :after doom-theme
+  :after doom-themes solaire-mode
   :config
   (change-theme '(doom-one-light
                   doom-acario-light
