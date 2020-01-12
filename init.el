@@ -198,6 +198,3 @@
        translate
        ui
        love)
-
-(setq custom-file (expand-file-name ".custom.el" doom-private-dir))
-(load custom-file t)
