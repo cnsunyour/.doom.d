@@ -60,7 +60,7 @@
        :emacs
        (dired +ranger +icons)
        electric          ; smarter, keyword-based electric-indent
-       ibuffer
+       (ibuffer +icons)
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -70,7 +70,7 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       ;;spell             ; tasing you for misspelling mispelling
+       spell             ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools
