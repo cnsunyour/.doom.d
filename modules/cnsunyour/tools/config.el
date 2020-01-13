@@ -75,6 +75,15 @@
         (t (insert file))))
 (map! :g "C-M-S-s-v" #'cnsunyour/insert-image-from-clipboard)
 
+;; Automatically save file content
+(use-package! auto-save
+  :custom
+  (auto-save-idle 10 "Increase idle time to auto save files.")
+  (auto-save-silent nil "Nothing to dirty minibuffer if this option is non-nil.")
+  (auto-save-delete-trailing-whitespace t "Trailing whitespace when save files.")
+  :config
+  (auto-save-enable))
+
 ;; fuz.el，目前snails在用
 (use-package! fuz
   :config
