@@ -18,9 +18,6 @@
 (setq calendar-latitude +39.9055472)
 (setq calendar-longitude +116.3887056)
 
-;; 让flycheck检查载入el文件时从load-path里搜索
-(setq flycheck-emacs-lisp-load-path 'inherit)
-
 ;; 设置latex编辑tex文件时用skim同步显示pdf
 (setq TeX-source-correlate-mode t)
 (setq TeX-source-correlate-start-server t)

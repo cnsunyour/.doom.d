@@ -19,9 +19,8 @@
 ;; 启用auto-soure，读取.autoinfo或.authinfo.gpg里的难信息
 ;; (use-package! auth-source)
 
-(use-package! pinentry
-  :config
-  (pinentry-start))
+;; gpg 可以读取在 emacs 中输入的密码
+(use-package! pinentry :config (pinentry-start))
 
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
@@ -46,6 +45,9 @@
       :g "M-p" 'symbol-overlay-switch-backward
       :g "<f7>" 'symbol-overlay-mode
       :g "<f8>" 'symbol-overlay-remove-all)
+
+;; 让flycheck检查载入el文件时从load-path里搜索
+(setq flycheck-emacs-lisp-load-path 'inherit)
 
 ;; ispell: fix "zh_CN" dict error
 (after! ispell
