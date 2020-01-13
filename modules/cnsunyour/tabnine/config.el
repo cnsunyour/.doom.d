@@ -18,7 +18,7 @@
                   (set-company-backend! 'prog-mode
                     'company-tabnine 'company-capf 'company-yasnippet)))
   :config
-  (set company-idle-delay 1)
+  (setq company-idle-delay 1)
   (map! (:leader
           :desc "Use company default backend" "clo" #'company-other-backend
           :desc "Use company tabnine backend" "clt" #'company-tabnine))
