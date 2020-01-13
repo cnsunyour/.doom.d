@@ -3,7 +3,7 @@
 
 
 (package! symbol-overlay)
-(package! exec-path-from-shell)
+(package! exec-path-from-shell :disable t)
 (package! pinentry)
 (package! dash-at-point)
 (package! posframe)
