@@ -54,16 +54,16 @@
   :defer t
   :init
   (map! :leader
-        :g "yy" #'youdao-dictionary-search-at-point++
+        :g "yy" #'youdao-dictionary-search-at-point-posframe
         :g "yY" #'youdao-dictionary-search-at-point
         :g "yp" #'youdao-dictionary-play-voice-at-point
         :g "yP" #'youdao-dictionary-play-voice-from-input)
   :config
   (set-popup-rule! "^\\*Youdao Dictionary\\*" :side 'right :size 0.4 :select t)
   ;; 设定youdao api id和key
-  (setq credentials (auth-source-user-and-password "youdao-api"))
-  (setq youdao-dictionary-api-app-key (car credentials)
-        youdao-dictionary-api-app-secret (cadr credentials))
+  (let ((credentials (auth-source-user-and-password "youdao-api")))
+    (setq youdao-dictionary-app-key (car credentials)
+          youdao-dictionary-secret-key (cadr credentials)))
   ;; Enable Cache
   (setq url-automatic-caching t)
   ;; Enable Chinese word segmentation support (支持中文分词)

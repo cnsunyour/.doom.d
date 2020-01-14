@@ -8,6 +8,5 @@
   :recipe (:host github :repo "manateelazycat/insert-translated-name"))
 (package! sdcv
   :recipe (:host github :repo "manateelazycat/sdcv"))
-(package! youdao-dictionary
-  :recipe (:host github :repo "xuchunyang/youdao-dictionary.el" :fork "cnsunyour/youdao-dictionary.el"))
+(package! youdao-dictionary)
 (package! google-translate)
