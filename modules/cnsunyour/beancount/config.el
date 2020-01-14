@@ -3,7 +3,6 @@
 
 ;; beancount复式账簿记账
 (use-package! beancount
-  :load-path "~/.doom.d/elisp"
   :defer t
   :bind
   ("C-M-S-s-b" . (lambda() (interactive) (find-file "~/Dropbox/beancount/main.bean")))
