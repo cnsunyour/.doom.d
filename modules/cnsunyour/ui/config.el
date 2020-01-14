@@ -1,11 +1,5 @@
 ;;; cnsunyour/ui/config.el -*- lexical-binding: t; -*-
 
-;; dashboard banner image
-(setq fancy-splash-image
-      (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
-             (banner (elt banners (random (length banners)))))
-        banner))
-
 ;; 当前系统分辨率超过1600X100,则判断为大显示器
 (defun cnsunyour/is-large-display-p()
   (let* ((display-width (x-display-pixel-width))
@@ -104,6 +98,14 @@
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
   :config
+  (defadvice! +random-banner--change-theme-a (&rest r)
+    "Set random banner before change theme"
+    :before #'change-theme
+    (setq fancy-splash-image
+          (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
+                 (banner (elt banners (random (length banners)))))
+            banner)))
+
   (add-hook 'emacs-startup-hook
             (lambda()
               (change-theme '(doom-one-light
