@@ -179,8 +179,7 @@ unwanted space when exporting org-mode to hugo markdown."
        (let ((key (car item))
              (value (cdr item)))
          (when (member value '(ivy-prescient-non-fuzzy
-                               ivy--regex-plus
-                               ivy--regex-ignore-order))
+                               ivy--regex-plus))
            (setf (alist-get key ivy-re-builders-alist)
                  #'ivy--regex-pinyin))))
      ivy-re-builders-alist)))
