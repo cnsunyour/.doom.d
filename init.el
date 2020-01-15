@@ -16,7 +16,7 @@
        (company +childframe)           ; the ultimate code completion backend
        ;;(helm +childframe)              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +childframe +icons)               ; a search engine for love and life
+       (ivy +fuzzy +childframe +icons)               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -70,7 +70,7 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       (spell +aspell +everywhere)             ; tasing you for misspelling mispelling
+       ;; spell             ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools
