@@ -98,11 +98,13 @@ unwanted space when exporting org-mode to hugo markdown."
       (if (derived-mode-p 'telega-chat-mode)
           (setq use-en (or use-en
                            (pyim-probe-auto-english)))
-        (when (or (derived-mode-p 'prog-mode)
-                  (derived-mode-p 'text-mode)
-                  (derived-mode-p 'conf-mode))
+        (when (derived-mode-p 'text-mode)
           (setq use-en (or use-en
                            (pyim-probe-auto-english))))
+        (when (or (derived-mode-p 'prog-mode)
+                  (derived-mode-p 'conf-mode))
+          (setq use-en (or use-en
+                           (pyim-probe-dynamic-english))))
         (unless (derived-mode-p 'beancount-mode)
           (setq use-en (or use-en
                            (pyim-probe-program-mode)
