@@ -132,3 +132,55 @@ unwanted space when exporting org-mode to hugo markdown."
         "," 'pyim-page-previous-page
         ";" (λ! (pyim-page-select-word-by-number 2))
         "'" (λ! (pyim-page-select-word-by-number 3))))
+
+
+;; Support pinyin in Ivy
+;; Input prefix ';' to match pinyin
+;; Refer to  https://github.com/abo-abo/swiper/issues/919 and
+;; https://github.com/pengpengxp/swiper/wiki/ivy-support-chinese-pinyin
+(use-package! pinyinlib
+  :commands pinyinlib-build-regexp-string
+  :init
+  (with-no-warnings
+    (defun ivy--regex-pinyin (str)
+      "The regex builder wrapper to support pinyin."
+      (or (pinyin-to-utf8 str)
+          (and (fboundp 'ivy-prescient-non-fuzzy)
+               (ivy-prescient-non-fuzzy str))
+          (ivy--regex-plus str)))
+
+    (defun my-pinyinlib-build-regexp-string (str)
+      "Build a pinyin regexp sequence from STR."
+      (cond ((equal str ".*") ".*")
+            (t (pinyinlib-build-regexp-string str t))))
+
+    (defun my-pinyin-regexp-helper (str)
+      "Construct pinyin regexp for STR."
+      (cond ((equal str " ") ".*")
+            ((equal str "") nil)
+            (t str)))
+
+    (defun pinyin-to-utf8 (str)
+      "Convert STR to UTF-8."
+      (cond ((equal 0 (length str)) nil)
+            ((equal (substring str 0 1) ";")
+             (mapconcat
+              #'my-pinyinlib-build-regexp-string
+              (remove nil (mapcar
+                           #'my-pinyin-regexp-helper
+                           (split-string
+                            (replace-regexp-in-string ";" "" str)
+                            "")))
+              ""))
+            (t nil)))
+
+    (mapcar
+     (lambda (item)
+       (let ((key (car item))
+             (value (cdr item)))
+         (when (member value '(ivy-prescient-non-fuzzy
+                               ivy--regex-plus
+                               ivy--regex-ignore-order))
+           (setf (alist-get key ivy-re-builders-alist)
+                 #'ivy--regex-pinyin))))
+     ivy-re-builders-alist)))

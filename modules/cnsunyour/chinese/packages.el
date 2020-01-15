@@ -7,3 +7,4 @@
 (package! pyim)
 (package! fcitx)
 (package! ace-pinyin)
+(package! pinyinlib)
