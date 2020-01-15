@@ -25,6 +25,9 @@
           :localleader
           :n "v" #'grip-mode))
   :config
+  ;; Use embedded webkit to previe
+  (setq grip-preview-use-webkit t)
+  ;; Setup github username and token for API auth
   (let (credentials)
     (setq credentials (auth-source-user-and-password "mygrip"))
     (setq grip-github-user (car credentials)
