@@ -18,14 +18,6 @@
 (setq calendar-latitude +39.9055472)
 (setq calendar-longitude +116.3887056)
 
-;; 设置latex编辑tex文件时用skim同步显示pdf
-(setq TeX-source-correlate-mode t)
-(setq TeX-source-correlate-start-server t)
-(setq TeX-source-correlate-method 'synctex)
-(setq TeX-view-program-list
-      '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
-(setq TeX-view-program-selection '((output-pdf "Skim")))
-
 ;; init ccls include path
 (after! ccls
   (when IS-MAC
