@@ -145,8 +145,8 @@ unwanted space when exporting org-mode to hugo markdown."
     (defun ivy--regex-pinyin (str)
       "The regex builder wrapper to support pinyin."
       (or (pinyin-to-utf8 str)
-          (and (fboundp 'ivy-prescient-non-fuzzy)
-               (ivy-prescient-non-fuzzy str))
+          (and (fboundp '+ivy-prescient-non-fuzzy)
+               (+ivy-prescient-non-fuzzy str))
           (ivy--regex-plus str)))
 
     (defun my-pinyinlib-build-regexp-string (str)
@@ -178,7 +178,7 @@ unwanted space when exporting org-mode to hugo markdown."
      (lambda (item)
        (let ((key (car item))
              (value (cdr item)))
-         (when (member value '(ivy-prescient-non-fuzzy
+         (when (member value '(+ivy-prescient-non-fuzzy
                                ivy--regex-plus))
            (setf (alist-get key ivy-re-builders-alist)
                  #'ivy--regex-pinyin))))
