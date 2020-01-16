@@ -190,7 +190,6 @@
        ebook
        irc
        org
-       plantuml
        rss
        tabnine
        telega
