@@ -1,11 +1,5 @@
 ;;; cnsunyour/ui/config.el -*- lexical-binding: t; -*-
 
-;; dashboard banner image
-(setq fancy-splash-image
-      (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
-             (banner (elt banners (random (length banners)))))
-        banner))
-
 ;; 当前系统分辨率超过1600X100,则判断为大显示器
 (defun cnsunyour/is-large-display-p()
   (let* ((display-width (x-display-pixel-width))
@@ -81,34 +75,59 @@
   (setq ns-use-fullscreen-animation nil))
 
 ;; 调整启动时窗口大小/最大化/全屏
-;; (pushnew! initial-frame-alist '(width . 200) '(height . 48))
-(add-hook 'window-setup-hook #'toggle-frame-maximized)
-;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+(pushnew! initial-frame-alist '(width . 200) '(height . 48))
+(add-hook 'window-setup-hook #'toggle-frame-maximized t)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
-;; 每天根据日出日落时间换主题
+;; 每天根据日出日落时间自动换主题
+;; 本插件的加载时机很关键，Doom 的加载顺序为：
+;;
+;; ~/.emacs.d/init.el
+;; ~/.emacs.d/core/core.el
+;; ~/.doom.d/init.el
+;; Module init.el files
+;; `doom-before-init-modules-hook'
+;; Module config.el files
+;; ~/.doom.d/config.el
+;; `doom-init-modules-hook'
+;; `after-init-hook'
+;; `emacs-startup-hook'
+;; `doom-init-ui-hook'
+;; `window-setup-hook'
+;;
+;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
-  :after doom-theme
   :config
-  (change-theme '(doom-one-light
-                  doom-acario-light
-                  doom-nord-light
-                  doom-opera-light
-                  doom-solarized-light
-                  doom-tomorrow-day)
-                '(doom-one
-                  doom-city-lights
-                  doom-challenger-deep
-                  doom-dracula
-                  doom-gruvbox
-                  doom-Iosvkem
-                  doom-vibrant
-                  doom-molokai
-                  doom-moonlight
-                  doom-oceanic-next
-                  doom-peacock
-                  doom-spacegrey
-                  doom-snazzy
-                  doom-wilmersdorf)))
+  (defadvice! +random-banner--change-theme-a (&rest r)
+    "Set random banner before change theme"
+    :after #'change-theme
+    (setq fancy-splash-image
+          (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
+                 (banner (elt banners (random (length banners)))))
+            banner)))
+
+  (add-hook 'emacs-startup-hook
+            (lambda()
+              (change-theme '(doom-one-light
+                              doom-acario-light
+                              doom-nord-light
+                              doom-opera-light
+                              doom-solarized-light
+                              doom-tomorrow-day)
+                            '(doom-one
+                              doom-city-lights
+                              doom-challenger-deep
+                              doom-dracula
+                              doom-gruvbox
+                              doom-Iosvkem
+                              doom-vibrant
+                              doom-molokai
+                              doom-moonlight
+                              doom-oceanic-next
+                              doom-peacock
+                              doom-spacegrey
+                              doom-snazzy
+                              doom-wilmersdorf)))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)

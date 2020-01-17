@@ -19,9 +19,8 @@
 ;; 启用auto-soure，读取.autoinfo或.authinfo.gpg里的难信息
 ;; (use-package! auth-source)
 
-(use-package! pinentry
-  :config
-  (pinentry-start))
+;; gpg 可以读取在 emacs 中输入的密码
+(use-package! pinentry :config (pinentry-start))
 
 ;; Symbol Overlay 多关键字高亮插件
 ;; Highlight symbols with overlays while providing a keymap for various
@@ -47,6 +46,13 @@
       :g "<f7>" 'symbol-overlay-mode
       :g "<f8>" 'symbol-overlay-remove-all)
 
+;; 让flycheck检查载入el文件时从load-path里搜索
+(setq flycheck-emacs-lisp-load-path 'inherit)
+
+;; ispell: fix "zh_CN" dict error
+(after! ispell
+  (ispell-change-dictionary "american" t))
+
 ;; docker management
 (after! docker
   (setq docker-image-run-arguments '("-i" "-t" "--rm")))
@@ -69,6 +75,15 @@
         (t (insert file))))
 (map! :g "C-M-S-s-v" #'cnsunyour/insert-image-from-clipboard)
 
+;; Automatically save file content
+(use-package! auto-save
+  :custom
+  (auto-save-idle 10 "Increase idle time to auto save files.")
+  (auto-save-silent nil "Nothing to dirty minibuffer if this option is non-nil.")
+  (auto-save-delete-trailing-whitespace t "Trailing whitespace when save files.")
+  :config
+  (auto-save-enable))
+
 ;; fuz.el，目前snails在用
 (use-package! fuz
   :config
@@ -78,14 +93,11 @@
 ;; A modern, easy-to-expand fuzzy search framework
 ;; M-x snails or M-x snails-search-point
 (use-package! snails
-  :load-path "~/repos/snails"
   :defer t
   :commands snails snails-search-point
   :init
   (map! :leader
         (:g "sn" #'snails)
         (:g "sN" #'snails-search-point))
-  :hook
-  ('snails-mode . #'evil-emacs-state)
   :config
-  (add-to-list 'snails-default-backends #'snails-backend-current-buffer t))
+  (set-evil-initial-state! 'snails-mode 'emacs))

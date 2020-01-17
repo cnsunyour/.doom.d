@@ -17,11 +17,15 @@
   (telega t)
   (let ((chats (mapcar
                 (lambda (x) (cons (ivy-telega-chat-highlight x) x))
-                (telega-filter-chats 'all telega--ordered-chats))))
+                (telega-filter-chats telega--ordered-chats 'all))))
     (ivy-read "chat: " chats
               :action (lambda (x) (telega-chat--pop-to-buffer (cdr x)))
               :caller 'ivy-telega-chat-with)))
 
 (setq telega-completing-read-function 'ivy-completing-read)
+
+(when (functionp 'ivy--regex-pinyin)
+  (push '(telega-chat-with . ivy--regex-pinyin) ivy-re-builders-alist)
+  (push '(ivy-telega-chat-with . ivy--regex-pinyin) ivy-re-builders-alist))
 
 (map! (:g "C-c v" #'ivy-telega-chat-with))

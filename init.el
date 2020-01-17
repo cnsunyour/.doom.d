@@ -8,15 +8,20 @@
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
 
+;; Limit on depth in eval, apply and funcall before error
+(setq max-lisp-eval-depth 1600)
+;; Limit on number of Lisp variable bindings and unwind-protects.
+(setq max-specpdl-size 3200)
+
 (doom! :input
        ;; chinese
        ;; japanese
 
        :completion
        (company +childframe)           ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
+       ;;(helm +childframe)              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +childframe +icons)               ; a search engine for love and life
+       (ivy +fuzzy +childframe +icons)               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -42,6 +47,7 @@
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        (window-select +numbers)     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
+       zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -59,6 +65,7 @@
        :emacs
        (dired +ranger +icons)
        electric          ; smarter, keyword-based electric-indent
+       (ibuffer +icons)
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -66,18 +73,21 @@
        ;; term              ; terminals in Emacs
        vterm             ; another terminals in Emacs
 
+       :checkers
+       (syntax +childframe)              ; tasing you for every semicolon you forget
+       ;; spell             ; tasing you for misspelling mispelling
+       grammar           ; tasing grammar mistake every you make
+
        :tools
        ansible
-       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        docker
        ;; editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
-       flycheck          ; tasing you for every semicolon you forget
-       ;;flyspell          ; tasing you for misspelling mispelling
        gist              ; interacting with github gists
-       (lookup +docsets) 
+       (lookup +dictionary +docsets)
        lsp
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
@@ -161,9 +171,6 @@
        ;; irc              ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-       (write            ; emacs as a word processor (latex + org + markdown)
-        +wordnut         ; wordnet (wn) search
-        +langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :collab
        ;;floobits          ; peer programming for a price
@@ -188,7 +195,6 @@
        ebook
        irc
        org
-       plantuml
        rss
        tabnine
        telega
@@ -196,6 +202,3 @@
        translate
        ui
        love)
-
-(setq custom-file (expand-file-name ".custom.el" doom-private-dir))
-(load custom-file t)

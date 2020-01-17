@@ -486,11 +486,12 @@ also look at data in selected files."
               (puthash (match-string-no-properties n) nil hash)))
           ;; If `files' are provided, also look into them.
           (when files
-            (dolist (f files)
-              (with-current-buffer (find-file-noselect f)
-                (goto-char (point-min))
-                (while (re-search-forward regexp nil t)
-                  (puthash (match-string-no-properties n) nil hash)))))
+            (save-excursion
+              (dolist (f files)
+                (with-current-buffer (find-file-noselect f)
+                  (goto-char (point-min))
+                  (while (re-search-forward regexp nil t)
+                    (puthash (match-string-no-properties n) nil hash))))))
           (hash-table-keys hash))))))
 
 (defun beancount-account-completion-table (string pred action)
