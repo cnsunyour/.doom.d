@@ -42,6 +42,8 @@
         telega-animation-play-inline t
         telega-emoji-use-images nil
         telega-sticker-set-download t)
+  (pushnew! telega--inline-bot
+             "@vid" "@bing" "@wiki" "@imdb")
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :quit t :modeline t)
