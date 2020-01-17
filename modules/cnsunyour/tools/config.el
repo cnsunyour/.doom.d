@@ -99,4 +99,5 @@
   (map! :leader
         (:g "sn" #'snails)
         (:g "sN" #'snails-search-point))
+  :config
   (set-evil-initial-state! 'snails-mode 'emacs))

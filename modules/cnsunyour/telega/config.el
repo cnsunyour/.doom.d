@@ -8,7 +8,6 @@
   :bind ("C-M-S-s-t" . #'telega)
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
-  (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
   :hook
   ('telega-chat-mode . #'toggle-input-method) ;; 激活输入法必须在hook列表的最后才有效
   ('telega-chat-mode . #'yas-minor-mode-on)
@@ -21,6 +20,7 @@
                                      '(telega-company-botcmd))))))
   ('telega-chat-pre-message . #'telega-msg-ignore-blocked-sender)
   :config
+  (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
   (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
                                        :type (:@type "proxyTypeSocks5")))
         telega-chat-use-markdown-formatting nil
