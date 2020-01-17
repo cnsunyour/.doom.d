@@ -9,9 +9,6 @@
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
   :hook
-  ('telega-chat-mode . #'toggle-input-method) ;; 激活输入法必须在hook列表的最后才有效
-  ('telega-root-mode . #'evil-emacs-state)
-  ('telega-chat-mode . #'evil-emacs-state)
   ('telega-chat-mode . #'yas-minor-mode-on)
   ('telega-chat-mode . (lambda ()
                          (set-company-backend! 'telega-chat-mode
@@ -22,14 +19,19 @@
                                      '(telega-company-botcmd))))))
   ('telega-chat-pre-message . #'telega-msg-ignore-blocked-sender)
   :config
+  (defadvice! +active-pyim--telega-chat-mode-a (&rest r)
+    "Active input method `pyim' on telega-chat-mode"
+    :after #'telega-chat--pop-to-buffer
+    (activate-input-method "pyim"))
+
+  (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
   (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
                                        :type (:@type "proxyTypeSocks5")))
-        telega-chat-use-markdown-formatting nil
+        telega-chat-use-markdown-version nil
         telega-animation-play-inline t
-        telega-use-tracking t
+        telega-use-tracking-for t
         telega-emoji-use-images nil
-        telega-sticker-set-download t
-        telega-chat-footer-show-pinned-message nil)
+        telega-sticker-set-download t)
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :quit t :modeline t)
   (set-popup-rule! "^◀[[({<].*[\])}>]$"
