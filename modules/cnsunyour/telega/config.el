@@ -8,10 +8,9 @@
   :bind ("C-M-S-s-t" . #'telega)
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
+  (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
   :hook
   ('telega-chat-mode . #'toggle-input-method) ;; 激活输入法必须在hook列表的最后才有效
-  ('telega-root-mode . #'evil-emacs-state)
-  ('telega-chat-mode . #'evil-emacs-state)
   ('telega-chat-mode . #'yas-minor-mode-on)
   ('telega-chat-mode . (lambda ()
                          (set-company-backend! 'telega-chat-mode

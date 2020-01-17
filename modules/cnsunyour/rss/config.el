@@ -3,7 +3,8 @@
 
 ;; custom elfeed's configuration
 (after! elfeed
-  (add-hook 'elfeed-show-mode-hook #'evil-emacs-state)
+  (set-evil-initial-state! '(elfeed-search-mode elfeed-show-mode) 'emacs)
   (when (featurep! :editor evil +everywhere)
     (evil-define-key 'normal elfeed-search-mode-map
-      "R" #'elfeed-search-fetch)))
+      "R" #'elfeed-search-fetch))
+  (define-key elfeed-search-mode-map "q" #'elfeed-kill-buffer))
