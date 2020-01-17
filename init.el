@@ -193,6 +193,7 @@
        calendar
        chinese
        ebook
+       editor
        irc
        org
        rss
