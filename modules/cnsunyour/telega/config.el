@@ -25,21 +25,25 @@
     (activate-input-method "pyim"))
 
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
+
   (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
                                        :type (:@type "proxyTypeSocks5")))
         telega-chat-use-markdown-version nil
         telega-animation-play-inline t
-        telega-use-tracking-for t
         telega-emoji-use-images nil
         telega-sticker-set-download t)
+
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :quit t :modeline t)
   (set-popup-rule! "^◀[[({<].*[\])}>]$"
     :side 'right :size 100 :quit t :modeline t)
+
   (telega-mode-line-mode 1)
   (telega-url-shorten-mode 1)
+
   (when (featurep! :completion ivy)
     (load! "+ivy-telega"))
+
   (after! all-the-icons
     (add-to-list 'all-the-icons-mode-icon-alist
                  '(telega-root-mode all-the-icons-fileicon "telegram"
