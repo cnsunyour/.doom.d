@@ -100,7 +100,7 @@
   :config
   (defadvice! +random-banner--change-theme-a (&rest r)
     "Set random banner before change theme"
-    :before #'change-theme
+    :after #'change-theme
     (setq fancy-splash-image
           (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
                  (banner (elt banners (random (length banners)))))
