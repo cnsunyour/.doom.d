@@ -19,10 +19,12 @@
                                      '(telega-company-botcmd))))))
   ('telega-chat-pre-message . #'telega-msg-ignore-blocked-sender)
   :config
-  (defadvice! +active-pyim--telega-chat-mode-a (&rest r)
+  (defadvice! +toggle-input-method--telega-chat-mode-a (chat)
     "Active input method `pyim' on telega-chat-mode"
     :after #'telega-chat--pop-to-buffer
-    (activate-input-method "pyim"))
+    (if (string-match "\\cc" (telega-chat-title chat))
+        (activate-input-method "pyim")
+      (activate-input-method nil)))
 
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
 
