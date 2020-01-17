@@ -5,4 +5,5 @@
   :custom
   (comment-edit-default-mode 'markdown-mode)
   :config
+  (set-popup-rule! "^\\*edit-indirect " :side 'right :size 0.5 :select t)
   (define-key prog-mode-map (kbd "C-c '") #'comment-edit))
