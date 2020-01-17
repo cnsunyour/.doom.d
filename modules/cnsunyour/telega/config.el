@@ -24,7 +24,10 @@
 中文，则激活中文输入法，否则关闭中文输入法"
     :after #'telega-chat--pop-to-buffer
     (let ((title (telega-chat-title chat))
-          (cn-list (list "Emacs 中文"))
+          (cn-list (list "#archlinux-cn"
+                         "wikipedia-zh"
+                         "Jetbrains Agent"
+                         "SCP-079-CHAT"))
           (en-list (list "telega.el")))
       (cond ((member title cn-list) (activate-input-method "pyim"))
             ((member title en-list) (activate-input-method nil))
