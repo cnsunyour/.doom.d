@@ -9,9 +9,9 @@
 ;; found in modules/README.org.
 
 ;; Limit on depth in eval, apply and funcall before error
-(setq max-lisp-eval-depth 1600)
+(setq max-lisp-eval-depth 5000)
 ;; Limit on number of Lisp variable bindings and unwind-protects.
-(setq max-specpdl-size 3200)
+(setq max-specpdl-size 10000)
 
 (doom! :input
        ;; chinese
@@ -75,7 +75,7 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       ;; spell             ; tasing you for misspelling mispelling
+       spell             ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -193,6 +193,7 @@
        calendar
        chinese
        ebook
+       editor
        irc
        org
        rss
