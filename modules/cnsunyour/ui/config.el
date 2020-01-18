@@ -13,7 +13,7 @@
 (setq doom-unicode-font
       (if IS-MAC
           (font-spec :family "Apple Color Emoji"
-                     :size (if (cnsunyour/is-large-display-p) 13 11))
+                     :size (if (cnsunyour/is-large-display-p) 13.5 11.5))
         (font-spec :family "Symbola")))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
