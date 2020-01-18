@@ -34,9 +34,6 @@
             ((string-match "\\cc" title) (activate-input-method "pyim"))
             (t (activate-input-method nil)))))
 
-  (when IS-MAC
-    (define-key telega-chat-mode-map (kbd "C-c C-v") 'telega-chatbuf-attach-screenshot))
-
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
 
   (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
