@@ -32,6 +32,8 @@
       (cond ((member title cn-list) (activate-input-method "pyim"))
             ((member title en-list) (activate-input-method nil))
             ((string-match "\\cc" title) (activate-input-method "pyim"))
+            ((telega-chat-bot-p chat) (activate-input-method nil))
+            ((telega-chat-private-p chat) (activate-input-method "pyim"))
             (t (activate-input-method nil)))))
 
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
