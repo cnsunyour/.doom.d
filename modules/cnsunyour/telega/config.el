@@ -23,21 +23,26 @@
     "在 telega-chat-mode 里根据 chat 名称切换输入法，如果名称包含
 中文，则激活中文输入法，否则关闭中文输入法"
     :after #'telega-chat--pop-to-buffer
-    (let ((title (telega-chat-title chat))
+    (let ((input-method "pyim")
+          (title (telega-chat-title chat))
           (cn-list (list "#archlinux-cn"
                          "wikipedia-zh"
                          "Jetbrains Agent"
                          "SCP-079-CHAT"))
           (en-list (list "telega.el")))
-      (cond ((member title cn-list) (activate-input-method "pyim"))
+      (cond ((member title cn-list) (activate-input-method input-method))
             ((member title en-list) (activate-input-method nil))
-            ((string-match "\\cc" title) (activate-input-method "pyim"))
+            ((string-match "\\cc" title) (activate-input-method input-method))
+            ((telega-chat-bot-p chat) (activate-input-method nil))
+            ((telega-chat-private-p chat) (activate-input-method input-method))
             (t (activate-input-method nil)))))
 
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
 
   (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
                                        :type (:@type "proxyTypeSocks5")))
+        telega-chat-reply-prompt "<<< "
+        telega-chat-edit-prompt "+++ "
         telega-chat-use-markdown-version nil
         telega-animation-play-inline t
         telega-emoji-use-images nil

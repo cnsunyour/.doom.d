@@ -199,6 +199,7 @@
        rss
        tabnine
        telega
+       term
        tools
        translate
        ui
