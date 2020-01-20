@@ -20,7 +20,10 @@
                        :size (if (cnsunyour/is-large-display-p)
                                  (* large-font-size .8)
                                (* small-font-size .8)))
-          (font-spec :family "Symbola"))))
+          (font-spec :family (if (member "Noto Color Emoji"
+                                         (font-family-list))
+                                 "Noto Color Emoji"
+                               "Symbola")))))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
