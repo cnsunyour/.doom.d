@@ -7,7 +7,7 @@
     (and (>= display-width 1600) (>= display-height 1000))))
 
 ;; Set doom font family and size
-(let* ((large-font-size 18)
+(let* ((large-font-size 16)
        (small-font-size (- large-font-size 2)))
   (setq doom-font
         (font-spec :family "Sarasa Mono SC"
