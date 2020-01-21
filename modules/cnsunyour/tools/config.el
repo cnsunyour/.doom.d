@@ -78,13 +78,24 @@
   :config
   (auto-save-enable))
 
-;; Emacs Pastebin Interface
+;; neopastebin -- emacs pastebin interface
 (use-package! neopastebin
   :defer t
   :commands
   pastebin-list-buffer-refresh
   pastebin-new
   :config
+  (when (featurep! :editor evil +everywhere)
+    (evil-define-key 'normal pastebin--list-map
+      "d" #'pastebin-delete-paste-at-point
+      "r" #'pastebin-list-buffer-refresh
+      "F" #'pastebin-list-buffer-refresh-sort-by-format
+      "T" #'pastebin-list-buffer-refresh-sort-by-title
+      "K" #'pastebin-list-buffer-refresh-sort-by-key
+      "D" #'pastebin-list-buffer-refresh-sort-by-date
+      "P" #'pastebin-list-buffer-refresh-sort-by-private
+      "q" #'kill-current-buffer
+      (kbd "ESC ESC ESC") #'kill-current-buffer))
   (let ((credentials (auth-source-user-and-password "pastebin")))
     (pastebin-create-login :username "cnsunyour"
                            :dev-key (car credentials)
