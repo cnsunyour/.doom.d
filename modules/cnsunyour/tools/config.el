@@ -1,12 +1,6 @@
 ;;; cnsunyour/tools/config.el -*- lexical-binding: t; -*-
 
 
-(use-package! exec-path-from-shell
-  :when IS-MAC
-  :config
-  (setq exec-path-from-shell-arguments '("-l"))
-  (exec-path-from-shell-initialize))
-
 ;; 判断网络是否连通
 (defun internet-up-p (&optional host)
     (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
@@ -78,11 +72,19 @@
 ;; Automatically save file content
 (use-package! auto-save
   :custom
-  (auto-save-idle 10 "Increase idle time to auto save files.")
+  (auto-save-idle 60 "Increase idle time to auto save files.")
   (auto-save-silent nil "Nothing to dirty minibuffer if this option is non-nil.")
   (auto-save-delete-trailing-whitespace t "Trailing whitespace when save files.")
   :config
   (auto-save-enable))
+
+;; Ensure environment variables inside Emacs look the same as in the user's shell.
+;; Snails needed currently.
+(use-package! exec-path-from-shell
+  :when IS-MAC
+  :config
+  (setq exec-path-from-shell-arguments '("-l"))
+  (exec-path-from-shell-initialize))
 
 ;; fuz.el，目前snails在用
 (use-package! fuz
