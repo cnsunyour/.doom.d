@@ -30,8 +30,7 @@
   ;; Setup xwidget window popup rule
   (set-popup-rule! "*xwidget" :side 'right :size .50 :select t :quit nil)
   ;; Setup github username and token for API auth
-  (let (credentials)
-    (setq credentials (auth-source-user-and-password "mygrip"))
+  (let ((credentials (auth-source-user-and-password "mygrip")))
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
 
