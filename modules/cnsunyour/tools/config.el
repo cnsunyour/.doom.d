@@ -78,6 +78,18 @@
   :config
   (auto-save-enable))
 
+;; Emacs Pastebin Interface
+(use-package! neopastebin
+  :defer t
+  :commands
+  pastebin-list-buffer-refresh
+  pastebin-new
+  :config
+  (let ((credentials (auth-source-user-and-password "pastebin")))
+    (pastebin-create-login :username "cnsunyour"
+                           :dev-key (car credentials)
+                           :password (cadr credentials))))
+
 ;; Ensure environment variables inside Emacs look the same as in the user's shell.
 ;; Snails needed currently.
 (use-package! exec-path-from-shell
