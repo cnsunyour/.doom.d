@@ -28,10 +28,9 @@
   ;; Use embedded webkit to previe
   (setq grip-preview-use-webkit t)
   ;; Setup xwidget window popup rule
-  (set-popup-rule! "*xwidget" :side 'right :size .50 :select t :quit nil)
+  (set-popup-rule! "*xwidget" :side 'right :size .50 :select nil :quit t)
   ;; Setup github username and token for API auth
-  (let (credentials)
-    (setq credentials (auth-source-user-and-password "mygrip"))
+  (let ((credentials (auth-source-user-and-password "mygrip")))
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
 

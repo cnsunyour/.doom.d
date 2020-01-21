@@ -10,10 +10,9 @@
 ;;   (setq org2blog/wp-default-title nil)
 ;;   (setq org2blog/wp-default-categories (list "个人" "技术" "家庭" "生活"))
 
-;;   (let (credentials)
 ;;     ;; only required if your auth file is not already in the list of auth-sources
 ;;     ;; (add-to-list 'auth-sources "~/.authinfo")
-;;     (setq credentials (auth-source-user-and-password "myblog"))
+;;   (let ((credentials (auth-source-user-and-password "myblog")))
 ;;     (setq org2blog/wp-blog-alist
 ;;           `(("myblog"
 ;;              :url "http://www.sunyour.org/blog/xmlrpc.php"
