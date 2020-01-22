@@ -72,7 +72,7 @@
 ;; Automatically save file content
 (use-package! auto-save
   :custom
-  (auto-save-idle 60 "Increase idle time to auto save files.")
+  (auto-save-idle 10 "Increase idle time to auto save files.")
   (auto-save-silent nil "Nothing to dirty minibuffer if this option is non-nil.")
   (auto-save-delete-trailing-whitespace t "Trailing whitespace when save files.")
   :config
