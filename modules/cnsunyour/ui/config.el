@@ -7,14 +7,23 @@
     (and (>= display-width 1600) (>= display-height 1000))))
 
 ;; Set doom font family and size
-(setq doom-font
-      (font-spec :family "Sarasa Mono SC"
-                 :size (if (cnsunyour/is-large-display-p) 18 16)))
-(setq doom-unicode-font
-      (if IS-MAC
-          (font-spec :family "Apple Color Emoji"
-                     :size (if (cnsunyour/is-large-display-p) 15.5 13.5))
-        (font-spec :family "Symbola")))
+(let* ((large-font-size 16)
+       (small-font-size (- large-font-size 2)))
+  (setq doom-font
+        (font-spec :family "Sarasa Mono SC"
+                   :size (if (cnsunyour/is-large-display-p)
+                             large-font-size
+                           small-font-size)))
+  (setq doom-unicode-font
+        (if IS-MAC
+            (font-spec :family "Apple Color Emoji"
+                       :size (if (cnsunyour/is-large-display-p)
+                                 (* large-font-size .8)
+                               (* small-font-size .8)))
+          (font-spec :family (if (member "Noto Color Emoji"
+                                         (font-family-list))
+                                 "Noto Color Emoji"
+                               "Symbola")))))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)

@@ -9,9 +9,9 @@
 ;; found in modules/README.org.
 
 ;; Limit on depth in eval, apply and funcall before error
-(setq max-lisp-eval-depth 5000)
+(setq max-lisp-eval-depth 1600)
 ;; Limit on number of Lisp variable bindings and unwind-protects.
-(setq max-specpdl-size 10000)
+(setq max-specpdl-size 3200)
 
 (doom! :input
        ;; chinese
@@ -21,7 +21,7 @@
        (company +childframe)           ; the ultimate code completion backend
        ;;(helm +childframe)              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +fuzzy +childframe +icons)               ; a search engine for love and life
+       (ivy +childframe +icons)               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -75,7 +75,7 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       spell             ; tasing you for misspelling mispelling
+       ;; spell             ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -92,7 +92,7 @@
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
-       pass              ; password manager for nerds
+       (pass +auth)              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings

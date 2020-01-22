@@ -1,12 +1,6 @@
 ;;; cnsunyour/tools/config.el -*- lexical-binding: t; -*-
 
 
-(use-package! exec-path-from-shell
-  :when IS-MAC
-  :config
-  (setq exec-path-from-shell-arguments '("-l"))
-  (exec-path-from-shell-initialize))
-
 ;; 判断网络是否连通
 (defun internet-up-p (&optional host)
     (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
@@ -83,6 +77,37 @@
   (auto-save-delete-trailing-whitespace t "Trailing whitespace when save files.")
   :config
   (auto-save-enable))
+
+;; neopastebin -- emacs pastebin interface
+(use-package! neopastebin
+  :defer t
+  :commands
+  pastebin-list-buffer-refresh
+  pastebin-new
+  :config
+  (when (featurep! :editor evil +everywhere)
+    (evil-define-key 'normal pastebin--list-map
+      "d" #'pastebin-delete-paste-at-point
+      "r" #'pastebin-list-buffer-refresh
+      "F" #'pastebin-list-buffer-refresh-sort-by-format
+      "T" #'pastebin-list-buffer-refresh-sort-by-title
+      "K" #'pastebin-list-buffer-refresh-sort-by-key
+      "D" #'pastebin-list-buffer-refresh-sort-by-date
+      "P" #'pastebin-list-buffer-refresh-sort-by-private
+      "q" #'kill-current-buffer
+      (kbd "ESC ESC ESC") #'kill-current-buffer))
+  (let ((credentials (auth-source-user-and-password "pastebin")))
+    (pastebin-create-login :username "cnsunyour"
+                           :dev-key (car credentials)
+                           :password (cadr credentials))))
+
+;; Ensure environment variables inside Emacs look the same as in the user's shell.
+;; Snails needed currently.
+(use-package! exec-path-from-shell
+  :when IS-MAC
+  :config
+  (setq exec-path-from-shell-arguments '("-l"))
+  (exec-path-from-shell-initialize))
 
 ;; fuz.el，目前snails在用
 (use-package! fuz
