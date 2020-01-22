@@ -266,10 +266,17 @@ See `org-capture-templates' for more information."
                         (org-agenda-todo-ignore-scheduled t)
                         (org-agenda-todo-ignore-deadlines t)
                         (org-agenda-todo-ignore-timestamp t)
-                        (org-agenda-todo-ignore-with-date t)))))))
+                        (org-agenda-todo-ignore-with-date t))))))))
 
   ;; 打开gtd文件的设置
-  (map! :leader
-        :desc "gtd-inbox"   :g "oai" (λ! (find-file org-agenda-file-gtd))
-        :desc "gtd-note"    :g "oan" (λ! (find-file org-agenda-file-note))
-        :desc "gtd-journal" :g "oaj" (λ! (find-file org-agenda-file-journal))))
+(map! (:after org
+        (:leader
+          :desc "Org Agenda"   :g "a"  #'org-agenda
+          :desc "CFW Calendar" :g "oc" #'cfw:open-org-calendar)
+        (:map org-mode-map "C-c o" #'org-pomodoro))
+      (:after org-agenda
+        (:leader
+          :desc "gtd-inbox"    :g "oai" (λ! (find-file org-agenda-file-gtd))
+          :desc "gtd-note"     :g "oan" (λ! (find-file org-agenda-file-note))
+          :desc "gtd-journal"  :g "oaj" (λ! (find-file org-agenda-file-journal)))
+        (:map org-agenda-mode-map "C-c o" #'org-pomodoro)))
