@@ -84,6 +84,17 @@
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
   ;; set capture templates
   (after! org-capture
+    (defun org-new-task-capture-template ()
+      "Returns `org-capture' template string for new task.
+See `org-capture-templates' for more information."
+      (let ((title (read-string "Task Name: "))) ;Prompt to enter the post title
+        (mapconcat #'identity
+                   `(,(concat "* TODO [#B] " title)
+                     ":PROPERTIES:"
+                     ":Created: %U"
+                     ":END:"
+                     "　%?\n")          ;Place the cursor here finally
+                   "\n")))
     (defun org-hugo-new-subtree-post-capture-template ()
       "Returns `org-capture' template string for new Hugo post.
 See `org-capture-templates' for more information."
@@ -100,10 +111,12 @@ See `org-capture-templates' for more information."
                    "\n")))
     (setq org-capture-templates
           '(("i" "New Todo Task" entry (file+headline org-agenda-file-gtd "Tasks")
-             "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+             ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+             (function org-new-task-capture-template)
              :prepend t :clock-in t :clock-resume t :kill-buffer t)
             ("p" "Project Task" entry (file+headline org-agenda-file-project "Projects")
-             "* TODO [#B] %^{Project Task}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+             ;; "* TODO [#B] %^{Project Task}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+             (function org-new-task-capture-template)
              :prepend t :clock-in t :clock-resume t :kill-buffer t)
             ("n" "Taking Notes" entry (file+olp+datetree org-agenda-file-note)
              ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
