@@ -23,7 +23,7 @@
   :init
   (map! (:map (markdown-mode-map org-mode-map)
           :localleader
-          :n "v" #'grip-mode))
+          "v" #'grip-mode))
   :config
   ;; Use embedded webkit to previe
   (setq grip-preview-use-webkit t)
