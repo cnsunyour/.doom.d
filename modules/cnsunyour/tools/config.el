@@ -6,13 +6,6 @@
     (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
                        (if host host "www.google.com"))))
 
-;; 启用epa-file，可以解密.authinfo.gpg文件
-;; (use-package! epa-file :config (epa-file-enable))
-;; 启用auth-source-pass，可以使用.password-store里的密码
-;; (use-package! auth-source-pass :config (auth-source-pass-enable))
-;; 启用auto-soure，读取.autoinfo或.authinfo.gpg里的难信息
-;; (use-package! auth-source)
-
 ;; gpg 可以读取在 emacs 中输入的密码
 (use-package! pinentry :config (pinentry-start))
 
