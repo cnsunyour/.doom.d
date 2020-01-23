@@ -195,6 +195,7 @@
        ebook
        editor
        irc
+       ivy
        org
        rss
        tabnine
