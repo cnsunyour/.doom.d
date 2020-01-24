@@ -108,8 +108,6 @@
 
   (telega-mode-line-mode 1)
   (telega-url-shorten-mode 1)
-  (when dbus-runtime-version
-    (telega-notifications-mode 1))
 
   (when (featurep! :completion ivy)
     (load! "+ivy-telega"))
