@@ -270,11 +270,9 @@ See `org-capture-templates' for more information."
 (map! (:after org
         (:leader
           :desc "Org Agenda"   "a"  #'org-agenda
-          :desc "CFW Calendar" "oc" #'cfw:open-org-calendar)
-        (:map org-mode-map "C-c o" #'org-pomodoro))
+          :desc "CFW Calendar" "oc" #'cfw:open-org-calendar))
       (:after org-agenda
         (:leader
           :desc "gtd-inbox"    "oai" (λ! (find-file org-agenda-file-gtd))
           :desc "gtd-note"     "oan" (λ! (find-file org-agenda-file-note))
-          :desc "gtd-journal"  "oaj" (λ! (find-file org-agenda-file-journal)))
-        (:map org-agenda-mode-map "C-c o" #'org-pomodoro)))
+          :desc "gtd-journal"  "oaj" (λ! (find-file org-agenda-file-journal)))))
