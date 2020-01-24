@@ -27,11 +27,11 @@
 ;; "s" -> symbol-overlay-isearch-literally
 ;; "q" -> symbol-overlay-query-replace
 ;; "r" -> symbol-overlay-rename
-(map! :g "M-i" 'symbol-overlay-put
-      :g "M-n" 'symbol-overlay-switch-forward
-      :g "M-p" 'symbol-overlay-switch-backward
-      :g "<f7>" 'symbol-overlay-mode
-      :g "<f8>" 'symbol-overlay-remove-all)
+(map! "M-i" 'symbol-overlay-put
+      "M-n" 'symbol-overlay-switch-forward
+      "M-p" 'symbol-overlay-switch-backward
+      "<f7>" 'symbol-overlay-mode
+      "<f8>" 'symbol-overlay-remove-all)
 
 ;; 让flycheck检查载入el文件时从load-path里搜索
 (setq flycheck-emacs-lisp-load-path 'inherit)
@@ -49,8 +49,8 @@
   :defer t
   :init
   (map! :leader
-        :g "dd" #'dash-at-point
-        :g "dD" #'dash-at-point-with-docset))
+        "dd" #'dash-at-point
+        "dD" #'dash-at-point-with-docset))
 
 (defun cnsunyour/insert-image-from-clipboard ()
   "保存剪切板图片为 Y-m-d-H-M-S.png，插入 Markdown/Org/telega 图片链接."
@@ -60,7 +60,7 @@
          (call-process-shell-command (format "pngpaste ~/.telega/temp/%s" file))
          (telega-chatbuf--attach-tmp-photo (format "~/.telega/temp/%s" file)))
         (t (insert file))))
-(map! :g "C-M-S-s-v" #'cnsunyour/insert-image-from-clipboard)
+(map! "C-M-S-s-v" #'cnsunyour/insert-image-from-clipboard)
 
 ;; Automatically save file content
 (use-package! auto-save
@@ -79,16 +79,15 @@
   pastebin-new
   :config
   (when (featurep! :editor evil +everywhere)
-    (evil-define-key 'normal pastebin--list-map
-      "d" #'pastebin-delete-paste-at-point
-      "r" #'pastebin-list-buffer-refresh
-      "F" #'pastebin-list-buffer-refresh-sort-by-format
-      "T" #'pastebin-list-buffer-refresh-sort-by-title
-      "K" #'pastebin-list-buffer-refresh-sort-by-key
-      "D" #'pastebin-list-buffer-refresh-sort-by-date
-      "P" #'pastebin-list-buffer-refresh-sort-by-private
-      "q" #'kill-current-buffer
-      (kbd "ESC ESC ESC") #'kill-current-buffer))
+    (map! :map pastebin--list-map
+          :n "d" #'pastebin-delete-paste-at-point
+          :n "r" #'pastebin-list-buffer-refresh
+          :n "F" #'pastebin-list-buffer-refresh-sort-by-format
+          :n "T" #'pastebin-list-buffer-refresh-sort-by-title
+          :n "K" #'pastebin-list-buffer-refresh-sort-by-key
+          :n "D" #'pastebin-list-buffer-refresh-sort-by-date
+          :n "P" #'pastebin-list-buffer-refresh-sort-by-private
+          :n "q" #'kill-current-buffer))
   (let ((credentials (auth-source-user-and-password "pastebin")))
     (pastebin-create-login :username "cnsunyour"
                            :dev-key (car credentials)
@@ -115,7 +114,7 @@
   :commands snails snails-search-point
   :init
   (map! :leader
-        (:g "sn" #'snails)
-        (:g "sN" #'snails-search-point))
+        "sn" #'snails
+        "sN" #'snails-search-point)
   :config
   (set-evil-initial-state! 'snails-mode 'emacs))
