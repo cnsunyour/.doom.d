@@ -5,14 +5,14 @@
   :defer t
   :commands toggle-company-english-helper
   :init
-  (map! :leader :g "yM" #'toggle-company-english-helper))
+  (map! :leader "yM" #'toggle-company-english-helper))
 
 ;; 输入insert-translated-name-insert激活命令，可以输入中文后按空格翻译成英文插入当前位置。
 (use-package! insert-translated-name
   :defer t
   :commands insert-translated-name-insert-original-translation
   :init
-  (map! :leader :g "ym" #'insert-translated-name-insert-original-translation))
+  (map! :leader "ym" #'insert-translated-name-insert-original-translation))
 
 ;; sdcv翻译当前单词
 (use-package! sdcv
@@ -20,8 +20,8 @@
   :commands sdcv-search-pointer+ sdcv-search-pointer
   :init
   (map! :leader
-        :g "yd" #'sdcv-search-pointer+
-        :g "yD" #'sdcv-search-pointer)
+        "yd" #'sdcv-search-pointer+
+        "yD" #'sdcv-search-pointer)
   :config
   (set-popup-rule! "^\\*SDCV\\*" :side 'right :size 0.4 :select t)
   (set-face-background 'sdcv-tooltip-face nil)
@@ -54,10 +54,10 @@
   :defer t
   :init
   (map! :leader
-        :g "yy" #'youdao-dictionary-search-at-point-posframe
-        :g "yY" #'youdao-dictionary-search-at-point
-        :g "yp" #'youdao-dictionary-play-voice-at-point
-        :g "yP" #'youdao-dictionary-play-voice-from-input)
+        "yy" #'youdao-dictionary-search-at-point-posframe
+        "yY" #'youdao-dictionary-search-at-point
+        "yp" #'youdao-dictionary-play-voice-at-point
+        "yP" #'youdao-dictionary-play-voice-from-input)
   :config
   (set-popup-rule! "^\\*Youdao Dictionary\\*" :side 'right :size 0.4 :select t)
   ;; 设定youdao api id和key
@@ -89,8 +89,8 @@
         google-translate-default-target-language "zh-CN")
 
   (map! :leader
-        :g "yt" #'google-translate-chinese-at-point++
-        :g "yT" #'google-translate-chinese-at-point)
+        "yt" #'google-translate-chinese-at-point++
+        "yT" #'google-translate-chinese-at-point)
 
   :config
   (set-popup-rule! "^\\*Google Translate\\*" :side 'right :size 0.4 :select t)

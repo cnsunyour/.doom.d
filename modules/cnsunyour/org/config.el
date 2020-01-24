@@ -271,12 +271,12 @@ See `org-capture-templates' for more information."
   ;; 打开gtd文件的设置
 (map! (:after org
         (:leader
-          :desc "Org Agenda"   :g "a"  #'org-agenda
-          :desc "CFW Calendar" :g "oc" #'cfw:open-org-calendar)
+          :desc "Org Agenda"   "a"  #'org-agenda
+          :desc "CFW Calendar" "oc" #'cfw:open-org-calendar)
         (:map org-mode-map "C-c o" #'org-pomodoro))
       (:after org-agenda
         (:leader
-          :desc "gtd-inbox"    :g "oai" (λ! (find-file org-agenda-file-gtd))
-          :desc "gtd-note"     :g "oan" (λ! (find-file org-agenda-file-note))
-          :desc "gtd-journal"  :g "oaj" (λ! (find-file org-agenda-file-journal)))
+          :desc "gtd-inbox"    "oai" (λ! (find-file org-agenda-file-gtd))
+          :desc "gtd-note"     "oan" (λ! (find-file org-agenda-file-note))
+          :desc "gtd-journal"  "oaj" (λ! (find-file org-agenda-file-journal)))
         (:map org-agenda-mode-map "C-c o" #'org-pomodoro)))
