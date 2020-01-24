@@ -137,6 +137,7 @@
                               doom-city-lights
                               doom-challenger-deep
                               doom-dracula
+                              doom-dark+
                               doom-gruvbox
                               doom-Iosvkem
                               doom-vibrant
