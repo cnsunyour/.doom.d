@@ -5,17 +5,7 @@
         mac-option-modifier 'meta))
 
 ;; general keybindings
-(map! (:leader
-        (:desc "Org Agenda" :g "a" #'org-agenda)
-        (:desc "CFW Calendar" :g "oc" #'cfw:open-org-calendar)
-        (:desc "Elfeed" :g "ve" #'elfeed))
-
-      (:after org
-        (:map org-mode-map "C-c o" #'org-pomodoro))
-      (:after org-agenda
-        (:map org-agenda-mode-map "C-c o" #'org-pomodoro))
-
-      :g "C-!" #'kill-buffer-and-window
+(map! :g "C-!" #'kill-buffer-and-window
       :g "C-S-s-l" #'toggle-truncate-lines
 
       :m "M-j" #'multi-next-line
@@ -150,5 +140,4 @@ respectively."
              ("C-x '"  . wrap-with-single-quotes)
              ("C-x \"" . wrap-with-double-quotes)
              ("C-x _"  . wrap-with-underscores)
-             ("C-x `"  . wrap-with-back-quotes))
-  )
+             ("C-x `"  . wrap-with-back-quotes)))

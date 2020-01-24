@@ -2,9 +2,11 @@
 
 
 ;; custom elfeed's configuration
+(when (fboundp 'elfeed)
+  (map! :leader :desc "Elfeed" "ve" #'elfeed))
 (after! elfeed
   (set-evil-initial-state! '(elfeed-search-mode elfeed-show-mode) 'emacs)
-  (when (featurep! :editor evil +everywhere)
-    (evil-define-key 'normal elfeed-search-mode-map
-      "R" #'elfeed-search-fetch))
-  (define-key elfeed-search-mode-map "q" #'elfeed-kill-buffer))
+  (map! :map elfeed-search-mode-map
+        "q" #'elfeed-kill-buffer
+        (:when (featurep! :editor evil +everywhere)
+          :n "R" #'elfeed-search-fetch)))

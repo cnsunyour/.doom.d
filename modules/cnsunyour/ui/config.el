@@ -80,6 +80,9 @@
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)
 
+;; disable display line numbers on text-mode
+(remove-hook 'text-mode-hook #'display-line-numbers-mode)
+
 ;; Enabling Font Ligatures in emacs-mac-port
 (when (eq window-system 'mac)
   (mac-auto-operator-composition-mode))
@@ -134,6 +137,7 @@
                               doom-city-lights
                               doom-challenger-deep
                               doom-dracula
+                              doom-dark+
                               doom-gruvbox
                               doom-Iosvkem
                               doom-vibrant

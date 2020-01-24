@@ -7,8 +7,6 @@
 ;; and kandread's doom-emacs config
 ;; https://github.com/kandread/doom-emacs-private
 
-(use-package! org-pomodoro
-  :commands (org-pomodoro))
 (use-package! counsel-org-clock
   :commands (counsel-org-clock-context counsel-org-clock-history))
 
@@ -23,7 +21,7 @@
   :init
   (map! (:map (markdown-mode-map org-mode-map)
           :localleader
-          :n "v" #'grip-mode))
+          "v" #'grip-mode))
   :config
   ;; Use embedded webkit to previe
   (setq grip-preview-use-webkit t)
@@ -266,10 +264,15 @@ See `org-capture-templates' for more information."
                         (org-agenda-todo-ignore-scheduled t)
                         (org-agenda-todo-ignore-deadlines t)
                         (org-agenda-todo-ignore-timestamp t)
-                        (org-agenda-todo-ignore-with-date t)))))))
+                        (org-agenda-todo-ignore-with-date t))))))))
 
   ;; 打开gtd文件的设置
-  (map! :leader
-        :desc "gtd-inbox"   :g "oai" (λ! (find-file org-agenda-file-gtd))
-        :desc "gtd-note"    :g "oan" (λ! (find-file org-agenda-file-note))
-        :desc "gtd-journal" :g "oaj" (λ! (find-file org-agenda-file-journal))))
+(map! (:after org
+        (:leader
+          :desc "Org Agenda"   "a"  #'org-agenda
+          :desc "CFW Calendar" "oc" #'cfw:open-org-calendar))
+      (:after org-agenda
+        (:leader
+          :desc "gtd-inbox"    "oai" (λ! (find-file org-agenda-file-gtd))
+          :desc "gtd-note"     "oan" (λ! (find-file org-agenda-file-note))
+          :desc "gtd-journal"  "oaj" (λ! (find-file org-agenda-file-journal)))))

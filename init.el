@@ -9,9 +9,9 @@
 ;; found in modules/README.org.
 
 ;; Limit on depth in eval, apply and funcall before error
-(setq max-lisp-eval-depth 1600)
+(setq max-lisp-eval-depth 5000)
 ;; Limit on number of Lisp variable bindings and unwind-protects.
-(setq max-specpdl-size 3200)
+(setq max-specpdl-size 10000)
 
 (doom! :input
        ;; chinese
@@ -134,11 +134,14 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml           ; an objective camel
        (org              ; organize your plain life in plain text
+        +brain
         +dragndrop       ; file drag & drop support
         +gnuplot
         +hugo
-        +ipython         ; ipython support for babel
+        +journal
+        +jupyter
         +pandoc          ; pandoc integration into org's exporter
+        +pomodoro
         +present)        ; using Emacs for presentations
        ;; perl              ; write code no one else can comprehend
        ;; (php +lsp)                ; perl's insecure younger brother
@@ -195,6 +198,7 @@
        ebook
        editor
        irc
+       ivy
        org
        rss
        tabnine
