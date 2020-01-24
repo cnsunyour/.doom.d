@@ -24,7 +24,7 @@
 
 (setq telega-completing-read-function 'ivy-completing-read)
 
-(when (functionp 'ivy--regex-pinyin)
+(when (fboundp 'ivy--regex-pinyin)
   (push '(telega-chat-with . ivy--regex-pinyin) ivy-re-builders-alist)
   (push '(ivy-telega-chat-with . ivy--regex-pinyin) ivy-re-builders-alist))
 
