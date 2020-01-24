@@ -7,8 +7,6 @@
 ;; and kandread's doom-emacs config
 ;; https://github.com/kandread/doom-emacs-private
 
-(use-package! org-pomodoro
-  :commands (org-pomodoro))
 (use-package! counsel-org-clock
   :commands (counsel-org-clock-context counsel-org-clock-history))
 
