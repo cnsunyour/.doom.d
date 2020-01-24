@@ -56,6 +56,5 @@
         ;; (holiday-fixed 3 19 "我的生日")
         ;; (holiday-lunar 2 19 "我的农历生日" 0)
         ))
-(setq mark-holidays-in-calendar t)
 (setq calendar-mark-holidays-flag t)
 (setq calendar-week-start-day 1)   ;;按中国习惯，周一为每周的第一天
