@@ -38,6 +38,11 @@
 ;;
 ;; set org files directory
 (setq org-directory "~/Dropbox/org/")
+;; set org gtd files directory
+(defvar org-gtd-directory "~/Dropbox/gtd/"
+  "Default directory of org gtd files.")
+;; set agenda files
+(setq org-agenda-files (list org-gtd-directory))
 
 ;;
 ;; org private config
@@ -45,11 +50,6 @@
 (after! org
   ;; define key of org-agenda
   (map! :leader :desc "Org Agenda" "a" #'org-agenda)
-  ;; set org gtd files directory
-  (defvar org-gtd-directory "~/Dropbox/gtd/"
-    "Default directory of org gtd files.")
-  ;; set agenda files
-  (setq org-agenda-files (list org-gtd-directory))
   ;; set task states
   (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "STARTED(s!)" "|" "DONE(d!)")
                             (sequence "WAITING(w@/!)" "SOMEDAY(y@/!)" "|" "ABORT(a@/!)")))
