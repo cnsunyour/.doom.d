@@ -34,7 +34,7 @@
 
 
 ;;
-;; org private pre config
+;; `org' pre private config
 ;;
 ;; set org files directory
 (setq org-directory "~/Dropbox/org/")
@@ -45,21 +45,12 @@
 (setq org-agenda-files (list org-gtd-directory))
 
 ;;
-;; org private config
+;; `org' private config
 ;;
 (after! org
   ;; define key of org-agenda
   (map! :leader :desc "Org Agenda" "a" #'org-agenda)
-  ;; set task states
-  (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "STARTED(s!)" "|" "DONE(d!)")
-                            (sequence "WAITING(w@/!)" "SOMEDAY(y@/!)" "|" "ABORT(a@/!)")))
-  (setq org-todo-keyword-faces '(("TODO" :foreground "orange" :weight bold)
-                                 ("NEXT" :foreground "yellow" :weight bold)
-                                 ("STARTED" :foreground "white" :weight bold)
-                                 ("WAITING" :foreground "brown" :weight bold)
-                                 ("SOMEDAY" :foreground "purple" :weight bold)
-                                 ("DONE" :foreground "green" :weight bold)
-                                 ("ABORT" :foreground "red" :weight bold)))
+  ;; set tags
   (setq org-tag-alist '(("FLAGGED" . ?f)
                         ("@Office" . ?o)
                         ("@Home" . ?h)
@@ -68,21 +59,16 @@
                         ("@Errands" . ?e)
                         ("@Lunchtime" . ?l)))
   (setq org-tag-persistent-alist org-tag-alist)
-  (setq org-priority-faces '((?A . error)
-                             (?B . warning)
-                             (?C . success)))
-
   ;; trigger task states
-  (setq org-todo-state-tags-triggers (quote (("ABORT" ("ABORT" . t))
-                                             ("WAITING" ("SOMEDAY") ("WAITING" . t))
-                                             ("SOMEDAY" ("WAITING") ("SOMEDAY" . t))
-                                             (done ("WAITING") ("SOMEDAY"))
-                                             ("TODO" ("WAITING") ("ABORT") ("SOMEDAY"))
-                                             ("NEXT" ("WAITING") ("ABORT") ("SOMEDAY"))
-                                             ("STARTED" ("WAITING") ("ABORT") ("SOMEDAY"))
-                                             ("DONE" ("WAITING") ("ABORT") ("SOMEDAY")))))
-  ;; exclude PROJECT tag from being inherited
-  (setq org-tags-exclude-from-inheritance '("PROJECT"))
+  (setq org-todo-state-tags-triggers (quote (("KILL" ("KILL" . t))
+                                             ("WAIT" ("WAIT" . t))
+                                             (done ("WAIT"))
+                                             ("TODO" ("WAIT") ("KILL"))
+                                             ("NEXT" ("WAIT") ("KILL"))
+                                             ("STRT" ("WAIT") ("KILL"))
+                                             ("DONE" ("WAIT") ("KILL")))))
+  ;; exclude PROJ tag from being inherited
+  (setq org-tags-exclude-from-inheritance '("PROJ"))
   ;; show inherited tags in agenda view
   (setq org-agenda-show-inherited-tags t)
   ;; set default notes file
@@ -173,7 +159,7 @@ See `org-capture-templates' for more information."
   ;; show agenda as the only window
   (setq org-agenda-window-setup 'current-window)
   ;; define stuck projects
-  (setq org-stuck-projects '("+LEVEL=2/-DONE-ABORT" ("TODO" "NEXT" "STARTED") ("@Launchtime") "\\<IGNORE\\>"))
+  (setq org-stuck-projects '("+LEVEL=2/-DONE-KILL" ("TODO" "NEXT" "STRT") ("@Launchtime") "\\<IGNORE\\>"))
   ;; perform actions before finalizing agenda view
   (add-hook 'org-agenda-finalize-hook
             (lambda ()
@@ -201,7 +187,7 @@ See `org-capture-templates' for more information."
   ;; retain ignore options in tags-todo search
   (setq org-agenda-tags-todo-honor-ignore-options t)
   ;; hide certain tags from agenda view
-  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJECT" "REFILE")))
+  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJ" "REFILE")))
   ;; remove completed deadline tasks from the agenda view
   (setq org-agenda-skip-deadline-if-done t)
   ;; remove completed scheduled tasks from the agenda view
@@ -218,19 +204,19 @@ See `org-capture-templates' for more information."
   (setq diary-file (expand-file-name "diary" org-directory))
   ;; 使用最后的clock-out时间作为条目关闭时间
   (setq org-use-last-clock-out-time-as-effective-time t)
-  ;; 设置为DONE或ABORT状态时，会生成CLOSED时间戳
+  ;; 设置为DONE或KILL状态时，会生成CLOSED时间戳
   (setq org-log-done 'time)
   ;; 代码块语法高亮
   (setq org-src-fontify-natively t)
   ;; custom agenda commands
   (setq org-agenda-custom-commands
-        '(("r" "Archivable" todo "DONE|ABORT"
+        '(("r" "Archivable" todo "DONE|KILL"
            ((org-agenda-overriding-header "Tasks to Archive:")
             (org-tags-match-list-sublevels nil)))
           ("f" "Flagged" tags-todo "+FLAGGED/!"
            ((org-agenda-overriding-header "Flagged Tasks:")
             (org-tags-match-list-sublevels t)))
-          ("p" "Projects" tags-todo "+PROJECT-LEVEL=1/!"
+          ("p" "Projects" tags-todo "+PROJ-LEVEL=1/!"
            ((org-agenda-overriding-header "Project Tasks:")
             (org-tags-match-list-sublevels 'indented)))
           ("n" "Notes" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
@@ -248,9 +234,9 @@ See `org-capture-templates' for more information."
                         (org-agenda-span 'day)
                         (org-agenda-start-day "+0d")
                         (org-agenda-start-on-weekday nil)
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "ABORT")))
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "KILL")))
                         (org-agenda-todo-ignore-deadlines nil)))
-            (tags-todo "-ABORT/!NEXT|STARTED"
+            (tags-todo "-KILL/!NEXT|STRT"
                        ((org-agenda-overriding-header "Next and Active Tasks:")))
             (agenda "" ((org-agenda-overriding-header "Upcoming Deadlines:")
                         (org-agenda-entry-types '(:deadline))
@@ -258,7 +244,7 @@ See `org-capture-templates' for more information."
                         (org-agenda-start-day "+0d")
                         (org-agenda-start-on-weekday nil)
                         (org-deadline-warning-days 30)
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "ABORT")))
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "KILL")))
                         (org-agenda-time-grid nil)))
             (agenda "" ((org-agenda-overriding-header "Week at a Glance:")
                         (org-agenda-span 5)
@@ -270,7 +256,7 @@ See `org-capture-templates' for more information."
                   ((org-agenda-overriding-header "Tasks to Refile:")
                    (org-tags-match-list-sublevels nil)))
             (org-agenda-list-stuck-projects)
-            (tags-todo "-REFILE-PROJECT-ABORT/!"
+            (tags-todo "-REFILE-PROJ-KILL/!"
                        ((org-agenda-overriding-header "Standalone Tasks:")
                         (org-agenda-todo-ignore-scheduled t)
                         (org-agenda-todo-ignore-deadlines t)
