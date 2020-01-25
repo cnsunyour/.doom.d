@@ -34,9 +34,13 @@
 
 ;; org 个性化配置
 (after! org
-  ;; set org file directory
+  ;; define key of org-agenda
+  (map! :leader :desc "Org Agenda" "a" #'org-agenda)
+  ;; set org files directory
   (setq org-directory "~/Dropbox/org/")
-  (setq org-gtd-directory "~/Dropbox/gtd/")
+  ;; set org gtd files directory
+  (defvar org-gtd-directory "~/Dropbox/gtd/"
+    "Default directory of org gtd files.")
   ;; set agenda files
   (setq org-agenda-files (list org-gtd-directory))
   ;; set task states
@@ -266,13 +270,3 @@ See `org-capture-templates' for more information."
                         (org-agenda-todo-ignore-timestamp t)
                         (org-agenda-todo-ignore-with-date t))))))))
 
-  ;; 打开gtd文件的设置
-(map! (:after org
-        (:leader
-          :desc "Org Agenda"   "a"  #'org-agenda
-          :desc "CFW Calendar" "oc" #'cfw:open-org-calendar))
-      (:after org-agenda
-        (:leader
-          :desc "gtd-inbox"    "oai" (λ! (find-file org-agenda-file-gtd))
-          :desc "gtd-note"     "oan" (λ! (find-file org-agenda-file-note))
-          :desc "gtd-journal"  "oaj" (λ! (find-file org-agenda-file-journal)))))
