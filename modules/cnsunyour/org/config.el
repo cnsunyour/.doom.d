@@ -32,12 +32,19 @@
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
 
-;; org 个性化配置
+
+;;
+;; org private pre config
+;;
+;; set org files directory
+(setq org-directory "~/Dropbox/org/")
+
+;;
+;; org private config
+;;
 (after! org
   ;; define key of org-agenda
   (map! :leader :desc "Org Agenda" "a" #'org-agenda)
-  ;; set org files directory
-  (setq org-directory "~/Dropbox/org/")
   ;; set org gtd files directory
   (defvar org-gtd-directory "~/Dropbox/gtd/"
     "Default directory of org gtd files.")
@@ -79,11 +86,11 @@
   ;; show inherited tags in agenda view
   (setq org-agenda-show-inherited-tags t)
   ;; set default notes file
-  (setq org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory))
-  (setq org-agenda-file-gtd (expand-file-name "inbox.org" org-gtd-directory))
-  (setq org-agenda-file-project (expand-file-name "project.org" org-gtd-directory))
-  (setq org-agenda-file-note (expand-file-name "note.org" org-directory))
-  (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
+  ;; (setq org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory))
+  ;; (setq org-agenda-file-gtd (expand-file-name "inbox.org" org-gtd-directory))
+  ;; (setq +org-capture-projects-file (expand-file-name "project.org" org-gtd-directory))
+  ;; (setq +org-capture-notes-file (expand-file-name "note.org" org-directory))
+  ;; (setq +org-capture-journal-file (expand-file-name "journal.org" org-directory))
   ;; set capture templates
   (after! org-capture
     (defun org-new-task-capture-template ()
@@ -112,24 +119,24 @@ See `org-capture-templates' for more information."
                      "　%?\n")          ;Place the cursor here finally
                    "\n")))
     (setq org-capture-templates
-          '(("i" "New Todo Task" entry (file+headline org-agenda-file-gtd "Tasks")
+          '(("i" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
              ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
              (function org-new-task-capture-template)
              :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("p" "Project Task" entry (file+headline org-agenda-file-project "Projects")
+            ("p" "Project Task" entry (file+headline +org-capture-projects-file "Projects")
              ;; "* TODO [#B] %^{Project Task}\n:PROPERTIES:\n:Created: %U\n:END:\n"
              (function org-new-task-capture-template)
              :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("n" "Taking Notes" entry (file+olp+datetree org-agenda-file-note)
+            ("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
              ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
              (function org-hugo-new-subtree-post-capture-template)
              :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("j" "Keeping Journals" entry (file+olp+datetree org-agenda-file-journal)
+            ("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
              ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
              (function org-hugo-new-subtree-post-capture-template)
              :prepend t :clock-in t :clock-resume t :kill-buffer t))))
   ;; set archive tag
-  (setq org-archive-tag "ARCHIVE")
+  ;; (setq org-archive-tag "ARCHIVE")
   ;; set archive file
   (setq org-archive-location "::* Archived Tasks")
   ;; refiling targets include any file contributing to the agenda - up to 2 levels deep
@@ -227,11 +234,11 @@ See `org-capture-templates' for more information."
            ((org-agenda-overriding-header "Project Tasks:")
             (org-tags-match-list-sublevels 'indented)))
           ("n" "Notes" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
-           ((org-agenda-files (list org-agenda-file-note))
+           ((org-agenda-files (list +org-capture-notes-file))
             (org-agenda-overriding-header "Notes:")
             (org-tags-match-list-sublevels t)))
           ("j" "Journals" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
-           ((org-agenda-files (list org-agenda-file-journal))
+           ((org-agenda-files (list +org-capture-journal-file))
             (org-agenda-overriding-header "Journals:")
             (org-tags-match-list-sublevels t)))
           ("v" "Awesome Agenda View"
