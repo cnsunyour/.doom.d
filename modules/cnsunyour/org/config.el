@@ -50,33 +50,60 @@
 (after! org
   ;; define key of org-agenda
   (map! :leader :desc "Org Agenda" "a" #'org-agenda)
+  ;; set task states
+  (setq org-todo-keywords
+        '((sequence "TODO(t!)"
+                    "NEXT(n!)"
+                    "STRT(s!)"
+                    "WAIT(w@/!)"
+                    "|"
+                    "DONE(d!)"
+                    "KILL(k@/!)")
+          (sequence "[ ](T)"
+                    "[-](S)"
+                    "[?](W)"
+                    "|"
+                    "[X](D)")))
+  (setq org-todo-keyword-faces
+        '(("TODO" :foreground "orange"       :weight bold)
+          ("[ ]"  :foreground "orange"       :weight bold)
+          ("NEXT" :foreground "yellow"       :weight bold)
+          ("STRT" :foreground "white"        :weight bold)
+          ("[-]"  :foreground "white"        :weight bold)
+          ("WAIT" :foreground "brown"        :weight bold)
+          ("[?]"  :foreground "brown"        :weight bold)
+          ("DONE" :foreground "forest green" :weight bold)
+          ("[X]"  :foreground "forest green" :weight bold)
+          ("KILL" :foreground "red"          :weight bold)))
   ;; set tags
-  (setq org-tag-alist '(("FLAGGED" . ?f)
-                        ("@Office" . ?o)
-                        ("@Home" . ?h)
-                        ("@Way" . ?w)
-                        ("@Computer" . ?c)
-                        ("@Errands" . ?e)
-                        ("@Lunchtime" . ?l)))
+  (setq org-tag-alist
+        '(("FLAGGED" . ?f)
+          ("@Office" . ?o)
+          ("@Home" . ?h)
+          ("@Way" . ?w)
+          ("@Computer" . ?c)
+          ("@Errands" . ?e)
+          ("@Lunchtime" . ?l)))
   (setq org-tag-persistent-alist org-tag-alist)
   ;; trigger task states
-  (setq org-todo-state-tags-triggers (quote (("KILL" ("KILL" . t))
-                                             ("WAIT" ("WAIT" . t))
-                                             (done ("WAIT"))
-                                             ("TODO" ("WAIT") ("KILL"))
-                                             ("NEXT" ("WAIT") ("KILL"))
-                                             ("STRT" ("WAIT") ("KILL"))
-                                             ("DONE" ("WAIT") ("KILL")))))
+  (setq org-todo-state-tags-triggers
+        '(("KILL" ("KILL" . t))
+          ("WAIT" ("WAIT" . t))
+          (done ("WAIT"))
+          ("TODO" ("WAIT") ("KILL"))
+          ("NEXT" ("WAIT") ("KILL"))
+          ("STRT" ("WAIT") ("KILL"))
+          ("DONE" ("WAIT") ("KILL"))))
   ;; exclude PROJ tag from being inherited
   (setq org-tags-exclude-from-inheritance '("PROJ"))
   ;; show inherited tags in agenda view
   (setq org-agenda-show-inherited-tags t)
   ;; set default notes file
   ;; (setq org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory))
-  ;; (setq org-agenda-file-gtd (expand-file-name "inbox.org" org-gtd-directory))
-  ;; (setq +org-capture-projects-file (expand-file-name "project.org" org-gtd-directory))
-  ;; (setq +org-capture-notes-file (expand-file-name "note.org" org-directory))
-  ;; (setq +org-capture-journal-file (expand-file-name "journal.org" org-directory))
+  (setq +org-capture-todo-file (expand-file-name "todo.org" org-gtd-directory))
+  (setq +org-capture-projects-file (expand-file-name "projects.org" org-gtd-directory))
+  (setq +org-capture-notes-file (expand-file-name "notes.org" org-directory))
+  (setq +org-capture-journal-file (expand-file-name "journal.org" org-directory))
   ;; set capture templates
   (after! org-capture
     (defun org-new-task-capture-template ()
