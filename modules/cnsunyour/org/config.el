@@ -42,7 +42,10 @@
 (defvar org-gtd-directory "~/Dropbox/gtd/"
   "Default directory of org gtd files.")
 ;; set agenda files
-(setq org-agenda-files (list org-gtd-directory))
+(setq org-agenda-files
+      (list org-gtd-directory
+            (+org-capture-todo-file)
+            (expand-file-name +org-capture-projects-file org-directory)))
 
 ;;
 ;; `org' private config
@@ -100,10 +103,10 @@
   (setq org-agenda-show-inherited-tags t)
   ;; set default notes file
   ;; (setq org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory))
-  (setq +org-capture-todo-file (expand-file-name "todo.org" org-gtd-directory))
-  (setq +org-capture-projects-file (expand-file-name "projects.org" org-gtd-directory))
-  (setq +org-capture-notes-file (expand-file-name "notes.org" org-directory))
-  (setq +org-capture-journal-file (expand-file-name "journal.org" org-directory))
+  ;; (setq +org-capture-todo-file (expand-file-name "todo.org" org-gtd-directory))
+  ;; (setq +org-capture-projects-file (expand-file-name "projects.org" org-gtd-directory))
+  ;; (setq +org-capture-notes-file (expand-file-name "notes.org" org-directory))
+  ;; (setq +org-capture-journal-file (expand-file-name "journal.org" org-directory))
   ;; set capture templates
   (after! org-capture
     (defun org-new-task-capture-template ()
@@ -131,23 +134,26 @@ See `org-capture-templates' for more information."
                      ":END:"
                      "　%?\n")          ;Place the cursor here finally
                    "\n")))
-    (setq org-capture-templates
-          '(("i" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
-             ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
-             (function org-new-task-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("p" "Project Task" entry (file+headline +org-capture-projects-file "Projects")
-             ;; "* TODO [#B] %^{Project Task}\n:PROPERTIES:\n:Created: %U\n:END:\n"
-             (function org-new-task-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
-             ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
-             (function org-hugo-new-subtree-post-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
-             ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
-             (function org-hugo-new-subtree-post-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t))))
+    (defun remove-item-from-org-capture-templates (shortcut)
+      (dolist (item org-capture-templates)
+        (when (string= (car item) shortcut)
+          (setq org-capture-templates (cl-remove item org-capture-templates)))))
+    (remove-item-from-org-capture-templates "t")
+    (remove-item-from-org-capture-templates "n")
+    (remove-item-from-org-capture-templates "j")
+    (pushnew! org-capture-templates
+              '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
+                ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+                (function org-new-task-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t)
+              '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
+                ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
+                (function org-hugo-new-subtree-post-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t)
+              '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
+                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
+                (function org-hugo-new-subtree-post-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t)))
   ;; set archive tag
   ;; (setq org-archive-tag "ARCHIVE")
   ;; set archive file
@@ -247,7 +253,7 @@ See `org-capture-templates' for more information."
            ((org-agenda-overriding-header "Project Tasks:")
             (org-tags-match-list-sublevels 'indented)))
           ("n" "Notes" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
-           ((org-agenda-files (list +org-capture-notes-file))
+           ((org-agenda-files (list (+org-capture-notes-file)))
             (org-agenda-overriding-header "Notes:")
             (org-tags-match-list-sublevels t)))
           ("j" "Journals" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
