@@ -32,54 +32,81 @@
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
 
-;; org 个性化配置
-(after! org
-  ;; set org file directory
-  (setq org-directory "~/Dropbox/org/")
-  (setq org-gtd-directory "~/Dropbox/gtd/")
-  ;; set agenda files
-  (setq org-agenda-files (list org-gtd-directory))
-  ;; set task states
-  (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "STARTED(s!)" "|" "DONE(d!)")
-                            (sequence "WAITING(w@/!)" "SOMEDAY(y@/!)" "|" "ABORT(a@/!)")))
-  (setq org-todo-keyword-faces '(("TODO" :foreground "orange" :weight bold)
-                                 ("NEXT" :foreground "yellow" :weight bold)
-                                 ("STARTED" :foreground "white" :weight bold)
-                                 ("WAITING" :foreground "brown" :weight bold)
-                                 ("SOMEDAY" :foreground "purple" :weight bold)
-                                 ("DONE" :foreground "green" :weight bold)
-                                 ("ABORT" :foreground "red" :weight bold)))
-  (setq org-tag-alist '(("FLAGGED" . ?f)
-                        ("@Office" . ?o)
-                        ("@Home" . ?h)
-                        ("@Way" . ?w)
-                        ("@Computer" . ?c)
-                        ("@Errands" . ?e)
-                        ("@Lunchtime" . ?l)))
-  (setq org-tag-persistent-alist org-tag-alist)
-  (setq org-priority-faces '((?A . error)
-                             (?B . warning)
-                             (?C . success)))
 
+;;
+;; `org' pre private config
+;;
+;; set org files directory
+(setq org-directory "~/Dropbox/org/")
+;; set org gtd files directory
+(defvar org-gtd-directory "~/Dropbox/gtd/"
+  "Default directory of org gtd files.")
+;; set agenda files
+(setq org-agenda-files
+      (list org-gtd-directory
+            (+org-capture-todo-file)
+            (expand-file-name +org-capture-projects-file org-directory)))
+
+;;
+;; `org' private config
+;;
+(after! org
+  ;; define key of org-agenda
+  (map! :leader :desc "Org Agenda" "a" #'org-agenda)
+  ;; set task states
+  (setq org-todo-keywords
+        '((sequence "TODO(t!)"
+                    "NEXT(n!)"
+                    "STRT(s!)"
+                    "WAIT(w@/!)"
+                    "|"
+                    "DONE(d!)"
+                    "KILL(k@/!)")
+          (sequence "[ ](T)"
+                    "[-](S)"
+                    "[?](W)"
+                    "|"
+                    "[X](D)")))
+  (setq org-todo-keyword-faces
+        '(("TODO" :foreground "orange"       :weight bold)
+          ("[ ]"  :foreground "orange"       :weight bold)
+          ("NEXT" :foreground "yellow"       :weight bold)
+          ("STRT" :foreground "white"        :weight bold)
+          ("[-]"  :foreground "white"        :weight bold)
+          ("WAIT" :foreground "brown"        :weight bold)
+          ("[?]"  :foreground "brown"        :weight bold)
+          ("DONE" :foreground "forest green" :weight bold)
+          ("[X]"  :foreground "forest green" :weight bold)
+          ("KILL" :foreground "red"          :weight bold)))
+  ;; set tags
+  (setq org-tag-alist
+        '(("FLAGGED" . ?f)
+          ("@Office" . ?o)
+          ("@Home" . ?h)
+          ("@Way" . ?w)
+          ("@Computer" . ?c)
+          ("@Errands" . ?e)
+          ("@Lunchtime" . ?l)))
+  (setq org-tag-persistent-alist org-tag-alist)
   ;; trigger task states
-  (setq org-todo-state-tags-triggers (quote (("ABORT" ("ABORT" . t))
-                                             ("WAITING" ("SOMEDAY") ("WAITING" . t))
-                                             ("SOMEDAY" ("WAITING") ("SOMEDAY" . t))
-                                             (done ("WAITING") ("SOMEDAY"))
-                                             ("TODO" ("WAITING") ("ABORT") ("SOMEDAY"))
-                                             ("NEXT" ("WAITING") ("ABORT") ("SOMEDAY"))
-                                             ("STARTED" ("WAITING") ("ABORT") ("SOMEDAY"))
-                                             ("DONE" ("WAITING") ("ABORT") ("SOMEDAY")))))
-  ;; exclude PROJECT tag from being inherited
-  (setq org-tags-exclude-from-inheritance '("PROJECT"))
+  (setq org-todo-state-tags-triggers
+        '(("KILL" ("KILL" . t))
+          ("WAIT" ("WAIT" . t))
+          (done ("WAIT"))
+          ("TODO" ("WAIT") ("KILL"))
+          ("NEXT" ("WAIT") ("KILL"))
+          ("STRT" ("WAIT") ("KILL"))
+          ("DONE" ("WAIT") ("KILL"))))
+  ;; exclude PROJ tag from being inherited
+  (setq org-tags-exclude-from-inheritance '("PROJ"))
   ;; show inherited tags in agenda view
   (setq org-agenda-show-inherited-tags t)
   ;; set default notes file
-  (setq org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory))
-  (setq org-agenda-file-gtd (expand-file-name "inbox.org" org-gtd-directory))
-  (setq org-agenda-file-project (expand-file-name "project.org" org-gtd-directory))
-  (setq org-agenda-file-note (expand-file-name "note.org" org-directory))
-  (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
+  ;; (setq org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory))
+  ;; (setq +org-capture-todo-file (expand-file-name "todo.org" org-gtd-directory))
+  ;; (setq +org-capture-projects-file (expand-file-name "projects.org" org-gtd-directory))
+  ;; (setq +org-capture-notes-file (expand-file-name "notes.org" org-directory))
+  ;; (setq +org-capture-journal-file (expand-file-name "journal.org" org-directory))
   ;; set capture templates
   (after! org-capture
     (defun org-new-task-capture-template ()
@@ -107,25 +134,28 @@ See `org-capture-templates' for more information."
                      ":END:"
                      "　%?\n")          ;Place the cursor here finally
                    "\n")))
-    (setq org-capture-templates
-          '(("i" "New Todo Task" entry (file+headline org-agenda-file-gtd "Tasks")
-             ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
-             (function org-new-task-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("p" "Project Task" entry (file+headline org-agenda-file-project "Projects")
-             ;; "* TODO [#B] %^{Project Task}\n:PROPERTIES:\n:Created: %U\n:END:\n"
-             (function org-new-task-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("n" "Taking Notes" entry (file+olp+datetree org-agenda-file-note)
-             ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
-             (function org-hugo-new-subtree-post-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t)
-            ("j" "Keeping Journals" entry (file+olp+datetree org-agenda-file-journal)
-             ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
-             (function org-hugo-new-subtree-post-capture-template)
-             :prepend t :clock-in t :clock-resume t :kill-buffer t))))
+    (defun remove-item-from-org-capture-templates (shortcut)
+      (dolist (item org-capture-templates)
+        (when (string= (car item) shortcut)
+          (setq org-capture-templates (cl-remove item org-capture-templates)))))
+    (remove-item-from-org-capture-templates "t")
+    (remove-item-from-org-capture-templates "n")
+    (remove-item-from-org-capture-templates "j")
+    (pushnew! org-capture-templates
+              '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
+                ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+                (function org-new-task-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t)
+              '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
+                ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
+                (function org-hugo-new-subtree-post-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t)
+              '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
+                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
+                (function org-hugo-new-subtree-post-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t)))
   ;; set archive tag
-  (setq org-archive-tag "ARCHIVE")
+  ;; (setq org-archive-tag "ARCHIVE")
   ;; set archive file
   (setq org-archive-location "::* Archived Tasks")
   ;; refiling targets include any file contributing to the agenda - up to 2 levels deep
@@ -162,7 +192,7 @@ See `org-capture-templates' for more information."
   ;; show agenda as the only window
   (setq org-agenda-window-setup 'current-window)
   ;; define stuck projects
-  (setq org-stuck-projects '("+LEVEL=2/-DONE-ABORT" ("TODO" "NEXT" "STARTED") ("@Launchtime") "\\<IGNORE\\>"))
+  (setq org-stuck-projects '("+LEVEL=2/-DONE-KILL" ("TODO" "NEXT" "STRT") ("@Launchtime") "\\<IGNORE\\>"))
   ;; perform actions before finalizing agenda view
   (add-hook 'org-agenda-finalize-hook
             (lambda ()
@@ -190,7 +220,7 @@ See `org-capture-templates' for more information."
   ;; retain ignore options in tags-todo search
   (setq org-agenda-tags-todo-honor-ignore-options t)
   ;; hide certain tags from agenda view
-  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJECT" "REFILE")))
+  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJ" "REFILE")))
   ;; remove completed deadline tasks from the agenda view
   (setq org-agenda-skip-deadline-if-done t)
   ;; remove completed scheduled tasks from the agenda view
@@ -207,27 +237,27 @@ See `org-capture-templates' for more information."
   (setq diary-file (expand-file-name "diary" org-directory))
   ;; 使用最后的clock-out时间作为条目关闭时间
   (setq org-use-last-clock-out-time-as-effective-time t)
-  ;; 设置为DONE或ABORT状态时，会生成CLOSED时间戳
+  ;; 设置为DONE或KILL状态时，会生成CLOSED时间戳
   (setq org-log-done 'time)
   ;; 代码块语法高亮
   (setq org-src-fontify-natively t)
   ;; custom agenda commands
   (setq org-agenda-custom-commands
-        '(("r" "Archivable" todo "DONE|ABORT"
+        '(("r" "Archivable" todo "DONE|KILL"
            ((org-agenda-overriding-header "Tasks to Archive:")
             (org-tags-match-list-sublevels nil)))
           ("f" "Flagged" tags-todo "+FLAGGED/!"
            ((org-agenda-overriding-header "Flagged Tasks:")
             (org-tags-match-list-sublevels t)))
-          ("p" "Projects" tags-todo "+PROJECT-LEVEL=1/!"
+          ("p" "Projects" tags-todo "+PROJ-LEVEL=1/!"
            ((org-agenda-overriding-header "Project Tasks:")
             (org-tags-match-list-sublevels 'indented)))
           ("n" "Notes" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
-           ((org-agenda-files (list org-agenda-file-note))
+           ((org-agenda-files (list (+org-capture-notes-file)))
             (org-agenda-overriding-header "Notes:")
             (org-tags-match-list-sublevels t)))
           ("j" "Journals" tags "-LEVEL=1-LEVEL=2-LEVEL=3"
-           ((org-agenda-files (list org-agenda-file-journal))
+           ((org-agenda-files (list +org-capture-journal-file))
             (org-agenda-overriding-header "Journals:")
             (org-tags-match-list-sublevels t)))
           ("v" "Awesome Agenda View"
@@ -237,9 +267,9 @@ See `org-capture-templates' for more information."
                         (org-agenda-span 'day)
                         (org-agenda-start-day "+0d")
                         (org-agenda-start-on-weekday nil)
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "ABORT")))
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "KILL")))
                         (org-agenda-todo-ignore-deadlines nil)))
-            (tags-todo "-ABORT/!NEXT|STARTED"
+            (tags-todo "-KILL/!NEXT|STRT"
                        ((org-agenda-overriding-header "Next and Active Tasks:")))
             (agenda "" ((org-agenda-overriding-header "Upcoming Deadlines:")
                         (org-agenda-entry-types '(:deadline))
@@ -247,7 +277,7 @@ See `org-capture-templates' for more information."
                         (org-agenda-start-day "+0d")
                         (org-agenda-start-on-weekday nil)
                         (org-deadline-warning-days 30)
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "ABORT")))
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "KILL")))
                         (org-agenda-time-grid nil)))
             (agenda "" ((org-agenda-overriding-header "Week at a Glance:")
                         (org-agenda-span 5)
@@ -259,20 +289,10 @@ See `org-capture-templates' for more information."
                   ((org-agenda-overriding-header "Tasks to Refile:")
                    (org-tags-match-list-sublevels nil)))
             (org-agenda-list-stuck-projects)
-            (tags-todo "-REFILE-PROJECT-ABORT/!"
+            (tags-todo "-REFILE-PROJ-KILL/!"
                        ((org-agenda-overriding-header "Standalone Tasks:")
                         (org-agenda-todo-ignore-scheduled t)
                         (org-agenda-todo-ignore-deadlines t)
                         (org-agenda-todo-ignore-timestamp t)
                         (org-agenda-todo-ignore-with-date t))))))))
 
-  ;; 打开gtd文件的设置
-(map! (:after org
-        (:leader
-          :desc "Org Agenda"   "a"  #'org-agenda
-          :desc "CFW Calendar" "oc" #'cfw:open-org-calendar))
-      (:after org-agenda
-        (:leader
-          :desc "gtd-inbox"    "oai" (λ! (find-file org-agenda-file-gtd))
-          :desc "gtd-note"     "oan" (λ! (find-file org-agenda-file-note))
-          :desc "gtd-journal"  "oaj" (λ! (find-file org-agenda-file-journal)))))

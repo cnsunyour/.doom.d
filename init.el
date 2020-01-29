@@ -9,7 +9,7 @@
 ;; found in modules/README.org.
 
 ;; Limit on depth in eval, apply and funcall before error
-(setq max-lisp-eval-depth 5000)
+(setq max-lisp-eval-depth 10000)
 ;; Limit on number of Lisp variable bindings and unwind-protects.
 (setq max-specpdl-size 10000)
 
@@ -39,7 +39,7 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       ;; (pretty-code +hasklig)       ; replace bits of code with pretty symbols
+       pretty-code       ; replace bits of code with pretty symbols
        ;; tabs
        treemacs          ; a project drawer, like neotree but cooler
        ;; unicode           ; extended unicode support for various languages
@@ -75,7 +75,7 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       ;; spell             ; tasing you for misspelling mispelling
+       spell             ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools

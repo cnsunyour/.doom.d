@@ -2,7 +2,7 @@
 ;;; cnsunyour/translate/packages.el
 
 
-(package! company-english-helper :disable t
+(package! company-english-helper
   :recipe (:host github :repo "manateelazycat/company-english-helper"))
 (package! insert-translated-name
   :recipe (:host github :repo "manateelazycat/insert-translated-name"))

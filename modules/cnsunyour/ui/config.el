@@ -81,7 +81,7 @@
 (setq display-line-numbers-type 'relative)
 
 ;; disable display line numbers on text-mode
-(remove-hook 'text-mode-hook #'display-line-numbers-mode)
+;; (remove-hook 'text-mode-hook #'display-line-numbers-mode)
 
 ;; Enabling Font Ligatures in emacs-mac-port
 (when (eq window-system 'mac)
