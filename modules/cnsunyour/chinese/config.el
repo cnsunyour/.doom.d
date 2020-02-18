@@ -92,13 +92,9 @@ unwanted space when exporting org-mode to hugo markdown."
         pyim-page-tooltip 'posframe
         pyim-page-length 5)
 
-  ;; 开启拼音搜索功能
-  (pyim-isearch-mode 1)
-
   (defun cnsunyour/pyim-english-prober()
     "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
-    (let ((use-en (or (button-at (point))
-                      (pyim-probe-isearch-mode))))
+    (let ((use-en (button-at (point))))
       (if (derived-mode-p 'telega-chat-mode)
           (setq use-en (or use-en
                            (pyim-probe-auto-english)))
