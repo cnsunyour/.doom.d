@@ -321,5 +321,27 @@ See `org-capture-templates' for more information."
             (setq colors (cdr colors))
             (overlay-put ov 'line-height line-height)
             (overlay-put ov 'line-spacing (1- line-height))))))))
-
 (add-hook 'org-agenda-finalize-hook #'my:org-agenda-time-grid-spacing)
+
+;; terminal-notifier
+(when (executable-find "terminal-notifier")
+  (defun notify-osx (title message)
+    (call-process "terminal-notifier"
+                  nil 0 nil
+                  "-group" "Emacs"
+                  "-title" title
+                  "-sender" "org.gnu.Emacs"
+                  "-message" message
+                  "-activate" "oeg.gnu.Emacs"))
+  (add-hook 'org-pomodoro-finished-hook
+            (lambda ()
+              (notify-osx "Pomodoro completed!" "Time for a break.")))
+  (add-hook 'org-pomodoro-break-finished-hook
+            (lambda ()
+              (notify-osx "Pomodoro Short Break Finished" "Ready for Another?")))
+  (add-hook 'org-pomodoro-long-break-finished-hook
+            (lambda ()
+              (notify-osx "Pomodoro Long Break Finished" "Ready for Another?")))
+  (add-hook 'org-pomodoro-killed-hook
+            (lambda ()
+              (notify-osx "Pomodoro Killed" "One does not simply kill a pomodoro!"))))
