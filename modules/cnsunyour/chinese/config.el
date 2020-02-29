@@ -68,17 +68,17 @@ unwanted space when exporting org-mode to hugo markdown."
       (list paragraph fixed-contents info))))
 
 
-;; (use-package! liberime-config
-;;   :load-path "~/repos/liberime"
-;;   :init
-;;   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
-;;         liberime-user-data-dir (file-truename "~/.local/pyim/rime"))
-;;   :hook
-;;   ('after-liberime-load . (lambda ()
-;;                             (liberime-select-schema "wubi86"))))
+(use-package! liberime-config
+  :load-path "~/repos/liberime"
+  :init
+  (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
+        liberime-user-data-dir (file-truename "~/.local/pyim/rime"))
+  :hook
+  ('after-liberime-load . (lambda ()
+                            (liberime-select-schema "wubi86"))))
 
 (use-package! pyim
-  ;; :after liberime-config
+  :after liberime-config
   :after-call after-find-file pre-command-hook
   :init
   (setq pyim-title "ㄓ")
@@ -87,7 +87,7 @@ unwanted space when exporting org-mode to hugo markdown."
   :config
   (setq pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/")
         default-input-method "pyim"
-        pyim-default-scheme 'wubi
+        pyim-default-scheme 'rime
         pyim-assistant-scheme 'quanpin
         pyim-page-tooltip 'posframe
         pyim-page-length 5)
