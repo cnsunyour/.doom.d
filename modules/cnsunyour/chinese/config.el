@@ -69,7 +69,6 @@ unwanted space when exporting org-mode to hugo markdown."
 
 
 (use-package! liberime-config
-  :load-path "~/repos/liberime"
   :init
   (setenv "RIME_PATH" "~/repos/librime")
   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
