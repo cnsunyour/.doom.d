@@ -68,7 +68,7 @@ unwanted space when exporting org-mode to hugo markdown."
       (list paragraph fixed-contents info))))
 
 
-(use-package! liberime-config
+(use-package! liberime
   :init
   (setenv "RIME_PATH" "~/repos/librime")
   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
@@ -79,7 +79,7 @@ unwanted space when exporting org-mode to hugo markdown."
                             (liberime-select-schema "wubi86"))))
 
 (use-package! pyim
-  :after liberime-config
+  :after liberime
   :after-call after-find-file pre-command-hook
   :init
   (setq pyim-title "ㄓ")
