@@ -73,6 +73,9 @@ unwanted space when exporting org-mode to hugo markdown."
   (setenv "RIME_PATH" "~/repos/librime")
   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
         liberime-user-data-dir (file-truename "~/.local/pyim/rime"))
+  :config
+  (unless (file-exists-p (liberime-get-module-file))
+    (liberime-build))
   :hook
   ('after-init-hook . #'liberime-sync)
   ('after-liberime-load . (lambda ()
