@@ -78,7 +78,7 @@ unwanted space when exporting org-mode to hugo markdown."
     (liberime-build))
   :hook
   ('after-init-hook . #'liberime-sync)
-  ('after-liberime-load . (lambda ()
+  ('liberime-after-start . (lambda ()
                             (liberime-select-schema "wubi86"))))
 
 (use-package! pyim
