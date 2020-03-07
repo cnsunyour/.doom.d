@@ -179,3 +179,9 @@
     ("q" nil "quit"))
   :bind
   (("s-t" . hydra-tab/body)))
+
+
+;; Perfact auto fill mode
+(use-package! sfill
+  :hook
+  (text-mode . #'sfill-mode))
