@@ -184,4 +184,4 @@
 ;; Perfact auto fill mode
 (use-package! sfill
   :hook
-  (text-mode . #'sfill-mode))
+  ('text-mode . #'sfill-mode))
