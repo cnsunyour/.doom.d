@@ -39,3 +39,6 @@
 (when IS-MAC
   (setq mac-system-move-file-to-trash-use-finder t
         delete-by-moving-to-trash t))
+
+;; The idle delay in seconds until completion starts automatically.
+(setq company-idle-delay 1)
