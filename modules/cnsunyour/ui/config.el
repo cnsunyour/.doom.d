@@ -182,6 +182,6 @@
 
 
 ;; Perfact auto fill mode
-(use-package! sfill
+(use-package! flywrap
   :hook
-  ('text-mode . #'sfill-mode))
+  ('text-mode . #'flywrap-mode))
