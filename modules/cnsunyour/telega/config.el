@@ -108,7 +108,7 @@
 
   (telega-mode-line-mode 1)
   (telega-url-shorten-mode 1)
-  (when (and (symbolp 'dbus-runtime-version) (boundp 'dbus-runtime-version))
+  (when (boundp 'dbus-runtime-version)
     (telega-notifications-mode 1))
 
   (when (featurep! :completion ivy)
