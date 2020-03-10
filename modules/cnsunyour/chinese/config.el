@@ -87,7 +87,7 @@ unwanted space when exporting org-mode to hugo markdown."
   :after liberime
   :after-call after-find-file pre-command-hook
   :init
-  (setq pyim-title "ㄓ")
+  (setq pyim-titles '("ㄓ" "ㄓ-EN" "ㄓ-AU"))
   :bind
   ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
   :config
