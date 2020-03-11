@@ -184,4 +184,5 @@
 ;; Perfact auto fill mode
 (use-package! flywrap
   :hook
-  ('text-mode . #'flywrap-mode))
+  ('org-mode . #'flywrap-mode)
+  ('markdown-mode . #'flywrap-mode))
