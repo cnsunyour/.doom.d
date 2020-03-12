@@ -179,10 +179,3 @@
     ("q" nil "quit"))
   :bind
   (("s-t" . hydra-tab/body)))
-
-
-;; Perfact auto fill mode
-(use-package! flywrap
-  :hook
-  ('org-mode . #'flywrap-mode)
-  ('markdown-mode . #'flywrap-mode))
