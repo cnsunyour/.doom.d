@@ -109,8 +109,7 @@ unwanted space when exporting org-mode to hugo markdown."
         (when (derived-mode-p 'text-mode)
           (setq use-en (or use-en
                            (pyim-probe-auto-english))))
-        (when (or (derived-mode-p 'prog-mode)
-                  (derived-mode-p 'conf-mode))
+        (when (derived-mode-p 'prog-mode 'conf-mode)
           (setq use-en (or use-en
                            (pyim-probe-dynamic-english))))
         (unless (derived-mode-p 'beancount-mode)
