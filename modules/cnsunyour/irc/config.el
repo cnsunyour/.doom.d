@@ -7,7 +7,7 @@
   :bind
   ("C-c C-b" . #'weechat-switch-buffer)
   :init
-  (setq weechat-host-default "googlecloud.sunyour.org"
+  (setq weechat-host-default "linode.sunyour.org"
         weechat-port-default 29009
         weechat-mode-default 'ssl
         weechat-auto-monitor-buffers t)
