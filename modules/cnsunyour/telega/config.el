@@ -23,7 +23,7 @@
     "在 telega-chat-mode 里根据 chat 名称切换输入法，如果名称包含
 中文，则激活中文输入法，否则关闭中文输入法"
     :after #'telega-chat--pop-to-buffer
-    (let ((input-method "pyim")
+    (let ((input-method "rime")
           (title (telega-chat-title chat))
           (cn-list (list "#archlinux-cn"
                          "wikipedia-zh"

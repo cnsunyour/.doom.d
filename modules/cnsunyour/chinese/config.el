@@ -85,56 +85,17 @@ unwanted space when exporting org-mode to hugo markdown."
   ('liberime-after-start . (lambda ()
                             (liberime-select-schema "wubi86_jidian"))))
 
-(use-package! pyim
+(use-package! rime
   :after liberime
   :after-call after-find-file pre-command-hook
-  :init
-  (setq pyim-titles '("ㄓ" "ㄓ-EN" "ㄓ-AU"))
-  :bind
-  ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
   :config
-  (setq default-input-method "pyim"
-        pyim-default-scheme 'rime
-        pyim-assistant-scheme 'rime
-        pyim-page-tooltip 'posframe
-        pyim-page-length 5
-        pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
-
-  (defun cnsunyour/pyim-english-prober()
-    "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
-    (let ((use-en (button-at (point))))
-      (if (derived-mode-p 'telega-chat-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-auto-english)))
-        (when (derived-mode-p 'text-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-auto-english))))
-        (when (derived-mode-p 'prog-mode 'conf-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-dynamic-english))))
-        (unless (derived-mode-p 'beancount-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-program-mode)
-                           (pyim-probe-org-speed-commands)
-                           (pyim-probe-org-structure-template)))))
-      use-en))
-  ;; 设置英文输入探针方式，采用自定义探针函数
-  (setq-default pyim-english-input-switch-functions
-                '(cnsunyour/pyim-english-prober))
-
-  (defun cnsunyour/pyim-punctuation-prober(char)
-    "自定义标点符号半角探针函数，用于在不同mode下使用不同的探针列表"
-    (or (pyim-probe-punctuation-line-beginning char)
-        (pyim-probe-punctuation-after-punctuation char)))
-  ;; 设置标点符号半角探针方式，采用自定义探针函数
-  (setq-default pyim-punctuation-half-width-functions
-                '(cnsunyour/pyim-punctuation-prober))
-
-  (map! :map 'pyim-mode-map
-        "." 'pyim-page-next-page
-        "," 'pyim-page-previous-page
-        ";" (λ! (pyim-page-select-word-by-number 2))
-        "'" (λ! (pyim-page-select-word-by-number 3))))
+  (rime-register-and-set-default)
+  (setq rime-show-candidate 'posframe)
+  (setq rime-disable-predicates
+        '((lambda () (button-at (point)))
+          evil-normal-state-p
+          rime--after-alphabet-char-p
+          rime--prog-in-code-p)))
 
 
 ;; Support pinyin in Ivy
