@@ -77,13 +77,13 @@ unwanted space when exporting org-mode to hugo markdown."
   (unless (file-exists-p (concat (liberime-get-library-directory)
                                  "build/liberime-core"
                                  module-file-suffix))
-    (liberime-build)))
-  ;; :hook)
-  ;; ('after-init . (lambda ()
-  ;;                  (when (fboundp 'liberime-sync-user-data)
-  ;;                    (liberime-sync))))
-  ;; ('liberime-after-start . (lambda ()
-  ;;                           (liberime-select-schema "wubi86"))))
+    (liberime-build))
+  :hook
+  ('after-init . (lambda ()
+                   (when (fboundp 'liberime-sync-user-data)
+                     (liberime-sync))))
+  ('liberime-after-start . (lambda ()
+                            (liberime-select-schema "wubi86_jidian"))))
 
 (use-package! pyim
   :after liberime
@@ -96,7 +96,6 @@ unwanted space when exporting org-mode to hugo markdown."
   (setq pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/")
         default-input-method "pyim"
         pyim-default-scheme 'rime
-        pyim-assistant-scheme 'quanpin
         pyim-page-tooltip 'posframe
         pyim-page-length 5)
 
