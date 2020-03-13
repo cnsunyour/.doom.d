@@ -93,11 +93,12 @@ unwanted space when exporting org-mode to hugo markdown."
   :bind
   ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
   :config
-  (setq pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/")
-        default-input-method "pyim"
+  (setq default-input-method "pyim"
         pyim-default-scheme 'rime
+        pyim-assistant-scheme 'rime
         pyim-page-tooltip 'posframe
-        pyim-page-length 5)
+        pyim-page-length 5
+        pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
 
   (defun cnsunyour/pyim-english-prober()
     "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
