@@ -86,11 +86,7 @@ unwanted space when exporting org-mode to hugo markdown."
   :config
   (rime-register-and-set-default)
   (setq rime-show-candidate 'posframe)
-  (setq rime-disable-predicates
-        '((lambda () (button-at (point)))
-          evil-normal-state-p
-          rime--after-alphabet-char-p
-          rime--prog-in-code-p)))
+  (load! "+rime-probe-english"))
 
 
 ;; Support pinyin in Ivy
