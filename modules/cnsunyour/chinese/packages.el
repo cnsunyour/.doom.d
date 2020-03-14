@@ -8,8 +8,6 @@
   :recipe (:host github :repo "DogLooksGood/liberime" :files ("CMakeLists.txt" "Makefile" "src" "*.el")))
 (package! rime
   :recipe (:host github :repo "DogLooksGood/emacs-rime" :files ("rime.el")))
-(package! pyim
-  :recipe (:files ("pyim-probe.el")))
 (package! fcitx)
 (package! ace-pinyin)
 (package! pinyinlib)
