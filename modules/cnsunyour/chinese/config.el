@@ -72,7 +72,7 @@ unwanted space when exporting org-mode to hugo markdown."
   :init
   (setenv "RIME_PATH" "~/repos/librime")
   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
-        liberime-user-data-dir (file-truename "~/.local/pyim/rime"))
+        liberime-user-data-dir (file-truename "~/.local/liberime"))
   :hook
   ('after-init . (lambda ()
                    (when (fboundp 'liberime-sync-user-data)
