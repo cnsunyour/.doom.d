@@ -9,7 +9,7 @@
 (package! rime
   :recipe (:host github :repo "DogLooksGood/emacs-rime" :files ("rime.el")))
 (package! pyim
-  :recipe (:host github :repo "tumashu/pyim" :files ("pyim-probe.el")))
+  :recipe (:files ("pyim-probe.el")))
 (package! fcitx)
 (package! ace-pinyin)
 (package! pinyinlib)
