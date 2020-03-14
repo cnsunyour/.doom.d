@@ -106,7 +106,13 @@ unwanted space when exporting org-mode to hugo markdown."
         pyim-page-length 5
         pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
 
-  (defun cnsunyour/pyim-english-prober()
+  (defun +pyim-probe-beancount-mode ()
+    "当前为`beancount-mode'，且光标在注释或字符串当中。"
+    (when (derived-mode-p 'beancount-mode)
+      (not (or (nth 3 (syntax-ppss))
+               (nth 4 (syntax-ppss))))))
+
+  (defun +pyim-english-prober()
     "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
     (let ((use-en (button-at (point))))
       (if (derived-mode-p 'telega-chat-mode)
@@ -118,23 +124,23 @@ unwanted space when exporting org-mode to hugo markdown."
         (when (derived-mode-p 'prog-mode 'conf-mode)
           (setq use-en (or use-en
                            (pyim-probe-dynamic-english))))
-        (unless (derived-mode-p 'beancount-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-program-mode)
-                           (pyim-probe-org-speed-commands)
-                           (pyim-probe-org-structure-template)))))
+        (setq use-en (or use-en
+                         (+pyim-probe-beancount-mode)
+                         (pyim-probe-program-mode)
+                         (pyim-probe-org-speed-commands)
+                         (pyim-probe-org-structure-template))))
       use-en))
   ;; 设置英文输入探针方式，采用自定义探针函数
   (setq-default pyim-english-input-switch-functions
-                '(cnsunyour/pyim-english-prober))
+                '(+pyim-english-prober))
 
-  (defun cnsunyour/pyim-punctuation-prober(char)
+  (defun +pyim-punctuation-prober(char)
     "自定义标点符号半角探针函数，用于在不同mode下使用不同的探针列表"
     (or (pyim-probe-punctuation-line-beginning char)
         (pyim-probe-punctuation-after-punctuation char)))
   ;; 设置标点符号半角探针方式，采用自定义探针函数
   (setq-default pyim-punctuation-half-width-functions
-                '(cnsunyour/pyim-punctuation-prober))
+                '(+pyim-punctuation-prober))
 
   (map! :map 'pyim-mode-map
         "." 'pyim-page-next-page
