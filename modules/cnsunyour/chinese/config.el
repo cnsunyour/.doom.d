@@ -98,14 +98,14 @@ unwanted space when exporting org-mode to hugo markdown."
   (setq pyim-titles '("ㄓ" "ㄓ-EN" "ㄓ-AU"))
   :bind
   ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
+  :custom
+  (default-input-method "pyim")
+  (pyim-default-scheme 'rime)
+  (pyim-page-tooltip 'posframe)
+  (pyim-page-length 5)
+  (pyim-prefer-personal-dcache nil)
+  (pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
   :config
-  (setq default-input-method "pyim"
-        pyim-default-scheme 'rime
-        pyim-assistant-scheme 'rime
-        pyim-page-tooltip 'posframe
-        pyim-page-length 5
-        pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
-
   (defun +pyim-probe-beancount-mode ()
     "当前为`beancount-mode'，且光标在注释或字符串当中。"
     (when (derived-mode-p 'beancount-mode)
