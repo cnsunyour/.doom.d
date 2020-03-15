@@ -3,7 +3,7 @@
 
 
 ;; (package! cnfonts)
-(package! pangu-spacing)
+(package! pangu-spacing :disable t)
 (package! liberime
   :recipe (:host github :repo "merrickluo/liberime" :files ("CMakeLists.txt" "Makefile" "src" "*.el")))
 (package! pyim)
