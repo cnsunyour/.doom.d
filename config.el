@@ -42,3 +42,6 @@
 
 ;; The idle delay in seconds until completion starts automatically.
 (setq company-idle-delay 1)
+
+;; Set default directory
+(setq default-directory "~")
