@@ -101,8 +101,10 @@ unwanted space when exporting org-mode to hugo markdown."
   :custom
   (default-input-method "pyim")
   (pyim-default-scheme 'rime)
+  (pyim-assistant-scheme 'rime)
   (pyim-page-tooltip 'posframe)
   (pyim-page-length 5)
+  (pyim-translate-trigger-char "z")
   (pyim-prefer-personal-dcache nil)
   (pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
   :config
