@@ -23,7 +23,7 @@
                          (telega-chat-at (point)))))
   (let ((chatid (plist-get chat :id)))
     (cl-pushnew chatid +telega--chat-cn-list)
-    (cl-remove chatid +telega--chat-en-list)
+    (setq +telega--chat-en-list (cl-remove chatid +telega--chat-en-list))
     (+telega--save-encn-list)))
 
 (defun +telega--add-en-list (chat)
@@ -33,7 +33,7 @@
                          (telega-chat-at (point)))))
   (let ((chatid (plist-get chat :id)))
     (cl-pushnew chatid +telega--chat-en-list)
-    (cl-remove chatid +telega--chat-cn-list)
+    (setq +telega--chat-cn-list (cl-remove chatid +telega--chat-cn-list))
     (+telega--save-encn-list)))
 
 (defun +telega--remove-from-list (chat)
@@ -42,8 +42,8 @@
                          telega--chat
                          (telega-chat-at (point)))))
   (let ((chatid (plist-get chat :id)))
-    (cl-remove chatid +telega--chat-en-list)
-    (cl-remove chatid +telega--chat-cn-list)
+    (setq +telega--chat-en-list (cl-remove chatid +telega--chat-en-list))
+    (setq +telega--chat-cn-list (cl-remove chatid +telega--chat-cn-list))
     (+telega--save-encn-list)))
 
 (defadvice! +toggle-input-method--telega-chat-mode-a (chat &optional no-history-load)
