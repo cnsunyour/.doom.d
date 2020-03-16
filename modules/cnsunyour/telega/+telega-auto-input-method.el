@@ -34,7 +34,7 @@
   (let ((chatid (plist-get chat :id)))
     (cl-pushnew chatid +telega--chat-en-list)
     (cl-remove chatid +telega--chat-cn-list)
-    (telega--save-encn-list)))
+    (+telega--save-encn-list)))
 
 (defun +telega--remove-from-list (chat)
   "将当前聊天对话从中英文列表中删除，将根据对话名称自动切换中英文输入法。"
@@ -44,7 +44,7 @@
   (let ((chatid (plist-get chat :id)))
     (cl-remove chatid +telega--chat-en-list)
     (cl-remove chatid +telega--chat-cn-list)
-    (telega--save-encn-list)))
+    (+telega--save-encn-list)))
 
 (defadvice! +toggle-input-method--telega-chat-mode-a (chat &optional no-history-load)
   "在 telega-chat-mode 里根据 chat 名称切换输入法，如果名称包含
