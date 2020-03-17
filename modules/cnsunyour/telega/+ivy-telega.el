@@ -28,4 +28,5 @@
   (push '(telega-chat-with . ivy--regex-pinyin) ivy-re-builders-alist)
   (push '(ivy-telega-chat-with . ivy--regex-pinyin) ivy-re-builders-alist))
 
-(map! "C-c v" #'ivy-telega-chat-with)
+(map! "C-c v" #'ivy-telega-chat-with
+      "C-M-S-s-c" #'ivy-telega-chat-with)
