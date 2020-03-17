@@ -37,7 +37,7 @@
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :quit t :modeline t)
-  (set-popup-rule! "^◀[[({<].*[\])}>]$"
+  (set-popup-rule! "^◀[[({<].+[\])}>]"
     :side 'right :size 100 :quit t :modeline t)
 
   (load! "+telega-addition"))
