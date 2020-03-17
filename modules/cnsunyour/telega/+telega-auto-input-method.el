@@ -55,16 +55,25 @@
                      (telega-chat-title chat)
                      "\"] is removed from EN/CN chat list."))))
 
+(defun +telega--active-input-method ()
+  "Active input method."
+  (unless (string= current-input-method default-input-method)
+    (toggle-input-method)))
+
+(defun +telega--deactive-input-method ()
+  "Deactive input method"
+  (when (string= current-input-method default-input-method)
+    (toggle-input-method)))
+
 (defadvice! +toggle-input-method--telega-chat-mode-a (chat &optional no-history-load)
   "在 telega-chat-mode 里根据 chat 名称切换输入法，如果名称包含
 中文，则激活中文输入法，否则关闭中文输入法"
   :after #'telega-chat--pop-to-buffer
-  (let ((input-method default-input-method)
-        (title (telega-chat-title chat))
+  (let ((title (telega-chat-title chat))
         (chatid (plist-get chat :id)))
-    (cond ((member chatid +telega--chat-cn-list) (activate-input-method input-method))
-          ((member chatid +telega--chat-en-list) (activate-input-method nil))
-          ((string-match "\\cc" title) (activate-input-method input-method))
-          ((telega-chat-bot-p chat) (activate-input-method nil))
-          ((telega-chat-private-p chat) (activate-input-method input-method))
-          (t (activate-input-method nil)))))
+    (cond ((member chatid +telega--chat-cn-list) (+telega--active-input-method))
+          ((member chatid +telega--chat-en-list) (+telega--deactive-input-method))
+          ((string-match "\\cc" title) (+telega--active-input-method))
+          ((telega-chat-bot-p chat) (+telega--deactive-input-method))
+          ((telega-chat-private-p chat) (+telega--active-input-method))
+          (t (+telega--deactive-input-method)))))
