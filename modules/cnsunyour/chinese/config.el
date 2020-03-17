@@ -89,6 +89,13 @@ unwanted space when exporting org-mode to hugo markdown."
 (use-package! rime
   :after liberime-config
   :after-call after-find-file pre-command-hook
+  :bind
+  ("C-S-s-j" . (lambda ()
+                 (interactive)
+                 (let ((input-method "rime"))
+                   (unless (string= current-input-method input-method)
+                     (activate-input-method input-method))
+                   (rime-force-enable))))
   :custom
   (default-input-method "rime")
   (rime-show-candidate 'posframe)
