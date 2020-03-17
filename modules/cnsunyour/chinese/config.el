@@ -74,16 +74,11 @@ unwanted space when exporting org-mode to hugo markdown."
       (list paragraph fixed-contents info))))
 
 
-(use-package! liberime
+(use-package! liberime-config
   :init
   (setenv "RIME_PATH" "~/repos/librime")
   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
         liberime-user-data-dir (file-truename "~/.local/liberime"))
-  :config
-  (unless (file-exists-p (concat (liberime-get-library-directory)
-                                 "build/liberime-core"
-                                 module-file-suffix))
-    (liberime-build))
   :hook
   ('after-init . (lambda ()
                    (when (fboundp 'liberime-sync-user-data)
@@ -91,65 +86,24 @@ unwanted space when exporting org-mode to hugo markdown."
   ('liberime-after-start . (lambda ()
                             (liberime-select-schema "wubi86_jidian"))))
 
-(use-package! pyim
-  :after liberime
+(use-package! rime
+  :after liberime-config
   :after-call after-find-file pre-command-hook
-  :init
-  (setq pyim-titles '("ㄓ" "ㄓ-EN" "ㄓ-AU"))
-  :bind
-  ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
   :custom
-  (default-input-method "pyim")
-  (pyim-default-scheme 'rime)
-  (pyim-assistant-scheme 'rime)
-  (pyim-page-tooltip 'posframe)
-  (pyim-page-style 'one-line)
-  (pyim-page-length 5)
-  (pyim-translate-trigger-char "z")
-  (pyim-prefer-personal-dcache nil)
-  (pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
+  (default-input-method "rime")
+  (rime-show-candidate 'posframe)
   :config
-  (defun +pyim-probe-beancount-mode ()
-    "当前为`beancount-mode'，且光标在注释或字符串当中。"
-    (when (derived-mode-p 'beancount-mode)
-      (not (or (nth 3 (syntax-ppss))
-               (nth 4 (syntax-ppss))))))
+  (defadvice! +rime--posframe-display-result-a (args)
+    "给 `rime--posframe-display-result' 传入的字符串加一个全角空
+格，以解决 `posframe' 偶尔吃字的问题。"
+    :filter-args #'rime--posframe-display-result
+    (cl-destructuring-bind (result) args
+      (let ((newresult (if (string-blank-p result)
+                           result
+                         (concat result "　"))))
+        (list newresult))))
 
-  (defun +pyim-english-prober()
-    "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
-    (let ((use-en (button-at (point))))
-      (if (derived-mode-p 'telega-chat-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-auto-english)))
-        (when (derived-mode-p 'text-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-auto-english))))
-        (when (derived-mode-p 'prog-mode 'conf-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-dynamic-english))))
-        (setq use-en (or use-en
-                         (+pyim-probe-beancount-mode)
-                         (pyim-probe-program-mode)
-                         (pyim-probe-org-speed-commands)
-                         (pyim-probe-org-structure-template))))
-      use-en))
-  ;; 设置英文输入探针方式，采用自定义探针函数
-  (setq-default pyim-english-input-switch-functions
-                '(+pyim-english-prober))
-
-  (defun +pyim-punctuation-prober(char)
-    "自定义标点符号半角探针函数，用于在不同mode下使用不同的探针列表"
-    (or (pyim-probe-punctuation-line-beginning char)
-        (pyim-probe-punctuation-after-punctuation char)))
-  ;; 设置标点符号半角探针方式，采用自定义探针函数
-  (setq-default pyim-punctuation-half-width-functions
-                '(+pyim-punctuation-prober))
-
-  (map! :map 'pyim-mode-map
-        "." 'pyim-page-next-page
-        "," 'pyim-page-previous-page
-        ";" (λ! (pyim-page-select-word-by-number 2))
-        "'" (λ! (pyim-page-select-word-by-number 3))))
+  (load! "+rime-probe-english"))
 
 
 ;; Support pinyin in Ivy
