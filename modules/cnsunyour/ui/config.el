@@ -6,7 +6,6 @@
                   "PragmataPro"
                   "Inconsolata"
                   "WenQuanYi Zen Hei Mono"
-                  "WenQuanYi Micro Hei Mono"
                   "Fira Code"
                   "M+ 1m"
                   "M+ 1mn"
