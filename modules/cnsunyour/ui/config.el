@@ -4,6 +4,7 @@
   "Set random font family and size"
   (let* ((fonts '("Sarasa Mono SC"
                   "PragmataPro"
+                  "Inconsolata"
                   "M+ 1m"
                   "M+ 1mn"
                   "M+ 2m"))
