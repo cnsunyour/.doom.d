@@ -1,29 +1,39 @@
 ;;; cnsunyour/ui/config.el -*- lexical-binding: t; -*-
 
-;; 当前系统分辨率超过1600X100,则判断为大显示器
-(defun cnsunyour/is-large-display-p()
-  (let* ((display-width (x-display-pixel-width))
-         (display-height (x-display-pixel-height)))
-    (and (>= display-width 1600) (>= display-height 1000))))
+(defun cnsunyour/set-doom-font ()
+  "Set random font family and size"
+  (let* ((fonts '("Sarasa Mono SC"
+                  "PragmataPro"
+                  "M+ 1m"
+                  "M+ 1mn"
+                  "M+ 2m"))
+         (large-font-size 16)
+         (small-font-size (- large-font-size 2))
+         (large-display-p (and (>= (x-display-pixel-width) 1600)
+                               (>= (x-display-pixel-height) 1000))))
+    (setq doom-font
+          (font-spec :family (elt fonts (random (length fonts)))
+                     :size (if large-display-p
+                               large-font-size
+                             small-font-size)))
+    ;; (setq doom-unicode-font
+    ;;       (if IS-MAC
+    ;;           (font-spec :family "Apple Color Emoji"
+    ;;                      :size (if large-display-p
+    ;;                                (* large-font-size .8)
+    ;;                              (* small-font-size .8)))
+    ;;         (font-spec :family (if (member "Noto Color Emoji"
+    ;;                                        (font-family-list))
+    ;;                                "Noto Color Emoji"
+    ;;                              "Symbola"))))
+    (doom/reload-font)))
 
-;; Set doom font family and size
-(let* ((large-font-size 16)
-       (small-font-size (- large-font-size 2)))
-  (setq doom-font
-        (font-spec :family "Sarasa Mono SC"
-                   :size (if (cnsunyour/is-large-display-p)
-                             large-font-size
-                           small-font-size))))
-  ;; (setq doom-unicode-font
-  ;;       (if IS-MAC
-  ;;           (font-spec :family "Apple Color Emoji"
-  ;;                      :size (if (cnsunyour/is-large-display-p)
-  ;;                                (* large-font-size .8)
-  ;;                              (* small-font-size .8)))
-  ;;         (font-spec :family (if (member "Noto Color Emoji"
-  ;;                                        (font-family-list))
-  ;;                                "Noto Color Emoji"
-  ;;                              "Symbola")))))
+(defun cnsunyour/set-splash-image ()
+  "Set random splash image."
+  (setq fancy-splash-image
+        (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
+               (banner (elt banners (random (length banners)))))
+          banner)))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
@@ -117,13 +127,11 @@
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
   :config
-  (defadvice! +random-banner--change-theme-a (&rest r)
-    "Set random banner before change theme"
+  (defadvice! +random-banner-font--change-theme-a (&rest r)
+    "Set random banner and font after change theme."
     :after #'change-theme
-    (setq fancy-splash-image
-          (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
-                 (banner (elt banners (random (length banners)))))
-            banner)))
+    (cnsunyour/set-splash-image)
+    (cnsunyour/set-doom-font))
 
   (add-hook 'emacs-startup-hook
             (lambda()
