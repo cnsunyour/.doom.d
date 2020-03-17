@@ -75,12 +75,12 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       spell             ; tasing you for misspelling mispelling
-       grammar           ; tasing grammar mistake every you make
+       ;; spell             ; tasing you for misspelling mispelling
+       ;; grammar           ; tasing grammar mistake every you make
 
        :tools
-       ansible
-       debugger          ; FIXME stepping through code, to help you add bugs
+       ;; ansible
+       ;; debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        docker
        ;; editorconfig      ; let someone else argue about tabs vs spaces
@@ -95,7 +95,7 @@
        (pass +auth)              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       ;;rgb               ; creating color strings
+       rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
        tmux              ; an API for interacting with tmux
        upload            ; map local to remote projects via ssh/ftp

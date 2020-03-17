@@ -21,6 +21,12 @@
 ;;                 :weight 'normal
 ;;                 :slant 'normal))))
 
+;; (use-package! pangu-spacing
+;;   :hook (text-mode . pangu-spacing-mode)
+;;   :config
+;;   ;; Always insert `real' space in org-mode.
+;;   (setq-hook! 'org-mode-hook pangu-spacing-real-insert-separtor t))
+
 (use-package! fcitx
   :after evil
   :config
@@ -68,64 +74,76 @@ unwanted space when exporting org-mode to hugo markdown."
       (list paragraph fixed-contents info))))
 
 
-;; (use-package! liberime-config
-;;   :load-path "~/repos/liberime"
-;;   :init
-;;   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
-;;         liberime-user-data-dir (file-truename "~/.local/pyim/rime"))
-;;   :hook
-;;   ('after-liberime-load . (lambda ()
-;;                             (liberime-select-schema "wubi86"))))
+(use-package! liberime
+  :init
+  (setenv "RIME_PATH" "~/repos/librime")
+  (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
+        liberime-user-data-dir (file-truename "~/.local/liberime"))
+  :config
+  (unless (file-exists-p (concat (liberime-get-library-directory)
+                                 "build/liberime-core"
+                                 module-file-suffix))
+    (liberime-build))
+  :hook
+  ('after-init . (lambda ()
+                   (when (fboundp 'liberime-sync-user-data)
+                     (liberime-sync))))
+  ('liberime-after-start . (lambda ()
+                            (liberime-select-schema "wubi86_jidian"))))
 
 (use-package! pyim
-  ;; :after liberime-config
+  :after liberime
   :after-call after-find-file pre-command-hook
   :init
-  (setq pyim-title "ㄓ")
+  (setq pyim-titles '("ㄓ" "ㄓ-EN" "ㄓ-AU"))
   :bind
   ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
+  :custom
+  (default-input-method "pyim")
+  (pyim-default-scheme 'rime)
+  (pyim-assistant-scheme 'rime)
+  (pyim-page-tooltip 'posframe)
+  (pyim-page-style 'one-line)
+  (pyim-page-length 5)
+  (pyim-translate-trigger-char "z")
+  (pyim-prefer-personal-dcache nil)
+  (pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
   :config
-  (setq pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/")
-        default-input-method "pyim"
-        pyim-default-scheme 'wubi
-        pyim-assistant-scheme 'quanpin
-        pyim-page-tooltip 'posframe
-        pyim-page-length 5)
+  (defun +pyim-probe-beancount-mode ()
+    "当前为`beancount-mode'，且光标在注释或字符串当中。"
+    (when (derived-mode-p 'beancount-mode)
+      (not (or (nth 3 (syntax-ppss))
+               (nth 4 (syntax-ppss))))))
 
-  ;; 开启拼音搜索功能
-  (pyim-isearch-mode 1)
-
-  (defun cnsunyour/pyim-english-prober()
+  (defun +pyim-english-prober()
     "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
-    (let ((use-en (or (button-at (point))
-                      (pyim-probe-isearch-mode))))
+    (let ((use-en (button-at (point))))
       (if (derived-mode-p 'telega-chat-mode)
           (setq use-en (or use-en
                            (pyim-probe-auto-english)))
         (when (derived-mode-p 'text-mode)
           (setq use-en (or use-en
                            (pyim-probe-auto-english))))
-        (when (or (derived-mode-p 'prog-mode)
-                  (derived-mode-p 'conf-mode))
+        (when (derived-mode-p 'prog-mode 'conf-mode)
           (setq use-en (or use-en
                            (pyim-probe-dynamic-english))))
-        (unless (derived-mode-p 'beancount-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-program-mode)
-                           (pyim-probe-org-speed-commands)
-                           (pyim-probe-org-structure-template)))))
+        (setq use-en (or use-en
+                         (+pyim-probe-beancount-mode)
+                         (pyim-probe-program-mode)
+                         (pyim-probe-org-speed-commands)
+                         (pyim-probe-org-structure-template))))
       use-en))
   ;; 设置英文输入探针方式，采用自定义探针函数
   (setq-default pyim-english-input-switch-functions
-                '(cnsunyour/pyim-english-prober))
+                '(+pyim-english-prober))
 
-  (defun cnsunyour/pyim-punctuation-prober(char)
+  (defun +pyim-punctuation-prober(char)
     "自定义标点符号半角探针函数，用于在不同mode下使用不同的探针列表"
     (or (pyim-probe-punctuation-line-beginning char)
         (pyim-probe-punctuation-after-punctuation char)))
   ;; 设置标点符号半角探针方式，采用自定义探针函数
   (setq-default pyim-punctuation-half-width-functions
-                '(cnsunyour/pyim-punctuation-prober))
+                '(+pyim-punctuation-prober))
 
   (map! :map 'pyim-mode-map
         "." 'pyim-page-next-page
