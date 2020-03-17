@@ -5,6 +5,8 @@
   (let* ((fonts '("Sarasa Mono SC"
                   "PragmataPro"
                   "Inconsolata"
+                  "WenQuanYi Zen Hei Mono"
+                  "WenQuanYi Micro Hei Mono"
                   "M+ 1m"
                   "M+ 1mn"
                   "M+ 2m"))
