@@ -100,8 +100,12 @@ unwanted space when exporting org-mode to hugo markdown."
   (default-input-method "rime")
   (rime-librime-root "~/repos/librime/dist")
   (rime-share-data-dir (file-truename "~/Library/Rime"))
-  (rime-user-data-dir (file-truename "~/.local/liberime"))
+  (rime-user-data-dir (file-truename "~/.local/emacs-rime"))
   (rime-show-candidate 'posframe)
+  :hook
+  ('after-init . (lambda ()
+                   (when (fboundp 'rime-lib-sync-user-data)
+                     (rime-sync))))
   :config
   (defadvice! +rime--posframe-display-result-a (args)
     "给 `rime--posframe-display-result' 传入的字符串加一个全角空
@@ -110,7 +114,7 @@ unwanted space when exporting org-mode to hugo markdown."
     (cl-destructuring-bind (result) args
       (let ((newresult (if (string-blank-p result)
                            result
-                         (concat result "　"))))
+                         (concat result " 　 "))))
         (list newresult))))
 
   (load! "+rime-probe-english"))
