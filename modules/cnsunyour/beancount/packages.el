@@ -3,4 +3,4 @@
 
 
 (package! beancount
-  :recipe (:local-repo "~/.doom.d/elisp" :files ("beancount.el")))
+  :recipe (:host github :repo "cnsunyour/beancount"))
