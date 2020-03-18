@@ -77,3 +77,7 @@
           ((telega-chat-bot-p chat) (+telega--deactive-input-method))
           ((telega-chat-private-p chat) (+telega--active-input-method))
           (t (+telega--deactive-input-method)))))
+
+;; Determine the function which has advice is available.
+(unless (fboundp 'telega-chat--pop-to-buffer)
+  (error "Function `telega-chat--pop-to-buffer' is not available."))

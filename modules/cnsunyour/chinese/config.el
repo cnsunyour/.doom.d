@@ -107,6 +107,9 @@ unwanted space when exporting org-mode to hugo markdown."
                    (when (fboundp 'rime-lib-sync-user-data)
                      (ignore-errors (rime-sync)))))
   :config
+  (unless (fboundp 'rime--posframe-display-content)
+    (error "Function `rime--posframe-display-content' is not available."))
+
   (defadvice! +rime--posframe-display-content-a (args)
     "给 `rime--posframe-display-content' 传入的字符串加一个全角空
 格，以解决 `posframe' 偶尔吃字的问题。"
