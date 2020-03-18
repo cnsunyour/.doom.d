@@ -4,11 +4,10 @@
 
 ;; (package! cnfonts)
 (package! pangu-spacing :disable t)
-(package! liberime
-  :recipe (:host github :repo "DogLooksGood/liberime" :files ("CMakeLists.txt" "Makefile" "src" "*.el")))
+;; (package! liberime
+;;   :recipe (:host github :repo "DogLooksGood/liberime" :files ("CMakeLists.txt" "Makefile" "src" "*.el")))
 (package! emacs-rime
-  :pin "5944c530eadb806b0f940142d9cb05a9be6c8941"
-  :recipe (:host github :repo "DogLooksGood/emacs-rime" :files ("rime.el")))
+  :recipe (:host github :repo "DogLooksGood/emacs-rime" :files ("Makefile" "lib.c" "rime.el")))
 (package! fcitx)
 (package! ace-pinyin)
 (package! pinyinlib)
