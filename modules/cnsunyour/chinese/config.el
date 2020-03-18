@@ -74,20 +74,20 @@ unwanted space when exporting org-mode to hugo markdown."
       (list paragraph fixed-contents info))))
 
 
-(use-package! liberime-config
-  :init
-  (setenv "RIME_PATH" "~/repos/librime")
-  (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
-        liberime-user-data-dir (file-truename "~/.local/liberime"))
-  :hook
-  ('after-init . (lambda ()
-                   (when (fboundp 'liberime-sync-user-data)
-                     (liberime-sync))))
-  ('liberime-after-start . (lambda ()
-                            (liberime-select-schema "wubi86_jidian"))))
+;; (use-package! liberime-config
+;;   :init
+;;   (setenv "RIME_PATH" "~/repos/librime")
+;;   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
+;;         liberime-user-data-dir (file-truename "~/.local/liberime"))
+;;   :hook
+;;   ('after-init . (lambda ()
+;;                    (when (fboundp 'liberime-sync-user-data)
+;;                      (liberime-sync))))
+;;   ('liberime-after-start . (lambda ()
+;;                             (liberime-select-schema "wubi86_jidian"))))
 
 (use-package! rime
-  :after liberime-config
+  ;; :after liberime-config
   :after-call after-find-file pre-command-hook
   :bind
   ("C-S-s-j" . (lambda ()
@@ -98,6 +98,9 @@ unwanted space when exporting org-mode to hugo markdown."
                    (rime-force-enable))))
   :custom
   (default-input-method "rime")
+  (rime-librime-root "~/repos/librime/dist")
+  (rime-shared-data-dir (file-truename "~/Library/Rime"))
+  (rime-user-data-dir (file-truename "~/.local/liberime"))
   (rime-show-candidate 'posframe)
   :config
   (defadvice! +rime--posframe-display-result-a (args)
