@@ -48,23 +48,16 @@
       (evil-motion-state-p)
       (evil-operator-state-p)))
 
-(defun +rime-english-prober()
+(defun +rime--english-prober()
   "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
-  (let ((use-en (or (button-at (point))
-                    (+rime--evil-mode-p))))
-    (if (derived-mode-p 'telega-chat-mode)
-        (setq use-en (or use-en
-                         (+rime--probe-auto-english)))
-      (when (derived-mode-p 'text-mode)
-        (setq use-en (or use-en
-                         (+rime--probe-auto-english))))
-      (when (derived-mode-p 'prog-mode 'conf-mode)
-        (setq use-en (or use-en
-                         (rime--after-alphabet-char-p))))
-      (setq use-en (or use-en
-                       (rime--prog-in-code-p)
-                       (+rime--beancount-p))))
-    use-en))
+  (if (derived-mode-p 'telega-chat-mode
+                      'text-mode)
+      (+rime--probe-auto-english)
+    (or (rime--after-alphabet-char-p)
+        (rime--prog-in-code-p)
+        (+rime--beancount-p))))
 
 
-(setq rime-disable-predicates '(+rime-english-prober))
+(setq rime-disable-predicates '((lambda () (button-at (point)))
+                                +rime--evil-mode-p
+                                +rime--english-prober))
