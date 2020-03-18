@@ -128,6 +128,8 @@
 ;;
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
+  :custom
+  (theme-changer-delay-seconds 900 "Delay 15 minutes.")
   :config
   (defadvice! +random-banner-font--change-theme-a (&rest r)
     "Set random banner and font after change theme."
