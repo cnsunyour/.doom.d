@@ -1,23 +1,5 @@
 ;;; cnsunyour/chinese/+rime-probe-english.el -*- lexical-binding: t; -*-
 
-;;
-;; Some functions copied from `pyim', thanks for tumashu@github.com .
-;;
-(defun +rime--char-before-to-string (num)
-  "得到光标前第 `num' 个字符，并将其转换为字符串。"
-  (let* ((point (point))
-         (point-before (- point num)))
-    (when (and (> point-before 0)
-               (char-before point-before))
-      (char-to-string (char-before point-before)))))
-
-(defun +rime--string-match-p (regexp string &optional start)
-  "与 `string-match-p' 类似，如果 REGEXP 和 STRING 是非字符串时，
-不会报错。"
-  (and (stringp regexp)
-       (stringp string)
-       (string-match-p regexp string start)))
-
 (defun +rime--probe-auto-english ()
   "激活这个探针函数后，使用下面的规则自动切换中英文输入：
 
@@ -26,14 +8,8 @@
 3. 以单个空格为界，自动切换中文和英文字符
    即，形如 `我使用 emacs 编辑此函数' 的句子全程自动切换中英输入法
 "
-  (let ((str-before-1 (+rime--char-before-to-string 0))
-        (str-before-2 (+rime--char-before-to-string 1)))
-    (unless (string= (buffer-name) " *temp*")
-      (if (> (point) (save-excursion (back-to-indentation)
-                                     (point)))
-          (or (if (+rime--string-match-p " " str-before-1)
-                  (+rime--string-match-p "\\cc" str-before-2)
-                (not (+rime--string-match-p "\\cc" str-before-1))))))))
+  (or (rime--after-alphabet-char-p)
+      (looking-back "\\cc +" 2)))
 
 (defun +rime--beancount-p ()
   "当前为`beancount-mode'，且光标在注释或字符串当中。"
