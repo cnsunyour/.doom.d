@@ -77,8 +77,8 @@ unwanted space when exporting org-mode to hugo markdown."
 ;; (use-package! liberime-config
 ;;   :init
 ;;   (setenv "RIME_PATH" "~/repos/librime")
-;;   (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
-;;         liberime-user-data-dir (file-truename "~/.local/liberime"))
+;;   (setq liberime-shared-data-dir (expand-file-name "~/Library/Rime")
+;;         liberime-user-data-dir (expand-file-name "~/.local/liberime"))
 ;;   :hook
 ;;   ('after-init . (lambda ()
 ;;                    (when (fboundp 'liberime-sync-user-data)
@@ -98,14 +98,14 @@ unwanted space when exporting org-mode to hugo markdown."
                    (rime-force-enable))))
   :custom
   (default-input-method "rime")
-  (rime-librime-root (if IS-MAC (file-truename "~/repos/librime/dist")))
-  (rime-share-data-dir (cond (IS-MAC (file-truename "~/Library/Rime"))
+  (rime-librime-root (if IS-MAC (expand-file-name "~/repos/librime/dist")))
+  (rime-share-data-dir (cond (IS-MAC (expand-file-name "~/Library/Rime"))
                              (IS-LINUX (cl-some (lambda (parent)
-                                                  (let ((dir (expand-file-name "rime-data" parent)))
+                                                  (let ((dir (expand-file-name parent)))
                                                     (when (file-directory-p dir)
                                                       dir)))
-                                                '("~/.local/ibus/rime" "~/.local/fcitx/rime")))))
-  (rime-user-data-dir (file-truename "~/.local/emacs-rime"))
+                                                '("~/.config/ibus/rime" "~/.config/fcitx/rime")))))
+  (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
   (rime-show-candidate 'posframe)
   :hook
   ('kill-emacs . (lambda ()
