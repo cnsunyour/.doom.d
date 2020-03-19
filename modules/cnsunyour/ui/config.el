@@ -6,6 +6,7 @@
                  (lambda (elf)
                    (not (member elf '("Sarasa Mono SC"
                                       "PragmataPro"
+                                      "Iosevka"
                                       "Inconsolata"
                                       "WenQuanYi Zen Hei Mono"
                                       "M+ 1m"
