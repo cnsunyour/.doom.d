@@ -1,17 +1,35 @@
 ;;; cnsunyour/chinese/+rime-probe-english.el -*- lexical-binding: t; -*-
 
+(defvar +rime-input-key 0
+  "保存最后一个输入 key 值的变量。")
+
+(unless (fboundp 'rime-input-method)
+  (error "Function `rime-input-method' is not available."))
+
+(defadvice! +get-key--rime-input-method-a (key)
+  "在执行 `rime-input-method' 之前获取 key 值。"
+  :before #'rime-input-method
+  (message (format "%x" key))
+  (setq +rime-input-key key))
+
+(defun +rime--punctuation-line-begin-p ()
+  "判断当前光标是否在行首且输入字符为符号。"
+  (and (<= (point) (save-excursion (back-to-indentation) (point)))
+       (or (and (<= #x21 +rime-input-key) (<= +rime-input-key #x2f))
+           (and (<= #x3a +rime-input-key) (<= +rime-input-key #x40))
+           (and (<= #x5b +rime-input-key) (<= +rime-input-key #x60))
+           (and (<= #x7b +rime-input-key) (<= +rime-input-key #x7f)))))
+
 (defun +rime--probe-dynamic-english ()
   "判断当前光标位置前一个字符是否为英文、数字或字符。"
   (looking-back "[a-zA-Z][0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]*" 1))
 
 (defun +rime--probe-auto-english ()
-  "激活这个探针函数后，使用下面的规则自动切换中英文输入：
-
+  "激活这个断言函数后，使用下面的规则自动切换中英文输入：
 1. 当前字符为英文字符（不包括空格）时，输入下一个字符为英文字符
 2. 当前字符为中文字符或输入字符为行首字符时，输入的字符为中文字符
 3. 以单个空格为界，自动切换中文和英文字符
-   即，形如 `我使用 emacs 编辑此函数' 的句子全程自动切换中英输入法
-"
+   即，形如 `我使用 emacs 编辑此函数' 的句子全程自动切换中英输入法"
   (if (> (point) (save-excursion (back-to-indentation) (point)))
       (if (looking-back " +" 1)
           (looking-back "\\cc +" 2)
@@ -39,7 +57,7 @@
         (rime--prog-in-code-p)
         (+rime--beancount-p))))
 
-
 (setq rime-disable-predicates '((lambda () (button-at (point)))
                                 +rime--evil-mode-p
+                                +rime--punctuation-line-begin-p
                                 +rime--english-prober))
