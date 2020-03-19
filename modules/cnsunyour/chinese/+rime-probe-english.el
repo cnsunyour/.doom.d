@@ -1,5 +1,9 @@
 ;;; cnsunyour/chinese/+rime-probe-english.el -*- lexical-binding: t; -*-
 
+(defun +rime--probe-dynamic-english ()
+  "判断当前光标位置前一个字符是否为英文、数字或字符。"
+  (looking-back "[a-zA-Z][0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]*" 1))
+
 (defun +rime--probe-auto-english ()
   "激活这个探针函数后，使用下面的规则自动切换中英文输入：
 
@@ -8,8 +12,10 @@
 3. 以单个空格为界，自动切换中文和英文字符
    即，形如 `我使用 emacs 编辑此函数' 的句子全程自动切换中英输入法
 "
-  (or (rime--after-alphabet-char-p)
-      (looking-back "\\cc +" 2)))
+  (if (> (point) (save-excursion (back-to-indentation) (point)))
+      (if (looking-back " +" 1)
+          (looking-back "\\cc +" 2)
+        (not (looking-back "\\cc" 1)))))
 
 (defun +rime--beancount-p ()
   "当前为`beancount-mode'，且光标在注释或字符串当中。"
@@ -29,7 +35,7 @@
   (if (derived-mode-p 'telega-chat-mode
                       'text-mode)
       (+rime--probe-auto-english)
-    (or (rime--after-alphabet-char-p)
+    (or (+rime--probe-dynamic-english)
         (rime--prog-in-code-p)
         (+rime--beancount-p))))
 
