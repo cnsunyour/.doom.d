@@ -2,22 +2,26 @@
 
 (defun cnsunyour/set-doom-font ()
   "Set random font family and size"
-  (let* ((fonts '("Sarasa Mono SC"
-                  "PragmataPro"
-                  "Inconsolata"
-                  "WenQuanYi Zen Hei Mono"
-                  "M+ 1m"
-                  "M+ 1mn"
-                  "M+ 2m"))
+  (let* ((fonts (cl-remove-if
+                 (lambda (elf)
+                   (not (member elf '("Sarasa Mono SC"
+                                      "PragmataPro"
+                                      "Inconsolata"
+                                      "WenQuanYi Zen Hei Mono"
+                                      "M+ 1m"
+                                      "M+ 1mn"
+                                      "M+ 2m"))))
+                 (font-family-list)))
          (large-font-size 16)
          (small-font-size (- large-font-size 2))
          (large-display-p (and (>= (x-display-pixel-width) 1600)
                                (>= (x-display-pixel-height) 1000))))
-    (setq doom-font
-          (font-spec :family (elt fonts (random (length fonts)))
-                     :size (if large-display-p
-                               large-font-size
-                             small-font-size)))))
+    (when fonts
+      (setq doom-font (font-spec
+                       :family (elt fonts (random (length fonts)))
+                       :size (if large-display-p
+                                 large-font-size
+                               small-font-size))))))
     ;; (setq doom-unicode-font
     ;;       (if IS-MAC
     ;;           (font-spec :family "Apple Color Emoji"
