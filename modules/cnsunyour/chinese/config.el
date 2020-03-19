@@ -98,7 +98,7 @@ unwanted space when exporting org-mode to hugo markdown."
                    (rime-force-enable))))
   :custom
   (default-input-method "rime")
-  (rime-librime-root "~/repos/librime/dist")
+  (rime-librime-root (file-truename "~/repos/librime/dist"))
   (rime-share-data-dir (file-truename "~/Library/Rime"))
   (rime-user-data-dir (file-truename "~/.local/emacs-rime"))
   (rime-show-candidate 'posframe)
