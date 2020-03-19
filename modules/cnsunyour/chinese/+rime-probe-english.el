@@ -9,7 +9,6 @@
 (defadvice! +get-key--rime-input-method-a (key)
   "在执行 `rime-input-method' 之前获取 key 值。"
   :before #'rime-input-method
-  (message (format "%x" key))
   (setq +rime-input-key key))
 
 (defun +rime--punctuation-line-begin-p ()
