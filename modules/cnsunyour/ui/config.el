@@ -5,9 +5,11 @@
   (let* ((fonts (cl-remove-if
                  (lambda (elf)
                    (not (member elf '("Sarasa Mono SC"
+                                      "等距更纱黑体 SC"
                                       "PragmataPro"
                                       "Iosevka"
                                       "Inconsolata"
+                                      "Noto Sans Mono CJK SC"
                                       "WenQuanYi Zen Hei Mono"
                                       "M+ 1m"
                                       "M+ 1mn"
