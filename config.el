@@ -45,3 +45,20 @@
 
 ;; Set default directory
 (setq default-directory "~")
+
+;;
+;; Optimize garbage-collect
+;; Related variable: `gc-cons-threshold'
+;;
+(defmacro k-time (&rest body)
+  "Measure and return the time it takes evaluating BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (float-time (time-since time))))
+
+;; Execute `garbage-collect' when emacs is idle for a specified time
+(defvar k-gc-timer
+  (run-with-idle-timer 15 t
+                       (lambda ()
+                         (message "Garbage Collector has run for %.06fsec"
+                                  (k-time (garbage-collect))))))
