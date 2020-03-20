@@ -1,54 +1,71 @@
 ;;; cnsunyour/chinese/+rime-probe-english.el -*- lexical-binding: t; -*-
 
-(defvar +rime-input-key 0
-  "保存最后一个输入 key 值的变量。")
+(defvar +rime--last-input-key 0
+  "Saved last input key.")
 
 (unless (fboundp 'rime-input-method)
   (error "Function `rime-input-method' is not available."))
 
 (defadvice! +get-key--rime-input-method-a (key)
-  "在执行 `rime-input-method' 之前获取 key 值。"
+  "Get input key before `rime-input-method' is executed."
   :before #'rime-input-method
-  (setq +rime-input-key key))
+  (setq +rime--last-input-key key))
 
 (defun +rime--punctuation-line-begin-p ()
-  "判断当前光标是否在行首且输入字符为符号。"
+  "Determines whether the current cursor is at the beginning of
+the line and the character last inputed is symbol."
   (and (<= (point) (save-excursion (back-to-indentation) (point)))
-       (or (and (<= #x21 +rime-input-key) (<= +rime-input-key #x2f))
-           (and (<= #x3a +rime-input-key) (<= +rime-input-key #x40))
-           (and (<= #x5b +rime-input-key) (<= +rime-input-key #x60))
-           (and (<= #x7b +rime-input-key) (<= +rime-input-key #x7f)))))
+       (or (and (<= #x21 +rime--last-input-key) (<= +rime--last-input-key #x2f))
+           (and (<= #x3a +rime--last-input-key) (<= +rime--last-input-key #x40))
+           (and (<= #x5b +rime--last-input-key) (<= +rime--last-input-key #x60))
+           (and (<= #x7b +rime--last-input-key) (<= +rime--last-input-key #x7f)))))
 
 (defun +rime--probe-dynamic-english ()
-  "判断当前光标位置前一个字符是否为英文、数字或字符。"
+  "Determines whether the previous character at the current
+cursor position is an english letter, number, or symbol."
   (looking-back "[a-zA-Z][0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]*" 1))
 
 (defun +rime--probe-auto-english ()
-  "激活这个断言函数后，使用下面的规则自动切换中英文输入：
-1. 当前字符为英文字符（不包括空格）时，输入下一个字符为英文字符
-2. 当前字符为中文字符或输入字符为行首字符时，输入的字符为中文字符
-3. 以单个空格为界，自动切换中文和英文字符
-   即，形如 `我使用 emacs 编辑此函数' 的句子全程自动切换中英输入法"
+  "After activating this probe function, use the following rules
+to automatically switch between Chinese and English input:
+
+  1. When the current character is an English
+character (excluding spaces), enter the next character as an
+English character.
+  2. When the current character is a Chinese character or the
+input character is a beginning character, the input character is
+a Chinese character.
+  3. With a single space as the boundary, automatically switch
+between Chinese and English characters.
+
+That is, a sentence of the form \"我使用 emacs 编辑此函数\"
+automatically switches between Chinese and English input methods.
+
+Can be used in `rime-disable-predicates'."
   (if (> (point) (save-excursion (back-to-indentation) (point)))
       (if (looking-back " +" 1)
           (looking-back "\\cc +" 2)
         (not (looking-back "\\cc" 1)))))
 
 (defun +rime--beancount-p ()
-  "当前为`beancount-mode'，且光标在注释或字符串当中。"
+  "Determines whether current buffer's `major-mode' is
+`beancount-mode', and the cursor is at the beginning of the
+line."
   (when (derived-mode-p 'beancount-mode)
     (not (or (nth 3 (syntax-ppss))
              (nth 4 (syntax-ppss))))))
 
 (defun +rime--evil-mode-p ()
-  "检测当前是否在 `evil' 模式下。"
+  "determines whether the current buffer is in one of
+`evil-normal-state' ,`evil-visual-state' , `evil-motion-state'
+or`evil-operator-state'."
   (or (evil-normal-state-p)
       (evil-visual-state-p)
       (evil-motion-state-p)
       (evil-operator-state-p)))
 
 (defun +rime--english-prober()
-  "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
+  "Using different probe lists in different modes."
   (if (derived-mode-p 'telega-chat-mode
                       'text-mode)
       (+rime--probe-auto-english)
