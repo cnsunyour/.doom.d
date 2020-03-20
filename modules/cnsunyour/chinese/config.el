@@ -99,12 +99,19 @@ unwanted space when exporting org-mode to hugo markdown."
   :custom
   (default-input-method "rime")
   (rime-librime-root (if IS-MAC (expand-file-name "~/repos/librime/dist")))
-  (rime-share-data-dir (cond (IS-MAC (expand-file-name "~/Library/Rime"))
-                             (IS-LINUX (cl-some (lambda (parent)
-                                                  (let ((dir (expand-file-name parent)))
-                                                    (when (file-directory-p dir)
-                                                      dir)))
-                                                '("~/.config/ibus/rime" "~/.config/fcitx/rime")))))
+  (rime-share-data-dir
+   (cl-some (lambda (dir)
+              (let ((abs-dir (expand-file-name dir)))
+                (when (file-directory-p abs-dir)
+                  abs-dir)))
+            (cond (IS-MAC
+                   '("~/Library/Rime"
+                     "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"))
+                  (IS-LINUX
+                   '("~/.config/ibus/rime"
+                     "~/.config/fcitx/rime"
+                     "/usr/share/local"
+                     "/usr/share")))))
   (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
   (rime-show-candidate 'posframe)
   :hook
