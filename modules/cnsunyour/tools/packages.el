@@ -2,7 +2,6 @@
 ;;; cnsunyour/tools/packages.el
 
 
-(package! symbol-overlay)
 (package! pinentry)
 (package! dash-at-point)
 (package! posframe)
