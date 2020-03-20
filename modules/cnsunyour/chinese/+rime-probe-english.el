@@ -1,6 +1,10 @@
 ;;; cnsunyour/chinese/+rime-probe-english.el -*- lexical-binding: t; -*-
 
-(defun +rime--beancount-p ()
+(defun +rime-predicate-button-at-point-p ()
+  "Determines whether the point is a button."
+  (button-at (point)))
+
+(defun +rime-predicate-beancount-p ()
   "Determines whether current buffer's `major-mode' is
 `beancount-mode', and the cursor is at the beginning of the
 line."
@@ -8,16 +12,16 @@ line."
     (not (or (nth 3 (syntax-ppss))
              (nth 4 (syntax-ppss))))))
 
-(defun +rime--english-prober()
+(defun +rime-predicate-multi-mode-english-p()
   "Using different probe lists in different modes."
   (if (derived-mode-p 'telega-chat-mode
                       'text-mode)
-      (rime--auto-english-p)
-    (or (rime--after-alphabet-char-p)
-        (rime--prog-in-code-p)
-        (+rime--beancount-p))))
+      (rime-predicate-auto-english-p)
+    (or (rime-predicate-after-alphabet-char-p)
+        (rime-predicate-prog-in-code-p)
+        (+rime-predicate-beancount-p))))
 
-(setq rime-disable-predicates '((lambda () (button-at (point)))
-                                rime--evil-mode-p
-                                rime--punctuation-line-begin-p
-                                +rime--english-prober))
+(setq rime-disable-predicates '(rime-predicate-evil-mode-p
+                                +rime-predicate-button-at-point-p
+                                rime-predicate-punctuation-line-begin-p
+                                +rime-predicate-multi-mode-english-p))
