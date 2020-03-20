@@ -12,7 +12,7 @@ line."
   "Using different probe lists in different modes."
   (if (derived-mode-p 'telega-chat-mode
                       'text-mode)
-      (rime--probe-auto-english)
+      (rime--auto-english-p)
     (or (rime--after-alphabet-char-p)
         (rime--prog-in-code-p)
         (+rime--beancount-p))))
