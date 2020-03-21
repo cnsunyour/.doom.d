@@ -200,7 +200,7 @@
        irc
        org
        rss
-       ;; tabnine
+       tabnine
        telega
        term
        tools
