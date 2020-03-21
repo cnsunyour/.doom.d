@@ -123,6 +123,9 @@ unwanted space when exporting org-mode to hugo markdown."
   (rime-posframe-style 'simple)
   (rime-inline-ascii-trigger 'shift-l)
   :hook
+  ('org-mode . #'cnsunyour/active-input-method)
+  ('markdown-mode . #'cnsunyour/active-input-method)
+  ('beancount-mode . #'cnsunyour/active-input-method)
   ('kill-emacs . (lambda ()
                    (when (fboundp 'rime-lib-sync-user-data)
                      (ignore-errors (rime-sync)))))
