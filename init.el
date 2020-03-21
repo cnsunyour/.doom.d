@@ -88,7 +88,7 @@
        eval              ; run code, run (also, repls)
        gist              ; interacting with github gists
        (lookup +dictionary +docsets)
-       lsp
+       (lsp +peek)
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
