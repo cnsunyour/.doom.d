@@ -18,6 +18,8 @@
 (use-package! sdcv
   :defer t
   :commands sdcv-search-pointer+ sdcv-search-pointer
+  :custom
+  (sdcv-tooltip-timeout . 30)
   :init
   (map! :leader
         "yd" #'sdcv-search-pointer+
@@ -122,7 +124,7 @@
     (posframe-show google-translate-tooltip-name
                    :string text
                    :position (point)
-                   :timeout 8
+                   :timeout 30
                    :internal-border-width 10)
     (add-hook 'post-command-hook 'google-translate-hide-tooltip-after-move)
     (setq google-translate-tooltip-last-point (point))
