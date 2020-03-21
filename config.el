@@ -41,7 +41,7 @@
         delete-by-moving-to-trash t))
 
 ;; The idle delay in seconds until completion starts automatically.
-(setq company-idle-delay 1)
+(setq company-idle-delay 2)
 
 ;; Set default directory
 (setq default-directory "~")
