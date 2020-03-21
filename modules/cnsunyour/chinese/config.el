@@ -114,6 +114,7 @@ unwanted space when exporting org-mode to hugo markdown."
                      "/usr/share")))))
   (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
   (rime-show-candidate 'posframe)
+  (rime-posframe-style 'simple)
   :hook
   ('kill-emacs . (lambda ()
                    (when (fboundp 'rime-lib-sync-user-data)
