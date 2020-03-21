@@ -79,15 +79,15 @@
           ("[X]"  :foreground "forest green" :weight bold)
           ("KILL" :foreground "red"          :weight bold)))
   ;; set tags
-  ;; (setq org-tag-alist
-  ;;       '(("FLAGGED" . ?f)
-  ;;         ("@Office" . ?o)
-  ;;         ("@Home" . ?h)
-  ;;         ("@Way" . ?w)
-  ;;         ("@Computer" . ?c)
-  ;;         ("@Errands" . ?e)
-  ;;         ("@Lunchtime" . ?l)))
-  ;; (setq org-tag-persistent-alist org-tag-alist)
+  (setq org-tag-alist
+        '(("FLAGGED" . ?f)
+          ("@Office" . ?o)
+          ("@Home" . ?h)
+          ("@Way" . ?w)
+          ("@Computer" . ?c)
+          ("@Errands" . ?e)
+          ("@Lunchtime" . ?l)))
+  (setq org-tag-persistent-alist org-tag-alist)
   ;; trigger task states
   (setq org-todo-state-tags-triggers
         '(("KILL" ("KILL" . t))
