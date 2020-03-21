@@ -62,3 +62,14 @@
                        (lambda ()
                          (message "Garbage Collector has run for %.06fsec"
                                   (k-time (garbage-collect))))))
+
+
+(defun cnsunyour/active-input-method ()
+  "Active input method."
+  (unless (string= current-input-method default-input-method)
+    (toggle-input-method)))
+
+(defun cnsunyour/deactive-input-method ()
+  "Deactive input method"
+  (when (string= current-input-method default-input-method)
+    (toggle-input-method)))
