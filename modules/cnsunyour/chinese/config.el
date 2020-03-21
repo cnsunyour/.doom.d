@@ -96,6 +96,12 @@ unwanted space when exporting org-mode to hugo markdown."
                    (unless (string= current-input-method input-method)
                      (activate-input-method input-method))
                    (rime-force-enable))))
+  (:map rime-active-mode-map
+    ("C-S-s-j" . #'rime-inline-ascii))
+  (:map rime-mode-map
+    ("C-S-s-j" . #'rime-force-enable)
+    ("C-`" . #'rime-send-keybinding)
+    ("C-S-`" . #'rime-send-keybinding))
   :custom
   (default-input-method "rime")
   (rime-librime-root (if IS-MAC (expand-file-name "~/repos/librime/dist")))
@@ -115,6 +121,7 @@ unwanted space when exporting org-mode to hugo markdown."
   (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
   (rime-show-candidate 'posframe)
   (rime-posframe-style 'simple)
+  (rime-inline-ascii-trigger 'shift-l)
   :hook
   ('kill-emacs . (lambda ()
                    (when (fboundp 'rime-lib-sync-user-data)
