@@ -1,5 +1,13 @@
 ;;; cnsunyour/chinese/+rime-probe-english.el -*- lexical-binding: t; -*-
 
+(defun +rime-predicate-current-input-uppercase-letter-p ()
+  "If the current charactor entered is a uppercase letter.
+
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+  (and rime--current-input-key
+     (>= rime--current-input-key ?A)
+     (<= rime--current-input-key ?Z)))
+
 (defun +rime-predicate-after-ascii-char-p ()
   "If the cursor is after a ascii character.
 
@@ -60,6 +68,8 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
                 rime-predicate-after-alphabet-char-p
                 rime-predicate-prog-in-code-p
                 +rime-predicate-beancount-p))
+(setq-default rime-inline-predicates
+              '(+rime-predicate-current-input-uppercase-letter-p))
 
 (add-hook! (telega-chat-mode text-mode)
   (setq-local rime-disable-predicates
@@ -69,4 +79,5 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
                 +rime-predicate-puncutuation-after-space-cc-p
                 +rime-predicate-puncutuation-after-ascii-p))
   (setq-local rime-inline-predicates
-              '(rime-predicate-auto-english-p)))
+              '(+rime-predicate-current-input-uppercase-letter-p
+                rime-predicate-auto-english-p)))
