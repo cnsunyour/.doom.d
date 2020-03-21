@@ -19,7 +19,7 @@
   :defer t
   :commands sdcv-search-pointer+ sdcv-search-pointer
   :custom
-  (sdcv-tooltip-timeout . 30)
+  (sdcv-tooltip-timeout 30)
   :init
   (map! :leader
         "yd" #'sdcv-search-pointer+
