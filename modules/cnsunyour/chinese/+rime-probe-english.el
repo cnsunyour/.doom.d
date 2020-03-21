@@ -25,9 +25,9 @@ line."
                 rime-predicate-prog-in-code-p
                 +rime-predicate-beancount-p))
 
-(add-hook! '(telega-chat-mode text-mode)
-  (lambda () (setq-local rime-disable-predicates
-                    '(+rime-predicate-button-at-point-p
-                      rime-predicate-evil-mode-p
-                      rime-predicate-punctuation-line-begin-p
-                      rime-predicate-auto-english-p))))
+(add-hook! (telega-chat-mode text-mode)
+  (setq-local rime-disable-predicates
+              '(+rime-predicate-button-at-point-p
+                rime-predicate-evil-mode-p
+                rime-predicate-punctuation-line-begin-p
+                rime-predicate-auto-english-p)))
