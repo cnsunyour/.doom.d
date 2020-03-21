@@ -1,4 +1,11 @@
 ;;; cnsunyour/chinese/+rime-probe-english.el -*- lexical-binding: t; -*-
+;;; +rime-probe-english.el --- Auto switch between Chinese and English input state.
+
+
+;;; Commentary:
+;;
+
+;;; Code:
 
 (defun +rime-predicate-current-input-uppercase-letter-p ()
   "If the current charactor entered is a uppercase letter.
@@ -49,7 +56,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (button-at (point)))
 
 (defun +rime-predicate-beancount-p ()
-  "Predicate input state in `beancount-mode.'
+  "Predicate input state in `beancount-mode'.
 
 Determines whether current buffer's `major-mode' is
 `beancount-mode', and the cursor is at the beginning of the
@@ -81,3 +88,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (setq-local rime-inline-predicates
               '(+rime-predicate-current-input-uppercase-letter-p
                 rime-predicate-auto-english-p)))
+
+(provide '+rime-probe-english)
+
+;;; +rime-probe-english.el ends here
