@@ -118,7 +118,7 @@ See `org-capture-templates' for more information."
                      ":PROPERTIES:"
                      ":Created: %U"
                      ":END:"
-                     "　%?\n")          ;Place the cursor here finally
+                     "%?\n")          ;Place the cursor here finally
                    "\n")))
     (defun org-hugo-new-subtree-post-capture-template ()
       "Returns `org-capture' template string for new Hugo post.
@@ -132,7 +132,7 @@ See `org-capture-templates' for more information."
                      ,(concat ":EXPORT_FILE_NAME: " fname)
                      ":EXPORT_DATE: %<%4Y-%2m-%2d>"
                      ":END:"
-                     "　%?\n")          ;Place the cursor here finally
+                     "%?\n")          ;Place the cursor here finally
                    "\n")))
     (defun remove-item-from-org-capture-templates (shortcut)
       (dolist (item org-capture-templates)
@@ -147,11 +147,11 @@ See `org-capture-templates' for more information."
                 (function org-new-task-capture-template)
                 :prepend t :clock-in t :clock-resume t :kill-buffer t)
               '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
-                ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
+                ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
                 (function org-hugo-new-subtree-post-capture-template)
                 :prepend t :clock-in t :clock-resume t :kill-buffer t)
               '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
-                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n　%?\n"
+                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
                 (function org-hugo-new-subtree-post-capture-template)
                 :prepend t :clock-in t :clock-resume t :kill-buffer t)))
   ;; set archive tag
