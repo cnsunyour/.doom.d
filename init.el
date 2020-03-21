@@ -19,9 +19,9 @@
 
        :completion
        (company +childframe)           ; the ultimate code completion backend
-       ;;(helm +childframe)              ; the *other* search engine for love and life
+       ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +childframe +icons)               ; a search engine for love and life
+       (ivy +icons)               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
