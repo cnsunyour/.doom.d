@@ -121,7 +121,7 @@ unwanted space when exporting org-mode to hugo markdown."
   (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
   (rime-show-candidate 'posframe)
   (rime-posframe-style 'simple)
-  (rime-inline-ascii-trigger 'shift-l)
+  (rime-inline-ascii-trigger 'control-l)
   :hook
   ('org-mode . #'cnsunyour/active-input-method)
   ('markdown-mode . #'cnsunyour/active-input-method)
