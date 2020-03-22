@@ -53,6 +53,13 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (+rime-predicate-current-input-punctuation-p)
        (+rime-predicate-after-ascii-char-p)))
 
+(defun +rime-predicate-after-special-punctuation-p ()
+  "If the cursor is after a string prefixed a special punctuation.
+
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+  (and (> (point) (save-excursion (back-to-indentation) (point)))
+       (looking-back "[@:/][a-zA-Z0-9-_]*" 1)))
+
 (defun +rime-predicate-button-at-point-p ()
   "Determines whether the point is a button.
 
@@ -88,6 +95,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (setq-local rime-disable-predicates
               '(+rime-predicate-button-at-point-p
                 rime-predicate-evil-mode-p
+                +rime-predicate-after-special-punctuation-p
                 rime-predicate-punctuation-line-begin-p
                 +rime-predicate-punctuation-after-space-cc-p
                 +rime-predicate-punctuation-after-ascii-p))
