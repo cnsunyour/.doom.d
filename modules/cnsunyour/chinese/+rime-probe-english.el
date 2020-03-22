@@ -4,6 +4,12 @@
 
 ;;; Commentary:
 ;;
+;; Some personal custom predicates.
+;;
+;; With this configuraction, I can continuously input mixed Chinese and English
+;; text with punctuation, only using the SpaceBar and the Enter key to assist,
+;; without the extra switch key.
+;;
 
 ;;; Code:
 
