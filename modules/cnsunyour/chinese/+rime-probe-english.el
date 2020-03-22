@@ -38,7 +38,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
            (and (<= #x5b rime--current-input-key) (<= rime--current-input-key #x60))
            (and (<= #x7b rime--current-input-key) (<= rime--current-input-key #x7f)))))
 
-(defun +rime-predicate-puncutuation-after-space-cc-p ()
+(defun +rime-predicate-punctuation-after-space-cc-p ()
   "If input a punctuation after a Chinese charactor with whitespace.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'.\""
@@ -46,7 +46,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'.\""
        (+rime-predicate-current-input-punctuation-p)
        (looking-back "\\cc +" 2)))
 
-(defun +rime-predicate-puncutuation-after-ascii-p ()
+(defun +rime-predicate-punctuation-after-ascii-p ()
   "If input a punctuation after a ascii charactor with whitespace.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
@@ -89,8 +89,8 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
               '(+rime-predicate-button-at-point-p
                 rime-predicate-evil-mode-p
                 rime-predicate-punctuation-line-begin-p
-                +rime-predicate-puncutuation-after-space-cc-p
-                +rime-predicate-puncutuation-after-ascii-p))
+                +rime-predicate-punctuation-after-space-cc-p
+                +rime-predicate-punctuation-after-ascii-p))
   (setq-local rime-inline-predicates
               '(+rime-predicate-current-input-uppercase-letter-p
                 rime-predicate-auto-english-p)))
