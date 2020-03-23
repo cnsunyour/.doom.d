@@ -43,6 +43,7 @@
         (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
                (banner (elt banners (random (length banners)))))
           banner)))
+(add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image)
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
@@ -137,35 +138,29 @@
 (use-package! theme-changer
   :custom
   (theme-changer-delay-seconds 2000 "Delay time to automatic change theme.")
-  :config
-  (defadvice! +random-banner-font--change-theme-a (&rest r)
-    "Set random banner and font after change theme."
-    :after #'change-theme
-    (cnsunyour/set-splash-image))
-
-  (add-hook 'emacs-startup-hook
-            (lambda()
-              (change-theme '(doom-one-light
-                              doom-acario-light
-                              doom-nord-light
-                              doom-opera-light
-                              doom-solarized-light
-                              doom-tomorrow-day)
-                            '(doom-one
-                              doom-city-lights
-                              doom-challenger-deep
-                              doom-dracula
-                              doom-dark+
-                              doom-gruvbox
-                              doom-Iosvkem
-                              doom-vibrant
-                              doom-molokai
-                              doom-moonlight
-                              doom-oceanic-next
-                              doom-peacock
-                              doom-spacegrey
-                              doom-snazzy
-                              doom-wilmersdorf)))))
+  :hook
+  ('emacs-startup . (lambda ()
+                      (change-theme '(doom-one-light
+                                      doom-acario-light
+                                      doom-nord-light
+                                      doom-opera-light
+                                      doom-solarized-light
+                                      doom-tomorrow-day)
+                                    '(doom-one
+                                      doom-city-lights
+                                      doom-challenger-deep
+                                      doom-dracula
+                                      doom-dark+
+                                      doom-gruvbox
+                                      doom-Iosvkem
+                                      doom-vibrant
+                                      doom-molokai
+                                      doom-moonlight
+                                      doom-oceanic-next
+                                      doom-peacock
+                                      doom-spacegrey
+                                      doom-snazzy
+                                      doom-wilmersdorf)))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
