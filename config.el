@@ -7,9 +7,10 @@
       epa-file-encrypt-to user-mail-address)
 
 ;; System locale to use for formatting time values.
-(setq system-time-locale "C")         ; Make sure that the weekdays in the
-                                      ; time stamps of your Org mode files and
-                                      ; in the agenda appear in English.
+;;
+;; Make sure that the weekdays in the time stamps of your Org mode files and in
+;; the agenda appear in English.
+(setq system-time-locale "C")
 
 ;; 设置我所在地方的经纬度，calendar里有个功能是日月食的预测，和经纬度相联系的。
 ;; 让emacs能计算日出日落的时间，在 calendar 上用 S 即可看到
@@ -50,18 +51,19 @@
 ;; Optimize garbage-collect
 ;; Related variable: `gc-cons-threshold'
 ;;
-(defmacro k-time (&rest body)
-  "Measure and return the time it takes evaluating BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (float-time (time-since time))))
-
-;; Execute `garbage-collect' when emacs is idle for a specified time
+;; (defmacro k-time (&rest body)
+;;   "Measure and return the time it takes evaluating BODY."
+;;   `(let ((time (current-time)))
+;;      ,@body
+;;      (float-time (time-since time))))
+;; ;; Execute `garbage-collect' when emacs is idle for a specified time
+;; (defvar k-gc-timer
+;;   (run-with-idle-timer 15 t
+;;                        (lambda ()
+;;                          (message "Garbage Collector has run for %.06fsec"
+;;                                   (k-time (garbage-collect))))))
 (defvar k-gc-timer
-  (run-with-idle-timer 15 t
-                       (lambda ()
-                         (message "Garbage Collector has run for %.06fsec"
-                                  (k-time (garbage-collect))))))
+  (run-with-idle-timer 15 t (lambda () (garbage-collect))))
 
 
 (defun cnsunyour/active-input-method ()
