@@ -28,20 +28,6 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (looking-back "[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]" 1)))
 
-(defun +rime-predicate-auto-english-in-org-evil-insert-p ()
-  "Auto switch english in `evil-insert-state' of `org-mode'.
-
-由于 doom-emacs 在 `org-mode' 的 `evil-insert-state' 状态中把 RET
-重新映射到了`org-return-indent'，不知为何会导致 `emacs-rime' 在
-inline_ascii模式无法通过按 RET 完成上屏，因此此断言用在
-`rime-disable-predicate'里，用于切换成普通英文模式，注意不要把此
-断言用于`rime-inline-predicate' 中。"
-  (and (fboundp 'evil-mode)
-       (derived-mode-p 'org-mode)
-       (evil-insert-state-p)
-       (or (+rime-predicate-current-input-uppercase-letter-p)
-           (rime-predicate-auto-english-p))))
-
 (defun +rime-predicate-current-input-punctuation-p ()
   "If the current charactor entered is a punctuation.
 
@@ -109,7 +95,6 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (setq-local rime-disable-predicates
               '(+rime-predicate-button-at-point-p
                 rime-predicate-evil-mode-p
-                +rime-predicate-auto-english-in-org-evil-insert-p
                 +rime-predicate-after-special-punctuation-p
                 rime-predicate-punctuation-line-begin-p
                 +rime-predicate-punctuation-after-space-cc-p
