@@ -13,7 +13,7 @@
 
 ;;; Code:
 
-(defun +rime-predicate-current-input-uppercase-letter-p ()
+(defun +rime-predicate-current-uppercase-letter-p ()
   "If the current charactor entered is a uppercase letter.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
@@ -89,7 +89,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
                 rime-predicate-prog-in-code-p
                 +rime-predicate-beancount-p))
 (setq-default rime-inline-predicates
-              '(+rime-predicate-current-input-uppercase-letter-p))
+              '(+rime-predicate-current-uppercase-letter-p))
 
 (add-hook! (telega-chat-mode text-mode)
   (setq-local rime-disable-predicates
@@ -100,7 +100,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
                 +rime-predicate-punctuation-after-space-cc-p
                 +rime-predicate-punctuation-after-ascii-p))
   (setq-local rime-inline-predicates
-              '(+rime-predicate-current-input-uppercase-letter-p
+              '(+rime-predicate-current-uppercase-letter-p
                 rime-predicate-auto-english-p)))
 
 ;;; +rime-predicates.el ends here
