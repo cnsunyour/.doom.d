@@ -146,7 +146,7 @@ unwanted space when exporting org-mode to hugo markdown."
                          (concat content "　"))))
         (list newresult))))
 
-  (load! "+rime-probe-english"))
+  (load! "+rime-predicates"))
 
 
 ;; Support pinyin in Ivy
