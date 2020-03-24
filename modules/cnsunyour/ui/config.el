@@ -24,7 +24,7 @@
                        :family (elt fonts (random (length fonts)))
                        :size (if large-display-p
                                  large-font-size
-                               small-font-size))))))
+                               small-font-size)))
     ;; (setq doom-unicode-font
     ;;       (if IS-MAC
     ;;           (font-spec :family "Apple Color Emoji"
@@ -35,7 +35,8 @@
     ;;                                        (font-family-list))
     ;;                                "Noto Color Emoji"
     ;;                              "Symbola"))))
-(cnsunyour/set-doom-font)
+      (doom/reload-font))))
+(add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
 
 (defun cnsunyour/set-splash-image ()
   "Set random splash image."
