@@ -135,6 +135,7 @@ unwanted space when exporting org-mode to hugo markdown."
   ('doom-load-theme . #'+rime-auto-set-posframe-properties)
   :config
   (defun +rime-auto-set-posframe-properties ()
+    "Set `rime-posframe-properties' according to the curremt emacs theme."
     (let* ((is-dark (eq (frame-parameter nil 'background-mode) 'dark))
            (bg-color (if is-dark "#333333" "#dcdccc"))
            (fg-color (if is-dark "#dcdccc" "#333333")))
