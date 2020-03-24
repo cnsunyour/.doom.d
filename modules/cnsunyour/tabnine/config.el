@@ -21,6 +21,7 @@
   (map! (:leader
           :desc "Use company default backend" "clo" #'company-other-backend
           :desc "Use company tabnine backend" "clt" #'company-tabnine))
+  :init
   ;; Integrate company-tabnine with lsp-mode
   (defun company//sort-by-tabnine (candidates)
     (if (or (functionp company-backend)

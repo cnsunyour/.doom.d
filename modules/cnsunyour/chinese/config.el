@@ -133,7 +133,7 @@ unwanted space when exporting org-mode to hugo markdown."
                    (when (fboundp 'rime-lib-sync-user-data)
                      (ignore-errors (rime-sync)))))
   ('doom-load-theme . #'+rime-auto-set-posframe-properties)
-  :config
+  :init
   (defun +rime-auto-set-posframe-properties ()
     "Set `rime-posframe-properties' according to the curremt emacs theme."
     (let* ((is-dark (eq (frame-parameter nil 'background-mode) 'dark))
@@ -143,7 +143,7 @@ unwanted space when exporting org-mode to hugo markdown."
             (list :background-color bg-color
                   :foreground-color fg-color
                   :internal-border-width 10))))
-
+  :config
   (unless (fboundp 'rime--posframe-display-content)
     (error "Function `rime--posframe-display-content' is not available."))
 
