@@ -12,7 +12,7 @@
   (telega-chat-reply-prompt "<<< ")
   (telega-chat-edit-prompt "+++ ")
   (telega-sticker-size '(8 . 48))
-  (telega-chat-use-markdown-version 2)
+  (telega-chat-use-markdown-version nil)
   (telega-animation-play-inline nil)
   (telega-emoji-use-images nil)
   (telega-sticker-set-download t)
