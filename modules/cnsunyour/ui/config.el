@@ -137,7 +137,7 @@
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
   :custom
-  (theme-changer-delay-seconds 2100 "Delay 35 minutes for sync with macOS's auto theme changer.")
+  (theme-changer-delay-seconds 1800 "Delay 30 minutes for sync with macOS's auto theme changer.")
   :hook
   ('emacs-startup . (lambda ()
                       (change-theme '(doom-one-light
