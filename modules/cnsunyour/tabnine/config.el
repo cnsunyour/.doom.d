@@ -9,14 +9,14 @@
   ('lsp-after-open . (lambda ()
                        (add-to-list 'company-transformers 'company//sort-by-tabnine t)
                        (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))))
-  ('after-init . (lambda ()
-                  ;; (add-to-list 'company-backends #'company-tabnine)
-                  ;; (set-company-backend! 'text-mode
-                  ;;   'company-tabnine 'company-dabbrev 'company-yasnippet 'company-ispell)
-                  (set-company-backend! 'conf-mode
-                    'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
-                  (set-company-backend! 'prog-mode
-                    'company-tabnine 'company-capf 'company-yasnippet)))
+  ;; ('after-init . (lambda ()
+  ;;                 ;; (add-to-list 'company-backends #'company-tabnine)
+  ;;                 ;; (set-company-backend! 'text-mode
+  ;;                 ;;   'company-tabnine 'company-dabbrev 'company-yasnippet 'company-ispell)
+  ;;                 (set-company-backend! 'conf-mode
+  ;;                   'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
+  ;;                 (set-company-backend! 'prog-mode
+  ;;                   'company-tabnine 'company-capf 'company-yasnippet)))
   :config
   (map! (:leader
           :desc "Use company default backend" "clo" #'company-other-backend
