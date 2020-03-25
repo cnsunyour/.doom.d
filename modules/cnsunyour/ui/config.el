@@ -5,7 +5,6 @@
   (let* ((fonts (cl-remove-if
                  (lambda (elf)
                    (not (member elf '("Sarasa Mono SC"
-                                      "等距更纱黑体 SC"
                                       "PragmataPro"
                                       "Iosevka"
                                       "Inconsolata"
