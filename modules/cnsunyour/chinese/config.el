@@ -76,16 +76,10 @@ unwanted space when exporting org-mode to hugo markdown."
 
 (use-package! rime
   :bind
-  ("C-S-s-j" . (lambda ()
-                 (interactive)
-                 (let ((input-method "rime"))
-                   (unless (string= current-input-method input-method)
-                     (activate-input-method input-method))
-                   (rime-force-enable))))
+  ("C-S-s-j" . #'+rime-convert-string-at-point)
   (:map rime-active-mode-map
     ("C-S-s-j" . #'rime-inline-ascii))
   (:map rime-mode-map
-    ("C-S-s-j" . #'rime-force-enable)
     ("C-`" . #'rime-send-keybinding)
     ("C-S-`" . #'rime-send-keybinding))
   :custom
@@ -118,21 +112,58 @@ unwanted space when exporting org-mode to hugo markdown."
   ('kill-emacs . (lambda ()
                    (when (fboundp 'rime-lib-sync-user-data)
                      (ignore-errors (rime-sync)))))
-  ('doom-load-theme . #'+rime-auto-set-posframe-properties)
-  :init
-  (defun +rime-auto-set-posframe-properties ()
+  ('doom-load-theme . #'+rime-auto-set-default-face)
+  :config
+  (defun +rime-auto-set-default-face ()
     "Set `rime-posframe-properties' according to the curremt emacs theme."
     (let* ((is-dark (eq (frame-parameter nil 'background-mode) 'dark))
            (bg-color (if is-dark "#333333" "#dcdccc"))
            (fg-color (if is-dark "#dcdccc" "#333333")))
-      (setq rime-posframe-properties
-            (list :background-color bg-color
-                  :foreground-color fg-color
-                  :internal-border-width 10))))
-  :config
+      (set-face-background 'rime-default-face bg-color)
+      (set-face-foreground 'rime-default-face fg-color)))
+
+  (defun +rime-force-enable ()
+    "强制 `rime' 使用中文输入状态.
+
+如果当前不是 `rime' 输入法，则先激活 `rime' 输入法。如果当前是
+`evil' 的非编辑状态，则转为 `evil-insert-state'。"
+    (interactive)
+    (let ((input-method "rime"))
+      (unless (string= current-input-method input-method)
+        (activate-input-method input-method))
+      (when (rime-predicate-evil-mode-p)
+        (evil-insert-state))
+      (rime-force-enable)))
+
+  (defun +rime-convert-string-at-point (&optional return-cregexp)
+    "将光标前的字符串转换为中文."
+    (interactive "P")
+    (let ((string (if mark-active
+                      (buffer-substring-no-properties
+                       (region-beginning) (region-end))
+                    (buffer-substring-no-properties
+                     (point) (line-beginning-position))))
+          code
+          length)
+      (+rime-force-enable)
+      (cond ((string-match "\\([a-z'-]+\\|[[:punct:]]\\) *$" string)
+             (setq code (replace-regexp-in-string
+                         "^[-']" ""
+                         (match-string 0 string)))
+             (setq length (length code))
+             (setq code (replace-regexp-in-string " +" "" code))
+             (if mark-active
+                 (delete-region (region-beginning) (region-end))
+               (when (> length 0)
+                 (delete-char (- 0 length))))
+             (when (> length 0)
+               (setq unread-command-events
+                     (append (listify-key-sequence code)
+                             unread-command-events))))
+            (t (message "`+rime-convert-string-at-point' did nothing.")))))
+
   (unless (fboundp 'rime--posframe-display-content)
     (error "Function `rime--posframe-display-content' is not available."))
-
   (defadvice! +rime--posframe-display-content-a (args)
     "给 `rime--posframe-display-content' 传入的字符串加一个全角空
 格，以解决 `posframe' 偶尔吃字的问题。"
