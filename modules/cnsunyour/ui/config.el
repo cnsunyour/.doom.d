@@ -5,11 +5,13 @@
   (let* ((fonts (cl-remove-if
                  (lambda (elf)
                    (not (member elf '("Sarasa Mono SC"
+                                      "Sarasa Mono Slab SC"
                                       "PragmataPro"
                                       "Iosevka"
                                       "Inconsolata"
                                       "Noto Sans Mono CJK SC"
                                       "WenQuanYi Zen Hei Mono"
+                                      "Unifont"
                                       "M+ 1m"
                                       "M+ 1mn"
                                       "M+ 2m"))))
@@ -137,7 +139,7 @@
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
   :custom
-  (theme-changer-delay-seconds 2100 "Delay 35 minutes for sync with macOS's auto theme changer.")
+  (theme-changer-delay-seconds 1800 "Delay 30 minutes for sync with macOS's auto theme changer.")
   :hook
   ('emacs-startup . (lambda ()
                       (change-theme '(doom-one-light
