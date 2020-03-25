@@ -74,21 +74,7 @@ unwanted space when exporting org-mode to hugo markdown."
       (list paragraph fixed-contents info))))
 
 
-;; (use-package! liberime-config
-;;   :init
-;;   (setenv "RIME_PATH" "~/repos/librime")
-;;   (setq liberime-shared-data-dir (expand-file-name "~/Library/Rime")
-;;         liberime-user-data-dir (expand-file-name "~/.local/liberime"))
-;;   :hook
-;;   ('after-init . (lambda ()
-;;                    (when (fboundp 'liberime-sync-user-data)
-;;                      (liberime-sync))))
-;;   ('liberime-after-start . (lambda ()
-;;                             (liberime-select-schema "wubi86_jidian"))))
-
 (use-package! rime
-  ;; :after liberime-config
-  ;; :after-call after-find-file pre-command-hook
   :bind
   ("C-S-s-j" . (lambda ()
                  (interactive)
