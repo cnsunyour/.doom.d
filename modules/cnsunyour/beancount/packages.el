@@ -3,4 +3,4 @@
 
 
 (package! beancount
-  :recipe (:host github :repo "cnsunyour/beancount"))
+  :recipe (:host github :repo "cnsunyour/beancount.el"))
