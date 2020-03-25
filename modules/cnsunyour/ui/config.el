@@ -10,6 +10,7 @@
                                       "Inconsolata"
                                       "Noto Sans Mono CJK SC"
                                       "WenQuanYi Zen Hei Mono"
+                                      "Unifont"
                                       "M+ 1m"
                                       "M+ 1mn"
                                       "M+ 2m"))))
