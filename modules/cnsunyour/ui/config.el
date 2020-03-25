@@ -5,6 +5,7 @@
   (let* ((fonts (cl-remove-if
                  (lambda (elf)
                    (not (member elf '("Sarasa Mono SC"
+                                      "Sarasa Mono Slab SC"
                                       "PragmataPro"
                                       "Iosevka"
                                       "Inconsolata"
