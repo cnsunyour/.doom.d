@@ -2,5 +2,5 @@
 ;;; cnsunyour/beancount/packages.el
 
 
-(package! beancount
+(package! beancount.el
   :recipe (:host github :repo "cnsunyour/beancount.el"))
