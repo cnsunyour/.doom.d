@@ -18,15 +18,8 @@
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and rime--current-input-key
-     (>= rime--current-input-key ?A)
-     (<= rime--current-input-key ?Z)))
-
-(defun +rime-predicate-after-ascii-char-p ()
-  "If the cursor is after a ascii character.
-
-Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
-  (and (> (point) (save-excursion (back-to-indentation) (point)))
-       (looking-back "[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]" 1)))
+       (>= rime--current-input-key ?A)
+       (<= rime--current-input-key ?Z)))
 
 (defun +rime-predicate-current-input-punctuation-p ()
   "If the current charactor entered is a punctuation.
@@ -50,8 +43,9 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'.\""
   "If input a punctuation after a ascii charactor with whitespace.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
-  (and (+rime-predicate-current-input-punctuation-p)
-       (+rime-predicate-after-ascii-char-p)))
+  (and (> (point) (save-excursion (back-to-indentation) (point)))
+       (+rime-predicate-current-input-punctuation-p)
+       (looking-back "[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]" 1)))
 
 (defun +rime-predicate-after-special-punctuation-p ()
   "If the cursor is after a string prefixed a special punctuation.
