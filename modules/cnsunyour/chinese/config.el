@@ -124,9 +124,11 @@ unwanted space when exporting org-mode to hugo markdown."
       (set-face-foreground 'rime-default-face fg-color)))
 
   (defun +rime-force-enable ()
-    "强制 `rime' 使用中文输入状态.
-如果当前不是 `rime' 输入法，则先激活 `rime' 输入法。如果当前是
-`evil' 的非编辑状态，则转为 `evil-insert-state'。"
+    "Forced into Chinese input state.
+
+If current input method is not `rime', active it first. If it is
+currently in the `evil' non-editable state, then switch to
+`evil-insert-state'."
     (interactive)
     (let ((input-method "rime"))
       (unless (string= current-input-method input-method)
@@ -138,9 +140,12 @@ unwanted space when exporting org-mode to hugo markdown."
       (rime-force-enable)))
 
   (defun +rime-convert-string-at-point (&optional return-cregexp)
-    "将光标前的字符串转换为中文.
-默认从当前光标处向前搜索可用于编码的字符串，如果有标记/选中一部分
-内容，则以此标记内容为编码字符串进行处理。"
+    "Convert the string at point to Chinese using the current input scheme.
+
+First call `+rime-force-enable' to active the input method, and
+then search back from the current cursor for available string (if
+a string is selected, use it) as the input code, call the current
+input scheme to convert to Chinese."
     (interactive "P")
     (+rime-force-enable)
     (let ((string (if mark-active
