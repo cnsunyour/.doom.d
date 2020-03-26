@@ -116,7 +116,6 @@ unwanted space when exporting org-mode to hugo markdown."
   ('doom-load-theme . #'+rime-auto-set-default-face)
   :config
   (after! doom-modeline
-    (message "runing def-segment...")
     (doom-modeline-def-segment input-method
       "Define the current input method properties."
       (propertize (cond (current-input-method
