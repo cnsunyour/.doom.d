@@ -80,6 +80,7 @@ unwanted space when exporting org-mode to hugo markdown."
   (:map rime-active-mode-map
     ("C-S-s-j" . #'rime-inline-ascii))
   (:map rime-mode-map
+    ;; ("C-S-s-j" . #'rime-force-enable)
     ("C-`" . #'rime-send-keybinding)
     ("C-S-`" . #'rime-send-keybinding))
   :custom
@@ -137,7 +138,9 @@ unwanted space when exporting org-mode to hugo markdown."
       (rime-force-enable)))
 
   (defun +rime-convert-string-at-point (&optional return-cregexp)
-    "将光标前的字符串转换为中文."
+    "将光标前的字符串转换为中文.
+默认从当前光标处向前搜索可用于编码的字符串，如果有标记/选中一部分
+内容，则以此标记内容为编码字符串进行处理。"
     (interactive "P")
     (+rime-force-enable)
     (let ((string (if mark-active
