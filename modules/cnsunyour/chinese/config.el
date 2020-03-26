@@ -139,14 +139,14 @@ currently in the `evil' non-editable state, then switch to
           (evil-insert 1)))
       (rime-force-enable)))
 
-  (defun +rime-convert-string-at-point (&optional return-cregexp)
+  (defun +rime-convert-string-at-point ()
     "Convert the string at point to Chinese using the current input scheme.
 
 First call `+rime-force-enable' to active the input method, and
 then search back from the current cursor for available string (if
 a string is selected, use it) as the input code, call the current
 input scheme to convert to Chinese."
-    (interactive "P")
+    (interactive)
     (+rime-force-enable)
     (let ((string (if mark-active
                       (buffer-substring-no-properties
