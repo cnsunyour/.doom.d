@@ -16,22 +16,24 @@
 (defun +rime-predicate-auto-english-p ()
   "Auto switch Chinese/English input state.
 
-  After activating this probe function, use the following rules
-  to automatically switch between Chinese and English input:
+After activating this probe function, use the following rules to
+automatically switch between Chinese and English input:
 
-     1. When the current character is an English
+  1. When the current character is an English
   character (excluding spaces), enter the next character as an
   English character.
-    2. When the current character is a Chinese character or the
-  input character is a beginning character, the input character is
-  a Chinese character.
-     3. With a single space as the boundary, automatically switch
+
+  2. When the current character is a Chinese character or the
+  input character is a beginning character, the input character
+  is a Chinese character.
+
+  3. With a single space as the boundary, automatically switch
   between Chinese and English characters.
 
-  That is, a sentence of the form \"我使用 emacs 编辑此函数\"
-  automatically switches between Chinese and English input methods.
+That is, a sentence of the form \"我使用 emacs 编辑此函数\"
+automatically switches between Chinese and English input methods.
 
-  Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (if (> (point) (save-excursion (back-to-indentation) (point)))
       (if (looking-back " +" 1)
           (looking-back "\\cc +" 2)
