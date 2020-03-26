@@ -13,6 +13,37 @@
 
 ;;; Code:
 
+(defun +rime-predicate-auto-english-p ()
+  "Auto switch Chinese/English input state.
+
+  After activating this probe function, use the following rules
+  to automatically switch between Chinese and English input:
+
+     1. When the current character is an English
+  character (excluding spaces), enter the next character as an
+  English character.
+    2. When the current character is a Chinese character or the
+  input character is a beginning character, the input character is
+  a Chinese character.
+     3. With a single space as the boundary, automatically switch
+  between Chinese and English characters.
+
+  That is, a sentence of the form \"我使用 emacs 编辑此函数\"
+  automatically switches between Chinese and English input methods.
+
+  Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+  (if (> (point) (save-excursion (back-to-indentation) (point)))
+      (if (looking-back " +" 1)
+          (looking-back "\\cc +" 2)
+        (not (looking-back "\\cc" 1)))))
+
+(defun +rime-predicate-after-ascii-char-p ()
+  "If the cursor is after a ascii character.
+
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+  (and (> (point) (save-excursion (back-to-indentation) (point)))
+       (looking-back "[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]" 1)))
+
 (defun +rime-predicate-current-uppercase-letter-p ()
   "If the current charactor entered is a uppercase letter.
 
@@ -43,9 +74,8 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'.\""
   "If input a punctuation after a ascii charactor with whitespace.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
-  (and (> (point) (save-excursion (back-to-indentation) (point)))
-       (+rime-predicate-current-input-punctuation-p)
-       (looking-back "[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]" 1)))
+  (and (+rime-predicate-current-input-punctuation-p)
+       (+rime-predicate-after-ascii-char-p)))
 
 (defun +rime-predicate-after-special-punctuation-p ()
   "If the cursor is after a string prefixed a special punctuation.
@@ -95,6 +125,6 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
                 +rime-predicate-punctuation-after-ascii-p))
   (setq-local rime-inline-predicates
               '(+rime-predicate-current-uppercase-letter-p
-                rime-predicate-auto-english-p)))
+                +rime-predicate-auto-english-p)))
 
 ;;; +rime-predicates.el ends here
