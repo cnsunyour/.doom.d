@@ -113,9 +113,15 @@ unwanted space when exporting org-mode to hugo markdown."
   ('kill-emacs . (lambda ()
                    (when (fboundp 'rime-lib-sync-user-data)
                      (ignore-errors (rime-sync)))))
-  ('doom-load-theme . #'+rime-auto-set-default-face)
   :config
   (after! doom-modeline
+    (set-face-attribute 'rime-indicator-face nil
+                        :foreground 'unspecified
+                        :inherit 'doom-modeline-buffer-major-mode)
+    (set-face-attribute 'rime-indicator-dim-face nil
+                        :foreground 'unspecified
+                        :inherit 'doom-modeline-buffer-minor-mode)
+
     (doom-modeline-def-segment input-method
       "Define the current input method properties."
       (propertize (cond (current-input-method
@@ -141,14 +147,6 @@ mouse-2: Disable input method\n\
 mouse-3: Describe current input method")
                   'mouse-face 'mode-line-highlight
                   'local-map mode-line-input-method-map)))
-
-  (defun +rime-auto-set-default-face ()
-    "Set `rime-posframe-properties' according to the curremt emacs theme."
-    (let* ((is-dark (eq (frame-parameter nil 'background-mode) 'dark))
-           (bg-color (if is-dark "#333333" "#dcdccc"))
-           (fg-color (if is-dark "#dcdccc" "#333333")))
-      (set-face-background 'rime-default-face bg-color)
-      (set-face-foreground 'rime-default-face fg-color)))
 
   (defun +rime-force-enable ()
     "Forced into Chinese input state.
