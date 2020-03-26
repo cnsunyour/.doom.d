@@ -124,7 +124,6 @@ unwanted space when exporting org-mode to hugo markdown."
 
   (defun +rime-force-enable ()
     "强制 `rime' 使用中文输入状态.
-
 如果当前不是 `rime' 输入法，则先激活 `rime' 输入法。如果当前是
 `evil' 的非编辑状态，则转为 `evil-insert-state'。"
     (interactive)
@@ -132,20 +131,22 @@ unwanted space when exporting org-mode to hugo markdown."
       (unless (string= current-input-method input-method)
         (activate-input-method input-method))
       (when (rime-predicate-evil-mode-p)
-        (evil-insert-state))
+        (if (= (+ 1 (point)) (line-end-position))
+            (evil-append 1)
+          (evil-insert 1)))
       (rime-force-enable)))
 
   (defun +rime-convert-string-at-point (&optional return-cregexp)
     "将光标前的字符串转换为中文."
     (interactive "P")
+    (+rime-force-enable)
     (let ((string (if mark-active
                       (buffer-substring-no-properties
                        (region-beginning) (region-end))
                     (buffer-substring-no-properties
-                     (point) (line-beginning-position))))
+                     (line-beginning-position) (point))))
           code
           length)
-      (+rime-force-enable)
       (cond ((string-match "\\([a-z'-]+\\|[[:punct:]]\\) *$" string)
              (setq code (replace-regexp-in-string
                          "^[-']" ""
