@@ -21,7 +21,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
        (looking-back "[@:/][a-zA-Z0-9-_]*" 1)))
 
 (defun +rime-predicate-button-at-point-p ()
-  "Determines whether the point is a button.
+  "Detect whether the point is a button.
 
 \"Button\" means that positon is not editable.
 
@@ -31,19 +31,25 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 (defun +rime-predicate-beancount-p ()
   "Predicate input state in `beancount-mode'.
 
-Determines whether current buffer's `major-mode' is
-`beancount-mode', and the cursor is at the beginning of the
-line.
+Detect whether current buffer's `major-mode' is `beancount-mode',
+and the cursor is in the comments or strings.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (when (derived-mode-p 'beancount-mode)
     (not (or (nth 3 (syntax-ppss))
              (nth 4 (syntax-ppss))))))
 
+(defun +rime-predicate-ace-window-mode-p ()
+  "Detect if the `ace-window-mode' is enabled.
+
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
+  (and (boundp 'ace-window-mode)
+       ace-window-mode))
 
 (setq-default rime-disable-predicates
               '(+rime-predicate-button-at-point-p
                 rime-predicate-evil-mode-p
+                +rime-predicate-ace-window-mode-p
                 rime-predicate-punctuation-line-begin-p
                 rime-predicate-after-alphabet-char-p
                 rime-predicate-prog-in-code-p
@@ -55,6 +61,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (setq-local rime-disable-predicates
               '(+rime-predicate-button-at-point-p
                 rime-predicate-evil-mode-p
+                +rime-predicate-ace-window-mode-p
                 +rime-predicate-after-special-punctuation-p
                 rime-predicate-punctuation-line-begin-p
                 rime-predicate-punctuation-after-space-cc-p
