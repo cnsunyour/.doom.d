@@ -43,7 +43,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 (defun rime-predicate-punctuation-after-space-cc-p ()
   "If input a punctuation after a Chinese charactor with whitespace.
 
-Can be used in `rime-disable-predicates' and `rime-inline-predicates'.\""
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (rime-predicate-current-input-punctuation-p)
        (let ((string (buffer-substring (point) (line-beginning-position))))
