@@ -19,7 +19,7 @@
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (let ((string (buffer-substring (point) (line-beginning-position))))
-         (string-match "[@:][a-zA-Z0-9-_]*$" string))))
+         (string-match-p "[@:][a-zA-Z0-9-_]*$" string))))
 
 ;;;###overwrite
 (defun rime-predicate-after-alphabet-char-p ()
@@ -28,7 +28,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (let ((string (buffer-substring (point) (line-beginning-position))))
-         (string-match "[a-zA-Z][0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]*$" string))))
+         (string-match-p "[a-zA-Z][0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]*$" string))))
 
 ;;;###overwrite
 (defun rime-predicate-after-ascii-char-p ()
@@ -37,7 +37,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (let ((string (buffer-substring (point) (line-beginning-position))))
-         (string-match "[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]$" string))))
+         (string-match-p "[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]$" string))))
 
 ;;;###overwrite
 (defun rime-predicate-punctuation-after-space-cc-p ()
@@ -47,7 +47,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (rime-predicate-current-input-punctuation-p)
        (let ((string (buffer-substring (point) (line-beginning-position))))
-         (string-match "\\cc +$" string))))
+         (string-match-p "\\cc +$" string))))
 
 ;;;###overwrite
 (defun rime-predicate-auto-english-p ()
@@ -71,24 +71,24 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (let ((string (buffer-substring (point) (line-beginning-position))))
-         (if (string-match " +$" string)
-             (string-match "\\cc +$" string)
-           (not (string-match "\\cc$" string))))))
+         (if (string-match-p " +$" string)
+             (string-match-p "\\cc +$" string)
+           (not (string-match-p "\\cc$" string))))))
 
 ;;;###overwrite
 (defun rime-predicate-space-after-ascii-p ()
   "If cursor is after a whitespace which follow a ascii character."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (let ((string (buffer-substring (point) (line-beginning-position))))
-         (and (string-match " +$" string)
-              (not (string-match "\\cc +$" string))))))
+         (and (string-match-p " +$" string)
+              (not (string-match-p "\\cc +$" string))))))
 
 ;;;###overwrite
 (defun rime-predicate-space-after-cc-p ()
   "If cursor is after a whitespace which follow a non-ascii character."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (let ((string (buffer-substring (point) (line-beginning-position))))
-         (string-match "\\cc +$" string))))
+         (string-match-p "\\cc +$" string))))
 
 (defun rime-predicate-button-at-point-p ()
   "Detect whether the point is a button.
