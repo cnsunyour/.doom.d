@@ -138,6 +138,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
                 rime-predicate-punctuation-after-ascii-p))
   (setq-local rime-inline-predicates
               '(rime-predicate-current-uppercase-letter-p
-                rime-predicate-auto-english-p)))
+                rime-predicate-space-after-cc-p
+                rime-predicate-after-ascii-char-p)))
 
 ;;; +rime-predicates.el ends here
