@@ -142,6 +142,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 (define-obsolete-function-alias 'rime--evil-mode-p 'rime-predicate-evil-mode-p "2020-03-26")
 (define-obsolete-function-alias 'rime--punctuation-line-begin-p 'rime-predicate-punctuation-line-begin-p "2020-03-26")
 (define-obsolete-function-alias 'rime--auto-english-p 'rime-predicate-auto-english-p "2020-03-26")
+(make-obsolete 'rime-predicate-auto-english-p "please use other predicates to instead of it." "2020-03-29")
 
 
 (provide 'rime-predicates)
