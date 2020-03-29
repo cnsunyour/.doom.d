@@ -2,7 +2,6 @@
 ;;; cnsunyour/chinese/packages.el
 
 
-;; (package! cnfonts)
 (package! pangu-spacing :disable t)
 (package! rime
   :recipe (:host github :repo "DogLooksGood/emacs-rime"

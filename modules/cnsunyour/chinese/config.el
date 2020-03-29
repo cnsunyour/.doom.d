@@ -1,25 +1,5 @@
 ;;; ~/.doom.d/+chinese.el -*- lexical-binding: t; -*-
 
-;; 中文字体包
-;; (use-package! cnfonts
-;;   :config
-;;   (cnfonts-enable)
-;;   (setq cnfonts-use-face-font-rescale t))
-
-;; (when (display-graphic-p)
-;;   (set-face-attribute
-;;    'default nil
-;;    :font (font-spec :name "-*-PragmataPro-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-;;                     :weight 'normal
-;;                     :slant 'normal
-;;                     :size 14.0))
-;;   (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;     (set-fontset-font
-;;      (frame-parameter nil 'font)
-;;      charset
-;;      (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-;;                 :weight 'normal
-;;                 :slant 'normal))))
 
 ;; (use-package! pangu-spacing
 ;;   :hook (text-mode . pangu-spacing-mode)
