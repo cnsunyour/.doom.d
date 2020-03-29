@@ -160,7 +160,7 @@ input scheme to convert to Chinese."
                      (line-beginning-position) (point))))
           code
           length)
-      (cond ((string-match "\\([a-z'-]+\\|[[:punct:]]\\) *$" string)
+      (cond ((string-match "\\([a-z]+\\|[[:punct:]]\\)[[:blank:]]*$" string)
              (setq code (replace-regexp-in-string
                          "^[-']" ""
                          (match-string 0 string)))
