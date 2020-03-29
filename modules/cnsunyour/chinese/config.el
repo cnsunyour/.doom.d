@@ -129,7 +129,7 @@ mouse-3: Describe current input method")
                   'local-map mode-line-input-method-map)))
 
   (defun +rime-force-enable ()
-    "Forced into Chinese input state.
+    "[ENHANCED] Force into Chinese input state.
 
 If current input method is not `rime', active it first. If it is
 currently in the `evil' non-editable state, then switch to
