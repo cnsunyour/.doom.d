@@ -26,7 +26,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
-       (let ((string (buffer-substring (point) (line-beginning-position))))
+       (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
          (string-match-p "[@:][a-zA-Z0-9-_]*$" string))))
 
 (defun +rime-predicate-ace-window-mode-p ()
