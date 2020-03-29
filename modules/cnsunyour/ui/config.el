@@ -117,11 +117,10 @@
 (when (eq window-system 'ns)
   (setq ns-use-thin-smoothing t)
   (setq ns-use-native-fullscreen nil)
-  (setq ns-use-fullscreen-animation nil)
-  (set-frame-parameter (selected-frame) 'fullscreen 'maximized))
+  (setq ns-use-fullscreen-animation nil))
 
 ;; 调整启动时窗口大小/最大化/全屏
-(pushnew! initial-frame-alist '(width . 200) '(height . 48))
+;; (pushnew! initial-frame-alist '(width . 200) '(height . 48))
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
@@ -144,7 +143,7 @@
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
   :custom
-  (theme-changer-delay-seconds 1800 "Delay 30 minutes for sync with macOS's auto theme changer.")
+  (theme-changer-delay-seconds 1500 "Delay 25 minutes for sync with macOS's auto theme changer.")
   :hook
   ('emacs-startup . (lambda ()
                       (change-theme '(doom-one-light
