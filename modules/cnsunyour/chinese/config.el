@@ -208,7 +208,6 @@ input scheme to convert to Chinese."
                          (concat content "　"))))
         (list newresult))))
 
-  (load! "rime-predicates")
   (load! "+rime-predicates"))
 
 
