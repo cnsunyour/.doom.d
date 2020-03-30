@@ -15,4 +15,5 @@
 (package! exec-path-from-shell :disable t)
 (package! fuz)
 (package! snails
-  :recipe (:host github :repo "manateelazycat/snails" :no-byte-compile t))
+  :recipe (:host github :repo "manateelazycat/snails" :no-byte-compile t
+                 :files ("*.el" "*.sh" "*.ps1")))
