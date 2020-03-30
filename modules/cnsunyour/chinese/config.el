@@ -156,8 +156,8 @@ input scheme to convert to Chinese."
     (let ((string (if mark-active
                       (buffer-substring-no-properties
                        (region-beginning) (region-end))
-                    (buffer-substring-no-properties
-                     (line-beginning-position) (point))))
+                    (buffer-substring
+                     (point) (max (line-beginning-position) (- (point) 80)))))
           code
           length)
       (cond ((string-match "\\([a-z]+\\|[[:punct:]]\\)[[:blank:]]*$" string)
