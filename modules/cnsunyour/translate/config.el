@@ -3,21 +3,22 @@
 ;; 英文自动补全和翻译，激活命令toggle-company-english-helper
 (use-package! company-english-helper
   :defer t
-  :commands toggle-company-english-helper
+  :commands (toggle-company-english-helper)
   :init
   (map! :leader "yM" #'toggle-company-english-helper))
 
 ;; 输入insert-translated-name-insert激活命令，可以输入中文后按空格翻译成英文插入当前位置。
 (use-package! insert-translated-name
   :defer t
-  :commands insert-translated-name-insert-original-translation
+  :commands (insert-translated-name-insert-original-translation)
   :init
   (map! :leader "ym" #'insert-translated-name-insert-original-translation))
 
 ;; sdcv翻译当前单词
 (use-package! sdcv
   :defer t
-  :commands sdcv-search-pointer+ sdcv-search-pointer
+  :commands (sdcv-search-pointer+
+             sdcv-search-pointer)
   :custom
   (sdcv-tooltip-timeout 30)
   :init
@@ -78,10 +79,8 @@
 ;; no alignment problem
 (use-package! google-translate
   :defer t
-  :commands
-  google-translate-chinese-at-point++
-  google-translate-chinese-at-point
-
+  :commands (google-translate-chinese-at-point++
+             google-translate-chinese-at-point)
   :init
   (setq google-translate--tkk-url "http://translate.google.cn/"
         google-translate-base-url "http://translate.google.cn/translate_a/single"

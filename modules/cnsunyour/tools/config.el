@@ -50,9 +50,8 @@
 ;; neopastebin -- emacs pastebin interface
 (use-package! neopastebin
   :defer t
-  :commands
-  pastebin-list-buffer-refresh
-  pastebin-new
+  :commands (pastebin-list-buffer-refresh
+             pastebin-new)
   :config
   (when (featurep! :editor evil +everywhere)
     (map! :map pastebin--list-map
@@ -73,9 +72,8 @@
 ;; Snails needed currently.
 (use-package! exec-path-from-shell
   :when IS-MAC
-  :config
-  (setq exec-path-from-shell-arguments '("-l"))
-  (exec-path-from-shell-initialize))
+  :custom
+  (exec-path-from-shell-arguments '("-l")))
 
 ;; fuz.el，目前snails在用
 (use-package! fuz
@@ -87,7 +85,10 @@
 ;; M-x snails or M-x snails-search-point
 (use-package! snails
   :defer t
-  :commands snails snails-search-point
+  :commands (snails
+             snails-search-point)
+  :custom
+  (snails-use-exec-path-from-shell nil)
   :init
   (map! :leader
         "sn" #'snails

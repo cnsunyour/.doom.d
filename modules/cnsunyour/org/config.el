@@ -8,7 +8,8 @@
 ;; https://github.com/kandread/doom-emacs-private
 
 (use-package! counsel-org-clock
-  :commands (counsel-org-clock-context counsel-org-clock-history))
+  :commands (counsel-org-clock-context
+             counsel-org-clock-history))
 
 ;; 使用xelatex一步生成PDF
 (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"

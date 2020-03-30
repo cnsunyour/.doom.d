@@ -196,7 +196,7 @@ input scheme to convert to Chinese."
 ;; Refer to  https://github.com/abo-abo/swiper/issues/919 and
 ;; https://github.com/pengpengxp/swiper/wiki/ivy-support-chinese-pinyin
 (use-package! pinyinlib
-  :commands pinyinlib-build-regexp-string
+  :commands (pinyinlib-build-regexp-string)
   :init
   (with-no-warnings
     (defun ivy--regex-pinyin (str)
