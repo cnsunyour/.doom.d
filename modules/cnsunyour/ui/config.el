@@ -14,13 +14,12 @@
                                       "Noto Sans Mono CJK SC"
                                       "WenQuanYi Zen Hei Mono"
                                       "文泉驿等宽正黑"
-                                      "\347\255\211\350\267\235\346\233\264\347\272\261\351\273\221\344\275\223 SC"
-                                      "\347\255\211\350\267\235\346\233\264\347\272\261\351\273\221\344\275\223 Slab SC"
-                                      "\346\226\207\346\263\211\351\251\277\347\255\211\345\256\275\345\276\256\347\261\263\351\273\221"
                                       "M+ 1m"
                                       "M+ 1mn"
                                       "M+ 2m"))))
-                 (font-family-list)))
+                 (mapcar (lambda (str)
+                           (decode-coding-string str 'utf-8))
+                         (font-family-list))))
          (large-font-size 16)
          (small-font-size (- large-font-size 2))
          (large-display-p (and (>= (x-display-pixel-width) 1600)
