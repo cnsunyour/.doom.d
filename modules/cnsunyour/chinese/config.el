@@ -139,7 +139,7 @@ currently in the `evil' non-editable state, then switch to
       (unless (string= current-input-method input-method)
         (activate-input-method input-method))
       (when (rime-predicate-evil-mode-p)
-        (if (= (+ 1 (point)) (line-end-position))
+        (if (= (1+ (point)) (line-end-position))
             (evil-append 1)
           (evil-insert 1)))
       (rime-force-enable)))
