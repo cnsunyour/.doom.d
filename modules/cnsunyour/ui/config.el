@@ -19,7 +19,7 @@
                                       "M+ 2m"))))
                  (mapcar (lambda (str)
                            (decode-coding-string str 'utf-8))
-                         (font-family-list))))
+                         (cl-remove-duplicates (font-family-list)))))
          (large-font-size 16)
          (small-font-size (- large-font-size 2))
          (large-display-p (and (>= (x-display-pixel-width) 1600)
