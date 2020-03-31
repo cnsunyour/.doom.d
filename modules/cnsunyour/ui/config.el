@@ -20,16 +20,12 @@
                  (mapcar (lambda (str)
                            (decode-coding-string str 'utf-8))
                          (cl-remove-duplicates (font-family-list)))))
-         (large-font-size 16)
-         (small-font-size (- large-font-size 2))
-         (large-display-p (and (>= (x-display-pixel-width) 1600)
-                               (>= (x-display-pixel-height) 1000))))
-    (when fonts
-      (setq doom-font
-            (font-spec :family (elt fonts (random (length fonts)))
-                       :size (if large-display-p
-                                 large-font-size
-                               small-font-size))))))
+         (font (elt fonts (random (length fonts))))
+         (font-size (if (and (>= (x-display-pixel-width) 1600)
+                             (>= (x-display-pixel-height) 1000))
+                        16 14)))
+    (when font
+      (setq doom-font (font-spec :family font :size font-size)))))
       ;; (setq doom-unicode-font
       ;;       (if IS-MAC
       ;;           (font-spec :family "Apple Color Emoji"
