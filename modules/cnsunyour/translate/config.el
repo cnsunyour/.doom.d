@@ -5,14 +5,18 @@
   :defer t
   :commands (toggle-company-english-helper)
   :init
-  (map! :leader "yM" #'toggle-company-english-helper))
+  (map! :leader
+        :prefix ("y" . "Translate")
+        "M" #'toggle-company-english-helper))
 
 ;; 输入insert-translated-name-insert激活命令，可以输入中文后按空格翻译成英文插入当前位置。
 (use-package! insert-translated-name
   :defer t
   :commands (insert-translated-name-insert-original-translation)
   :init
-  (map! :leader "ym" #'insert-translated-name-insert-original-translation))
+  (map! :leader
+        :prefix ("y" . "Translate")
+        "m" #'insert-translated-name-insert-original-translation))
 
 ;; sdcv翻译当前单词
 (use-package! sdcv
@@ -23,8 +27,11 @@
   (sdcv-tooltip-timeout 30)
   :init
   (map! :leader
-        "yd" #'sdcv-search-pointer+
-        "yD" #'sdcv-search-pointer)
+        :prefix ("y" . "Translate")
+        "d" (if (and (display-graphic-p) (featurep 'posframe))
+                #'sdcv-search-pointer+
+              #'sdcv-search-pointer)
+        "D" #'sdcv-search-pointer)
   :config
   (set-popup-rule! "^\\*SDCV\\*" :side 'right :size 0.4 :select t)
   (set-face-background 'sdcv-tooltip-face nil)
@@ -57,10 +64,13 @@
   :defer t
   :init
   (map! :leader
-        "yy" #'youdao-dictionary-search-at-point-posframe
-        "yY" #'youdao-dictionary-search-at-point
-        "yp" #'youdao-dictionary-play-voice-at-point
-        "yP" #'youdao-dictionary-play-voice-from-input)
+        :prefix ("y" . "Translate")
+        "y" (if (and (display-graphic-p) (featurep 'posframe))
+                #'youdao-dictionary-search-at-point-posframe
+              #'youdao-dictionary-search-at-point+)
+        "Y" #'youdao-dictionary-search-at-point
+        "p" #'youdao-dictionary-play-voice-at-point
+        "P" #'youdao-dictionary-play-voice-from-input)
   :config
   (set-popup-rule! "^\\*Youdao Dictionary\\*" :side 'right :size 0.4 :select t)
   ;; 设定youdao api id和key
@@ -90,8 +100,11 @@
         google-translate-default-target-language "zh-CN")
 
   (map! :leader
-        "yt" #'google-translate-chinese-at-point++
-        "yT" #'google-translate-chinese-at-point)
+        :prefix ("y" . "Translate")
+        "t" (if (and (display-graphic-p) (featurep 'posframe))
+                #'google-translate-chinese-at-point++
+              #'google-translate-chinese-at-point)
+        "T" #'google-translate-chinese-at-point)
 
   :config
   (set-popup-rule! "^\\*Google Translate\\*" :side 'right :size 0.4 :select t)
