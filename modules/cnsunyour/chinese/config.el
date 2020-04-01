@@ -1,25 +1,5 @@
 ;;; ~/.doom.d/+chinese.el -*- lexical-binding: t; -*-
 
-;; 中文字体包
-;; (use-package! cnfonts
-;;   :config
-;;   (cnfonts-enable)
-;;   (setq cnfonts-use-face-font-rescale t))
-
-;; (when (display-graphic-p)
-;;   (set-face-attribute
-;;    'default nil
-;;    :font (font-spec :name "-*-PragmataPro-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-;;                     :weight 'normal
-;;                     :slant 'normal
-;;                     :size 14.0))
-;;   (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;     (set-fontset-font
-;;      (frame-parameter nil 'font)
-;;      charset
-;;      (font-spec :name "-*-Microsoft YaHei-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-;;                 :weight 'normal
-;;                 :slant 'normal))))
 
 ;; (use-package! pangu-spacing
 ;;   :hook (text-mode . pangu-spacing-mode)
@@ -74,82 +54,149 @@ unwanted space when exporting org-mode to hugo markdown."
       (list paragraph fixed-contents info))))
 
 
-(use-package! liberime
-  :init
-  (setenv "RIME_PATH" "~/repos/librime")
-  (setq liberime-shared-data-dir (file-truename "~/Library/Rime")
-        liberime-user-data-dir (file-truename "~/.local/liberime"))
-  :config
-  (unless (file-exists-p (concat (liberime-get-library-directory)
-                                 "build/liberime-core"
-                                 module-file-suffix))
-    (liberime-build))
-  :hook
-  ('after-init . (lambda ()
-                   (when (fboundp 'liberime-sync-user-data)
-                     (liberime-sync))))
-  ('liberime-after-start . (lambda ()
-                            (liberime-select-schema "wubi86_jidian"))))
-
-(use-package! pyim
-  :after liberime
-  :after-call after-find-file pre-command-hook
-  :init
-  (setq pyim-titles '("ㄓ" "ㄓ-EN" "ㄓ-AU"))
+(use-package! rime
   :bind
-  ("C-S-s-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
+  ("C-S-s-j" . #'+rime-convert-string-at-point)
+  (:map rime-active-mode-map
+    ("C-S-s-j" . #'rime-inline-ascii)
+    ("C-M-S-s-j" . #'rime-inline-ascii))
+  (:map rime-mode-map
+    ("C-M-S-s-j" . #'rime-force-enable)
+    ("C-." . #'rime-send-keybinding)
+    ("S-SPC" . #'rime-send-keybinding)
+    ("C-`" . #'rime-send-keybinding)
+    ("C-~" . #'rime-send-keybinding)
+    ("C-S-`" . #'rime-send-keybinding))
   :custom
-  (default-input-method "pyim")
-  (pyim-default-scheme 'rime)
-  (pyim-assistant-scheme 'rime)
-  (pyim-page-tooltip 'posframe)
-  (pyim-page-style 'one-line)
-  (pyim-page-length 5)
-  (pyim-translate-trigger-char "z")
-  (pyim-prefer-personal-dcache nil)
-  (pyim-dcache-directory (expand-file-name "~/.local/pyim/cache/"))
+  (default-input-method "rime")
+  ;; (rime-librime-root (cond (IS-MAC (let ((dir (expand-file-name "~/repos/librime/dist")))
+  ;;                                    (when (file-directory-p dir)
+  ;;                                      dir)))
+  ;;                          (t rime-librime-root)))
+  (rime-share-data-dir
+   (cl-some (lambda (dir)
+              (let ((abs-dir (expand-file-name dir)))
+                (when (file-directory-p abs-dir)
+                  abs-dir)))
+            (cond (IS-MAC
+                   '("~/Library/Rime"
+                     "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"))
+                  (IS-LINUX
+                   '("~/.config/ibus/rime"
+                     "~/.config/fcitx/rime"
+                     "/usr/share/local"
+                     "/usr/share"))
+                  (t `(,rime-share-data-dir)))))
+  (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
+  (rime-show-candidate 'posframe)
+  (rime-posframe-style 'simple)
+  (rime-inline-ascii-trigger 'shift-l)
+  :hook
+  ('org-mode . #'cnsunyour/active-input-method)
+  ('markdown-mode . #'cnsunyour/active-input-method)
+  ('beancount-mode . #'cnsunyour/active-input-method)
+  ('after-init . (lambda ()
+                   (when (fboundp 'rime-lib-sync-user-data)
+                     (ignore-errors (rime-sync)))))
+  ('kill-emacs . (lambda ()
+                   (when (fboundp 'rime-lib-sync-user-data)
+                     (ignore-errors (rime-sync)))))
   :config
-  (defun +pyim-probe-beancount-mode ()
-    "当前为`beancount-mode'，且光标在注释或字符串当中。"
-    (when (derived-mode-p 'beancount-mode)
-      (not (or (nth 3 (syntax-ppss))
-               (nth 4 (syntax-ppss))))))
+  (after! doom-modeline
+    (set-face-attribute 'rime-indicator-face nil
+                        :foreground 'unspecified
+                        :inherit 'doom-modeline-buffer-major-mode)
+    (set-face-attribute 'rime-indicator-dim-face nil
+                        :foreground 'unspecified
+                        :inherit 'doom-modeline-buffer-minor-mode)
 
-  (defun +pyim-english-prober()
-    "自定义英文输入探针函数，用于在不同mode下使用不同的探针列表"
-    (let ((use-en (button-at (point))))
-      (if (derived-mode-p 'telega-chat-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-auto-english)))
-        (when (derived-mode-p 'text-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-auto-english))))
-        (when (derived-mode-p 'prog-mode 'conf-mode)
-          (setq use-en (or use-en
-                           (pyim-probe-dynamic-english))))
-        (setq use-en (or use-en
-                         (+pyim-probe-beancount-mode)
-                         (pyim-probe-program-mode)
-                         (pyim-probe-org-speed-commands)
-                         (pyim-probe-org-structure-template))))
-      use-en))
-  ;; 设置英文输入探针方式，采用自定义探针函数
-  (setq-default pyim-english-input-switch-functions
-                '(+pyim-english-prober))
+    (doom-modeline-def-segment input-method
+      "Define the current input method properties."
+      (propertize (cond (current-input-method
+                         (concat (doom-modeline-spc)
+                                 current-input-method-title
+                                 (doom-modeline-spc)))
+                        ((and (bound-and-true-p evil-local-mode)
+                              (bound-and-true-p evil-input-method))
+                         (concat
+                          (doom-modeline-spc)
+                          (nth 3 (assoc default-input-method input-method-alist))
+                          (doom-modeline-spc)))
+                        (t ""))
+                  'face (if (doom-modeline--active)
+                            (or (get-text-property 0 'face (rime-lighter))
+                                'doom-modeline-buffer-major-mode)
+                          'mode-line-inactive)
+                  'help-echo (concat
+                              "Current input method: "
+                              current-input-method
+                              "\n\
+mouse-2: Disable input method\n\
+mouse-3: Describe current input method")
+                  'mouse-face 'mode-line-highlight
+                  'local-map mode-line-input-method-map)))
 
-  (defun +pyim-punctuation-prober(char)
-    "自定义标点符号半角探针函数，用于在不同mode下使用不同的探针列表"
-    (or (pyim-probe-punctuation-line-beginning char)
-        (pyim-probe-punctuation-after-punctuation char)))
-  ;; 设置标点符号半角探针方式，采用自定义探针函数
-  (setq-default pyim-punctuation-half-width-functions
-                '(+pyim-punctuation-prober))
+  (defun +rime-force-enable ()
+    "[ENHANCED] Force into Chinese input state.
 
-  (map! :map 'pyim-mode-map
-        "." 'pyim-page-next-page
-        "," 'pyim-page-previous-page
-        ";" (λ! (pyim-page-select-word-by-number 2))
-        "'" (λ! (pyim-page-select-word-by-number 3))))
+If current input method is not `rime', active it first. If it is
+currently in the `evil' non-editable state, then switch to
+`evil-insert-state'."
+    (interactive)
+    (let ((input-method "rime"))
+      (unless (string= current-input-method input-method)
+        (activate-input-method input-method))
+      (when (rime-predicate-evil-mode-p)
+        (if (= (1+ (point)) (line-end-position))
+            (evil-append 1)
+          (evil-insert 1)))
+      (rime-force-enable)))
+
+  (defun +rime-convert-string-at-point ()
+    "Convert the string at point to Chinese using the current input scheme.
+
+First call `+rime-force-enable' to active the input method, and
+then search back from the current cursor for available string (if
+a string is selected, use it) as the input code, call the current
+input scheme to convert to Chinese."
+    (interactive)
+    (+rime-force-enable)
+    (let ((string (if mark-active
+                      (buffer-substring-no-properties
+                       (region-beginning) (region-end))
+                    (buffer-substring-no-properties
+                     (point) (max (line-beginning-position) (- (point) 80)))))
+          code
+          length)
+      (cond ((string-match "\\([a-z]+\\|[[:punct:]]\\)[[:blank:]]*$" string)
+             (setq code (replace-regexp-in-string
+                         "^[-']" ""
+                         (match-string 0 string)))
+             (setq length (length code))
+             (setq code (replace-regexp-in-string " +" "" code))
+             (if mark-active
+                 (delete-region (region-beginning) (region-end))
+               (when (> length 0)
+                 (delete-char (- 0 length))))
+             (when (> length 0)
+               (setq unread-command-events
+                     (append (listify-key-sequence code)
+                             unread-command-events))))
+            (t (message "`+rime-convert-string-at-point' did nothing.")))))
+
+  (unless (fboundp 'rime--posframe-display-content)
+    (error "Function `rime--posframe-display-content' is not available."))
+  (defadvice! +rime--posframe-display-content-a (args)
+    "给 `rime--posframe-display-content' 传入的字符串加一个全角空
+格，以解决 `posframe' 偶尔吃字的问题。"
+    :filter-args #'rime--posframe-display-content
+    (cl-destructuring-bind (content) args
+      (let ((newresult (if (string-blank-p content)
+                           content
+                         (concat content "　"))))
+        (list newresult))))
+
+  (load! "+rime-predicates"))
 
 
 ;; Support pinyin in Ivy
@@ -157,7 +204,7 @@ unwanted space when exporting org-mode to hugo markdown."
 ;; Refer to  https://github.com/abo-abo/swiper/issues/919 and
 ;; https://github.com/pengpengxp/swiper/wiki/ivy-support-chinese-pinyin
 (use-package! pinyinlib
-  :commands pinyinlib-build-regexp-string
+  :commands (pinyinlib-build-regexp-string)
   :init
   (with-no-warnings
     (defun ivy--regex-pinyin (str)

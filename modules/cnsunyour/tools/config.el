@@ -9,30 +9,6 @@
 ;; gpg 可以读取在 emacs 中输入的密码
 (use-package! pinentry :config (pinentry-start))
 
-;; Symbol Overlay 多关键字高亮插件
-;; Highlight symbols with overlays while providing a keymap for various
-;; operations about highlighted symbols. It was originally inspired by
-;; the package highlight-symbol. The fundamental difference is that in
-;; symbol-overlay every symbol is highlighted by the Emacs built-in
-;; function overlay-put rather than the font-lock mechanism used in
-;; highlight-symbol.
-;; Default key-bindings defined in symbol-overlay-map:
-;; "i" -> symbol-overlay-put
-;; "n" -> symbol-overlay-jump-next
-;; "p" -> symbol-overlay-jump-prev
-;; "w" -> symbol-overlay-save-symbol
-;; "t" -> symbol-overlay-toggle-in-scope
-;; "e" -> symbol-overlay-echo-mark
-;; "d" -> symbol-overlay-jump-to-definition
-;; "s" -> symbol-overlay-isearch-literally
-;; "q" -> symbol-overlay-query-replace
-;; "r" -> symbol-overlay-rename
-(map! "M-i" 'symbol-overlay-put
-      "M-n" 'symbol-overlay-switch-forward
-      "M-p" 'symbol-overlay-switch-backward
-      "<f7>" 'symbol-overlay-mode
-      "<f8>" 'symbol-overlay-remove-all)
-
 ;; 让flycheck检查载入el文件时从load-path里搜索
 (setq flycheck-emacs-lisp-load-path 'inherit)
 
@@ -74,9 +50,8 @@
 ;; neopastebin -- emacs pastebin interface
 (use-package! neopastebin
   :defer t
-  :commands
-  pastebin-list-buffer-refresh
-  pastebin-new
+  :commands (pastebin-list-buffer-refresh
+             pastebin-new)
   :config
   (when (featurep! :editor evil +everywhere)
     (map! :map pastebin--list-map
@@ -97,9 +72,8 @@
 ;; Snails needed currently.
 (use-package! exec-path-from-shell
   :when IS-MAC
-  :config
-  (setq exec-path-from-shell-arguments '("-l"))
-  (exec-path-from-shell-initialize))
+  :custom
+  (exec-path-from-shell-arguments '("-l")))
 
 ;; fuz.el，目前snails在用
 (use-package! fuz
@@ -111,7 +85,10 @@
 ;; M-x snails or M-x snails-search-point
 (use-package! snails
   :defer t
-  :commands snails snails-search-point
+  :commands (snails
+             snails-search-point)
+  :custom
+  (snails-use-exec-path-from-shell nil)
   :init
   (map! :leader
         "sn" #'snails

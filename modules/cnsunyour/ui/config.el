@@ -1,29 +1,56 @@
 ;;; cnsunyour/ui/config.el -*- lexical-binding: t; -*-
 
-;; 当前系统分辨率超过1600X100,则判断为大显示器
-(defun cnsunyour/is-large-display-p()
-  (let* ((display-width (x-display-pixel-width))
-         (display-height (x-display-pixel-height)))
-    (and (>= display-width 1600) (>= display-height 1000))))
+(defun cnsunyour/set-doom-font ()
+  "Set random font family and size."
+  (let* ((fonts (cl-remove-if
+                 (lambda (elf)
+                   (not (member elf '("Sarasa Mono SC"
+                                      "Sarasa Mono Slab SC"
+                                      "等距更纱黑体 SC"
+                                      "等距更纱黑体 Slab SC"
+                                      "PragmataPro"
+                                      "Iosevka"
+                                      "Inconsolata"
+                                      "Noto Sans Mono CJK SC"
+                                      "WenQuanYi Zen Hei Mono"
+                                      "文泉驿等宽正黑"
+                                      "M+ 1m"
+                                      "M+ 1mn"
+                                      "M+ 2m"))))
+                 (mapcar (lambda (str)
+                           (decode-coding-string str 'utf-8))
+                         (cl-remove-duplicates (font-family-list)))))
+         (font (elt fonts (random (length fonts))))
+         (font-size (if (and (>= (x-display-pixel-width) 1600)
+                             (>= (x-display-pixel-height) 1000))
+                        16 14)))
+    (when font
+      (setq doom-font (font-spec :family font :size font-size)))))
+      ;; (setq doom-unicode-font
+      ;;       (if IS-MAC
+      ;;           (font-spec :family "Apple Color Emoji"
+      ;;                      :size (if large-display-p
+      ;;                                (* large-font-size .8)
+      ;;                              (* small-font-size .8)))
+      ;;         (font-spec :family (if (member
+      ;;                                 "Noto Color Emoji"
+      ;;                                 (font-family-list))
+      ;;                                "Noto Color Emoji"
+      ;;                              "Symbola")))))))
+      ;; (doom/reload-font)
+;; Set default font when theme changed.
+;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
+;; Or, you can set font manually now.
+(cnsunyour/set-doom-font)
 
-;; Set doom font family and size
-(let* ((large-font-size 16)
-       (small-font-size (- large-font-size 2)))
-  (setq doom-font
-        (font-spec :family "Sarasa Mono SC"
-                   :size (if (cnsunyour/is-large-display-p)
-                             large-font-size
-                           small-font-size))))
-  ;; (setq doom-unicode-font
-  ;;       (if IS-MAC
-  ;;           (font-spec :family "Apple Color Emoji"
-  ;;                      :size (if (cnsunyour/is-large-display-p)
-  ;;                                (* large-font-size .8)
-  ;;                              (* small-font-size .8)))
-  ;;         (font-spec :family (if (member "Noto Color Emoji"
-  ;;                                        (font-family-list))
-  ;;                                "Noto Color Emoji"
-  ;;                              "Symbola")))))
+(defun cnsunyour/set-splash-image ()
+  "Set random splash image."
+  (setq fancy-splash-image
+        (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
+               (banner (elt banners (random (length banners)))))
+          banner)))
+;; Set splash image when theme changed.
+(add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image)
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
@@ -94,7 +121,7 @@
   (setq ns-use-fullscreen-animation nil))
 
 ;; 调整启动时窗口大小/最大化/全屏
-(pushnew! initial-frame-alist '(width . 200) '(height . 48))
+;; (pushnew! initial-frame-alist '(width . 200) '(height . 48))
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
@@ -116,38 +143,31 @@
 ;;
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
-  :config
-  (defadvice! +random-banner--change-theme-a (&rest r)
-    "Set random banner before change theme"
-    :after #'change-theme
-    (setq fancy-splash-image
-          (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
-                 (banner (elt banners (random (length banners)))))
-            banner)))
-
-  (add-hook 'emacs-startup-hook
-            (lambda()
-              (change-theme '(doom-one-light
-                              doom-acario-light
-                              doom-nord-light
-                              doom-opera-light
-                              doom-solarized-light
-                              doom-tomorrow-day)
-                            '(doom-one
-                              doom-city-lights
-                              doom-challenger-deep
-                              doom-dracula
-                              doom-dark+
-                              doom-gruvbox
-                              doom-Iosvkem
-                              doom-vibrant
-                              doom-molokai
-                              doom-moonlight
-                              doom-oceanic-next
-                              doom-peacock
-                              doom-spacegrey
-                              doom-snazzy
-                              doom-wilmersdorf)))))
+  :custom
+  (theme-changer-delay-seconds 1500 "Delay 25 minutes for sync with macOS's auto theme changer.")
+  :hook
+  ('emacs-startup . (lambda ()
+                      (change-theme '(doom-one-light
+                                      doom-acario-light
+                                      doom-nord-light
+                                      doom-opera-light
+                                      doom-solarized-light
+                                      doom-tomorrow-day)
+                                    '(doom-one
+                                      doom-city-lights
+                                      doom-challenger-deep
+                                      doom-dracula
+                                      doom-dark+
+                                      doom-gruvbox
+                                      doom-Iosvkem
+                                      doom-vibrant
+                                      doom-molokai
+                                      doom-moonlight
+                                      doom-oceanic-next
+                                      doom-peacock
+                                      doom-spacegrey
+                                      doom-snazzy
+                                      doom-wilmersdorf)))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
@@ -179,3 +199,7 @@
     ("q" nil "quit"))
   :bind
   (("s-t" . hydra-tab/body)))
+
+(use-package! emojify
+  :hook
+  ('telega-chat-mode . #'emojify-mode))

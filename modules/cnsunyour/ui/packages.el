@@ -6,3 +6,4 @@
   :recipe (:fork (:host github :repo "cnsunyour/theme-changer")))
 (package! awesome-tab
   :recipe (:host github :repo "manateelazycat/awesome-tab"))
+(package! emojify)

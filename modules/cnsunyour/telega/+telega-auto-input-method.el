@@ -59,12 +59,15 @@
   "在 telega-chat-mode 里根据 chat 名称切换输入法，如果名称包含
 中文，则激活中文输入法，否则关闭中文输入法"
   :after #'telega-chat--pop-to-buffer
-  (let ((input-method default-input-method)
-        (title (telega-chat-title chat))
+  (let ((title (telega-chat-title chat))
         (chatid (plist-get chat :id)))
-    (cond ((member chatid +telega--chat-cn-list) (activate-input-method input-method))
-          ((member chatid +telega--chat-en-list) (activate-input-method nil))
-          ((string-match "\\cc" title) (activate-input-method input-method))
-          ((telega-chat-bot-p chat) (activate-input-method nil))
-          ((telega-chat-private-p chat) (activate-input-method input-method))
-          (t (activate-input-method nil)))))
+    (cond ((member chatid +telega--chat-cn-list) (cnsunyour/active-input-method))
+          ((member chatid +telega--chat-en-list) (cnsunyour/deactive-input-method))
+          ((string-match "\\cc" title) (cnsunyour/active-input-method))
+          ((telega-chat-bot-p chat) (cnsunyour/deactive-input-method))
+          ((telega-chat-private-p chat) (cnsunyour/active-input-method))
+          (t (cnsunyour/deactive-input-method)))))
+
+;; Determine the function which has advice is available.
+(unless (fboundp 'telega-chat--pop-to-buffer)
+  (error "Function `telega-chat--pop-to-buffer' is not available."))

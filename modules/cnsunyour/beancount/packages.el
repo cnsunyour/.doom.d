@@ -2,5 +2,5 @@
 ;;; cnsunyour/beancount/packages.el
 
 
-(package! beancount
-  :recipe (:local-repo "~/.doom.d/elisp" :files ("beancount.el")))
+(package! beancount.el
+  :recipe (:host github :repo "cnsunyour/beancount.el"))
