@@ -199,3 +199,7 @@
     ("q" nil "quit"))
   :bind
   (("s-t" . hydra-tab/body)))
+
+(use-package! emojify
+  :hook
+  ('telega-chat-mode . #'emojify-mode))
