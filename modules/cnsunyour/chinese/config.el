@@ -65,7 +65,8 @@ unwanted space when exporting org-mode to hugo markdown."
     ("C-S-`" . #'rime-send-keybinding))
   :custom
   (default-input-method "rime")
-  (rime-librime-root (if IS-MAC (expand-file-name "~/repos/librime/dist")))
+  (rime-librime-root (cond (IS-MAC (expand-file-name "~/repos/librime/dist"))
+                           (t rime-librime-root)))
   (rime-share-data-dir
    (cl-some (lambda (dir)
               (let ((abs-dir (expand-file-name dir)))
@@ -78,7 +79,8 @@ unwanted space when exporting org-mode to hugo markdown."
                    '("~/.config/ibus/rime"
                      "~/.config/fcitx/rime"
                      "/usr/share/local"
-                     "/usr/share")))))
+                     "/usr/share"))
+                  (t `(,rime-share-data-dir)))))
   (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
   (rime-show-candidate 'posframe)
   (rime-posframe-style 'simple)
