@@ -20,7 +20,7 @@
   (unless (display-graphic-p) (setq telega-use-images nil))
   :hook
   ('telega-chat-mode . #'yas-minor-mode-on)
-  ('telega-chat-mode . (lambda () (toggle-truncate-lines -1)))
+  ('telega-chat-mode . #'visual-line-mode)
   ('telega-chat-mode . (lambda ()
                          (set-company-backend! 'telega-chat-mode
                            (append '(telega-company-emoji
