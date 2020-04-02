@@ -10,7 +10,6 @@
                                       "等距更纱黑体 Slab SC"
                                       "PragmataPro"
                                       "Iosevka"
-                                      "Inconsolata"
                                       "Noto Sans Mono CJK SC"
                                       "WenQuanYi Zen Hei Mono"
                                       "文泉驿等宽正黑"
@@ -166,8 +165,7 @@
                                       doom-oceanic-next
                                       doom-peacock
                                       doom-spacegrey
-                                      doom-snazzy
-                                      doom-wilmersdorf)))))
+                                      doom-snazzy)))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
