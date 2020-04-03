@@ -161,8 +161,8 @@
        ;;vala              ; GObjective-C
 
        :email
-       ;;(mu4e +gmail)       ; WIP
-       ;;notmuch             ; WIP
+       (mu4e +gmail)       ; WIP
+       notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 
        ;; Applications are complex and opinionated modules that transform Emacs
@@ -196,6 +196,7 @@
        chinese
        ebook
        editor
+       email
        irc
        org
        rss
