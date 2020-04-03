@@ -68,13 +68,6 @@
                            :dev-key (car credentials)
                            :password (cadr credentials))))
 
-;; Ensure environment variables inside Emacs look the same as in the user's shell.
-;; Snails needed currently.
-(use-package! exec-path-from-shell
-  :when IS-MAC
-  :custom
-  (exec-path-from-shell-arguments '("-l")))
-
 ;; fuz.el，目前snails在用
 (use-package! fuz
   :config
