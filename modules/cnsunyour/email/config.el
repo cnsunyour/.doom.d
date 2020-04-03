@@ -13,7 +13,7 @@
                         (mu4e-drafts-folder     . "/gmail/[Gmail].草稿")
                         (mu4e-trash-folder      . "/gmail/[Gmail].已删除邮件")
                         (mu4e-refile-folder     . "/gmail/[Gmail].所有邮件")
-                        (mu4e-compose-signature . "---\n凡 (Sunn Yao)"))
+                        (mu4e-compose-signature . "凡 (Sunn Yao)"))
                       t)
 
   (set-email-account! "qq"
@@ -24,7 +24,7 @@
                         (mu4e-drafts-folder     . "/qq/Drafts")
                         (mu4e-trash-folder      . "/qq/Deleted Messages")
                         (mu4e-refile-folder     . "/qq/其他文件夹.Archive")
-                        (mu4e-compose-signature . "---\n凡 (Sunn Yao)")))
+                        (mu4e-compose-signature . "凡 (Sunn Yao)")))
 
   (set-email-account! "163vip"
                       '((user-full-name         . "姚晖 (Sunn Yao)")
@@ -34,7 +34,7 @@
                         (mu4e-drafts-folder     . "/163vip/草稿箱")
                         (mu4e-trash-folder      . "/163vip/已删除")
                         (mu4e-refile-folder     . "/163vip/Archive")
-                        (mu4e-compose-signature . "---\n姚晖 (Sunn Yao)")))
+                        (mu4e-compose-signature . "姚晖 (Sunn Yao)")))
 
   (set-email-account! "aliyun"
                       '((user-full-name         . "凡 (Sunn Yao)")
@@ -44,7 +44,7 @@
                         (mu4e-drafts-folder     . "/aliyun/草稿")
                         (mu4e-trash-folder      . "/aliyun/已删除邮件")
                         (mu4e-refile-folder     . "/aliyun/存档")
-                        (mu4e-compose-signature . "---\n凡 (Sunn Yao)")))
+                        (mu4e-compose-signature . "凡 (Sunn Yao)")))
 
   (set-email-account! "139"
                       '((user-full-name         . "姚晖 (Sunn Yao)")
@@ -54,7 +54,7 @@
                         (mu4e-drafts-folder     . "/139/草稿箱")
                         (mu4e-trash-folder      . "/139/已删除")
                         (mu4e-refile-folder     . "/139/Archive")
-                        (mu4e-compose-signature . "---\n姚晖 (Sunn Yao)")))
+                        (mu4e-compose-signature . "姚晖 (Sunn Yao)")))
 
   (set-email-account! "dbuav"
                       '((user-full-name         . "姚晖 (Sunn Yao)")
@@ -64,7 +64,7 @@
                         (mu4e-drafts-folder     . "/dbuav/草稿")
                         (mu4e-trash-folder      . "/dbuav/已删除邮件")
                         (mu4e-refile-folder     . "/dbuav/存档")
-                        (mu4e-compose-signature . "---\n姚晖 (Sunn Yao)")))
+                        (mu4e-compose-signature . "姚晖 (Sunn Yao)")))
 
   (map! "C-S-s-m" #'=mu4e))
 
