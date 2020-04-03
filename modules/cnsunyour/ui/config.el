@@ -8,7 +8,6 @@
                                       "Sarasa Mono Slab SC"
                                       "等距更纱黑体 SC"
                                       "等距更纱黑体 Slab SC"
-                                      "PragmataPro"
                                       "Iosevka"
                                       "Noto Sans Mono CJK SC"
                                       "WenQuanYi Zen Hei Mono"
