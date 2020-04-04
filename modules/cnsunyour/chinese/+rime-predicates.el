@@ -58,7 +58,22 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 (setq-default rime-inline-predicates
               '(rime-predicate-current-uppercase-letter-p))
 
-(add-hook! (telega-chat-mode text-mode)
+(add-hook! (text-mode)
+  (setq-local rime-disable-predicates
+              '(+rime-predicate-button-at-point-p
+                rime-predicate-evil-mode-p
+                rime-predicate-org-in-src-block-p
+                rime-predicate-org-latex-mode-p
+                +rime-predicate-ace-window-mode-p
+                rime-predicate-punctuation-line-begin-p
+                rime-predicate-punctuation-after-space-cc-p
+                rime-predicate-punctuation-after-ascii-p))
+  (setq-local rime-inline-predicates
+              '(rime-predicate-current-uppercase-letter-p
+                rime-predicate-space-after-cc-p
+                rime-predicate-after-ascii-char-p)))
+
+(add-hook! (telega-chat-mode)
   (setq-local rime-disable-predicates
               '(+rime-predicate-button-at-point-p
                 rime-predicate-evil-mode-p
