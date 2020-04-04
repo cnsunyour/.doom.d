@@ -7,16 +7,71 @@
 
   (after! mu4e
     (setq +mu4e-backend 'offlineimap
-          mu4e-update-interval 300)
+          send-mail-function #'smtpmail-send-it
+          message-send-mail-function send-mail-function
+          mu4e-maildir "~/.mail"
+          mu4e-update-interval 300
+          mu4e-headers-include-related t
+          mu4e-headers-skip-duplicates t)
+
+    (setq mu4e-bookmarks
+          `(,(make-mu4e-bookmark
+              :name  "Unread messages"
+              :query "flag:unread AND NOT flag:trashed"
+              :key ?u)
+            ,(make-mu4e-bookmark
+              :name "Today's messages"
+              :query "date:today..now AND NOT flag:trashed"
+              :key ?t)
+            ,(make-mu4e-bookmark
+              :name "Last week"
+              :query "date:1w..now AND NOT flag:trashed"
+              :key ?w)
+            ,(make-mu4e-bookmark
+              :name "Last month"
+              :query "date:1m..now AND NOT flag:trashed"
+              :key ?m)
+            ,(make-mu4e-bookmark
+              :name "Maillist messages"
+              :query "flag:list AND NOT flag:trashed"
+              :key ?l)
+            ,(make-mu4e-bookmark
+              :name "Messages with attachments"
+              :query "flag:attach AND NOT flag:trashed"
+              :key ?a)))
+
+    (setq mu4e-maildir-shortcuts
+          '(("/gmail/INBOX"  . ?g)
+            ("/live/INBOX"   . ?l)
+            ("/163vip/INBOX" . ?v)
+            ("/qq/INBOX"     . ?q)
+            ("/aliyun/INBOX" . ?a)
+            ("/139/INBOX"    . ?m)
+            ("/dbuav/INBOX"  . ?d)
+            ("/icloud/INBOX" . ?i)))
+
+    (set-email-account! "icloud"
+                        '((user-full-name         . "姚晖 (Sunn Yao)")
+                          (user-mail-address      . "sunyour@me.com")
+                          (smtpmail-smtp-user     . "sunyour@me.com")
+                          (smtpmail-smtp-server   . "smtp.mail.me.com")
+                          (smtpmail-smtp-service  . 587)
+                          (smtpmail-stream-type   . starttls)
+                          (mu4e-sent-messages-behavior . 'sent)
+                          (mu4e-sent-folder       . "/icloud/Sent Messages")
+                          (mu4e-drafts-folder     . "/icloud/Drafts")
+                          (mu4e-trash-folder      . "/icloud/Deleted Messages")
+                          (mu4e-refile-folder     . "/icloud/Archive")
+                          (mu4e-compose-signature . "姚晖 (Sunn Yao)")))
 
     (set-email-account! "live"
                         '((user-full-name         . "姚晖 (Sunn Yao)")
                           (user-mail-address      . "sunyour@live.cn")
-                          (send-mail-function     . 'smtpmail-send-it)
                           (smtpmail-smtp-user     . "sunyour@live.cn")
                           (smtpmail-smtp-server   . "smtp.office365.com")
                           (smtpmail-smtp-service  . 587)
                           (smtpmail-stream-type   . starttls)
+                          (mu4e-sent-messages-behavior . 'sent)
                           (mu4e-sent-folder       . "/live/Sent")
                           (mu4e-drafts-folder     . "/live/Drafts")
                           (mu4e-trash-folder      . "/live/Deleted")
@@ -26,11 +81,11 @@
     (set-email-account! "dbuav"
                         '((user-full-name         . "姚晖 (Sunn Yao)")
                           (user-mail-address      . "sunyour@dbuav.com")
-                          (send-mail-function     . 'smtpmail-send-it)
                           (smtpmail-smtp-user     . "sunyour@dbuav.com")
                           (smtpmail-smtp-server   . "smtp.mxhichina.com")
                           (smtpmail-smtp-service  . 465)
                           (smtpmail-stream-type   . ssl)
+                          (mu4e-sent-messages-behavior . 'sent)
                           (mu4e-sent-folder       . "/dbuav/已发送")
                           (mu4e-drafts-folder     . "/dbuav/草稿")
                           (mu4e-trash-folder      . "/dbuav/已删除邮件")
@@ -40,11 +95,11 @@
     (set-email-account! "m139"
                         '((user-full-name         . "姚晖 (Sunn Yao)")
                           (user-mail-address      . "sunyour@139.com")
-                          (send-mail-function     . 'smtpmail-send-it)
                           (smtpmail-smtp-user     . "sunyour@139.com")
                           (smtpmail-smtp-server   . "smtp.139.com")
                           (smtpmail-smtp-service  . 465)
                           (smtpmail-stream-type   . ssl)
+                          (mu4e-sent-messages-behavior . 'sent)
                           (mu4e-sent-folder       . "/139/已发送")
                           (mu4e-drafts-folder     . "/139/草稿箱")
                           (mu4e-trash-folder      . "/139/已删除")
@@ -54,11 +109,11 @@
     (set-email-account! "aliyun"
                         '((user-full-name         . "凡 (Sunn Yao)")
                           (user-mail-address      . "sunyour@aiyun.com")
-                          (send-mail-function     . 'smtpmail-send-it)
                           (smtpmail-smtp-user     . "sunyour@aiyun.com")
                           (smtpmail-smtp-server   . "smtp.aliyun.com")
                           (smtpmail-smtp-service  . 465)
                           (smtpmail-stream-type   . ssl)
+                          (mu4e-sent-messages-behavior . 'sent)
                           (mu4e-sent-folder       . "/aliyun/已发送")
                           (mu4e-drafts-folder     . "/aliyun/草稿")
                           (mu4e-trash-folder      . "/aliyun/已删除邮件")
@@ -68,11 +123,11 @@
     (set-email-account! "vip163"
                         '((user-full-name         . "姚晖 (Sunn Yao)")
                           (user-mail-address      . "sunyour@vip.163.com")
-                          (send-mail-function     . 'smtpmail-send-it)
                           (smtpmail-smtp-user     . "sunyour@vip.163.com")
                           (smtpmail-smtp-server   . "smtp.vip.163.com")
                           (smtpmail-smtp-service  . 465)
                           (smtpmail-stream-type   . ssl)
+                          (mu4e-sent-messages-behavior . 'sent)
                           (mu4e-sent-folder       . "/163vip/已发送")
                           (mu4e-drafts-folder     . "/163vip/草稿箱")
                           (mu4e-trash-folder      . "/163vip/已删除")
@@ -82,11 +137,11 @@
     (set-email-account! "qq"
                         '((user-full-name         . "凡 (Sunn Yao)")
                           (user-mail-address      . "sunyour@qq.com")
-                          (send-mail-function     . 'smtpmail-send-it)
                           (smtpmail-smtp-user     . "sunyour@qq.com")
                           (smtpmail-smtp-server   . "smtp.qq.com")
                           (smtpmail-smtp-service  . 587)
                           (smtpmail-stream-type   . starttls)
+                          (mu4e-sent-messages-behavior . 'delete)
                           (mu4e-sent-folder       . "/qq/Sent Messages")
                           (mu4e-drafts-folder     . "/qq/Drafts")
                           (mu4e-trash-folder      . "/qq/Deleted Messages")
@@ -96,11 +151,11 @@
     (set-email-account! "gmail"
                         '((user-full-name         . "凡 (Sunn Yao)")
                           (user-mail-address      . "sunyour@gmail.com")
-                          (send-mail-function     . 'smtpmail-send-it)
                           (smtpmail-smtp-user     . "sunyour@gmail.com")
                           (smtpmail-smtp-server   . "smtp.gmail.com")
                           (smtpmail-smtp-service  . 587)
                           (smtpmail-stream-type   . starttls)
+                          (mu4e-sent-messages-behavior . 'delete)
                           (mu4e-sent-folder       . "/gmail/[Gmail].已发邮件")
                           (mu4e-drafts-folder     . "/gmail/[Gmail].草稿")
                           (mu4e-trash-folder      . "/gmail/[Gmail].已删除邮件")
