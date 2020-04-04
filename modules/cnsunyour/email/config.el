@@ -5,6 +5,20 @@
 (when (featurep! :email mu4e)
   (setq +mu4e-backend 'offlineimap)
 
+  (set-email-account! "live"
+                      '((user-full-name         . "姚晖 (Sunn Yao)")
+                        (user-mail-address      . "sunyour@live.cn")
+                        (send-mail-function     . 'smtpmail-send-it)
+                        (smtpmail-smtp-user     . "sunyour@live.cn")
+                        (smtpmail-smtp-server   . "smtp.office365.com")
+                        (smtpmail-smtp-service  . 587)
+                        (smtpmail-stream-type   . starttls)
+                        (mu4e-sent-folder       . "/live/Sent")
+                        (mu4e-drafts-folder     . "/live/Drafts")
+                        (mu4e-trash-folder      . "/live/Deleted")
+                        (mu4e-refile-folder     . "/live/存档")
+                        (mu4e-compose-signature . "姚晖 (Sunn Yao)")))
+
   (set-email-account! "dbuav"
                       '((user-full-name         . "姚晖 (Sunn Yao)")
                         (user-mail-address      . "sunyour@dbuav.com")
