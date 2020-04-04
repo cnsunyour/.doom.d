@@ -32,11 +32,15 @@
               :query "date:1m..now AND NOT flag:trashed"
               :key ?m)
             ,(make-mu4e-bookmark
-              :name "Maillist messages"
+              :name "High priority"
+              :query "prio:high AND NOT flag:trashed"
+              :key ?i)
+            ,(make-mu4e-bookmark
+              :name "Mailing lists"
               :query "flag:list AND NOT flag:trashed"
               :key ?l)
             ,(make-mu4e-bookmark
-              :name "Messages with attachments"
+              :name "Messages with attachment"
               :query "flag:attach AND NOT flag:trashed"
               :key ?a)))
 
