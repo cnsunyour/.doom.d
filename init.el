@@ -162,7 +162,7 @@
 
        :email
        (mu4e +gmail)       ; WIP
-       notmuch             ; WIP
+       ;; notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 
        ;; Applications are complex and opinionated modules that transform Emacs
