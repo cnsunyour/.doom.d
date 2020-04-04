@@ -154,19 +154,20 @@
                                       doom-solarized-light
                                       doom-tomorrow-day)
                                     '(doom-one
+                                      doom-vibrant
                                       doom-city-lights
                                       doom-challenger-deep
-                                      doom-dracula
                                       doom-dark+
+                                      doom-dracula
                                       doom-gruvbox
                                       doom-Iosvkem
-                                      doom-vibrant
                                       doom-molokai
                                       doom-moonlight
                                       doom-oceanic-next
                                       doom-peacock
+                                      doom-snazzy
                                       doom-spacegrey
-                                      doom-snazzy)))))
+                                      srcery)))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
