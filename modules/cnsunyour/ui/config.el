@@ -152,7 +152,9 @@
                                       doom-nord-light
                                       doom-opera-light
                                       doom-solarized-light
-                                      doom-tomorrow-day)
+                                      doom-tomorrow-day
+                                      flucui-light
+                                      lab-light)
                                     '(doom-one
                                       doom-vibrant
                                       doom-city-lights
@@ -167,7 +169,9 @@
                                       doom-peacock
                                       doom-snazzy
                                       doom-spacegrey
-                                      srcery)))))
+                                      srcery
+                                      flucui-dark
+                                      lab-dark)))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
