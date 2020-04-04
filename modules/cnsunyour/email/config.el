@@ -5,11 +5,6 @@
 (when (featurep! :email mu4e)
   (map! "C-S-s-m" #'=mu4e)
 
-  (use-package! mu4e-maildirs-extension
-    :after mu4e
-    :config
-    (mu4e-maildirs-extension))
-
   (after! mu4e
     (setq +mu4e-backend 'offlineimap
           mu4e-update-interval 300)
