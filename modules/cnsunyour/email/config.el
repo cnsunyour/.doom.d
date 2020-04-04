@@ -3,7 +3,8 @@
 
 ;; mu4e
 (when (featurep! :email mu4e)
-  (setq +mu4e-backend 'offlineimap)
+  (setq +mu4e-backend 'offlineimap
+        mu4e-update-interval 300)
 
   (set-email-account! "live"
                       '((user-full-name         . "姚晖 (Sunn Yao)")
