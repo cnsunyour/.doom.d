@@ -11,6 +11,7 @@
                                       ;; "PragmataPro"
                                       ;; "Iosevka"
                                       ;; "Inconsolata"
+                                      "Unifont"
                                       "Noto Sans Mono CJK SC"
                                       "WenQuanYi Zen Hei Mono"
                                       "文泉驿等宽正黑"
