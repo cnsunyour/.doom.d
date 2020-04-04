@@ -47,7 +47,7 @@
                         (mu4e-refile-folder     . "/aliyun/存档")
                         (mu4e-compose-signature . "凡 (Sunn Yao)")))
 
-  (set-email-account! "n163vip"
+  (set-email-account! "vip163"
                       '((user-full-name         . "姚晖 (Sunn Yao)")
                         (user-mail-address      . "sunyour@vip.163.com")
                         (send-mail-function     . 'smtpmail-send-it)
