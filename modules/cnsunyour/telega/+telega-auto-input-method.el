@@ -63,7 +63,7 @@
         (chatid (plist-get chat :id)))
     (cond ((member chatid +telega--chat-cn-list) (cnsunyour/active-input-method))
           ((member chatid +telega--chat-en-list) (cnsunyour/deactive-input-method))
-          ((string-match "\\cc" title) (cnsunyour/active-input-method))
+          ((string-match-p "\\cc" title) (cnsunyour/active-input-method))
           ((telega-chat-bot-p chat) (cnsunyour/deactive-input-method))
           ((telega-chat-private-p chat) (cnsunyour/active-input-method))
           (t (cnsunyour/deactive-input-method)))))
