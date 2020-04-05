@@ -32,6 +32,18 @@
               :query "date:1m..now AND maildir:/INBOX/ AND NOT flag:trashed"
               :key ?m)
             ,(make-mu4e-bookmark
+              :name "Last season"
+              :query "date:3m..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :key ?s)
+            ,(make-mu4e-bookmark
+              :name "Last half year"
+              :query "date:6m..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :key ?h)
+            ,(make-mu4e-bookmark
+              :name "Last year"
+              :query "date:1y..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :key ?y)
+            ,(make-mu4e-bookmark
               :name "All in inbox"
               :query "maildir:/INBOX/ AND NOT flag:trashed"
               :key ?a)
