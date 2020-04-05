@@ -3,7 +3,7 @@
 
 ;; mu4e
 (when (featurep! :email mu4e)
-  (map! "C-S-s-m" #'=mu4e)
+  (map! "C-M-S-s-e" #'=mu4e)
 
   (after! mu4e
     (setq +mu4e-backend 'offlineimap
@@ -36,17 +36,17 @@
               :query "maildir:/INBOX/ AND NOT flag:trashed"
               :key ?a)
             ,(make-mu4e-bookmark
-              :name "High priority"
-              :query "prio:high AND NOT flag:trashed"
+              :name "Important"
+              :query "prio:high AND maildir:/INBOX/ AND NOT flag:trashed"
               :key ?i)
             ,(make-mu4e-bookmark
               :name "Mailing lists"
-              :query "flag:list AND NOT flag:trashed"
+              :query "flag:list AND maildir:/INBOX/ AND NOT flag:trashed"
               :key ?l)
             ,(make-mu4e-bookmark
-              :name "Messages with attachment"
-              :query "flag:attach AND NOT flag:trashed"
-              :key ?a)))
+              :name "With attachments"
+              :query "flag:attach AND maildir:/INBOX/ AND NOT flag:trashed"
+              :key ?@)))
 
     (setq mu4e-maildir-shortcuts
           '(("/gmail/INBOX"  . ?g)
