@@ -3,7 +3,7 @@
 
 ;; mu4e
 (when (featurep! :email mu4e)
-  (map! "C-M-S-s-e" #'=mu4e)
+  (map! "C-S-s-m" #'=mu4e)
 
   (after! mu4e
     (setq +mu4e-backend 'offlineimap
@@ -46,7 +46,7 @@
             ,(make-mu4e-bookmark
               :name "With attachments"
               :query "flag:attach AND maildir:/INBOX/ AND NOT flag:trashed"
-              :key ?@)))
+              :key ?p)))
 
     (setq mu4e-maildir-shortcuts
           '(("/gmail/INBOX"  . ?g)
