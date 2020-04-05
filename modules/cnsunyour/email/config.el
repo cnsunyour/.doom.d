@@ -17,20 +17,24 @@
     (setq mu4e-bookmarks
           `(,(make-mu4e-bookmark
               :name  "Unread messages"
-              :query "flag:unread AND NOT flag:trashed"
+              :query "flag:unread AND maildir:/INBOX/ AND NOT flag:trashed"
               :key ?u)
             ,(make-mu4e-bookmark
               :name "Today's messages"
-              :query "date:today..now AND NOT flag:trashed"
+              :query "date:today..now AND maildir:/INBOX/ AND NOT flag:trashed"
               :key ?t)
             ,(make-mu4e-bookmark
               :name "Last week"
-              :query "date:1w..now AND NOT flag:trashed"
+              :query "date:1w..now AND maildir:/INBOX/ AND NOT flag:trashed"
               :key ?w)
             ,(make-mu4e-bookmark
               :name "Last month"
-              :query "date:1m..now AND NOT flag:trashed"
+              :query "date:1m..now AND maildir:/INBOX/ AND NOT flag:trashed"
               :key ?m)
+            ,(make-mu4e-bookmark
+              :name "All in inbox"
+              :query "maildir:/INBOX/ AND NOT flag:trashed"
+              :key ?a)
             ,(make-mu4e-bookmark
               :name "High priority"
               :query "prio:high AND NOT flag:trashed"
@@ -96,7 +100,7 @@
                           (mu4e-refile-folder     . "/dbuav/存档")
                           (mu4e-compose-signature . "姚晖 (Sunn Yao)")))
 
-    (set-email-account! "m139"
+    (set-email-account! "139"
                         '((user-full-name         . "姚晖 (Sunn Yao)")
                           (user-mail-address      . "sunyour@139.com")
                           (smtpmail-smtp-user     . "sunyour@139.com")
@@ -124,7 +128,7 @@
                           (mu4e-refile-folder     . "/aliyun/存档")
                           (mu4e-compose-signature . "凡 (Sunn Yao)")))
 
-    (set-email-account! "vip163"
+    (set-email-account! "163vip"
                         '((user-full-name         . "姚晖 (Sunn Yao)")
                           (user-mail-address      . "sunyour@vip.163.com")
                           (smtpmail-smtp-user     . "sunyour@vip.163.com")
