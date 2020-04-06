@@ -39,9 +39,9 @@
             "@vid" "@bing" "@wiki" "@imdb")
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size 100 :quit t :modeline t)
+    :side 'right :size 100 :select t :ttl nil :quit t :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 100 :quit t :modeline t)
+    :side 'right :size 100 :select t :ttl nil :quit t :modeline t)
 
   (telega-mode-line-mode 1)
   (telega-url-shorten-mode 1)
