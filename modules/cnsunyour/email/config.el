@@ -5,6 +5,7 @@
   :when (featurep! :email mu4e)
   :after mu4e
   :custom
+  (doom-modeline-mu4e t)
   (mu4e-alert-interesting-mail-query "flag:unread AND maildir:/INBOX/ AND NOT flag:trashed")
   :config
   (mu4e-alert-set-default-style 'notifier)
