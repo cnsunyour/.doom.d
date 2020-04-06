@@ -19,6 +19,7 @@
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
   :hook
+  ('telega-chat-mode . #'doom-mark-buffer-as-real-h)
   ('telega-chat-mode . #'yas-minor-mode-on)
   ('telega-chat-mode . #'visual-line-mode)
   ('telega-chat-mode . (lambda ()
