@@ -22,7 +22,7 @@
             ,(make-mu4e-bookmark
               :name "Today's messages"
               :query "date:today..now AND maildir:/INBOX/ AND NOT flag:trashed"
-              :key ?t)
+              :key ?b)
             ,(make-mu4e-bookmark
               :name "Last week"
               :query "date:1w..now AND maildir:/INBOX/ AND NOT flag:trashed"
