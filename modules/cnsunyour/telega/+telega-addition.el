@@ -57,7 +57,7 @@
   :type 'list
   :group 'telega)
 
-(defun telega--filter-+chat-on-watching (chat)
+(define-telega-filter +chat-on-watching (chat)
   "Check if current chatbuf is on watching."
   (let ((chatid (plist-get chat :id)))
     (member chatid +telega--chat-on-watching-list)))
