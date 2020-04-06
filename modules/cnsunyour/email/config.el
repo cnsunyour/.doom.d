@@ -70,16 +70,6 @@
               :query "flag:attach AND maildir:/INBOX/ AND NOT flag:trashed"
               :key ?p)))
 
-    (setq mu4e-maildir-shortcuts
-          '(("/gmail/INBOX"  . ?g)
-            ("/live/INBOX"   . ?l)
-            ("/163vip/INBOX" . ?v)
-            ("/qq/INBOX"     . ?q)
-            ("/aliyun/INBOX" . ?a)
-            ("/139/INBOX"    . ?m)
-            ("/dbuav/INBOX"  . ?d)
-            ("/icloud/INBOX" . ?i)))
-
     (set-email-account! "icloud"
                         '((user-full-name         . "姚晖 (Sunn Yao)")
                           (user-mail-address      . "sunyour@me.com")
