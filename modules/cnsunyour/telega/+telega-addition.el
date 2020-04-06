@@ -57,9 +57,9 @@
   :type 'list
   :group 'telega)
 
-(defun telega--filter-chat-on-watching-p (chat)
+(defun telega--filter-+chat-on-watching (chat)
   "Check if current chatbuf is on watching."
   (let ((chatid (plist-get chat :id)))
     (member chatid +telega--chat-on-watching-list)))
 
-(pushnew! telega-chat-show-deleted-messages-for 'chat-on-watching-p)
+(setq telega-chat-show-deleted-messages-for '(+chat-on-watching))
