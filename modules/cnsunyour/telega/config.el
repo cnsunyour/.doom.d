@@ -14,7 +14,7 @@
   (telega-sticker-size '(8 . 48))
   (telega-chat-use-markdown-version nil)
   (telega-animation-play-inline nil)
-  (telega-emoji-use-images nil)
+  (telega-emoji-use-images t)
   (telega-sticker-set-download t)
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
