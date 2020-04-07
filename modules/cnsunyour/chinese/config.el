@@ -92,9 +92,6 @@ unwanted space when exporting org-mode to hugo markdown."
   (rime-posframe-style 'simple)
   (rime-inline-ascii-trigger 'shift-l)
   :hook
-  ('org-mode . #'cnsunyour/active-input-method)
-  ('markdown-mode . #'cnsunyour/active-input-method)
-  ('beancount-mode . #'cnsunyour/active-input-method)
   ('after-init . (lambda ()
                    (when (fboundp 'rime-lib-sync-user-data)
                      (ignore-errors (rime-sync)))))
@@ -102,6 +99,11 @@ unwanted space when exporting org-mode to hugo markdown."
                    (when (fboundp 'rime-lib-sync-user-data)
                      (ignore-errors (rime-sync)))))
   :config
+  (add-hook! (org-mode
+              markdown-mode
+              beancount-mode)
+    (activate-input-method default-input-method))
+
   (after! doom-modeline
     (set-face-attribute 'rime-indicator-face nil
                         :foreground 'unspecified
