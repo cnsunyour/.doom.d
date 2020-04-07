@@ -30,11 +30,15 @@
 
 ;; define environmental variable for some works
 (setenv "PKG_CONFIG_PATH"
-        (concat
-         "/usr/local/opt/libffi/lib/pkgconfig" path-separator
-         "/usr/local/opt/qt/lib/pkgconfig" path-separator
-         "/usr/local/opt/nss/lib/pkgconfig" path-separator
-         (getenv "PKG_CONFIG_PATH")))
+        (replace-regexp-in-string
+         (concat path-separator "+$")
+         ""
+         (concat
+          "/usr/local/opt/libffi/lib/pkgconfig" path-separator
+          "/usr/local/opt/qt/lib/pkgconfig" path-separator
+          "/usr/local/opt/nss/lib/pkgconfig" path-separator
+          "usr/local/opt/zlib/lib/pkgconfig" path-separator
+          (getenv "PKG_CONFIG_PATH"))))
 
 ;; mac下使用系统废纸篓删除文件
 (when IS-MAC
