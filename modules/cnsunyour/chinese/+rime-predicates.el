@@ -60,9 +60,9 @@ Detect whether current buffer's `major-mode' is `beancount-mode',
 and the cursor is in the comments or strings.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
-  (when (derived-mode-p 'beancount-mode)
-    (not (or (nth 3 (syntax-ppss))
-             (nth 4 (syntax-ppss))))))
+  (and (derived-mode-p 'beancount-mode)
+       (not (or (nth 3 (syntax-ppss))
+                (nth 4 (syntax-ppss))))))
 
 (setq-default rime-disable-predicates
               '(+rime-predicates-basic
