@@ -61,12 +61,12 @@
   :after #'telega-chat--pop-to-buffer
   (let ((title (telega-chat-title chat))
         (chatid (plist-get chat :id)))
-    (cond ((member chatid +telega--chat-cn-list) (cnsunyour/active-input-method))
-          ((member chatid +telega--chat-en-list) (cnsunyour/deactive-input-method))
-          ((string-match-p "\\cc" title) (cnsunyour/active-input-method))
-          ((telega-chat-bot-p chat) (cnsunyour/deactive-input-method))
-          ((telega-chat-private-p chat) (cnsunyour/active-input-method))
-          (t (cnsunyour/deactive-input-method)))))
+    (cond ((member chatid +telega--chat-cn-list) (activate-input-method default-input-method))
+          ((member chatid +telega--chat-en-list) (deactivate-input-method))
+          ((string-match-p "\\cc" title) (activate-input-method default-input-method))
+          ((telega-chat-bot-p chat) (deactivate-input-method))
+          ((telega-chat-private-p chat) (activate-input-method default-input-method))
+          (t (deactivate-input-method)))))
 
 ;; Determine the function which has advice is available.
 (unless (fboundp 'telega-chat--pop-to-buffer)

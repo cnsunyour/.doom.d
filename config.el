@@ -64,36 +64,3 @@
 ;;                                   (k-time (garbage-collect))))))
 (defvar k-gc-timer
   (run-with-idle-timer 15 t (lambda () (garbage-collect))))
-
-
-(defun cnsunyour/active-input-method ()
-  "Active input method."
-  (unless (string= current-input-method default-input-method)
-    (toggle-input-method)))
-
-(defun cnsunyour/deactive-input-method ()
-  "Deactive input method"
-  (when (string= current-input-method default-input-method)
-    (toggle-input-method)))
-
-(defun cnsunyour/string-match-p (regexp string &optional start)
-  "与 `string-match-p' 类似，如果 REGEXP 和 STRING 是非字符串时，
-不会报错。"
-  (and (stringp regexp)
-       (stringp string)
-       (string-match-p regexp string start)))
-
-(defun cnsunyour/char-before-to-string (num)
-  "得到光标前第 `num' 个字符，并将其转换为字符串。"
-  (let* ((point (point))
-         (point-before (- point num)))
-    (when (and (> point-before 0)
-               (char-before point-before))
-      (char-to-string (char-before point-before)))))
-
-(defun cnsunyour/char-after-to-string (num)
-  "得到光标后第 `num' 个字符，并将其转换为字符串。"
-  (let* ((point (point))
-         (point-after (+ point num)))
-    (when (char-after point-after)
-      (char-to-string (char-after point-after)))))
