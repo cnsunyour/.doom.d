@@ -16,7 +16,7 @@
 (defun +rime-predicates-basic ()
   "The basic necessary predicates combination."
   (or (rime-predicate-evil-mode-p)
-      (+rime-predicate-ace-window-mode-p)
+      (+rime-predicate-ace-window-p)
       (+rime-predicate-hydra-p)
       (+rime-predicate-button-at-point-p)
       (rime-predicate-punctuation-line-begin-p)))
@@ -42,7 +42,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
        (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
          (string-match-p "[@:][a-zA-Z0-9-_]*$" string))))
 
-(defun +rime-predicate-ace-window-mode-p ()
+(defun +rime-predicate-ace-window-p ()
   "Detect if the `ace-window-mode' is enabled.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
