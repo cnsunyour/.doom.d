@@ -13,6 +13,19 @@
 
 ;;; Code:
 
+(defun +rime-predicates-basic ()
+  "The basic necessary predicates combination."
+  (or (rime-predicate-evil-mode-p)
+      (+rime-predicate-ace-window-mode-p)
+      (+rime-predicate-hydra-p)
+      (+rime-predicate-button-at-point-p)
+      (rime-predicate-punctuation-line-begin-p)))
+
+(defun +rime-predicate-hydra-p ()
+  "Whether a hydra keymap is activated."
+  (and (featurep 'hydra)
+       hydra-curr-map))
+
 (defun +rime-predicate-button-at-point-p ()
   "Detect whether the point is a button.
 
@@ -48,10 +61,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
              (nth 4 (syntax-ppss))))))
 
 (setq-default rime-disable-predicates
-              '(+rime-predicate-button-at-point-p
-                rime-predicate-evil-mode-p
-                +rime-predicate-ace-window-mode-p
-                rime-predicate-punctuation-line-begin-p
+              '(+rime-predicates-basic
                 rime-predicate-after-alphabet-char-p
                 rime-predicate-prog-in-code-p
                 +rime-predicate-beancount-p))
@@ -60,12 +70,9 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 
 (add-hook! (text-mode)
   (setq-local rime-disable-predicates
-              '(+rime-predicate-button-at-point-p
-                rime-predicate-evil-mode-p
+              '(+rime-predicates-basic
                 rime-predicate-org-in-src-block-p
                 rime-predicate-org-latex-mode-p
-                +rime-predicate-ace-window-mode-p
-                rime-predicate-punctuation-line-begin-p
                 rime-predicate-punctuation-after-space-cc-p
                 rime-predicate-punctuation-after-ascii-p))
   (setq-local rime-inline-predicates
@@ -75,11 +82,8 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 
 (add-hook! (telega-chat-mode)
   (setq-local rime-disable-predicates
-              '(+rime-predicate-button-at-point-p
-                rime-predicate-evil-mode-p
-                +rime-predicate-ace-window-mode-p
+              '(+rime-predicates-basic
                 +rime-predicate-after-special-punctuation-p
-                rime-predicate-punctuation-line-begin-p
                 rime-predicate-punctuation-after-space-cc-p
                 rime-predicate-punctuation-after-ascii-p))
   (setq-local rime-inline-predicates
