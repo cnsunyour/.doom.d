@@ -26,8 +26,7 @@
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (featurep 'hydra)
-       (boundp 'hydra-curr-map)
-       hydra-curr-map))
+       (bound-and-true-p 'hydra-curr-map)))
 
 (defun +rime-predicate-button-at-point-p ()
   "Detect whether the point is a button.
@@ -50,8 +49,7 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (featurep 'ace-window)
-       (boundp 'ace-window-mode)
-       ace-window-mode))
+       (bound-and-true-p 'ace-window-mode)))
 
 (defun +rime-predicate-beancount-p ()
   "Predicate input state in `beancount-mode'.
