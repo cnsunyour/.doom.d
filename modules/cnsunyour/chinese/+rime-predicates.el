@@ -22,8 +22,11 @@
       (rime-predicate-punctuation-line-begin-p)))
 
 (defun +rime-predicate-hydra-p ()
-  "Whether a hydra keymap is activated."
+  "Whether a hydra keymap is activated.
+
+Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (featurep 'hydra)
+       (boundp 'hydra-curr-map)
        hydra-curr-map))
 
 (defun +rime-predicate-button-at-point-p ()
@@ -46,7 +49,8 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   "Detect if the `ace-window-mode' is enabled.
 
 Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
-  (and (boundp 'ace-window-mode)
+  (and (featurep 'ace-window)
+       (boundp 'ace-window-mode)
        ace-window-mode))
 
 (defun +rime-predicate-beancount-p ()
