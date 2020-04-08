@@ -28,16 +28,6 @@
         "dd" #'dash-at-point
         "dD" #'dash-at-point-with-docset))
 
-(defun cnsunyour/insert-image-from-clipboard ()
-  "保存剪切板图片为 Y-m-d-H-M-S.png，插入 Markdown/Org/telega 图片链接."
-  (interactive)
-  (setq file (format-time-string"%Y-%m-%d-%H-%M-%S.jpg"))
-  (cond ((derived-mode-p 'telega-chat-mode)
-         (call-process-shell-command (format "pngpaste ~/.telega/temp/%s" file))
-         (telega-chatbuf--attach-tmp-photo (format "~/.telega/temp/%s" file)))
-        (t (insert file))))
-(map! "C-M-S-s-v" #'cnsunyour/insert-image-from-clipboard)
-
 ;; Automatically save file content
 (use-package! auto-save
   :custom
