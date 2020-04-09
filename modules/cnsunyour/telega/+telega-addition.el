@@ -52,14 +52,14 @@
 
 ;;; Setup a filter for watching some telega chatbufs.
 ;;
-(defcustom +telega--chat-on-watching-list nil
-  "List of watching chatbuf."
-  :type 'list
-  :group 'telega)
+;; (defcustom +telega--chat-on-watching-list nil
+;;   "List of watching chatbuf."
+;;   :type 'list
+;;   :group 'telega)
 
-(define-telega-filter +chat-on-watching (chat)
-  "Check if current chatbuf is on watching."
-  (let ((chatid (plist-get chat :id)))
-    (member chatid +telega--chat-on-watching-list)))
+;; (define-telega-filter +chat-on-watching (chat)
+;;   "Check if current chatbuf is on watching."
+;;   (let ((chatid (plist-get chat :id)))
+;;     (member chatid +telega--chat-on-watching-list)))
 
-(setq telega-chat-show-deleted-messages-for '(+chat-on-watching))
+;; (setq telega-chat-show-deleted-messages-for '(+chat-on-watching))
