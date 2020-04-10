@@ -119,7 +119,7 @@ See `org-capture-templates' for more information."
                      ":PROPERTIES:"
                      ":Created: %U"
                      ":END:"
-                     "%?\n")          ;Place the cursor here finally
+                     "　%?\n")          ;Place the cursor here finally
                    "\n")))
     (defun org-hugo-new-subtree-post-capture-template ()
       "Returns `org-capture' template string for new Hugo post.
@@ -133,7 +133,7 @@ See `org-capture-templates' for more information."
                      ,(concat ":EXPORT_FILE_NAME: " fname)
                      ":EXPORT_DATE: %<%4Y-%2m-%2d>"
                      ":END:"
-                     "%?\n")          ;Place the cursor here finally
+                     "　%?\n")          ;Place the cursor here finally
                    "\n")))
     (defun remove-item-from-org-capture-templates (shortcut)
       (dolist (item org-capture-templates)
