@@ -16,7 +16,7 @@
   (telega-animation-play-inline nil)
   (telega-emoji-use-images nil)
   (telega-sticker-set-download t)
-  (telega-chat-show-deleted-messages-for '(not saved-messages))
+  ;; (telega-chat-show-deleted-messages-for '(not saved-messages))
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
   :hook
