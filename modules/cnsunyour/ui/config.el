@@ -146,33 +146,33 @@
 (use-package! theme-changer
   :custom
   (theme-changer-delay-seconds 1500 "Delay 25 minutes for sync with macOS's auto theme changer.")
-  :hook
-  ('after-init . (lambda ()
-                   (change-theme '(doom-one-light
-                                   doom-acario-light
-                                   doom-nord-light
-                                   doom-opera-light
-                                   doom-solarized-light
-                                   doom-tomorrow-day
-                                   flucui-light
-                                   lab-light)
-                                 '(doom-one
-                                   doom-vibrant
-                                   doom-city-lights
-                                   doom-challenger-deep
-                                   doom-dark+
-                                   doom-dracula
-                                   doom-gruvbox
-                                   doom-Iosvkem
-                                   doom-molokai
-                                   doom-moonlight
-                                   doom-oceanic-next
-                                   doom-peacock
-                                   doom-snazzy
-                                   doom-spacegrey
-                                   srcery
-                                   flucui-dark
-                                   lab-dark)))))
+  :config
+  (add-hook! emacs-startup
+    (change-theme '(doom-one-light
+                    doom-acario-light
+                    doom-nord-light
+                    doom-opera-light
+                    doom-solarized-light
+                    doom-tomorrow-day
+                    flucui-light
+                    lab-light)
+                  '(doom-one
+                    doom-vibrant
+                    doom-city-lights
+                    doom-challenger-deep
+                    doom-dark+
+                    doom-dracula
+                    doom-gruvbox
+                    doom-Iosvkem
+                    doom-molokai
+                    doom-moonlight
+                    doom-oceanic-next
+                    doom-peacock
+                    doom-snazzy
+                    doom-spacegrey
+                    srcery
+                    flucui-dark
+                    lab-dark))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
