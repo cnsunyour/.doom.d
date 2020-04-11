@@ -76,7 +76,7 @@
                     "WAIT(w@/!)"
                     "|"
                     "DONE(d!)"
-                    "KILL(k@/!)")
+                    "ABRT(a@/!)")
           (sequence "[ ](T)"
                     "[-](S)"
                     "[?](W)"
@@ -92,7 +92,7 @@
           ("[?]"  :foreground "brown"        :weight bold)
           ("DONE" :foreground "forest green" :weight bold)
           ("[X]"  :foreground "forest green" :weight bold)
-          ("KILL" :foreground "red"          :weight bold)))
+          ("ABRT" :foreground "red"          :weight bold)))
   ;; set tags
   (setq org-tag-alist
         '(("FLAGGED" . ?f)
@@ -105,13 +105,13 @@
   (setq org-tag-persistent-alist org-tag-alist)
   ;; trigger task states
   (setq org-todo-state-tags-triggers
-        '(("KILL" ("KILL" . t))
+        '(("ABRT" ("ABRT" . t))
           ("WAIT" ("WAIT" . t))
           (done ("WAIT"))
-          ("TODO" ("WAIT") ("KILL"))
-          ("NEXT" ("WAIT") ("KILL"))
-          ("STRT" ("WAIT") ("KILL"))
-          ("DONE" ("WAIT") ("KILL"))))
+          ("TODO" ("WAIT") ("ABRT"))
+          ("NEXT" ("WAIT") ("ABRT"))
+          ("STRT" ("WAIT") ("ABRT"))
+          ("DONE" ("WAIT") ("ABRT"))))
   ;; exclude PROJ tag from being inherited
   (setq org-tags-exclude-from-inheritance '("PROJ"))
   ;; show inherited tags in agenda view
@@ -207,7 +207,7 @@ See `org-capture-templates' for more information."
   ;; show agenda as the only window
   (setq org-agenda-window-setup 'current-window)
   ;; define stuck projects
-  (setq org-stuck-projects '("+LEVEL=2/-DONE-KILL" ("TODO" "NEXT" "STRT") ("@Launchtime") "\\<IGNORE\\>"))
+  (setq org-stuck-projects '("+LEVEL=2/-DONE-ABRT" ("TODO" "NEXT" "STRT") ("@Launchtime") "\\<IGNORE\\>"))
   ;; perform actions before finalizing agenda view
   (add-hook 'org-agenda-finalize-hook
             (lambda ()
@@ -252,13 +252,13 @@ See `org-capture-templates' for more information."
   (setq diary-file (expand-file-name "diary" org-directory))
   ;; 使用最后的clock-out时间作为条目关闭时间
   (setq org-use-last-clock-out-time-as-effective-time t)
-  ;; 设置为DONE或KILL状态时，会生成CLOSED时间戳
+  ;; 设置为DONE或ABRT状态时，会生成CLOSED时间戳
   (setq org-log-done 'time)
   ;; 代码块语法高亮
   (setq org-src-fontify-natively t)
   ;; custom agenda commands
   (setq org-agenda-custom-commands
-        '(("r" "Archivable" todo "DONE|KILL"
+        '(("r" "Archivable" todo "DONE|ABRT"
            ((org-agenda-overriding-header "Tasks to Archive:")
             (org-tags-match-list-sublevels nil)))
           ("f" "Flagged" tags-todo "+FLAGGED/!"
@@ -282,9 +282,9 @@ See `org-capture-templates' for more information."
                         (org-agenda-span 'day)
                         (org-agenda-start-day "+0d")
                         (org-agenda-start-on-weekday nil)
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "KILL")))
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "ABRT")))
                         (org-agenda-todo-ignore-deadlines nil)))
-            (tags-todo "-KILL/!NEXT|STRT"
+            (tags-todo "-ABRT/!NEXT|STRT"
                        ((org-agenda-overriding-header "Next and Active Tasks:")))
             (agenda "" ((org-agenda-overriding-header "Upcoming Deadlines:")
                         (org-agenda-entry-types '(:deadline))
@@ -292,7 +292,7 @@ See `org-capture-templates' for more information."
                         (org-agenda-start-day "+0d")
                         (org-agenda-start-on-weekday nil)
                         (org-deadline-warning-days 30)
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "KILL")))
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "ABRT")))
                         (org-agenda-time-grid nil)))
             (agenda "" ((org-agenda-overriding-header "Week at a Glance:")
                         (org-agenda-span 5)
@@ -304,7 +304,7 @@ See `org-capture-templates' for more information."
                   ((org-agenda-overriding-header "Tasks to Refile:")
                    (org-tags-match-list-sublevels nil)))
             (org-agenda-list-stuck-projects)
-            (tags-todo "-REFILE-PROJ-KILL/!"
+            (tags-todo "-REFILE-PROJ-ABRT/!"
                        ((org-agenda-overriding-header "Standalone Tasks:")
                         (org-agenda-todo-ignore-scheduled t)
                         (org-agenda-todo-ignore-deadlines t)
