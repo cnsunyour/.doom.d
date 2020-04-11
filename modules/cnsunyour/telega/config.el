@@ -41,7 +41,7 @@
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :select t :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 100 :select t :ttl nil :quit 'current :modeline t)
+    :side 'right :size 100 :select t :ttl 300 :quit 'current :modeline t)
 
   (telega-mode-line-mode 1)
   (telega-url-shorten-mode 1)
