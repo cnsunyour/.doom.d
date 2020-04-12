@@ -95,12 +95,12 @@
           ("ABRT" :foreground "red"          :weight bold)))
   ;; set tags
   (setq org-tag-alist
-        '(("FLAGGED" . ?f)
-          ("@Office" . ?o)
-          ("@Home" . ?h)
-          ("@Way" . ?w)
-          ("@Computer" . ?c)
-          ("@Errands" . ?e)
+        '(("FLAGGED"    . ?f)
+          ("@Office"    . ?o)
+          ("@Home"      . ?h)
+          ("@Way"       . ?w)
+          ("@Computer"  . ?c)
+          ("@Errands"   . ?e)
           ("@Lunchtime" . ?l)))
   (setq org-tag-persistent-alist org-tag-alist)
   ;; trigger task states
@@ -157,17 +157,17 @@ See `org-capture-templates' for more information."
     (remove-item-from-org-capture-templates "n")
     (remove-item-from-org-capture-templates "j")
     (pushnew! org-capture-templates
-              '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
-                ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
-                (function org-new-task-capture-template)
+              '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
+                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
+                (function org-hugo-new-subtree-post-capture-template)
                 :prepend t :clock-in t :clock-resume t :kill-buffer t)
               '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
                 ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
                 (function org-hugo-new-subtree-post-capture-template)
                 :prepend t :clock-in t :clock-resume t :kill-buffer t)
-              '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
-                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
-                (function org-hugo-new-subtree-post-capture-template)
+              '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
+                ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+                (function org-new-task-capture-template)
                 :prepend t :clock-in t :clock-resume t :kill-buffer t)))
   ;; set archive tag
   ;; (setq org-archive-tag "ARCHIVE")
