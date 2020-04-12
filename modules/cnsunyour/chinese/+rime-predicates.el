@@ -16,17 +16,10 @@
 (defun +rime-predicates-basic ()
   "The basic necessary predicates combination."
   (or (rime-predicate-evil-mode-p)
-      (+rime-predicate-ace-window-p)
-      (+rime-predicate-hydra-p)
+      (rime-predicate-ace-window-p)
+      (rime-predicate-hydra-p)
       (+rime-predicate-button-at-point-p)
       (rime-predicate-punctuation-line-begin-p)))
-
-(defun +rime-predicate-hydra-p ()
-  "Whether a hydra keymap is activated.
-
-Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
-  (and (featurep 'hydra)
-       (bound-and-true-p hydra-curr-map)))
 
 (defun +rime-predicate-button-at-point-p ()
   "Detect whether the point is a button.
@@ -43,13 +36,6 @@ Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
   (and (> (point) (save-excursion (back-to-indentation) (point)))
        (let ((string (buffer-substring (point) (max (line-beginning-position) (- (point) 80)))))
          (string-match-p "[@:][a-zA-Z0-9-_]*$" string))))
-
-(defun +rime-predicate-ace-window-p ()
-  "Detect if the `ace-window-mode' is enabled.
-
-Can be used in `rime-disable-predicates' and `rime-inline-predicates'."
-  (and (featurep 'ace-window)
-       (bound-and-true-p ace-window-mode)))
 
 (defun +rime-predicate-beancount-p ()
   "Predicate input state in `beancount-mode'.
