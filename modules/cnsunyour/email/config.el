@@ -6,7 +6,7 @@
   :after mu4e
   :custom
   (doom-modeline-mu4e t)
-  (mu4e-alert-interesting-mail-query "flag:unread AND maildir:/INBOX/ AND NOT flag:trashed")
+  (mu4e-alert-interesting-mail-query "flag:unread AND maildir:/INBOX/ AND NOT flag:trash")
   :config
   (mu4e-alert-set-default-style 'notifier)
   (mu4e-alert-enable-notifications)
@@ -28,47 +28,47 @@
     (setq mu4e-bookmarks
           `(,(make-mu4e-bookmark
               :name  "Unread messages"
-              :query "flag:unread AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "flag:unread AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?u)
             ,(make-mu4e-bookmark
               :name "Today's messages"
-              :query "date:today..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "date:today..now AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?b)
             ,(make-mu4e-bookmark
               :name "Last week"
-              :query "date:1w..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "date:1w..now AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?w)
             ,(make-mu4e-bookmark
               :name "Last month"
-              :query "date:1m..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "date:1m..now AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?m)
             ,(make-mu4e-bookmark
               :name "Last season"
-              :query "date:3m..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "date:3m..now AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?s)
             ,(make-mu4e-bookmark
               :name "Last half year"
-              :query "date:6m..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "date:6m..now AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?h)
             ,(make-mu4e-bookmark
               :name "Last year"
-              :query "date:1y..now AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "date:1y..now AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?y)
             ,(make-mu4e-bookmark
               :name "All in inbox"
-              :query "maildir:/INBOX/ AND NOT flag:trashed"
+              :query "maildir:/INBOX/ AND NOT flag:trash"
               :key ?a)
             ,(make-mu4e-bookmark
               :name "Important"
-              :query "prio:high AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "prio:high AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?i)
             ,(make-mu4e-bookmark
               :name "Mailing lists"
-              :query "flag:list AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "flag:list AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?l)
             ,(make-mu4e-bookmark
               :name "With attachments"
-              :query "flag:attach AND maildir:/INBOX/ AND NOT flag:trashed"
+              :query "flag:attach AND maildir:/INBOX/ AND NOT flag:trash"
               :key ?p)))
 
     (set-email-account! "icloud"
