@@ -145,7 +145,7 @@
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
   :custom
-  (theme-changer-delay-seconds 1500 "Delay 25 minutes for sync with macOS's auto theme changer.")
+  (theme-changer-delay-seconds 1200 "Delay seconds for sync with macOS's auto theme changer.")
   :config
   (add-hook! emacs-startup
     (change-theme '(doom-one-light
@@ -153,9 +153,7 @@
                     doom-nord-light
                     doom-opera-light
                     doom-solarized-light
-                    doom-tomorrow-day
-                    flucui-light
-                    lab-light)
+                    doom-tomorrow-day)
                   '(doom-one
                     doom-vibrant
                     doom-city-lights
@@ -169,10 +167,7 @@
                     doom-oceanic-next
                     doom-peacock
                     doom-snazzy
-                    doom-spacegrey
-                    srcery
-                    flucui-dark
-                    lab-dark))))
+                    doom-spacegrey))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
