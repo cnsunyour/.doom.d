@@ -10,8 +10,3 @@
   :recipe (:host github :repo "manateelazycat/auto-save"))
 (package! neopastebin
   :recipe (:host github :repo "dhilst/emacs-pastebin" :fork "cnsunyour/emacs-pastebin"))
-
-(package! fuz :disable t)
-(package! snails :disable t
-  :recipe (:host github :repo "manateelazycat/snails" :no-byte-compile t
-                 :files ("*.el" "*.sh" "*.ps1")))

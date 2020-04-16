@@ -57,24 +57,3 @@
     (pastebin-create-login :username "cnsunyour"
                            :dev-key (car credentials)
                            :password (cadr credentials))))
-
-;; fuz.el，目前snails在用
-(use-package! fuz
-  :config
-  (unless (require 'fuz-core nil t)
-    (fuz-build-and-load-dymod)))
-
-;; A modern, easy-to-expand fuzzy search framework
-;; M-x snails or M-x snails-search-point
-(use-package! snails
-  :defer t
-  :commands (snails
-             snails-search-point)
-  :custom
-  (snails-use-exec-path-from-shell nil)
-  :init
-  (map! :leader
-        "sn" #'snails
-        "sN" #'snails-search-point)
-  :config
-  (set-evil-initial-state! 'snails-mode 'emacs))
