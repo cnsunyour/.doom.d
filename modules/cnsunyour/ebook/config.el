@@ -7,4 +7,6 @@
   :mode
   ("\\.epub\\'" . nov-mode)
   :config
-  (evil-set-initial-state 'nov-mode 'emacs))
+  ;; (evil-set-initial-state 'nov-mode 'emacs)
+  (map! :map nov-mode-map
+        :n "q" #'+popup/quit-window))
