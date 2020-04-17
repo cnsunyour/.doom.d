@@ -57,3 +57,21 @@
     (pastebin-create-login :username "cnsunyour"
                            :dev-key (car credentials)
                            :password (cadr credentials))))
+
+;; a shr faces package that helps you apply your favourite org faces to shr,
+;; dash-docs, eww, nov.el, mu4e, and more!
+(use-package! shrface
+  :after (:any nov mu4e dash-docs eww)
+  :config
+  (after! nov
+    (setq nov-shr-rendering-functions
+          (append nov-shr-rendering-functions
+                  shr-external-rendering-functions)))
+  (map! :map nov-mode-map
+        :after nov
+        :n "<tab>" 'org-cycle
+        :n "S-<tab>" 'org-shifttab)
+  (map! :map eww-mode-map
+        :after eww
+        :n "<tab>" 'org-cycle
+        :n "S-<tab>" 'org-shifttab))

@@ -10,3 +10,5 @@
   :recipe (:host github :repo "manateelazycat/auto-save"))
 (package! neopastebin
   :recipe (:host github :repo "dhilst/emacs-pastebin" :fork "cnsunyour/emacs-pastebin"))
+(package! shrface
+  :recipe (:host github :repo "chenyanming/shrface"))
