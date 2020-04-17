@@ -156,18 +156,30 @@
                     doom-tomorrow-day)
                   '(doom-one
                     doom-vibrant
+                    doom-acario-dark
                     doom-city-lights
                     doom-challenger-deep
                     doom-dark+
                     doom-dracula
                     doom-gruvbox
+                    doom-horizon
                     doom-Iosvkem
+                    doom-laserwave
+                    doom-material
                     doom-molokai
+                    doom-monokai-classic
+                    doom-monokai-pro
+                    doom-monokai-spectrum
                     doom-moonlight
                     doom-oceanic-next
+                    doom-palenight
                     doom-peacock
+                    doom-rouge
                     doom-snazzy
-                    doom-spacegrey))))
+                    doom-sourcerer
+                    doom-spacegrey
+                    doom-tomorrow-night
+                    doom-vibrant))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
