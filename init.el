@@ -90,7 +90,7 @@
        gist              ; interacting with github gists
        (lookup +dictionary +docsets)
        (lsp +peek)
-       macos             ; MacOS-specific commands
+       (:if IS-MAC macos)             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        (pass +auth)              ; password manager for nerds
