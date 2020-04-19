@@ -20,16 +20,16 @@
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
   :hook
-  ('telega-chat-mode . #'yas-minor-mode-on)
-  ('telega-chat-mode . #'visual-line-mode)
-  ('telega-chat-mode . (lambda ()
-                         (set-company-backend! 'telega-chat-mode
-                           (append '(telega-company-emoji
-                                     telega-company-username
-                                     telega-company-hashtag)
-                                   (when (telega-chat-bot-p telega-chatbuf--chat)
-                                     '(telega-company-botcmd))))))
-  ('telega-chat-pre-message . #'telega-msg-ignore-blocked-sender)
+  (telega-chat-mode . yas-minor-mode-on)
+  (telega-chat-mode . visual-line-mode)
+  (telega-chat-mode . (lambda ()
+                        (set-company-backend! 'telega-chat-mode
+                          (append '(telega-company-emoji
+                                    telega-company-username
+                                    telega-company-hashtag)
+                                  (when (telega-chat-bot-p telega-chatbuf--chat)
+                                    '(telega-company-botcmd))))))
+  (telega-chat-pre-message . telega-msg-ignore-blocked-sender)
   :config
   (load! "+telega-auto-input-method")
 

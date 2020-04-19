@@ -216,4 +216,4 @@
   :custom
   (emojify-point-entered-behaviour 'uncover)
   :hook
-  ('telega-chat-mode . #'emojify-mode))
+  (telega-chat-mode . emojify-mode))
