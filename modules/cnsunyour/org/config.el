@@ -33,21 +33,6 @@
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
 
-(use-package! org-fancy-priorities
-  :after org
-  :diminish
-  :defines org-fancy-priorities-list
-  :hook
-  (org-mode . org-fancy-priorities-mode)
-  :config
-  (setq org-fancy-priorities-list
-        (if (char-displayable-p ?❗)
-            '((?A . "❗") (?B . "⬆") (?C . "⬇"))
-          '("HIGH" "MID" "LOW"))
-        org-priority-faces '((?A . error) (?B . warning) (?C . success))
-        org-priority-highest ?A
-        org-priority-lowest ?C))
-
 ;;
 ;; `org' pre private config
 ;;
