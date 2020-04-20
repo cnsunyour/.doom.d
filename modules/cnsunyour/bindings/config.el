@@ -23,22 +23,7 @@
       :m "M-j" #'multi-next-line
       :m "M-k" #'multi-previous-line
 
-      ;; Easier window movement
-      :n "C-h" #'evil-window-left
-      :n "C-j" #'evil-window-down
-      :n "C-k" #'evil-window-up
-      :n "C-l" #'evil-window-right
-
-      (:map vterm-mode-map
-        ;; Easier window movement
-        :i "C-h" #'evil-window-left
-        :i "C-j" #'evil-window-down
-        :i "C-k" #'evil-window-up
-        :i "C-l" #'evil-window-right)
-
       (:map evil-treemacs-state-map
-        "C-h" #'evil-window-left
-        "C-l" #'evil-window-right
         "M-j" #'multi-next-line
         "M-k" #'multi-previous-line)
 
