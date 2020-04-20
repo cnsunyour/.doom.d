@@ -18,6 +18,7 @@
 
       :g "C-!" #'kill-buffer-and-window
       :g "C-S-s-l" #'toggle-truncate-lines
+      :g "M-o" #'evil-window-next
 
       :m "M-j" #'multi-next-line
       :m "M-k" #'multi-previous-line
