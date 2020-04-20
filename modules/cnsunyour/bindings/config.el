@@ -4,13 +4,6 @@
   (setq mac-command-modifier 'super
         mac-option-modifier 'meta))
 
-(when (and IS-MAC (unless (display-graphic-p))
-           (cl-loop for char from ?a to ?z
-                    do (define-key input-decode-map
-                         (format "\e[1;P%c" char)
-                         (kbd (format "s-%c" char))))))
-
-
 ;; general keybindings
 (map! (:leader
         (:prefix "b"
