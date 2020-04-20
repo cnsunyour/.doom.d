@@ -148,38 +148,49 @@
   (theme-changer-delay-seconds 1200 "Delay seconds for sync with macOS's auto theme changer.")
   :config
   (add-hook! emacs-startup
-    (change-theme '(doom-one-light
-                    doom-acario-light
-                    doom-nord-light
-                    doom-opera-light
-                    doom-solarized-light
-                    doom-tomorrow-day)
-                  '(doom-one
-                    doom-vibrant
-                    doom-acario-dark
-                    doom-city-lights
-                    doom-challenger-deep
-                    doom-dark+
-                    doom-dracula
-                    doom-gruvbox
-                    doom-horizon
-                    doom-Iosvkem
-                    doom-laserwave
-                    doom-material
-                    doom-molokai
-                    doom-monokai-classic
-                    doom-monokai-pro
-                    doom-monokai-spectrum
-                    doom-moonlight
-                    doom-oceanic-next
-                    doom-palenight
-                    doom-peacock
-                    doom-rouge
-                    doom-snazzy
-                    doom-sourcerer
-                    doom-spacegrey
-                    doom-tomorrow-night
-                    doom-vibrant))))
+             :append
+             (change-theme '(doom-one-light
+                             doom-acario-light
+                             doom-nord-light
+                             doom-opera-light
+                             doom-solarized-light
+                             doom-tomorrow-day
+                             flucui-light
+                             lab-light)
+                           '(doom-one
+                             doom-vibrant
+                             doom-acario-dark
+                             doom-city-lights
+                             doom-challenger-deep
+                             doom-dark+
+                             doom-dracula
+                             doom-gruvbox
+                             doom-horizon
+                             doom-Iosvkem
+                             doom-laserwave
+                             doom-material
+                             doom-molokai
+                             doom-monokai-classic
+                             doom-monokai-pro
+                             doom-monokai-spectrum
+                             doom-moonlight
+                             doom-oceanic-next
+                             doom-palenight
+                             doom-peacock
+                             doom-rouge
+                             doom-snazzy
+                             ;; doom-sourcerer
+                             doom-spacegrey
+                             doom-tomorrow-night
+                             doom-vibrant
+                             srcery
+                             flucui-dark
+                             lab-dark))
+             (add-hook! doom-load-theme
+                        :append
+                        (unless (string-prefix-p "doom-" (symbol-name doom-theme))
+                          (set-face-background 'solaire-hl-line-face nil)
+                          (set-face-background 'solaire-default-face nil)))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
