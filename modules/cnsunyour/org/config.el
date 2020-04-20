@@ -114,7 +114,7 @@
 See `org-capture-templates' for more information."
       (let ((title (read-string "Task Name: "))) ;Prompt to enter the post title
         (mapconcat #'identity
-                   `(,(concat "* TODO [#B] " title)
+                   `(,(concat "* TODO [#C] " title)
                      ":PROPERTIES:"
                      ":Created: %U"
                      ":END:"
