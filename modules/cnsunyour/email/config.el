@@ -16,13 +16,7 @@
 (when (featurep! :email mu4e)
   (map! "C-S-s-m" #'=mu4e)
 
-  (setq +mu4e-backend 'offlineimap
-        mu4e-get-mail-command "offlineimap -o -q"
-        send-mail-function #'smtpmail-send-it
-        message-send-mail-function send-mail-function
-        mu4e-update-interval 300
-        mu4e-headers-include-related t
-        mu4e-headers-skip-duplicates t)
+  (setenv "XAPIAN_CJK_NGRAM" "1")
 
   (after! mu4e
     (setq +mu4e-backend 'offlineimap
