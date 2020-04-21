@@ -109,8 +109,8 @@
 
     (set-email-account! "dbuav"
                         '((user-full-name              . "姚晖 (Sunn Yao)")
-                          (user-mail-address           . "sunyour@dbuav.com")
-                          (smtpmail-smtp-user          . "sunyour@dbuav.com")
+                          (user-mail-address           . "yh@dbuav.com")
+                          (smtpmail-smtp-user          . "yh@dbuav.com")
                           (smtpmail-smtp-server        . "smtp.mxhichina.com")
                           (smtpmail-smtp-service       . 465)
                           (smtpmail-stream-type        . ssl)
