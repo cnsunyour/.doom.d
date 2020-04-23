@@ -214,3 +214,8 @@
   (emojify-point-entered-behaviour 'uncover)
   :hook
   (telega-chat-mode . emojify-mode))
+
+;; enable emacs27+ build-in fill-column
+(when (>= emacs-major-version 27)
+  (add-hook! (text-mode prog-mode conf-mode)
+             #'display-fill-column-indicator-mode))
