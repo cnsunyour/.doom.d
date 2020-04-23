@@ -57,3 +57,8 @@
     (pastebin-create-login :username "cnsunyour"
                            :dev-key (car credentials)
                            :password (cadr credentials))))
+
+(use-package! keyfreq
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
