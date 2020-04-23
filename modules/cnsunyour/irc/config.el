@@ -12,7 +12,7 @@
         weechat-mode-default 'ssl
         weechat-auto-monitor-buffers t)
   :hook
-  ('weechat-mode . #'toggle-truncate-lines)
+  (weechat-mode . toggle-truncate-lines)
   :config
   (when (internet-up-p weechat-host-default)
     (weechat-connect))

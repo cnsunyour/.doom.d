@@ -5,10 +5,10 @@
 (use-package! company-tabnine
   :when (featurep! :completion company)
   :hook
-  ('kill-emacs . company-tabnine-kill-process)
-  ('lsp-after-open . (lambda ()
-                       (add-to-list 'company-transformers 'company//sort-by-tabnine t)
-                       (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))))
+  (kill-emacs . company-tabnine-kill-process)
+  (lsp-after-open . (lambda ()
+                      (add-to-list 'company-transformers 'company//sort-by-tabnine t)
+                      (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))))
   ;; ('after-init . (lambda ()
   ;;                 ;; (add-to-list 'company-backends #'company-tabnine)
   ;;                 ;; (set-company-backend! 'text-mode

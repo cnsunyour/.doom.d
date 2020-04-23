@@ -92,49 +92,14 @@ unwanted space when exporting org-mode to hugo markdown."
   (rime-posframe-style 'simple)
   (rime-inline-ascii-trigger 'shift-l)
   :hook
-  ('org-mode . #'cnsunyour/active-input-method)
-  ('markdown-mode . #'cnsunyour/active-input-method)
-  ('beancount-mode . #'cnsunyour/active-input-method)
-  ('after-init . (lambda ()
-                   (when (fboundp 'rime-lib-sync-user-data)
-                     (ignore-errors (rime-sync)))))
-  ('kill-emacs . (lambda ()
-                   (when (fboundp 'rime-lib-sync-user-data)
-                     (ignore-errors (rime-sync)))))
+  ((after-init kill-emacs) . (lambda ()
+                               (when (fboundp 'rime-lib-sync-user-data)
+                                 (ignore-errors (rime-sync)))))
   :config
-  (after! doom-modeline
-    (set-face-attribute 'rime-indicator-face nil
-                        :foreground 'unspecified
-                        :inherit 'doom-modeline-buffer-major-mode)
-    (set-face-attribute 'rime-indicator-dim-face nil
-                        :foreground 'unspecified
-                        :inherit 'doom-modeline-buffer-minor-mode)
-
-    (doom-modeline-def-segment input-method
-      "Define the current input method properties."
-      (propertize (cond (current-input-method
-                         (concat (doom-modeline-spc)
-                                 current-input-method-title
-                                 (doom-modeline-spc)))
-                        ((and (bound-and-true-p evil-local-mode)
-                              (bound-and-true-p evil-input-method))
-                         (concat
-                          (doom-modeline-spc)
-                          (nth 3 (assoc default-input-method input-method-alist))
-                          (doom-modeline-spc)))
-                        (t ""))
-                  'face (if (doom-modeline--active)
-                            (or (get-text-property 0 'face (rime-lighter))
-                                'doom-modeline-buffer-major-mode)
-                          'mode-line-inactive)
-                  'help-echo (concat
-                              "Current input method: "
-                              current-input-method
-                              "\n\
-mouse-2: Disable input method\n\
-mouse-3: Describe current input method")
-                  'mouse-face 'mode-line-highlight
-                  'local-map mode-line-input-method-map)))
+  (add-hook! (org-mode
+              markdown-mode
+              beancount-mode)
+    (activate-input-method default-input-method))
 
   (defun +rime-force-enable ()
     "[ENHANCED] Force into Chinese input state.

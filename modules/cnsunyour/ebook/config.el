@@ -6,5 +6,7 @@
   :defer t
   :mode
   ("\\.epub\\'" . nov-mode)
+  :custom
+  (nov-text-width 80)
   :config
   (evil-set-initial-state 'nov-mode 'emacs))

@@ -28,16 +28,6 @@
         "dd" #'dash-at-point
         "dD" #'dash-at-point-with-docset))
 
-(defun cnsunyour/insert-image-from-clipboard ()
-  "保存剪切板图片为 Y-m-d-H-M-S.png，插入 Markdown/Org/telega 图片链接."
-  (interactive)
-  (setq file (format-time-string"%Y-%m-%d-%H-%M-%S.jpg"))
-  (cond ((derived-mode-p 'telega-chat-mode)
-         (call-process-shell-command (format "pngpaste ~/.telega/temp/%s" file))
-         (telega-chatbuf--attach-tmp-photo (format "~/.telega/temp/%s" file)))
-        (t (insert file))))
-(map! "C-M-S-s-v" #'cnsunyour/insert-image-from-clipboard)
-
 ;; Automatically save file content
 (use-package! auto-save
   :custom
@@ -68,30 +58,7 @@
                            :dev-key (car credentials)
                            :password (cadr credentials))))
 
-;; Ensure environment variables inside Emacs look the same as in the user's shell.
-;; Snails needed currently.
-(use-package! exec-path-from-shell
-  :when IS-MAC
-  :custom
-  (exec-path-from-shell-arguments '("-l")))
-
-;; fuz.el，目前snails在用
-(use-package! fuz
+(use-package! keyfreq
   :config
-  (unless (require 'fuz-core nil t)
-    (fuz-build-and-load-dymod)))
-
-;; A modern, easy-to-expand fuzzy search framework
-;; M-x snails or M-x snails-search-point
-(use-package! snails
-  :defer t
-  :commands (snails
-             snails-search-point)
-  :custom
-  (snails-use-exec-path-from-shell nil)
-  :init
-  (map! :leader
-        "sn" #'snails
-        "sN" #'snails-search-point)
-  :config
-  (set-evil-initial-state! 'snails-mode 'emacs))
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))

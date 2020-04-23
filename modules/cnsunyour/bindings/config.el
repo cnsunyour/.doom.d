@@ -4,67 +4,19 @@
   (setq mac-command-modifier 'super
         mac-option-modifier 'meta))
 
-;;
-;；iTerm keymap import file on MacOS
-;;
-;; {"Key Mappings":{
-;; "0x61-0x100000":{"Text":"[1;Pa", "Action":10},
-;; "0x62-0x100000":{"Text":"[1;Pb", "Action":10},
-;; "0x63-0x100000":{"Text":"[1;Pc", "Action":10},
-;; "0x64-0x100000":{"Text":"[1;Pd", "Action":10},
-;; "0x65-0x100000":{"Text":"[1;Pe", "Action":10},
-;; "0x66-0x100000":{"Text":"[1;Pf", "Action":10},
-;; "0x67-0x100000":{"Text":"[1;Pg", "Action":10},
-;; "0x68-0x100000":{"Text":"[1;Ph", "Action":10},
-;; "0x69-0x100000":{"Text":"[1;Pi", "Action":10},
-;; "0x6A-0x100000":{"Text":"[1;Pj", "Action":10},
-;; "0x6B-0x100000":{"Text":"[1;Pk", "Action":10},
-;; "0x6C-0x100000":{"Text":"[1;Pl", "Action":10},
-;; "0x6D-0x100000":{"Text":"[1;Pm", "Action":10},
-;; "0x6E-0x100000":{"Text":"[1;Pn", "Action":10},
-;; "0x6F-0x100000":{"Text":"[1;Po", "Action":10},
-;; "0x70-0x100000":{"Text":"[1;Pp", "Action":10},
-;; "0x71-0x100000":{"Text":"[1;Pq", "Action":10},
-;; "0x72-0x100000":{"Text":"[1;Pr", "Action":10},
-;; "0x73-0x100000":{"Text":"[1;Ps", "Action":10},
-;; "0x74-0x100000":{"Text":"[1;Pt", "Action":10},
-;; "0x75-0x100000":{"Text":"[1;Pu", "Action":10},
-;; "0x76-0x100000":{"Text":"[1;Pv", "Action":10},
-;; "0x77-0x100000":{"Text":"[1;Pw", "Action":10},
-;; "0x78-0x100000":{"Text":"[1;Px", "Action":10},
-;; "0x79-0x100000":{"Text":"[1;Py", "Action":10},
-;; "0x7A-0x100000":{"Text":"[1;Pz", "Action":10}
-;; }}
-(when (and IS-MAC (unless (display-graphic-p))
-           (cl-loop for char from ?a to ?z
-                    do (define-key input-decode-map
-                         (format "\e[1;P%c" char)
-                         (kbd (format "s-%c" char))))))
-
-
 ;; general keybindings
-(map! :g "C-!" #'kill-buffer-and-window
+(map! (:leader
+        (:prefix "b"
+          "h" #'+doom-dashboard/open))
+
+      :g "C-!" #'kill-buffer-and-window
       :g "C-S-s-l" #'toggle-truncate-lines
+      :g "M-o" #'evil-window-next
 
       :m "M-j" #'multi-next-line
       :m "M-k" #'multi-previous-line
 
-      ;; Easier window movement
-      :n "C-h" #'evil-window-left
-      :n "C-j" #'evil-window-down
-      :n "C-k" #'evil-window-up
-      :n "C-l" #'evil-window-right
-
-      (:map vterm-mode-map
-        ;; Easier window movement
-        :i "C-h" #'evil-window-left
-        :i "C-j" #'evil-window-down
-        :i "C-k" #'evil-window-up
-        :i "C-l" #'evil-window-right)
-
       (:map evil-treemacs-state-map
-        "C-h" #'evil-window-left
-        "C-l" #'evil-window-right
         "M-j" #'multi-next-line
         "M-k" #'multi-previous-line)
 
@@ -91,16 +43,7 @@
         "s-a" #'mark-whole-buffer
         :gi [s-return]    #'+default/newline-below
         :gi [s-S-return]  #'+default/newline-above
-        :gi [s-backspace] #'doom/backward-kill-to-bol-and-indent)
-
-      :leader
-      (:prefix "f"
-        "t" #'find-in-dotfiles
-        "T" #'browse-dotfiles))
-
-;; set initial state to emacs for org-agenda
-;; (add-hook! org-agenda-mode
-;;   (evil-set-initial-state 'org-agenda-mode 'emacs))
+        :gi [s-backspace] #'doom/backward-kill-to-bol-and-indent))
 
 
 ;; smartparens key-binding

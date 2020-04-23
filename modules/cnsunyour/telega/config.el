@@ -16,19 +16,20 @@
   (telega-animation-play-inline nil)
   (telega-emoji-use-images nil)
   (telega-sticker-set-download t)
+  ;; (telega-chat-show-deleted-messages-for '(not saved-messages))
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
   :hook
-  ('telega-chat-mode . #'yas-minor-mode-on)
-  ('telega-chat-mode . #'visual-line-mode)
-  ('telega-chat-mode . (lambda ()
-                         (set-company-backend! 'telega-chat-mode
-                           (append '(telega-company-emoji
-                                     telega-company-username
-                                     telega-company-hashtag)
-                                   (when (telega-chat-bot-p telega-chatbuf--chat)
-                                     '(telega-company-botcmd))))))
-  ('telega-chat-pre-message . #'telega-msg-ignore-blocked-sender)
+  (telega-chat-mode . yas-minor-mode-on)
+  (telega-chat-mode . visual-line-mode)
+  (telega-chat-mode . (lambda ()
+                        (set-company-backend! 'telega-chat-mode
+                          (append '(telega-company-emoji
+                                    telega-company-username
+                                    telega-company-hashtag)
+                                  (when (telega-chat-bot-p telega-chatbuf--chat)
+                                    '(telega-company-botcmd))))))
+  (telega-chat-pre-message . telega-msg-ignore-blocked-sender)
   :config
   (load! "+telega-auto-input-method")
 
@@ -38,9 +39,9 @@
             "@vid" "@bing" "@wiki" "@imdb")
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size 100 :quit t :modeline t)
+    :side 'right :size 100 :select t :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 100 :quit t :modeline t)
+    :side 'right :size 100 :select t :ttl 300 :quit 'current :modeline t)
 
   (telega-mode-line-mode 1)
   (telega-url-shorten-mode 1)

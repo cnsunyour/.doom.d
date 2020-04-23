@@ -18,7 +18,7 @@
        ;; japanese
 
        :completion
-       (company)           ; the ultimate code completion backend
+       (company +childframe)           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy +childframe +icons)               ; a search engine for love and life
@@ -28,7 +28,7 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;; fill-column       ; a `fill-column' indicator
+       (:if (<= emacs-major-version 26) fill-column)       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
        hydra
        ;; indent-guides     ; highlighted indent columns
@@ -45,7 +45,7 @@
        ;; unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-       (window-select)     ; visually switch windows
+       window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
        zen               ; distraction-free coding or writing
 
@@ -67,6 +67,7 @@
        electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)
        vc                ; version-control and Emacs, sitting in a tree
+       undo
 
        :term
        eshell            ; a consistent, cross-platform shell (WIP)
@@ -75,12 +76,12 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       ;; spell             ; tasing you for misspelling mispelling
-       ;; grammar           ; tasing grammar mistake every you make
+       spell             ; tasing you for misspelling mispelling
+       grammar           ; tasing grammar mistake every you make
 
        :tools
        ;; ansible
-       ;; debugger          ; FIXME stepping through code, to help you add bugs
+       debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        docker
        ;; editorconfig      ; let someone else argue about tabs vs spaces
@@ -89,7 +90,7 @@
        gist              ; interacting with github gists
        (lookup +dictionary +docsets)
        (lsp +peek)
-       macos             ; MacOS-specific commands
+       (:if IS-MAC macos)             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        (pass +auth)              ; password manager for nerds
@@ -161,8 +162,8 @@
        ;;vala              ; GObjective-C
 
        :email
-       ;;(mu4e +gmail)       ; WIP
-       ;;notmuch             ; WIP
+       (mu4e +gmail)       ; WIP
+       ;; notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 
        ;; Applications are complex and opinionated modules that transform Emacs
@@ -196,7 +197,8 @@
        chinese
        ebook
        editor
-       irc
+       email
+       ;; irc
        org
        rss
        tabnine

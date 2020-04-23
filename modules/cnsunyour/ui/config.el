@@ -8,9 +8,10 @@
                                       "Sarasa Mono Slab SC"
                                       "等距更纱黑体 SC"
                                       "等距更纱黑体 Slab SC"
-                                      "PragmataPro"
-                                      "Iosevka"
-                                      "Inconsolata"
+                                      ;; "PragmataPro"
+                                      ;; "Iosevka"
+                                      ;; "Inconsolata"
+                                      "Unifont"
                                       "Noto Sans Mono CJK SC"
                                       "WenQuanYi Zen Hei Mono"
                                       "文泉驿等宽正黑"
@@ -86,20 +87,6 @@
   (if (featurep 'xwidget-internal)
       (setq lsp-ui-doc-use-webkit t)))
 
-;; winum，使用SPC+[0-9]选择窗口
-(after! winum
-  (map! :leader
-        "0" #'winum-select-window-0-or-10
-        "1" #'winum-select-window-1
-        "2" #'winum-select-window-2
-        "3" #'winum-select-window-3
-        "4" #'winum-select-window-4
-        "5" #'winum-select-window-5
-        "6" #'winum-select-window-6
-        "7" #'winum-select-window-7
-        "8" #'winum-select-window-8
-        "9" #'winum-select-window-9))
-
 ;; 拆分窗口时默认把焦点定在新窗口，doom为了和vim保持一致，竟然把这点改回去了
 (setq evil-split-window-below t
       evil-vsplit-window-right t)
@@ -144,30 +131,52 @@
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 (use-package! theme-changer
   :custom
-  (theme-changer-delay-seconds 1500 "Delay 25 minutes for sync with macOS's auto theme changer.")
-  :hook
-  ('emacs-startup . (lambda ()
-                      (change-theme '(doom-one-light
-                                      doom-acario-light
-                                      doom-nord-light
-                                      doom-opera-light
-                                      doom-solarized-light
-                                      doom-tomorrow-day)
-                                    '(doom-one
-                                      doom-city-lights
-                                      doom-challenger-deep
-                                      doom-dracula
-                                      doom-dark+
-                                      doom-gruvbox
-                                      doom-Iosvkem
-                                      doom-vibrant
-                                      doom-molokai
-                                      doom-moonlight
-                                      doom-oceanic-next
-                                      doom-peacock
-                                      doom-spacegrey
-                                      doom-snazzy
-                                      doom-wilmersdorf)))))
+  (theme-changer-delay-seconds 1200 "Delay seconds for sync with macOS's auto theme changer.")
+  :config
+  (add-hook! emacs-startup
+             :append
+             (change-theme '(doom-one-light
+                             doom-acario-light
+                             doom-nord-light
+                             doom-opera-light
+                             doom-solarized-light
+                             doom-tomorrow-day
+                             flucui-light
+                             lab-light)
+                           '(doom-one
+                             doom-vibrant
+                             doom-acario-dark
+                             doom-city-lights
+                             doom-challenger-deep
+                             doom-dark+
+                             doom-dracula
+                             doom-gruvbox
+                             doom-horizon
+                             doom-Iosvkem
+                             doom-laserwave
+                             doom-material
+                             doom-molokai
+                             doom-monokai-classic
+                             doom-monokai-pro
+                             doom-monokai-spectrum
+                             doom-moonlight
+                             doom-oceanic-next
+                             doom-palenight
+                             doom-peacock
+                             doom-rouge
+                             doom-snazzy
+                             ;; doom-sourcerer
+                             doom-spacegrey
+                             doom-tomorrow-night
+                             doom-vibrant
+                             srcery
+                             flucui-dark
+                             lab-dark))
+             (add-hook! doom-load-theme
+                        :append
+                        (unless (string-prefix-p "doom-" (symbol-name doom-theme))
+                          (set-face-background 'solaire-hl-line-face nil)
+                          (set-face-background 'solaire-default-face nil)))))
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)
@@ -201,5 +210,12 @@
   (("s-t" . hydra-tab/body)))
 
 (use-package! emojify
+  :custom
+  (emojify-point-entered-behaviour 'uncover)
   :hook
-  ('telega-chat-mode . #'emojify-mode))
+  (telega-chat-mode . emojify-mode))
+
+;; enable emacs27+ build-in fill-column
+(when (>= emacs-major-version 27)
+  (add-hook! (text-mode prog-mode conf-mode)
+             #'display-fill-column-indicator-mode))
