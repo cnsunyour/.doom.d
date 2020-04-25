@@ -73,3 +73,6 @@
 (add-hook! before-save
            #'delete-trailing-whitespace
            #'whitespace-cleanup)
+
+;; Delay in ms before dynamic collections are refreshed
+(setq ivy-dynamic-exhibit-delay-ms 200)
