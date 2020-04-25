@@ -1,57 +1,60 @@
 ;;; cnsunyour/ui/config.el -*- lexical-binding: t; -*-
 
-(defun cnsunyour/set-doom-font ()
-  "Set random font family and size."
-  (let* ((fonts (cl-remove-if
-                 (lambda (elf)
-                   (not (member elf '("Sarasa Mono SC"
-                                      "Sarasa Mono Slab SC"
-                                      "等距更纱黑体 SC"
-                                      "等距更纱黑体 Slab SC"
-                                      ;; "PragmataPro"
-                                      ;; "Iosevka"
-                                      ;; "Inconsolata"
-                                      "Unifont"
-                                      "Noto Sans Mono CJK SC"
-                                      "WenQuanYi Zen Hei Mono"
-                                      "文泉驿等宽正黑"
-                                      "M+ 1m"
-                                      "M+ 1mn"
-                                      "M+ 2m"))))
-                 (mapcar (lambda (str)
-                           (decode-coding-string str 'utf-8))
-                         (cl-remove-duplicates (font-family-list)))))
-         (font (elt fonts (random (length fonts))))
-         (font-size (if (and (>= (x-display-pixel-width) 1600)
-                             (>= (x-display-pixel-height) 1000))
-                        16 14)))
-    (when font
-      (setq doom-font (font-spec :family font :size font-size)))))
-      ;; (setq doom-unicode-font
-      ;;       (if IS-MAC
-      ;;           (font-spec :family "Apple Color Emoji"
-      ;;                      :size (if large-display-p
-      ;;                                (* large-font-size .8)
-      ;;                              (* small-font-size .8)))
-      ;;         (font-spec :family (if (member
-      ;;                                 "Noto Color Emoji"
-      ;;                                 (font-family-list))
-      ;;                                "Noto Color Emoji"
-      ;;                              "Symbola")))))))
-      ;; (doom/reload-font)
-;; Set default font when theme changed.
-;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
-;; Or, you can set font manually now.
-(cnsunyour/set-doom-font)
+(when (display-graphic-p)
+  (defun cnsunyour/set-doom-font ()
+    "Set random font family and size."
+    (let* ((fonts (cl-remove-if
+                   (lambda (elf)
+                     (not (member elf '("Sarasa Mono SC"
+                                        "Sarasa Mono Slab SC"
+                                        "等距更纱黑体 SC"
+                                        "等距更纱黑体 Slab SC"
+                                        ;; "PragmataPro"
+                                        ;; "Iosevka"
+                                        ;; "Inconsolata"
+                                        "Unifont"
+                                        "Noto Sans Mono CJK SC"
+                                        "WenQuanYi Zen Hei Mono"
+                                        "文泉驿等宽正黑"
+                                        "M+ 1m"
+                                        "M+ 1mn"
+                                        "M+ 2m"))))
+                   (mapcar (lambda (str)
+                             (decode-coding-string str 'utf-8))
+                           (cl-remove-duplicates (font-family-list)))))
+           (font (elt fonts (random (length fonts))))
+           (font-size (if (and (>= (x-display-pixel-width) 1600)
+                               (>= (x-display-pixel-height) 1000))
+                          16 14)))
+      (when font
+        (setq doom-font (font-spec :family font :size font-size)))))
+  ;; (setq doom-unicode-font
+  ;;       (if IS-MAC
+  ;;           (font-spec :family "Apple Color Emoji"
+  ;;                      :size (if large-display-p
+  ;;                                (* large-font-size .8)
+  ;;                              (* small-font-size .8)))
+  ;;         (font-spec :family (if (member
+  ;;                                 "Noto Color Emoji"
+  ;;                                 (font-family-list))
+  ;;                                "Noto Color Emoji"
+  ;;                              "Symbola")))))))
+  ;; (doom/reload-font)
+  ;; Set default font when theme changed.
+  ;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
+  ;; Or, you can set font manually now.
+  (cnsunyour/set-doom-font)
 
-(defun cnsunyour/set-splash-image ()
-  "Set random splash image."
-  (setq fancy-splash-image
-        (let* ((banners (directory-files "~/.doom.d/banner" 'full (rx ".png" eos)))
-               (banner (elt banners (random (length banners)))))
-          banner)))
-;; Set splash image when theme changed.
-(add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image)
+  (defun cnsunyour/set-splash-image ()
+    "Set random splash image."
+    (setq fancy-splash-image
+          (let* ((banners (directory-files "~/.doom.d/banner"
+                                           'full
+                                           (rx ".png" eos)))
+                 (banner (elt banners (random (length banners)))))
+            banner)))
+  ;; Set splash image when theme changed.
+  (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
