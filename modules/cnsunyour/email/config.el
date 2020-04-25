@@ -14,7 +14,7 @@
 
 ;; mu4e
 (when (featurep! :email mu4e)
-  (map! "C-S-s-m" #'=mu4e)
+  (map! "C-M-S-s-e" #'=mu4e)
 
   (setenv "XAPIAN_CJK_NGRAM" "1")
 
