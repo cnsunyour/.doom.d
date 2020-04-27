@@ -3,7 +3,7 @@
 
 ;; custom elfeed's configuration
 (when (fboundp 'elfeed)
-  (map! :leader :desc "Elfeed" "ve" #'elfeed))
+  (map! :leader :desc "Elfeed" "ve" #'=rss))
 (after! elfeed
   (set-evil-initial-state! '(elfeed-search-mode elfeed-show-mode) 'emacs)
   (map! :map elfeed-search-mode-map
