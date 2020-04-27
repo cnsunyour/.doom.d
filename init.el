@@ -162,7 +162,7 @@
        ;;vala              ; GObjective-C
 
        :email
-       (:if IS-MAC mu4e +gmail)       ; WIP
+       (:if IS-MAC (mu4e +gmail))       ; WIP
        ;; notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 
