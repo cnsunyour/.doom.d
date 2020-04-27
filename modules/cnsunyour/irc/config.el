@@ -2,6 +2,16 @@
 
 (map! "C-M-S-s-r" #'=irc)
 
+(after! all-the-icons
+  (add-to-list 'all-the-icons-mode-icon-alist
+               '(circe-mode all-the-icons-fileicon "circle-ci"
+                            :heigt 1.0
+                            :v-adjust -0.2))
+  (add-to-list 'all-the-icons-mode-icon-alist
+               '(circe-chat-mode all-the-icons-fileicon "circle-ci"
+                            :heigt 1.0
+                            :v-adjust -0.2)))
+
 (after! circe
   (let* ((authinfo (auth-source-user-and-password "chat.freenode.net"))
          (user (car authinfo))
