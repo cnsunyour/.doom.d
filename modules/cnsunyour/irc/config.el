@@ -24,10 +24,8 @@
                                   "#debian"
                                   "#emacs"
                                   "#gentoo"
-                                  "#go-nuts"
                                   "##java"
                                   "#linuxba"
                                   "#python"
                                   "#qutebrowser"
-                                  "#weechat"
-                                  "#wikipedia-zh")))))
+                                  "#weechat")))))
