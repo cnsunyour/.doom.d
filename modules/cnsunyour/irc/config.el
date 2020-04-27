@@ -13,6 +13,7 @@
                        :nick ,user
                        :user ,user
                        :realname "Sunn Yao"
+                       :nickserv-nick ,user
                        :nickserv-password ,password
                        :sasl-username ,user
                        :sasl-password ,password
