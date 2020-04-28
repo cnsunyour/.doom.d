@@ -5,6 +5,8 @@
         mac-option-modifier 'meta))
 
 (when (featurep! :ui workspaces)
+  (global-set-key (kbd "s-[") #'+workspace/switch-left)
+  (global-set-key (kbd "s-]") #'+workspace/switch-right)
   (define-key key-translation-map (kbd "s-1") (kbd "M-1"))
   (define-key key-translation-map (kbd "s-2") (kbd "M-2"))
   (define-key key-translation-map (kbd "s-3") (kbd "M-3"))
@@ -27,6 +29,9 @@
 
       :m "M-j" #'multi-next-line
       :m "M-k" #'multi-previous-line
+
+      (:when (featurep! :ui workspaces)
+        "C-M-S-s-w" #'=calendar)
 
       (:map evil-treemacs-state-map
         "M-j" #'multi-next-line
