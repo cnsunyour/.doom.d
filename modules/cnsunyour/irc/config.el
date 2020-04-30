@@ -28,14 +28,12 @@
                        :sasl-username ,user
                        :sasl-password ,password
                        :channels ("#archlinux"
+                                  "#gentoo"
+                                  "#debian"
                                   "##C"
                                   "##c++"
-                                  "##C++general"
-                                  "#debian"
-                                  "#emacs"
-                                  "#gentoo"
                                   "##java"
-                                  "#linuxba"
                                   "#python"
+                                  "#emacs"
                                   "#qutebrowser"
                                   "#weechat")))))
