@@ -8,7 +8,7 @@
   :bind ("C-M-S-s-t" . #'telega)
   :custom
   (telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
-                                  :type (:@type "proxyTypeSocks5"))))
+                          :type (:@type "proxyTypeSocks5"))))
   (telega-chat-reply-prompt "<<< ")
   (telega-chat-edit-prompt "+++ ")
   (telega-sticker-size '(8 . 48))
