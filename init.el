@@ -91,7 +91,7 @@
        (lookup +dictionary +docsets)
        (lsp +peek)
        (:if IS-MAC macos)             ; MacOS-specific commands
-       magit             ; a git porcelain for Emacs
+       (magit +forge)             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        (pass +auth)              ; password manager for nerds
        pdf               ; pdf enhancements
