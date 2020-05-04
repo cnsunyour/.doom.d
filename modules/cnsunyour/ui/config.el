@@ -56,6 +56,50 @@
   ;; Set splash image when theme changed.
   (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
 
+(setq +list-light-themes '(doom-one-light
+                           doom-acario-light
+                           doom-nord-light
+                           doom-opera-light
+                           doom-solarized-light
+                           doom-tomorrow-day
+                           flucui-light
+                           lab-light)
+      +list-dark-themes  '(doom-one
+                           doom-vibrant
+                           doom-acario-dark
+                           doom-city-lights
+                           doom-challenger-deep
+                           doom-dark+
+                           doom-dracula
+                           doom-gruvbox
+                           doom-horizon
+                           doom-Iosvkem
+                           doom-laserwave
+                           doom-material
+                           doom-molokai
+                           doom-monokai-classic
+                           doom-monokai-pro
+                           doom-monokai-spectrum
+                           doom-moonlight
+                           doom-oceanic-next
+                           doom-palenight
+                           doom-peacock
+                           doom-rouge
+                           doom-snazzy
+                           doom-spacegrey
+                           doom-tomorrow-night
+                           doom-vibrant
+                           srcery
+                           flucui-dark
+                           lab-dark))
+(add-hook! emacs-startup :append
+  (add-hook! doom-load-theme :append
+    (when (and (featurep 'solaire-mode)
+               (not (string-prefix-p "doom-" (symbol-name doom-theme))))
+      (set-face-background 'solaire-hl-line-face nil)
+      (set-face-background 'solaire-default-face nil))))
+
+
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
 
@@ -115,71 +159,18 @@
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
-;; 每天根据日出日落时间自动换主题
-;; 本插件的加载时机很关键，Doom 的加载顺序为：
-;;
-;; ~/.emacs.d/init.el
-;; ~/.emacs.d/core/core.el
-;; ~/.doom.d/init.el
-;; Module init.el files
-;; `doom-before-init-modules-hook'
-;; Module config.el files
-;; ~/.doom.d/config.el
-;; `doom-init-modules-hook'
-;; `after-init-hook'
-;; `emacs-startup-hook'
-;; `doom-init-ui-hook'
-;; `window-setup-hook'
-;;
-;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
-(use-package! theme-changer
-  :custom
-  (theme-changer-delay-seconds 1200)
+
+;; Change theme sync with macos
+(use-package! auto-dark-emacs
+  :when IS-MAC
+  :init
+  (setq auto-dark-emacs/light-theme +list-light-themes
+        auto-dark-emacs/dark-theme  +list-dark-themes)
   :config
-  (add-hook! emacs-startup
-             :append
-             (change-theme '(doom-one-light
-                             doom-acario-light
-                             doom-nord-light
-                             doom-opera-light
-                             doom-solarized-light
-                             doom-tomorrow-day
-                             flucui-light
-                             lab-light)
-                           '(doom-one
-                             doom-vibrant
-                             doom-acario-dark
-                             doom-city-lights
-                             doom-challenger-deep
-                             doom-dark+
-                             doom-dracula
-                             doom-gruvbox
-                             doom-horizon
-                             doom-Iosvkem
-                             doom-laserwave
-                             doom-material
-                             doom-molokai
-                             doom-monokai-classic
-                             doom-monokai-pro
-                             doom-monokai-spectrum
-                             doom-moonlight
-                             doom-oceanic-next
-                             doom-palenight
-                             doom-peacock
-                             doom-rouge
-                             doom-snazzy
-                             ;; doom-sourcerer
-                             doom-spacegrey
-                             doom-tomorrow-night
-                             doom-vibrant
-                             srcery
-                             flucui-dark
-                             lab-dark))
-             (add-hook! doom-load-theme
-                        :append
-                        (unless (string-prefix-p "doom-" (symbol-name doom-theme))
-                          (set-face-background 'solaire-hl-line-face nil)
-                          (set-face-background 'solaire-default-face nil)))))
+  (add-hook! after-init :append
+    (run-with-timer 0 auto-dark-emacs/polling-interval-seconds
+                    'auto-dark-emacs/check-and-set-dark-mode)))
+
 
 (use-package! awesome-tab
   :commands (awesome-tab-mode)

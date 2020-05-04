@@ -2,8 +2,9 @@
 ;;; cnsunyour/ui/packages.el
 
 
-(package! theme-changer
-  :recipe (:fork (:host github :repo "cnsunyour/theme-changer")))
+(when IS-MAC
+  (package! auto-dark-emacs
+    :recipe (:host github :repo "cnsunyour/auto-dark-emacs")))
 (package! awesome-tab
   :recipe (:host github :repo "manateelazycat/awesome-tab"))
 (package! emojify)
