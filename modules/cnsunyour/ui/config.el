@@ -27,77 +27,74 @@
                                (>= (x-display-pixel-height) 1000))
                           16 14)))
       (when font
-        (setq doom-font (font-spec :family font :size font-size)))))
-  ;; (setq doom-unicode-font
-  ;;       (if IS-MAC
-  ;;           (font-spec :family "Apple Color Emoji"
-  ;;                      :size (if large-display-p
-  ;;                                (* large-font-size .8)
-  ;;                              (* small-font-size .8)))
-  ;;         (font-spec :family (if (member
-  ;;                                 "Noto Color Emoji"
-  ;;                                 (font-family-list))
-  ;;                                "Noto Color Emoji"
-  ;;                              "Symbola")))))))
-  ;; (doom/reload-font)
+        (setq doom-font (font-spec :family font :size font-size))
+        (doom/reload-font))))
   ;; Set default font when theme changed.
-  ;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
-  ;; Or, you can set font manually now.
-  (cnsunyour/set-doom-font)
+  (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
+  ;; Or, you can set it manually now.
+  ;; (cnsunyour/set-doom-font)
 
   (defun cnsunyour/set-splash-image ()
     "Set random splash image."
     (setq fancy-splash-image
-          (let* ((banners (directory-files "~/.doom.d/banner"
-                                           'full
-                                           (rx ".png" eos)))
-                 (banner (elt banners (random (length banners)))))
-            banner)))
+          (let ((banners (directory-files "~/.doom.d/banner"
+                                          'full
+                                          (rx ".png" eos))))
+            (elt banners (random (length banners))))))
   ;; Set splash image when theme changed.
   (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image))
+  ;; Or, you can set it manually now.
+  ;; (cnsunyour/set-splash-image)
 
-(setq +list-light-themes '(doom-one-light
-                           doom-acario-light
-                           doom-nord-light
-                           doom-opera-light
-                           doom-solarized-light
-                           doom-tomorrow-day
-                           flucui-light
-                           lab-light)
-      +list-dark-themes  '(doom-one
-                           doom-vibrant
-                           doom-acario-dark
-                           doom-city-lights
-                           doom-challenger-deep
-                           doom-dark+
-                           doom-dracula
-                           doom-gruvbox
-                           doom-horizon
-                           doom-Iosvkem
-                           doom-laserwave
-                           doom-material
-                           doom-molokai
-                           doom-monokai-classic
-                           doom-monokai-pro
-                           doom-monokai-spectrum
-                           doom-moonlight
-                           doom-oceanic-next
-                           doom-palenight
-                           doom-peacock
-                           doom-rouge
-                           doom-snazzy
-                           doom-spacegrey
-                           doom-tomorrow-night
-                           doom-vibrant
-                           srcery
-                           flucui-dark
-                           lab-dark))
-(add-hook! emacs-startup :append
+
+;; Change theme sync with macos
+(use-package! auto-dark-emacs
+  :when IS-MAC
+  :custom
+  (auto-dark-emacs/light-theme '(doom-one-light
+                                 doom-acario-light
+                                 doom-nord-light
+                                 doom-opera-light
+                                 doom-solarized-light
+                                 doom-tomorrow-day
+                                 flucui-light
+                                 lab-light))
+  (auto-dark-emacs/dark-theme  '(doom-one
+                                 doom-vibrant
+                                 doom-acario-dark
+                                 doom-city-lights
+                                 doom-challenger-deep
+                                 doom-dark+
+                                 doom-dracula
+                                 doom-gruvbox
+                                 doom-horizon
+                                 doom-Iosvkem
+                                 doom-laserwave
+                                 doom-material
+                                 doom-molokai
+                                 doom-monokai-classic
+                                 doom-monokai-pro
+                                 doom-monokai-spectrum
+                                 doom-moonlight
+                                 doom-oceanic-next
+                                 doom-palenight
+                                 doom-peacock
+                                 doom-rouge
+                                 doom-snazzy
+                                 doom-spacegrey
+                                 doom-tomorrow-night
+                                 doom-vibrant
+                                 srcery
+                                 flucui-dark
+                                 lab-dark))
+  :config
   (add-hook! doom-load-theme :append
     (when (and (featurep 'solaire-mode)
                (not (string-prefix-p "doom-" (symbol-name doom-theme))))
       (set-face-background 'solaire-hl-line-face nil)
-      (set-face-background 'solaire-default-face nil))))
+      (set-face-background 'solaire-default-face nil)))
+  (add-hook! after-init :append
+             #'auto-dark-emacs/check-and-set-dark-mode))
 
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
@@ -158,18 +155,6 @@
 ;; (pushnew! initial-frame-alist '(width . 200) '(height . 48))
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
-
-
-;; Change theme sync with macos
-(use-package! auto-dark-emacs
-  :when IS-MAC
-  :init
-  (setq auto-dark-emacs/light-theme +list-light-themes
-        auto-dark-emacs/dark-theme  +list-dark-themes)
-  :config
-  (add-hook! after-init :append
-    (run-with-timer 0 auto-dark-emacs/polling-interval-seconds
-                    'auto-dark-emacs/check-and-set-dark-mode)))
 
 
 (use-package! awesome-tab
