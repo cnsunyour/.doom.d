@@ -4,7 +4,9 @@
 
 (when IS-MAC
   (package! auto-dark-emacs
-    :recipe (:host github :repo "LionyxML/auto-dark-emacs" :fork "cnsunyour/auto-dark-emacs")))
+    :recipe (:host github :repo "LionyxML/auto-dark-emacs"
+             ;; :local-repo "~/R&D/auto-dark-emacs"
+             :fork "cnsunyour/auto-dark-emacs")))
 (package! awesome-tab
   :recipe (:host github :repo "manateelazycat/awesome-tab"))
 (package! emojify)
