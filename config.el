@@ -67,7 +67,7 @@
 ;;                          (message "Garbage Collector has run for %.06fsec"
 ;;                                   (k-time (garbage-collect))))))
 (defvar k-gc-timer
-  (run-with-idle-timer 15 t (lambda () (garbage-collect))))
+  (run-with-idle-timer 15 t #'garbage-collect))
 
 ;; cleanup trailing whitespaces before save buffers.
 (add-hook! before-save
