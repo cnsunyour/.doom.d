@@ -27,12 +27,12 @@
                                (>= (x-display-pixel-height) 1000))
                           16 14)))
       (when font
-        (setq doom-font (font-spec :family font :size font-size))
-        (doom/reload-font))))
+        (setq doom-font (font-spec :family font :size font-size)))))
+        ;; (doom/reload-font))))
   ;; Set default font when theme changed.
-  (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
+  ;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
   ;; Or, you can set it manually now.
-  ;; (cnsunyour/set-doom-font)
+  (cnsunyour/set-doom-font)
 
   (defun cnsunyour/set-splash-image ()
     "Set random splash image."
