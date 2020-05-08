@@ -8,7 +8,7 @@
     (widen)
     (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
       (while (org-up-heading-safe)
-        (when (string-match-p "PROJECT" (org-get-tags-string))
+        (when (string-match-p "PROJ" (org-get-tags-string))
           (setq parent-task (point))))
       (goto-char parent-task)
       parent-task)))
@@ -77,7 +77,7 @@
 (defun +org-gtd/clock-in-to-next (&optional param)
   "Switch a task from TODO or NEXT to STARTED when clocking in"
   (when (not (and (boundp 'org-capture-mode) org-capture-mode))
-    (if (member (org-get-todo-state) (list "TODO" "NEXT")) "STARTED")))
+    (if (member (org-get-todo-state) (list "TODO" "NEXT")) "STRT")))
 
 ;;;###autoload
 (defun +org-gtd/verify-refile-target ()
@@ -104,4 +104,3 @@
     (while (outline-previous-heading)
       (when (org-entry-is-done-p)
         (org-cut-subtree)))))
-
