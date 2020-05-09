@@ -20,7 +20,7 @@
 
   (after! mu4e
     (setq +mu4e-backend 'offlineimap
-          mu4e-get-mail-command "offlineimap -o -q"
+          mu4e-get-mail-command "proxychains4 offlineimap -o -q"
           send-mail-function #'smtpmail-send-it
           message-send-mail-function send-mail-function
           mu4e-update-interval 300
