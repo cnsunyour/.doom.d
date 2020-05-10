@@ -79,15 +79,20 @@
           ("[X]"  :foreground "forest green" :weight bold)
           ("ABRT" :foreground "red"          :weight bold)))
   ;; set tags
-  (setq org-tag-alist
+  (setq org-tag-persistent-alist
         '(("FLAGGED"    . ?f)
           ("@Office"    . ?o)
           ("@Home"      . ?h)
           ("@Way"       . ?w)
           ("@Computer"  . ?c)
+          ("@Mobile"    . ?m)
           ("@Errands"   . ?e)
           ("@Lunchtime" . ?l)))
-  (setq org-tag-persistent-alist org-tag-alist)
+  (setq org-tag-alist
+        '(("墩墩" . ?d)
+          ("信用卡")
+          ("技术")
+          ("生活")))
   ;; trigger task states
   (setq org-todo-state-tags-triggers
         '(("ABRT" ("ABRT" . t))
