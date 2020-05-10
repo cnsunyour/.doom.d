@@ -16,7 +16,7 @@
   (telega-animation-play-inline nil)
   (telega-emoji-use-images nil)
   (telega-sticker-set-download t)
-  (telega-use-tracking-for t)
+  (telega-use-tracking-for '(or pin (label "⌘")))
   (telega-chat-show-deleted-messages-for '(or pin (label "⌘")))
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
