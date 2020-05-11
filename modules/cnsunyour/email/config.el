@@ -168,7 +168,7 @@
                           (mu4e-sent-folder            . "/qq/Sent Messages")
                           (mu4e-drafts-folder          . "/qq/Drafts")
                           (mu4e-trash-folder           . "/qq/Deleted Messages")
-                          (mu4e-refile-folder          . "/qq/其他文件夹.Archive")
+                          (mu4e-refile-folder          . "/qq/其他文件夹.存档")
                           (mu4e-compose-signature      . "凡 (Sunn Yao)")))
 
     (set-email-account! "gmail"
