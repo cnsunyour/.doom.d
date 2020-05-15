@@ -49,7 +49,7 @@
 ;; (setq company-idle-delay 0)
 
 ;; Set default directory
-(setq default-directory "~")
+(add-hook! emacs-startup (setq default-directory "~"))
 
 ;;
 ;; Optimize garbage-collect
