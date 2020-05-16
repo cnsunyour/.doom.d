@@ -33,7 +33,7 @@
   :custom
   (auto-save-idle 10 "Increase idle time to auto save files.")
   (auto-save-silent nil "Nothing to dirty minibuffer if this option is non-nil.")
-  (auto-save-delete-trailing-whitespace t "Trailing whitespace when save files.")
+  (auto-save-delete-trailing-whitespace nil "Trailing whitespace when save files.")
   :config
   (auto-save-enable))
 
