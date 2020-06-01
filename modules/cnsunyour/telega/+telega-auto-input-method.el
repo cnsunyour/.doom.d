@@ -63,9 +63,9 @@
         (chatid (plist-get chat :id)))
     (cond ((member chatid +telega--chat-cn-list) (activate-input-method default-input-method))
           ((member chatid +telega--chat-en-list) (deactivate-input-method))
-          ((string-match-p "\\cc" title) (activate-input-method default-input-method))
           ((telega-chat-bot-p chat) (deactivate-input-method))
           ((telega-chat-private-p chat) (activate-input-method default-input-method))
+          ((string-match-p "\\cc" title) (activate-input-method default-input-method))
           (t (deactivate-input-method)))))
 
 ;; Determine the function which has advice is available.
