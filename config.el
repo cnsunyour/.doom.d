@@ -73,3 +73,5 @@
 (add-hook! before-save
            #'delete-trailing-whitespace
            #'whitespace-cleanup)
+
+(setenv "SSH_AUTH_SOCK" "/Users/yaohui/.gnupg/S.gpg-agent.ssh")
