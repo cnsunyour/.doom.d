@@ -20,6 +20,9 @@
   (telega-chat-show-deleted-messages-for '(or pin (label "⌘")))
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
+
+  (when (featurep! :completion ivy)
+    (load! "+ivy-telega"))
   :hook
   (telega-chat-mode . yas-minor-mode-on)
   (telega-chat-mode . visual-line-mode)
@@ -48,9 +51,6 @@
   (telega-url-shorten-mode 1)
   (when (and IS-LINUX (boundp 'dbus-runtime-version))
     (telega-notifications-mode 1))
-
-  (when (featurep! :completion ivy)
-    (load! "+ivy-telega"))
 
   (after! all-the-icons
     (add-to-list 'all-the-icons-mode-icon-alist
