@@ -76,7 +76,7 @@ STRING is a single-character string that marks the opening character.
 defines the functions WRAP-WITH-PAREN and WRAP-WITH-BRACKET,
 respectively."
     `(progn
-       ,@(loop for (key . val) in pairs
+       ,@(cl-loop for (key . val) in pairs
                collect
                `(defun ,(read (concat
                                "wrap-with-"
