@@ -64,42 +64,42 @@
 ;; `window-setup-hook'
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 ;;
-(setq +list-light-themes '(doom-one-light
-                           doom-acario-light
-                           doom-nord-light
-                           doom-opera-light
-                           doom-solarized-light
-                           doom-tomorrow-day
-                           flucui-light
-                           lab-light)
-      +list-dark-themes  '(doom-one
-                           doom-vibrant
-                           doom-acario-dark
-                           doom-city-lights
-                           doom-challenger-deep
-                           doom-dark+
-                           doom-dracula
-                           doom-gruvbox
-                           doom-horizon
-                           doom-Iosvkem
-                           doom-laserwave
-                           doom-material
-                           doom-molokai
-                           doom-monokai-classic
-                           doom-monokai-pro
-                           doom-monokai-spectrum
-                           doom-moonlight
-                           doom-oceanic-next
-                           doom-palenight
-                           doom-peacock
-                           doom-rouge
-                           doom-snazzy
-                           doom-spacegrey
-                           doom-tomorrow-night
-                           doom-vibrant
-                           srcery
-                           flucui-dark
-                           lab-dark))
+(setq auto-dark-emacs/light-theme '(doom-one-light
+                                    doom-acario-light
+                                    doom-nord-light
+                                    doom-opera-light
+                                    doom-solarized-light
+                                    doom-tomorrow-day
+                                    flucui-light
+                                    lab-light)
+      auto-dark-emacs/dark-theme  '(doom-one
+                                    doom-vibrant
+                                    doom-acario-dark
+                                    doom-city-lights
+                                    doom-challenger-deep
+                                    doom-dark+
+                                    doom-dracula
+                                    doom-gruvbox
+                                    doom-horizon
+                                    doom-Iosvkem
+                                    doom-laserwave
+                                    doom-material
+                                    doom-molokai
+                                    doom-monokai-classic
+                                    doom-monokai-pro
+                                    doom-monokai-spectrum
+                                    doom-moonlight
+                                    doom-oceanic-next
+                                    doom-palenight
+                                    doom-peacock
+                                    doom-rouge
+                                    doom-snazzy
+                                    doom-spacegrey
+                                    doom-tomorrow-night
+                                    doom-vibrant
+                                    srcery
+                                    flucui-dark
+                                    lab-dark))
 
 (add-hook! doom-load-theme :append
   (when (and (featurep 'solaire-mode)
@@ -113,14 +113,12 @@
   :config
   (add-hook! after-init
              :append
-             (change-theme +list-light-themes +list-dark-themes)))
+             (change-theme auto-dark-emacs/light-theme
+                           auto-dark-emacs/dark-theme)))
 
 ;; Change theme sync with macOS
 (use-package! auto-dark-emacs
   :when IS-MAC
-  :custom
-  (auto-dark-emacs/light-theme +list-light-themes)
-  (auto-dark-emacs/dark-theme  +list-dark-themes)
   :config
   (add-hook! after-init
              :append
