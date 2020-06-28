@@ -47,53 +47,83 @@
   ;; (cnsunyour/set-splash-image)
 
 
-;; Change theme sync with macos
+;;
+;; 每天根据日出日落时间(非macOS)或跟随macOS系统自动换主题
+;; 插件的加载时机很关键，Doom 的加载顺序为：
+;; ~/.emacs.d/init.el
+;; ~/.emacs.d/core/core.el
+;; ~/.doom.d/init.el
+;; Module init.el files
+;; `doom-before-init-modules-hook'
+;; Module config.el files
+;; ~/.doom.d/config.el
+;; `doom-init-modules-hook'
+;; `after-init-hook'
+;; `emacs-startup-hook'
+;; `doom-init-ui-hook'
+;; `window-setup-hook'
+;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
+;;
+(setq +list-light-themes '(doom-one-light
+                           doom-acario-light
+                           doom-nord-light
+                           doom-opera-light
+                           doom-solarized-light
+                           doom-tomorrow-day
+                           flucui-light
+                           lab-light)
+      +list-dark-themes  '(doom-one
+                           doom-vibrant
+                           doom-acario-dark
+                           doom-city-lights
+                           doom-challenger-deep
+                           doom-dark+
+                           doom-dracula
+                           doom-gruvbox
+                           doom-horizon
+                           doom-Iosvkem
+                           doom-laserwave
+                           doom-material
+                           doom-molokai
+                           doom-monokai-classic
+                           doom-monokai-pro
+                           doom-monokai-spectrum
+                           doom-moonlight
+                           doom-oceanic-next
+                           doom-palenight
+                           doom-peacock
+                           doom-rouge
+                           doom-snazzy
+                           doom-spacegrey
+                           doom-tomorrow-night
+                           doom-vibrant
+                           srcery
+                           flucui-dark
+                           lab-dark))
+
+(add-hook! doom-load-theme :append
+  (when (and (featurep 'solaire-mode)
+             (not (string-prefix-p "doom-" (symbol-name doom-theme))))
+    (set-face-background 'solaire-hl-line-face nil)
+    (set-face-background 'solaire-default-face nil)))
+
+;; Auto change theme on non-mac OS
+(use-package! theme-changer
+  :unless IS-MAC
+  :config
+  (add-hook! after-init
+             :append
+             (change-theme +list-light-themes +list-dark-themes)))
+
+;; Change theme sync with macOS
 (use-package! auto-dark-emacs
   :when IS-MAC
   :custom
-  (auto-dark-emacs/light-theme '(doom-one-light
-                                 doom-acario-light
-                                 doom-nord-light
-                                 doom-opera-light
-                                 doom-solarized-light
-                                 doom-tomorrow-day
-                                 flucui-light
-                                 lab-light))
-  (auto-dark-emacs/dark-theme  '(doom-one
-                                 doom-vibrant
-                                 doom-acario-dark
-                                 doom-city-lights
-                                 doom-challenger-deep
-                                 doom-dark+
-                                 doom-dracula
-                                 doom-gruvbox
-                                 doom-horizon
-                                 doom-Iosvkem
-                                 doom-laserwave
-                                 doom-material
-                                 doom-molokai
-                                 doom-monokai-classic
-                                 doom-monokai-pro
-                                 doom-monokai-spectrum
-                                 doom-moonlight
-                                 doom-oceanic-next
-                                 doom-palenight
-                                 doom-peacock
-                                 doom-rouge
-                                 doom-snazzy
-                                 doom-spacegrey
-                                 doom-tomorrow-night
-                                 doom-vibrant
-                                 srcery
-                                 flucui-dark
-                                 lab-dark))
+  (auto-dark-emacs/light-theme +list-light-themes)
+  (auto-dark-emacs/dark-theme  +list-dark-themes)
   :config
-  (add-hook! doom-load-theme :append
-    (when (and (featurep 'solaire-mode)
-               (not (string-prefix-p "doom-" (symbol-name doom-theme))))
-      (set-face-background 'solaire-hl-line-face nil)
-      (set-face-background 'solaire-default-face nil)))
-  (add-hook! after-init :append
+  (add-hook! after-init
+             :append
              #'auto-dark-emacs/check-and-set-dark-mode))
 
 
