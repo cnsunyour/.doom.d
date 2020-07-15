@@ -115,20 +115,6 @@
                           (mu4e-refile-folder          . "/dbuav/存档")
                           (mu4e-compose-signature      . "姚晖 (Sunn Yao)")))
 
-    (set-email-account! "139"
-                        '((user-full-name              . "姚晖 (Sunn Yao)")
-                          (user-mail-address           . "sunyour@139.com")
-                          (smtpmail-smtp-user          . "sunyour@139.com")
-                          (smtpmail-smtp-server        . "smtp.139.com")
-                          (smtpmail-smtp-service       . 465)
-                          (smtpmail-stream-type        . ssl)
-                          (mu4e-sent-messages-behavior . sent)
-                          (mu4e-sent-folder            . "/139/已发送")
-                          (mu4e-drafts-folder          . "/139/草稿箱")
-                          (mu4e-trash-folder           . "/139/已删除")
-                          (mu4e-refile-folder          . "/139/Archive")
-                          (mu4e-compose-signature      . "姚晖 (Sunn Yao)")))
-
     (set-email-account! "aliyun"
                         '((user-full-name              . "凡 (Sunn Yao)")
                           (user-mail-address           . "sunyour@aiyun.com")
