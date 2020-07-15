@@ -66,6 +66,7 @@
 ;;
 (setq auto-dark-emacs/light-theme '(doom-one-light
                                     doom-acario-light
+                                    doom-gruvbox-light
                                     doom-nord-light
                                     doom-opera-light
                                     doom-solarized-light
