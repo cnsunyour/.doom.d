@@ -20,7 +20,7 @@
   (telega-chat-show-deleted-messages-for '(or pin (label "⌘")))
   (telega-root-fill-column 140)
   (telega-chat-fill-column 130)
-  (telega-webpage-fill-column 130)
+  (telega-webpage-fill-column 120)
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
 
