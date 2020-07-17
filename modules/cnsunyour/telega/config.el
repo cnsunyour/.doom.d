@@ -18,6 +18,9 @@
   (telega-sticker-set-download t)
   (telega-use-tracking-for '(or pin (label "⌘")))
   (telega-chat-show-deleted-messages-for '(or pin (label "⌘")))
+  (telega-root-fill-column 140)
+  (telega-chat-fill-column 130)
+  (telega-webpage-fill-column 130)
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
 
@@ -43,9 +46,9 @@
             "@vid" "@bing" "@wiki" "@imdb")
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size 100 :select t :ttl nil :quit 'current :modeline t)
+    :side 'right :size 150 :select t :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 100 :select t :ttl 300 :quit 'current :modeline t)
+    :side 'right :size 150 :select t :ttl 300 :quit 'current :modeline t)
 
   (telega-mode-line-mode 1)
   (telega-url-shorten-mode 1)
