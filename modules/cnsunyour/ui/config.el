@@ -64,16 +64,15 @@
 ;; `window-setup-hook'
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 ;;
-(setq auto-dark-emacs/light-theme '(doom-one-light
+(setq +list-light-theme '(doom-one-light
                                     doom-acario-light
-                                    doom-gruvbox-light
                                     doom-nord-light
                                     doom-opera-light
                                     doom-solarized-light
                                     doom-tomorrow-day
                                     flucui-light
                                     lab-light)
-      auto-dark-emacs/dark-theme  '(doom-one
+      +list-dark-theme  '(doom-one
                                     doom-vibrant
                                     doom-acario-dark
                                     doom-city-lights
@@ -114,12 +113,15 @@
   :config
   (add-hook! after-init
              :append
-             (change-theme auto-dark-emacs/light-theme
-                           auto-dark-emacs/dark-theme)))
+             (change-theme +list-light-theme
+                           +list-dark-theme)))
 
 ;; Change theme sync with macOS
 (use-package! auto-dark-emacs
   :when IS-MAC
+  :custom
+  (auto-dark-emacs/light-theme +list-light-theme)
+  (auto-dark-emacs/dark-theme +list-dark-theme)
   :config
   (add-hook! after-init
              :append
