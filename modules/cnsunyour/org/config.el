@@ -136,6 +136,8 @@ See `org-capture-templates' for more information."
                      ":Created: %U"
                      ,(concat ":EXPORT_FILE_NAME: " fname)
                      ":EXPORT_DATE: %<%4Y-%2m-%2d>"
+                     ":EXPORT_HUGO_SLUG: hugo-bundles"
+                     ,(concat ":EXPORT_HUGO_BUNDLE: %<%4Y-%2m-%2d>_" fname)
                      ":END:"
                      "　%?\n")          ;Place the cursor here finally
                    "\n")))
