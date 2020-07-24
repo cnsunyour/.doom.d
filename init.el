@@ -162,7 +162,7 @@
        ;;vala              ; GObjective-C
 
        :email
-       (:if IS-MAC (mu4e +gmail))       ; WIP
+       ;; (:if IS-MAC (mu4e +gmail))       ; WIP
        ;; notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 
@@ -197,7 +197,7 @@
        chinese
        ebook
        editor
-       (:if IS-MAC email)
+       ;; (:if IS-MAC email)
        irc
        ;; weechat
        org
