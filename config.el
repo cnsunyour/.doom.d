@@ -75,6 +75,3 @@
            #'whitespace-cleanup)
 
 (setenv "SSH_AUTH_SOCK" "/Users/yaohui/.gnupg/S.gpg-agent.ssh")
-
-(setq custom-file (expand-file-name ".custom.el" doom-private-dir))
-(load custom-file t)
