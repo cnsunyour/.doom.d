@@ -1,5 +1,7 @@
 ;;; cnsunyour/ui/config.el -*- lexical-binding: t; -*-
 
+(use-cjk-char-width-table 'zh_CN)
+
 (when (display-graphic-p)
   (defun cnsunyour/set-doom-font ()
     "Set random font family and size."
