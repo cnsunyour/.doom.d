@@ -16,7 +16,7 @@
   (telega-animation-play-inline nil)
   (telega-emoji-use-images nil)
   (telega-sticker-set-download t)
-  (telega-use-tracking-for '(or pin (label "⌘")))
+  (telega-use-tracking-for '(or unmuted mention))
   (telega-chat-show-deleted-messages-for '(or pin (label "⌘")))
   (telega-root-fill-column 140)
   (telega-chat-fill-column 130)
