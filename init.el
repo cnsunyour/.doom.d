@@ -202,7 +202,7 @@
        ;; weechat
        org
        rss
-       tabnine
+       ;; tabnine
        telega
        term
        tools
