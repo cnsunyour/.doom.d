@@ -84,7 +84,7 @@ unwanted space when exporting org-mode to hugo markdown."
                   (IS-LINUX
                    '("~/.config/ibus/rime"
                      "~/.config/fcitx/rime"
-                     "/usr/share/local"
+                     "/usr/local/share"
                      "/usr/share"))
                   (t `(,rime-share-data-dir)))))
   (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
