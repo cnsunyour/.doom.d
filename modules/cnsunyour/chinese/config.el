@@ -91,10 +91,10 @@ unwanted space when exporting org-mode to hugo markdown."
   (rime-show-candidate 'posframe)
   (rime-posframe-style 'simple)
   (rime-inline-ascii-trigger 'shift-l)
-  :hook
-  ((after-init kill-emacs) . (lambda ()
-                               (when (fboundp 'rime-lib-sync-user-data)
-                                 (ignore-errors (rime-sync)))))
+  ;; :hook
+  ;; ((after-init kill-emacs) . (lambda ()
+  ;;                              (when (fboundp 'rime-lib-sync-user-data)
+  ;;                                (ignore-errors (rime-sync)))))
   :config
   (add-hook! (org-mode
               markdown-mode
