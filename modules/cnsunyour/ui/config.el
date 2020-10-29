@@ -84,7 +84,6 @@
                           doom-molokai
                           doom-monokai-classic
                           doom-monokai-pro
-                          doom-monokai-spectrum
                           doom-moonlight
                           doom-oceanic-next
                           doom-palenight
