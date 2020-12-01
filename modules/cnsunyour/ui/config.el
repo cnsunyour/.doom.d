@@ -13,10 +13,7 @@
                                         "等距更纱黑体 Slab SC"
                                         "Noto Sans Mono CJK SC"
                                         "WenQuanYi Zen Hei Mono"
-                                        "文泉驿等宽正黑"
-                                        "M+ 1m"
-                                        "M+ 1mn"
-                                        "M+ 2m"))))
+                                        "文泉驿等宽正黑"))))
                    (mapcar (lambda (str)
                              (decode-coding-string str 'utf-8))
                            (cl-remove-duplicates (font-family-list)))))
