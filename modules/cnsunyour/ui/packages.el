@@ -3,12 +3,10 @@
 
 (unless IS-MAC
   (package! theme-changer
-    :recipe (:host github :repo "hadronzoo/theme-changer"
-             :fork "cnsunyour/theme-changer")))
+    :recipe (:host github :repo "cnsunyour/theme-changer")))
 (when IS-MAC
   (package! auto-dark-emacs
-    :recipe (:host github :repo "LionyxML/auto-dark-emacs"
-             :fork "cnsunyour/auto-dark-emacs")))
+    :recipe (:host github :repo "cnsunyour/auto-dark-emacs")))
 (package! awesome-tab
   :recipe (:host github :repo "manateelazycat/awesome-tab"))
 (package! emojify)
