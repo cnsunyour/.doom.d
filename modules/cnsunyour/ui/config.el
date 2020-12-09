@@ -136,14 +136,14 @@
 (after! hl-fill-column
   (set-face-background 'hl-fill-column-face "#555555"))
 
-(after! doom-modeline
-  (setq doom-modeline-icon t
-        doom-modeline-major-mode-icon t
-        doom-modeline-major-mode-color-icon t
-        doom-modeline-buffer-state-icon t
-        doom-modeline-buffer-modification-icon t
-        doom-modeline-enable-word-count t
-        doom-modeline-indent-info t))
+;; (after! doom-modeline
+;;   (setq doom-modeline-icon t
+;;         doom-modeline-major-mode-icon t
+;;         doom-modeline-major-mode-color-icon t
+;;         doom-modeline-buffer-state-icon t
+;;         doom-modeline-buffer-modification-icon t
+;;         doom-modeline-enable-word-count t
+;;         doom-modeline-indent-info t))
 
 (after! lsp-ui
   (setq lsp-ui-doc-position 'at-point
