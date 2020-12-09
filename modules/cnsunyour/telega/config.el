@@ -15,7 +15,7 @@
   (telega-emoji-use-images nil)
   (telega-sticker-set-download t)
   (telega-use-tracking-for '(or pin unmuted mention))
-  (telega-chat-show-deleted-messages-for '(not saved-messages))
+  (telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN)))
   (telega-root-fill-column 140)
   (telega-chat-fill-column 130)
   (telega-webpage-fill-column 120)
