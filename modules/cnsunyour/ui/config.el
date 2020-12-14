@@ -162,13 +162,6 @@
 ;; 使用相对行号
 (setq display-line-numbers-type 'relative)
 
-;; disable display line numbers on text-mode
-;; (remove-hook 'text-mode-hook #'display-line-numbers-mode)
-
-;; Enabling Font Ligatures in emacs-mac-port
-(when (eq window-system 'mac)
-  (mac-auto-operator-composition-mode))
-
 ;; 调整Mac下窗口和全屏显示方式
 (when (eq window-system 'ns)
   (setq ns-use-thin-smoothing t
@@ -217,8 +210,3 @@
   (emojify-point-entered-behaviour 'uncover)
   :hook
   (telega-chat-mode . emojify-mode))
-
-;; enable emacs27+ build-in fill-column
-(when (>= emacs-major-version 27)
-  (add-hook! (text-mode prog-mode conf-mode)
-             #'display-fill-column-indicator-mode))
