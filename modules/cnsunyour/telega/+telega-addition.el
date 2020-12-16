@@ -48,3 +48,34 @@
                            :follow 'org-telega-follow-link
                            :store 'org-telega-store-link
                            :complete 'org-telega-complete-link))
+
+;;
+;; Send files from dired
+;;
+(defun telega-dired-attach-func (file)
+  "Identify msg type for FILE."
+  (let ((file-ext (file-name-extension file)))
+    (cond ((member file-ext '("mp3" "flac"))
+           #'telega-chatbuf-attach-audio)
+          ((member file-ext '("mp4" "mkv"))
+           #'telega-chatbuf-attach-video)
+          ((image-type-from-file-name file)
+           #'telega-chatbuf-attach-photo)
+          (t
+           #'telega-chatbuf-attach-file))))
+
+(defun telega-dired-attach-send ()
+  "Send the marked files."
+  (interactive)
+  (let ((dired-files (dired-get-marked-files)))
+    (unless dired-files
+      (user-error "No marked files"))
+
+    (with-current-buffer (telega-chat--pop-to-buffer
+                          (telega-completing-read-chat
+                           (format "Send %d files to: " (length
+                                                         dired-files))))
+      (let ((inhibit-read-only t)
+            (buffer-undo-list t))
+        (dolist (file dired-files)
+          (funcall (telega-dired-attach-func file) file))))))
