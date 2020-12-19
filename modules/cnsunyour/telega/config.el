@@ -10,12 +10,16 @@
   ;; (telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
   ;;                         :type (:@type "proxyTypeSocks5"))))
   (telega-sticker-size '(8 . 48))
-  (telega-chat-use-markdown-version nil)
-  (telega-animation-play-inline nil)
-  (telega-emoji-use-images nil)
   (telega-sticker-set-download t)
   (telega-use-tracking-for '(or pin unmuted mention))
   (telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN)))
+  (telega-mode-line-string-format
+   '("   "
+     (:eval (telega-mode-line-online-status))
+     (:eval (when telega-use-tracking-for
+              (telega-mode-line-tracking)))
+     (:eval (telega-mode-line-unread-unmuted))
+     (:eval (telega-mode-line-mentions 'messages))))
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
 
@@ -32,34 +36,22 @@
                                   (when (telega-chat-bot-p telega-chatbuf--chat)
                                     '(telega-company-botcmd))))))
   (telega-chat-pre-message . telega-msg-ignore-blocked-sender)
+  (telega-load . telega-mode-line-mode)
+  (telega-load . global-telega-squash-message-mode)
+  (telega-load . global-telega-url-shorten-mode)
+  (telega-load . global-telega-mnz-mode)
   :config
   (load! "+telega-auto-input-method")
 
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
-
-  (pushnew! telega-known-inline-bots
-            "@vid" "@bing" "@wiki" "@imdb")
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 100 :select t :ttl t :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
     :side 'right :size 100 :select t :ttl t :quit 'current :modeline t)
 
-  (telega-mode-line-mode 1)
-  (telega-url-shorten-mode 1)
-  (when (and IS-LINUX (boundp 'dbus-runtime-version))
-    (telega-notifications-mode 1))
-
-  (after! all-the-icons
-    (add-to-list 'all-the-icons-mode-icon-alist
-                 '(telega-root-mode all-the-icons-fileicon "telegram"
-                                    :heigt 1.0
-                                    :v-adjust -0.2
-                                    :face all-the-icons-yellow))
-    (add-to-list 'all-the-icons-mode-icon-alist
-                 '(telega-chat-mode all-the-icons-fileicon "telegram"
-                                    :heigt 1.0
-                                    :v-adjust -0.2
-                                    :face all-the-icons-blue)))
+  ;; (if (and IS-LINUX (boundp 'dbus-runtime-version))
+  ;;     (telega-notifications-mode)
+  ;;   (telega-alert-mode))
 
   (load! "+telega-addition"))
