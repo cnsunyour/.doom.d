@@ -9,8 +9,10 @@
                    (lambda (elf)
                      (not (member elf '("Sarasa Mono SC"
                                         "Sarasa Mono Slab SC"
+                                        "Sarasa Mono SC Nerd"
                                         "等距更纱黑体 SC"
                                         "等距更纱黑体 Slab SC"
+                                        "更纱黑体 Mono SC Nerd"
                                         "Noto Sans Mono CJK SC"
                                         "WenQuanYi Zen Hei Mono"
                                         "文泉驿等宽正黑"))))
@@ -22,6 +24,8 @@
                                (>= (x-display-pixel-height) 1000))
                           16 14)))
       (when font
+        (set-fontset-font t ?中 font nil 'prepend)
+        (set-fontset-font t ?言 font nil 'prepend)
         (setq doom-font (font-spec :family font :size font-size)))))
         ;; (doom/reload-font))))
   ;; Set default font when theme changed.
