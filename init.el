@@ -125,7 +125,7 @@
        ;;+intero)
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       (java +lsp +meghanada)
+       ;; (java +lsp +meghanada)
        (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -155,7 +155,7 @@
        ;;racket            ; a DSL for DSLs
        rest              ; Emacs as a REST client
        ;;ruby            ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;; (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        (sh +lsp)                ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
