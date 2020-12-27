@@ -22,7 +22,7 @@
            (font (elt fonts (random (length fonts))))
            (font-size (if (and (>= (x-display-pixel-width) 1600)
                                (>= (x-display-pixel-height) 1000))
-                          16 14)))
+                          14 14)))
       (when font
         (set-fontset-font t ?中 font nil 'prepend)
         (set-fontset-font t ?言 font nil 'prepend)
