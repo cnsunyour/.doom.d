@@ -13,6 +13,9 @@
   (telega-sticker-set-download t)
   (telega-use-tracking-for '(or pin unmuted mention))
   (telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN)))
+  (telega-root-fill-column 90)
+  ;; (telega-chat-fill-column 130)
+  ;; (telega-webpage-fill-column 120)
   (telega-mode-line-string-format
    '("   "
      (:eval (telega-mode-line-online-status))
