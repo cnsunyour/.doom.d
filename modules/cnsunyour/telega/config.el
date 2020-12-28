@@ -22,7 +22,7 @@
      (:eval (telega-mode-line-mentions 'messages))))
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
-
+  (define-key global-map (kbd "C-c t") telega-prefix-map)
   (when (featurep! :completion ivy)
     (load! "+ivy-telega"))
   :hook
