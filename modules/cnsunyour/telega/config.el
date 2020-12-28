@@ -35,7 +35,7 @@
                                     telega-company-hashtag)
                                   (when (telega-chat-bot-p telega-chatbuf--chat)
                                     '(telega-company-botcmd))))))
-  (telega-chat-pre-message . telega-msg-ignore-blocked-sender)
+  (telega-chat-insert-message . telega-msg-ignore-blocked-sender)
   (telega-load . telega-mode-line-mode)
   (telega-load . global-telega-squash-message-mode)
   (telega-load . global-telega-url-shorten-mode)
