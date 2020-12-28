@@ -67,9 +67,7 @@
                           doom-acario-light
                           doom-nord-light
                           doom-opera-light
-                          doom-tomorrow-day
-                          flucui-light
-                          lab-light)
+                          doom-tomorrow-day)
       +list-dark-theme  '(doom-one
                           doom-vibrant
                           doom-acario-dark
@@ -93,16 +91,7 @@
                           doom-snazzy
                           doom-spacegrey
                           doom-tomorrow-night
-                          doom-vibrant
-                          srcery
-                          flucui-dark
-                          lab-dark))
-
-(add-hook! doom-load-theme :append
-  (when (and (featurep 'solaire-mode)
-             (not (string-prefix-p "doom-" (symbol-name doom-theme))))
-    (set-face-background 'solaire-hl-line-face nil)
-    (set-face-background 'solaire-default-face nil)))
+                          doom-vibrant))
 
 ;; Auto change theme on non-mac OS
 (use-package! theme-changer
