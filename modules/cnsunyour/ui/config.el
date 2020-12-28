@@ -119,6 +119,7 @@
   :custom
   (auto-dark-emacs/light-theme +list-light-theme)
   (auto-dark-emacs/dark-theme +list-dark-theme)
+  (auto-dark-emacs/polling-interval-seconds 10)
   :config
   (add-hook! after-init
              :append
