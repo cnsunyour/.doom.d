@@ -3,9 +3,9 @@
 
 ;; telegram client for emacs
 (use-package! telega
-  :commands (telega)
+  ;; :commands (telega)
   :defer t
-  :bind ("C-M-S-s-t" . #'telega)
+  ;; :bind ("C-M-S-s-t" . #'telega)
   :custom
   ;; (telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
   ;;                         :type (:@type "proxyTypeSocks5"))))
