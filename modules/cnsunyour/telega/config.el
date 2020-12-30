@@ -13,9 +13,9 @@
   (telega-sticker-set-download t)
   (telega-use-tracking-for '(or pin unmuted mention))
   (telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN)))
-  (telega-root-fill-column 90)
-  ;; (telega-chat-fill-column 130)
-  ;; (telega-webpage-fill-column 120)
+  (telega-root-fill-column 140)
+  (telega-chat-fill-column 130)
+  (telega-webpage-fill-column 120)
   (telega-mode-line-string-format
    '("   "
      (:eval (telega-mode-line-online-status))
@@ -30,7 +30,7 @@
     (load! "+ivy-telega"))
   :hook
   (telega-chat-mode . yas-minor-mode-on)
-  (telega-chat-mode . visual-line-mode)
+  ;; (telega-chat-mode . visual-line-mode)
   (telega-chat-mode . (lambda ()
                         (set-company-backend! 'telega-chat-mode
                           (append '(telega-company-emoji
@@ -49,9 +49,9 @@
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size 100 :select t :ttl t :quit 'current :modeline t)
+    :side 'right :size 150 :select t :ttl t :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 100 :select t :ttl t :quit 'current :modeline t)
+    :side 'right :size 150 :select t :ttl t :quit 'current :modeline t)
 
   ;; (if (and IS-LINUX (boundp 'dbus-runtime-version))
   ;;     (telega-notifications-mode)
