@@ -38,12 +38,13 @@
                                     telega-company-hashtag)
                                   (when (telega-chat-bot-p telega-chatbuf--chat)
                                     '(telega-company-botcmd))))))
-  (telega-chat-insert-message . telega-msg-ignore-blocked-sender)
   (telega-load . telega-mode-line-mode)
   (telega-load . global-telega-squash-message-mode)
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
   :config
+  (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
+
   (load! "+telega-auto-input-method")
 
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
