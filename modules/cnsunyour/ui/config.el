@@ -90,8 +90,7 @@
                           doom-rouge
                           doom-snazzy
                           doom-spacegrey
-                          doom-tomorrow-night
-                          doom-vibrant))
+                          doom-tomorrow-night))
 
 ;; Auto change theme on non-mac OS
 (use-package! theme-changer
