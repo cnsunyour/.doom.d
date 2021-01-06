@@ -17,10 +17,10 @@
   ;;                   'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
   ;;                 (set-company-backend! 'prog-mode
   ;;                   'company-tabnine 'company-capf 'company-yasnippet)))
-  :config
-  (map! (:leader
-          :desc "Use company default backend" "clo" #'company-other-backend
-          :desc "Use company tabnine backend" "clt" #'company-tabnine))
+  ;; :config
+  ;; (map! (:leader
+  ;;         :desc "Use company default backend" "clo" #'company-other-backend
+  ;;         :desc "Use company tabnine backend" "clt" #'company-tabnine))
   :init
   ;; Integrate company-tabnine with lsp-mode
   (defun company//sort-by-tabnine (candidates)
