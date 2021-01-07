@@ -26,6 +26,7 @@
       (when font
         (set-fontset-font t ?中 font nil 'prepend)
         (set-fontset-font t ?言 font nil 'prepend)
+        (set-fontset-font t ?🖿 "Symbola" nil 'prepend)
         (setq doom-font (font-spec :family font :size font-size)))))
         ;; (doom/reload-font))))
   ;; Set default font when theme changed.
