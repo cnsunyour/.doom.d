@@ -54,20 +54,22 @@
 ;;
 ;; Optimize garbage-collect
 ;; Related variable: `gc-cons-threshold'
+(setq gc-cons-threshold 2147483648)
 ;;
-;; (defmacro k-time (&rest body)
-;;   "Measure and return the time it takes evaluating BODY."
-;;   `(let ((time (current-time)))
-;;      ,@body
-;;      (float-time (time-since time))))
-;; ;; Execute `garbage-collect' when emacs is idle for a specified time
-;; (defvar k-gc-timer
-;;   (run-with-idle-timer 15 t
-;;                        (lambda ()
-;;                          (message "Garbage Collector has run for %.06fsec"
-;;                                   (k-time (garbage-collect))))))
+(defmacro k-time (&rest body)
+  "Measure and return the time it takes evaluating BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (float-time (time-since time))))
+;;
+;; Execute `garbage-collect' when emacs is idle for a specified time
 (defvar k-gc-timer
-  (run-with-idle-timer 15 t #'garbage-collect))
+  (run-with-idle-timer 300 t
+                       (lambda ()
+                         (message "Garbage Collector has run for %.06fsec"
+                                  (k-time (garbage-collect))))))
+;; (defvar k-gc-timer
+;;   (run-with-idle-timer 60 t #'garbage-collect))
 
 ;; cleanup trailing whitespaces before save buffers.
 (add-hook! before-save
