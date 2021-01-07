@@ -3,14 +3,12 @@
 
 ;; telegram client for emacs
 (use-package! telega
-  ;; :commands (telega)
   :defer t
+  ;; :commands (telega)
   ;; :bind ("C-M-S-s-t" . #'telega)
   :custom
   ;; (telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
   ;;                         :type (:@type "proxyTypeSocks5"))))
-  (telega-sticker-size '(8 . 48))
-  (telega-sticker-set-download t)
   (telega-use-tracking-for '(or pin unmuted mention))
   (telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN)))
   (telega-root-fill-column 140)
