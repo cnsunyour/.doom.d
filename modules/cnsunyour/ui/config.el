@@ -2,49 +2,56 @@
 
 (use-cjk-char-width-table 'zh_CN)
 
-(when (display-graphic-p)
-  (defun cnsunyour/set-doom-font ()
-    "Set random font family and size."
-    (let* ((fonts (cl-remove-if
-                   (lambda (elf)
-                     (not (member elf '("Sarasa Mono SC"
-                                        "Sarasa Mono Slab SC"
-                                        "Sarasa Mono SC Nerd"
-                                        "等距更纱黑体 SC"
-                                        "等距更纱黑体 Slab SC"
-                                        "更纱黑体 Mono SC Nerd"
-                                        "Noto Sans Mono CJK SC"
-                                        "WenQuanYi Zen Hei Mono"
-                                        "文泉驿等宽正黑"))))
-                   (mapcar (lambda (str)
-                             (decode-coding-string str 'utf-8))
-                           (cl-remove-duplicates (font-family-list)))))
-           (font (elt fonts (random (length fonts))))
-           (font-size (if (and (>= (x-display-pixel-width) 1600)
-                               (>= (x-display-pixel-height) 1000))
-                          14 14)))
-      (when font
-        (set-fontset-font t ?中 font nil 'prepend)
-        (set-fontset-font t ?言 font nil 'prepend)
-        (set-fontset-font t ?🖿 "Symbola" nil 'prepend)
-        (setq doom-font (font-spec :family font :size font-size)))))
-        ;; (doom/reload-font))))
-  ;; Set default font when theme changed.
-  ;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
-  ;; Or, you can set it manually now.
-  (cnsunyour/set-doom-font)
+(defun cnsunyour/set-doom-font ()
+  "Set random font family and size."
+  (let* ((fonts (cl-remove-if
+                 (lambda (elf)
+                   (not (member elf '("Sarasa Mono SC"
+                                      "Sarasa Mono Slab SC"
+                                      "Sarasa Mono SC Nerd"
+                                      "等距更纱黑体 SC"
+                                      "等距更纱黑体 Slab SC"
+                                      "更纱黑体 Mono SC Nerd"
+                                      "Noto Sans Mono CJK SC"
+                                      "WenQuanYi Zen Hei Mono"
+                                      "文泉驿等宽正黑"))))
+                 (mapcar (lambda (str)
+                           (decode-coding-string str 'utf-8))
+                         (cl-remove-duplicates (font-family-list)))))
+         (font (elt fonts (random (length fonts))))
+         (font-size (if (and (>= (x-display-pixel-width) 1600)
+                             (>= (x-display-pixel-height) 1000))
+                        14 14)))
+    (when font
+      (set-fontset-font t ?中 font nil 'prepend)
+      (set-fontset-font t ?言 font nil 'prepend)
+      (setq doom-font (font-spec :family font :size font-size)))))
+  ;; (doom/reload-font))))
+;; Set default font when theme changed.
+;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
+;; Or, you can set it manually now.
+(cnsunyour/set-doom-font)
 
-  (defun cnsunyour/set-splash-image ()
-    "Set random splash image."
-    (setq fancy-splash-image
-          (let ((banners (directory-files "~/.doom.d/banner"
-                                          'full
-                                          (rx ".png" eos))))
-            (elt banners (random (length banners))))))
-  ;; Set splash image when theme changed.
-  ;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image)
-  ;; Or, you can set it manually now.
-  (cnsunyour/set-splash-image))
+;; (set-fontset-font t ?🖿 "Symbola" nil 'prepend)
+;; (add-to-list 'doom-unicode-extra-fonts "Apple Color Emoji" t)
+;; (add-to-list 'doom-unicode-extra-fonts "Noto Color Emoji" t)
+(add-to-list 'doom-unicode-extra-fonts "Symbola" t)
+(setq doom-unicode-font
+      (if IS-MAC
+          (font-spec :family "Apple Color Emoji")
+        (font-spec :family "Noto Color Emoji")))
+
+(defun cnsunyour/set-splash-image ()
+  "Set random splash image."
+  (setq fancy-splash-image
+        (let ((banners (directory-files "~/.doom.d/banner"
+                                        'full
+                                        (rx ".png" eos))))
+          (elt banners (random (length banners))))))
+;; Set splash image when theme changed.
+;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image)
+;; Or, you can set it manually now.
+(cnsunyour/set-splash-image)
 
 
 ;;
