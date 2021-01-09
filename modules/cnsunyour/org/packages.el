@@ -5,3 +5,4 @@
 ;; (package! org2blog)
 (package! counsel-org-clock)
 (package! grip-mode)
+(package! valign)

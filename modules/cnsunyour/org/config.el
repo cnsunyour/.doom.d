@@ -33,6 +33,12 @@
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
 
+;; align tables for org-mode and markdown-mode
+(use-package! valign
+  :hook
+  (org-mode . valign-mode)
+  (markdown-mode . valign-mode))
+
 ;;
 ;; `org' pre private config
 ;;
