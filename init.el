@@ -204,7 +204,7 @@
        ;; irc
        ;; weechat
        org
-       rss
+       ;; rss
        tabnine
        telega
        term
