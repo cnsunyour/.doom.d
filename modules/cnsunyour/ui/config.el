@@ -49,10 +49,9 @@
                                         (rx ".png" eos))))
           (elt banners (random (length banners))))))
 ;; Set splash image when theme changed.
-;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image)
+(add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image)
 ;; Or, you can set it manually now.
-(cnsunyour/set-splash-image)
-
+;; (cnsunyour/set-splash-image)
 
 ;;
 ;; 每天根据日出日落时间(非macOS)或跟随macOS系统自动换主题
