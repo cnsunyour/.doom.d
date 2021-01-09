@@ -14,8 +14,6 @@
 
 ;; mu4e
 (when (featurep! :email mu4e)
-  (map! "C-M-S-s-e" #'=mu4e)
-
   (setenv "XAPIAN_CJK_NGRAM" "1")
 
   (after! mu4e
@@ -175,8 +173,6 @@
 
 ;; notmuch
 (when (featurep! :email notmuch)
-  (map! "C-S-s-n" #'=notmuch)
-
   (after! notmuch
     (setq +notmuch-sync-backend 'offlineimap)
     (setq +notmuch-mail-folder "~/.mail")))

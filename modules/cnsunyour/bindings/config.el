@@ -33,6 +33,15 @@
       (:when (featurep! :ui workspaces)
         "C-M-S-s-w" #'=calendar)
 
+      (:when (featurep! :app rss)
+        "C-M-S-s-r" #'=rss)
+
+      (:when (featurep! :email mu4e)
+        "C-M-S-s-e" #'=mu4e)
+
+      (:when (featurep! :email notmuch)
+        "C-M-S-s-e" #'=notmuch)
+
       (:map evil-treemacs-state-map
         "M-j" #'multi-next-line
         "M-k" #'multi-previous-line)
