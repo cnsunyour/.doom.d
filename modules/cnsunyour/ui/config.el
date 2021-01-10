@@ -72,16 +72,13 @@
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 ;;
 (setq +list-light-theme '(doom-one-light
-                          doom-acario-light
                           doom-nord-light
                           doom-opera-light
                           doom-tomorrow-day)
       +list-dark-theme  '(doom-one
                           doom-vibrant
-                          doom-acario-dark
                           doom-city-lights
                           doom-challenger-deep
-                          doom-dark+
                           doom-dracula
                           doom-gruvbox
                           doom-horizon
