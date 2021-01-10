@@ -77,3 +77,5 @@
            #'whitespace-cleanup)
 
 (setenv "SSH_AUTH_SOCK" "/Users/yaohui/.gnupg/S.gpg-agent.ssh")
+
+(setq which-key-idle-secondary-delay 0)
