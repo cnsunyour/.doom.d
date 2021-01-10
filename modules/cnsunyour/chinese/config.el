@@ -10,7 +10,9 @@
 (use-package! fcitx
   :after evil
   :config
-  (when (executable-find "fcitx-remote")
+  (when (setq fcitx-remote-command
+              (or (executable-find "fcitx5-remote")
+                  (executable-find "fcitx-remote")))
     (fcitx-evil-turn-on)))
 
 (use-package! ace-pinyin
