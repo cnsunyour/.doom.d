@@ -33,13 +33,14 @@
 (cnsunyour/set-doom-font)
 
 ;; (set-fontset-font t ?🖿 "Symbola" nil 'prepend)
-;; (add-to-list 'doom-unicode-extra-fonts "Apple Color Emoji" t)
-;; (add-to-list 'doom-unicode-extra-fonts "Noto Color Emoji" t)
-(add-to-list 'doom-unicode-extra-fonts "Symbola" t)
-(setq doom-unicode-font
-      (if IS-MAC
-          (font-spec :family "Apple Color Emoji")
-        (font-spec :family "Noto Color Emoji")))
+(add-to-list 'doom-unicode-extra-fonts "Apple Color Emoji" t)
+(add-to-list 'doom-unicode-extra-fonts "Noto Color Emoji" t)
+;; (add-to-list 'doom-unicode-extra-fonts "Symbola" t)
+;; (setq doom-unicode-font
+;;       (if IS-MAC
+;;           (font-spec :family "Apple Color Emoji")
+;;         (font-spec :family "Noto Color Emoji")))
+(setq doom-unicode-font (font-spec :family "Symbola"))
 
 (defun cnsunyour/set-splash-image ()
   "Set random splash image."
