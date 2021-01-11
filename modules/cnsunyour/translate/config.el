@@ -23,8 +23,6 @@
   :defer t
   :commands (sdcv-search-pointer+
              sdcv-search-pointer)
-  :custom
-  (sdcv-tooltip-timeout 30)
   :init
   (map! :leader
         :prefix ("y" . "Translate")
@@ -33,6 +31,7 @@
               #'sdcv-search-pointer)
         "D" #'sdcv-search-pointer)
   :config
+  (setq sdcv-tooltip-timeout 30)
   (set-popup-rule! "^\\*SDCV\\*" :side 'right :size 0.4 :select t)
   (set-face-background 'sdcv-tooltip-face nil)
   (set-face-foreground 'sdcv-tooltip-face nil)

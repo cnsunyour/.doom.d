@@ -10,5 +10,5 @@
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode)
   :hook
   (beancount-mode . yas-minor-mode-on)
-  :custom
-  (beancount-accounts-files (directory-files "~/Dropbox/beancount/accounts" 'full (rx ".bean" eos))))
+  :config
+  (setq beancount-accounts-files (directory-files "~/Dropbox/beancount/accounts" 'full (rx ".bean" eos))))

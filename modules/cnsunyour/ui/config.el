@@ -202,7 +202,7 @@
   (("s-t" . hydra-tab/body)))
 
 (use-package! emojify
-  :custom
-  (emojify-point-entered-behaviour 'uncover)
+  :config
+  (setq emojify-point-entered-behaviour 'uncover)
   :hook
   (telega-chat-mode . emojify-mode))

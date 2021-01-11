@@ -66,26 +66,26 @@ unwanted space when exporting org-mode to hugo markdown."
   :bind
   ("C-S-s-j" . #'+rime-convert-string-at-point)
   (:map rime-active-mode-map
-    ("C-S-s-j" . #'rime-inline-ascii)
-    ("C-M-S-s-j" . #'rime-inline-ascii))
+   ("C-S-s-j" . #'rime-inline-ascii)
+   ("C-M-S-s-j" . #'rime-inline-ascii))
   (:map rime-mode-map
-    ("C-M-S-s-j" . #'rime-force-enable)
-    ("C-." . #'rime-send-keybinding)
-    ("S-SPC" . #'rime-send-keybinding)
-    ("C-`" . #'rime-send-keybinding)
-    ("C-~" . #'rime-send-keybinding)
-    ("C-S-`" . #'rime-send-keybinding))
-  :custom
-  (default-input-method "rime")
-  (rime-user-data-dir (expand-file-name "~/.local/emacs-rime"))
-  (rime-show-candidate 'message)
-  (rime-posframe-style 'simple)
-  (rime-inline-ascii-trigger 'shift-l)
+   ("C-M-S-s-j" . #'rime-force-enable)
+   ("C-." . #'rime-send-keybinding)
+   ("S-SPC" . #'rime-send-keybinding)
+   ("C-`" . #'rime-send-keybinding)
+   ("C-~" . #'rime-send-keybinding)
+   ("C-S-`" . #'rime-send-keybinding))
   :hook
   ((after-init kill-emacs) . (lambda ()
                                (when (fboundp 'rime-lib-sync-user-data)
                                  (ignore-errors (rime-sync)))))
   :config
+  (setq default-input-method "rime"
+        rime-user-data-dir (expand-file-name "~/.local/emacs-rime")
+        rime-show-candidate 'message
+        rime-posframe-style 'simple
+        rime-inline-ascii-trigger 'shift-l)
+
   (add-hook! (org-mode
               markdown-mode
               beancount-mode)

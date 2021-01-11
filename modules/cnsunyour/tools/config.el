@@ -30,11 +30,10 @@
 
 ;; Automatically save file content
 (use-package! auto-save
-  :custom
-  (auto-save-idle 10 "Increase idle time to auto save files.")
-  (auto-save-silent nil "Nothing to dirty minibuffer if this option is non-nil.")
-  (auto-save-delete-trailing-whitespace nil "Trailing whitespace when save files.")
   :config
+  (setq auto-save-idle 10
+        auto-save-silent nil
+        auto-save-delete-trailing-whitespace nil)
   (auto-save-enable))
 
 ;; neopastebin -- emacs pastebin interface
