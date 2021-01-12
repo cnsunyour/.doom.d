@@ -6,15 +6,14 @@
   :commands (weechat-switch-buffer)
   :bind
   ("C-c C-b" . #'weechat-switch-buffer)
-  :custom
-  (weechat-host-default "linode.sunyour.org")
-  (weechat-port-default 29009)
-  (weechat-mode-default 'ssl)
-  (weechat-auto-monitor-buffers t)
-  (weechat-notification-types 'weechat-sauron)
   :hook
   (weechat-mode . toggle-truncate-lines)
   :config
+  (setq weechat-host-default "linode.sunyour.org"
+        weechat-port-default 29009
+        weechat-mode-default 'ssl
+        weechat-auto-monitor-buffers t
+        weechat-notification-types 'weechat-sauron)
   (when (internet-up-p weechat-host-default)
     (weechat-connect))
   (after! all-the-icons
