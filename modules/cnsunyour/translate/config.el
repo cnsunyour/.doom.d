@@ -26,9 +26,7 @@
   :init
   (map! :leader
         :prefix ("y" . "Translate")
-        "d" (if (and (display-graphic-p) (featurep 'posframe))
-                #'sdcv-search-pointer+
-              #'sdcv-search-pointer)
+        "d" #'sdcv-search-pointer+
         "D" #'sdcv-search-pointer)
   :config
   (setq sdcv-tooltip-timeout 30)
@@ -64,9 +62,7 @@
   :init
   (map! :leader
         :prefix ("y" . "Translate")
-        "y" (if (and (display-graphic-p) (featurep 'posframe))
-                #'youdao-dictionary-search-at-point-posframe
-              #'youdao-dictionary-search-at-point+)
+        "y" #'youdao-dictionary-search-at-point-tooltip
         "Y" #'youdao-dictionary-search-at-point
         "p" #'youdao-dictionary-play-voice-at-point
         "P" #'youdao-dictionary-play-voice-from-input)
@@ -100,9 +96,7 @@
 
   (map! :leader
         :prefix ("y" . "Translate")
-        "t" (if (and (display-graphic-p) (featurep 'posframe))
-                #'google-translate-chinese-at-point++
-              #'google-translate-chinese-at-point)
+        "t" #'google-translate-chinese-at-point++
         "T" #'google-translate-chinese-at-point)
 
   :config
@@ -135,7 +129,8 @@
   (defun google-translate-show-posframe-tooltip (text)
     "Show string on posframe buffer."
     ;; Show tooltip at point if word fetch from user cursor.
-    (require 'posframe)
+    (unless (and (require 'posframe nil t) (posframe-workable-p))
+      (error "Posframe not workable"))
     (posframe-show google-translate-tooltip-name
                    :string text
                    :position (point)
