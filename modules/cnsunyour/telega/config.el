@@ -36,6 +36,15 @@
         telega-root-fill-column 140
         telega-chat-fill-column 130
         telega-webpage-fill-column 120
+        telega-chat-input-prompt '((prompt . ">>> ")
+                                   (reply . "<<< ")
+                                   (edit . "+++ "))
+        telega-chat-input-anonymous-prompt '((prompt . "Anonymous>>> ")
+                                             (reply . "Anonymous<<< ")
+                                             (edit . "Anonymous+++ "))
+        telega-chat-input-comment-prompt '((prompt . "Comment>>> ")
+                                           (reply . "Comment<<< ")
+                                           (edit . "Comment+++ "))
         telega-mode-line-string-format
         '("   "
           (:eval (telega-mode-line-online-status))
