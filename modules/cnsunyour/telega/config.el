@@ -33,6 +33,8 @@
   ;;                         :type (:@type "proxyTypeSocks5"))))
   (setq telega-use-tracking-for '(or pin unmuted mention)
         telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN))
+        telega-open-file-function 'org-open-file
+        ;; telega-open-message-as-file '(photo video animation)
         telega-root-fill-column 140
         telega-chat-fill-column 130
         telega-webpage-fill-column 120
