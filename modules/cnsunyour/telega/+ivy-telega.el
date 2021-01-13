@@ -18,7 +18,7 @@
   (let ((chats (mapcar
                 (lambda (x) (cons (ivy-telega-chat-highlight x) x))
                 (telega-filter-chats telega--ordered-chats 'all))))
-    (ivy-read "chat: " chats
+    (ivy-read "Chat with: " chats
               :action (lambda (x) (telega-chat--pop-to-buffer (cdr x)))
               :caller 'ivy-telega-chat-with)))
 
