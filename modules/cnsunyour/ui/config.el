@@ -111,7 +111,8 @@
   :when IS-MAC
   :config
   (setq auto-dark-emacs/light-theme +list-light-theme
-        auto-dark-emacs/dark-theme +list-dark-theme)
+        auto-dark-emacs/dark-theme +list-dark-theme
+        auto-dark-emacs/polling-interval-seconds 10)
   (add-hook! after-init
              :append
              #'auto-dark-emacs/check-and-set-dark-mode))
