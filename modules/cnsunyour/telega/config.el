@@ -35,6 +35,8 @@
         telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN))
         telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(photo video animation)
+        telega-sticker-size '(8 . 48)
+        telega-sticker-set-download t
         telega-root-fill-column 140
         telega-chat-fill-column 130
         telega-webpage-fill-column 120
