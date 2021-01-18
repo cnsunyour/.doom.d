@@ -23,8 +23,8 @@
                              (>= (x-display-pixel-height) 1000))
                         14 14)))
     (when font
-      (set-fontset-font t ?中 font nil 'prepend)
-      (set-fontset-font t ?言 font nil 'prepend)
+      (set-fontset-font t 'han font nil 'prepend)
+      (set-fontset-font t 'cjk-misc font nil 'prepend)
       (setq doom-font (font-spec :family font :size font-size)))))
   ;; (doom/reload-font))))
 ;; Set default font when theme changed.
@@ -32,14 +32,12 @@
 ;; Or, you can set it manually now.
 (cnsunyour/set-doom-font)
 
-;; (set-fontset-font t ?🖿 "Symbola" nil 'prepend)
-(add-to-list 'doom-unicode-extra-fonts "Apple Color Emoji" t)
-(add-to-list 'doom-unicode-extra-fonts "Noto Color Emoji" t)
-;; (add-to-list 'doom-unicode-extra-fonts "Symbola" t)
-;; (setq doom-unicode-font
-;;       (if IS-MAC
-;;           (font-spec :family "Apple Color Emoji")
-;;         (font-spec :family "Noto Color Emoji")))
+;; set emoji font
+(add-to-list 'doom-unicode-extra-fonts
+             (if IS-MAC
+                 "Apple Color Emoji"
+               "Noto Color Emoji")
+             t)
 (setq doom-unicode-font (font-spec :family "Symbola"))
 
 (defun cnsunyour/set-splash-image ()
