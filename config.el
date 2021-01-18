@@ -78,5 +78,5 @@
 
 (setenv "SSH_AUTH_SOCK" "/Users/yaohui/.gnupg/S.gpg-agent.ssh")
 
-(setq which-key-idle-delay 0.5
-      which-key-idle-secondary-delay 0)
+(setq which-key-idle-delay 1.0
+      which-key-idle-secondary-delay 0.0)
