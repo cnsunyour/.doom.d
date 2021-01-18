@@ -125,7 +125,7 @@
        ;;+intero)
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       (java +meghanada)
+       ;; (java +meghanada)
        (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -145,9 +145,10 @@
         +jupyter
         +pandoc          ; pandoc integration into org's exporter
         +pomodoro
+        +roam
         +present)        ; using Emacs for presentations
        ;; perl              ; write code no one else can comprehend
-       ;; (php +lsp)                ; perl's insecure younger brother
+       (php +lsp)                ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +lsp +pyenv)
