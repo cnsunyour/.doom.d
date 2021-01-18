@@ -84,7 +84,6 @@ unwanted space when exporting org-mode to hugo markdown."
   (setq default-input-method "rime"
         rime-user-data-dir (expand-file-name "~/.local/emacs-rime")
         rime-show-candidate 'message
-        rime-posframe-style 'simple
         rime-inline-ascii-trigger 'shift-l)
 
   (add-hook! (org-mode
