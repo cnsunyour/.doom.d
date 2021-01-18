@@ -4,20 +4,19 @@
 
 (defun cnsunyour/set-doom-font ()
   "Set random font family and size."
-  (let* ((fonts (cl-remove-if
-                 (lambda (elf)
-                   (not (member elf '("Sarasa Mono SC"
-                                      "Sarasa Mono Slab SC"
-                                      "Sarasa Mono SC Nerd"
-                                      "等距更纱黑体 SC"
-                                      "等距更纱黑体 Slab SC"
-                                      "更纱黑体 Mono SC Nerd"
-                                      "Noto Sans Mono CJK SC"
-                                      "WenQuanYi Zen Hei Mono"
-                                      "文泉驿等宽正黑"))))
-                 (mapcar (lambda (str)
-                           (decode-coding-string str 'utf-8))
-                         (cl-remove-duplicates (font-family-list)))))
+  (let* ((fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
+                           (cl-remove-duplicates (font-family-list))))
+         (fonts (cl-remove-if
+                 (lambda (elf) (not (member elf fontlist)))
+                 '("Sarasa Mono SC"
+                   "Sarasa Mono Slab SC"
+                   "Sarasa Mono SC Nerd"
+                   "等距更纱黑体 SC"
+                   "等距更纱黑体 Slab SC"
+                   "更纱黑体 Mono SC Nerd"
+                   "Noto Sans Mono CJK SC"
+                   "WenQuanYi Zen Hei Mono"
+                   "文泉驿等宽正黑")))
          (font (elt fonts (random (length fonts))))
          (font-size (if (and (>= (x-display-pixel-width) 1600)
                              (>= (x-display-pixel-height) 1000))
