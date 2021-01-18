@@ -58,6 +58,8 @@
 
   (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
 
+  (map! :map telega-chat-mode-map "C-c C-t" #'telega-chatbuf-attach-sticker)
+
   (load! "+telega-auto-input-method")
 
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
