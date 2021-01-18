@@ -40,10 +40,10 @@
           "usr/local/opt/zlib/lib/pkgconfig" path-separator
           (getenv "PKG_CONFIG_PATH"))))
 
-;; mac下使用系统废纸篓删除文件
-(when IS-MAC
-  (setq mac-system-move-file-to-trash-use-finder t
-        delete-by-moving-to-trash t))
+;; 使用系统废纸篓删除文件
+(setq delete-by-moving-to-trash t)
+(when (eq window-system 'mac)
+  (setq mac-system-move-file-to-trash-use-finder t))
 
 ;; The idle delay in seconds until completion starts automatically.
 ;; (setq company-idle-delay 0)
