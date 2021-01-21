@@ -24,7 +24,6 @@
                                   (when (telega-chat-bot-p telega-chatbuf--chat)
                                     '(telega-company-botcmd))))))
   (telega-load . telega-mode-line-mode)
-  (telega-load . global-telega-squash-message-mode)
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
 
