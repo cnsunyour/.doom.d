@@ -80,3 +80,7 @@
 
 (setq which-key-idle-delay 1.0
       which-key-idle-secondary-delay 0.0)
+
+(after! warnings
+  (when (featurep! :emacs undo)
+    (add-to-list 'warning-suppress-types '(undo discard-info))))
