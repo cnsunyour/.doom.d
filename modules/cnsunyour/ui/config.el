@@ -81,7 +81,6 @@
                           doom-gruvbox
                           doom-horizon
                           doom-Iosvkem
-                          doom-laserwave
                           doom-material
                           doom-molokai
                           doom-monokai-classic
