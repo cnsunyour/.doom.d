@@ -69,8 +69,9 @@
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
     :side 'right :size 150 :select t :ttl t :quit 'current :modeline t)
 
-  ;; (if (and IS-LINUX (boundp 'dbus-runtime-version))
-  ;;     (telega-notifications-mode)
-  ;;   (telega-alert-mode))
+  (use-package! telega-stories
+    :config
+    (telega-stories-mode 1)
+    (map! :map telega-root-mode-map "v e" 'telega-view-emacs-stories))
 
   (load! "+telega-addition"))
