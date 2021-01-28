@@ -8,7 +8,7 @@
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
 
-(when (>= emacs-major-version 28)
+(when (version< "27.1" emacs-version)
   (define-advice define-obsolete-function-alias (:filter-args (ll) fix-obsolete)
     (let ((obsolete-name (pop ll))
           (current-name (pop ll))
