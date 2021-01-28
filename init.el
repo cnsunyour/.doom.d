@@ -213,7 +213,6 @@
        ;; irc
        ;; weechat
        org
-       ;; rss
        ;; tabnine
        telega
        term
