@@ -65,9 +65,9 @@
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size 150 :select t :ttl nil :quit 'current :modeline t)
+    :side 'right :size 150 :select t :ttl nil :quit t :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 150 :select t :ttl t :quit 'current :modeline t)
+    :side 'right :size 150 :select t :ttl nil :quit t :modeline t)
 
   (use-package! telega-stories
     :config
