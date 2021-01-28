@@ -55,10 +55,12 @@
                      (telega-chat-title chat)
                      "\"] is removed from EN/CN chat list."))))
 
-(defadvice! +toggle-input-method--telega-chat-mode-a (chat &optional no-history-load)
+;; Determine the function which has advice is available.
+(unless (fboundp 'telega-chat--pop-to-buffer)
+  (error "Function `telega-chat--pop-to-buffer' is not available."))
+(define-advice telega-chat--pop-to-buffer (:after (chat &rest _) toggle-input-method-a)
   "在 telega-chat-mode 里根据 chat 名称切换输入法，如果名称包含
 中文，则激活中文输入法，否则关闭中文输入法"
-  :after #'telega-chat--pop-to-buffer
   (let ((title (telega-chat-title chat))
         (chatid (plist-get chat :id)))
     (cond ((member chatid +telega--chat-cn-list) (activate-input-method default-input-method))
@@ -67,7 +69,3 @@
           ((telega-chat-private-p chat) (activate-input-method default-input-method))
           ((string-match-p "\\cc" title) (activate-input-method default-input-method))
           (t (deactivate-input-method)))))
-
-;; Determine the function which has advice is available.
-(unless (fboundp 'telega-chat--pop-to-buffer)
-  (error "Function `telega-chat--pop-to-buffer' is not available."))

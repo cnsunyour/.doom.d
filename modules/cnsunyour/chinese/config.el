@@ -24,16 +24,14 @@
 ;;
 ;;; Hack
 ;;;
-(defadvice! +chinese--org-html-paragraph-a (args)
+(define-advice org-html-paragraph (:filter-args (args) chinese-a)
   "Join consecutive Chinese lines into a single long line without
 unwanted space when exporting org-mode to html."
-  :filter-args #'org-html-paragraph
   (++chinese--org-paragraph args))
 
-(defadvice! +chinese--org-hugo-paragraph-a (args)
+(define-advice org-hugo-paragraph (:filter-args (args) chinese-a)
   "Join consecutive Chinese lines into a single long line without
 unwanted space when exporting org-mode to hugo markdown."
-  :filter-args #'org-hugo-paragraph
   (++chinese--org-paragraph args))
 
 (defun ++chinese--org-paragraph (args)
@@ -135,10 +133,9 @@ input scheme to convert to Chinese."
 
   (unless (fboundp 'rime--posframe-display-content)
     (error "Function `rime--posframe-display-content' is not available."))
-  (defadvice! +rime--posframe-display-content-a (args)
+  (define-advice rime--posframe-display-content (:filter-args (args) resolve-posframe-issue-a)
     "给 `rime--posframe-display-content' 传入的字符串加一个全角空
 格，以解决 `posframe' 偶尔吃字的问题。"
-    :filter-args #'rime--posframe-display-content
     (cl-destructuring-bind (content) args
       (let ((newresult (if (string-blank-p content)
                            content
