@@ -7,7 +7,7 @@
     :recipe (:host github :repo "cnsunyour/theme-changer")))
 (when IS-MAC
   (package! auto-dark-emacs
-    :pin "06268b907d269a68922536ae00a22e023e54ca8d"
+    :pin "e4d20c3b0e6d83101d615807e0adc0203ebb1bc7"
     :recipe (:host github :repo "cnsunyour/auto-dark-emacs")))
 (package! awesome-tab
   :pin "5f2c76d5f889991baca6ee8e823c1c9dceeec05b"
