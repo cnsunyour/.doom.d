@@ -4,7 +4,6 @@
         (title (telega-chat-title-with-brackets chat 'with-identity))
         (not-muted-p (not (telega-chat-muted-p chat)))
         (mentions (funcall (telega--tl-prop :unread_mention_count) chat)))
-
     (if (and not-muted-p (> (+ unread mentions) 0))
         (concat (ivy-append-face (format "%s" title) 'ivy-highlight-face)
                 "("
@@ -18,7 +17,6 @@
 (defun ivy-telega-chat-with ()
   "Starts chat with defined peer"
   (interactive)
-
   (telega t)
   (let ((chats (mapcar
                 (lambda (x) (cons (ivy-telega-chat-highlight x) x))
