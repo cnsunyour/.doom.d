@@ -8,14 +8,6 @@
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
 
-(when (version< "27.1" emacs-version)
-  (define-advice define-obsolete-function-alias (:filter-args (args) fix-obsolete)
-    (let ((obsolete-name (pop args))
-          (current-name (pop args))
-          (when (if args (pop args) "1"))
-          (docstring (if args (pop args) nil)))
-      (list obsolete-name current-name when docstring))))
-
 ;; Limit on depth in eval, apply and funcall before error
 (setq max-lisp-eval-depth 10000)
 ;; Limit on number of Lisp variable bindings and unwind-protects.
