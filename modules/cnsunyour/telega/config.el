@@ -48,12 +48,9 @@
                                            (reply . "Comment<<< ")
                                            (edit . "Comment+++ "))
         telega-mode-line-string-format
-        '("   "
-          (:eval (telega-mode-line-online-status))
-          (:eval (when telega-use-tracking-for
-                   (telega-mode-line-tracking)))
-          (:eval (telega-mode-line-unread-unmuted))
-          (:eval (telega-mode-line-mentions 'messages))))
+        (cl-remove '(:eval (telega-mode-line-icon))
+                   telega-mode-line-string-format
+                   :test #'equal))
 
   (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
 
