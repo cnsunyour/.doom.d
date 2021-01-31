@@ -35,9 +35,9 @@
         telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(photo video animation)
         telega-sticker-size '(8 . 48)
-        telega-root-fill-column 140
-        telega-chat-fill-column 130
-        telega-webpage-fill-column 120
+        telega-root-fill-column 110
+        telega-chat-fill-column 100
+        telega-webpage-fill-column 100
         telega-chat-input-prompt '((prompt . ">>> ")
                                    (reply . "<<< ")
                                    (edit . "+++ "))
@@ -65,9 +65,9 @@
   (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size 150 :select t :ttl nil :quit 'current :modeline t)
+    :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 150 :select t :ttl nil :quit 'current :modeline t)
+    :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
 
   (use-package! telega-stories
     :config
