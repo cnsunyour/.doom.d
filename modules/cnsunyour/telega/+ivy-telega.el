@@ -39,8 +39,11 @@
   (push '(telega-chat-with . ivy--regex-pinyin) ivy-re-builders-alist)
   (push '(ivy-telega-chat-with . ivy--regex-pinyin) ivy-re-builders-alist))
 
-(map! "C-c v" #'ivy-telega-chat-with
+(map! :desc "Telega important chats"
+      "C-c v" #'ivy-telega-chat-with
+      :desc "Telega all chats"
       "C-c c" (cmd! (let ((current-prefix-arg '(4)))
                       (call-interactively #'ivy-telega-chat-with)))
+      :desc "Telega next important chat"
       "C-c C-SPC" (cmd! (let ((current-prefix-arg '(4)))
                       (call-interactively #'telega-switch-important-chat))))
