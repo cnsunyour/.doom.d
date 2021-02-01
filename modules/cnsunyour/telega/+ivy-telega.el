@@ -41,6 +41,6 @@
 
 (map! "C-c v" #'ivy-telega-chat-with
       "C-c c" (cmd! (let ((current-prefix-arg '(4)))
-                      (call-interactively 'ivy-telega-chat-with)))
+                      (call-interactively #'ivy-telega-chat-with)))
       "C-c C-SPC" (cmd! (let ((current-prefix-arg '(4)))
-                      (call-interactively 'telega-switch-important-chat))))
+                      (call-interactively #'telega-switch-important-chat))))
