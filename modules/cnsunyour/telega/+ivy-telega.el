@@ -22,8 +22,9 @@
                 (lambda (x) (cons (ivy-telega-chat-highlight x) x))
                 (telega-filter-chats telega--ordered-chats
                                      (if current-prefix-arg
-                                         'all
-                                       '(or mention (and unread unmuted)))))))
+                                         '(or main archive)
+                                       '(and (or mention (and unread unmuted))
+                                             (or main archive)))))))
     (cond ((null chats)
            (user-error "No chats available."))
           ((= 1 (length chats))
