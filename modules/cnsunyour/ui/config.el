@@ -20,7 +20,7 @@
          (font (elt fonts (random (length fonts))))
          (font-size (if (and (>= (x-display-pixel-width) 1600)
                              (>= (x-display-pixel-height) 1000))
-                        14 14)))
+                        16 14)))
     (when font
       (add-hook! emacs-startup :append
         (set-fontset-font t 'cjk-misc font nil 'prepend)
