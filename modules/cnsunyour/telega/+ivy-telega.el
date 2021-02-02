@@ -14,20 +14,20 @@
       title)))
 
 ;;;###autoload
-(defun ivy-telega-chat-with ()
+(defun ivy-telega-chat-with (&optional prefix-u)
   "Starts chat with defined peer"
-  (interactive)
+  (interactive "p")
   (telega t)
   (let ((chats (mapcar
                 (lambda (x) (cons (ivy-telega-chat-highlight x) x))
                 (telega-filter-chats telega--ordered-chats
-                                     (if current-prefix-arg
+                                     (if (= 4 prefix-u)
                                          '(or main archive)
                                        '(and (or mention (and unread unmuted))
                                              (or main archive)))))))
     (cond ((null chats)
            (user-error "No chats available."))
-          ((= 1 (length chats))
+          ((or (= 1 (length chats)) (= 16 prefix-u))
            (telega-chat--pop-to-buffer (cdar chats)))
           (t
            (ivy-read "Chat with: " chats
@@ -46,5 +46,5 @@
       "C-c c" (cmd! (let ((current-prefix-arg '(4)))
                       (call-interactively #'ivy-telega-chat-with)))
       :desc "Telega next important chat"
-      "C-c C-SPC" (cmd! (let ((current-prefix-arg '(4)))
-                      (call-interactively #'telega-switch-important-chat))))
+      "C-c C-SPC" (cmd! (let ((current-prefix-arg '(16)))
+                          (call-interactively #'ivy-telega-chat-with))))
