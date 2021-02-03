@@ -1,15 +1,14 @@
 ;;; cnsunyour/telega/config.el -*- lexical-binding: t; -*-
 
-
 ;; telegram client for emacs
 (use-package! telega
   :defer t
-  ;; :commands (telega)
-  ;; :bind ("C-M-S-s-t" . #'telega)
+
+  :bind-keymap*
+  ("C-c t" . telega-prefix-map)
 
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
-  (define-key global-map (kbd "C-c t") telega-prefix-map)
   (when (featurep! :completion ivy)
     (load! "+ivy-telega"))
 
@@ -54,8 +53,10 @@
 
   (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
 
-  (map! :map telega-chat-mode-map "C-c C-t" #'telega-chatbuf-attach-sticker)
-  (map! :map telega-msg-button-map "k" nil)
+  (map! :map telega-chat-mode-map
+        "C-c C-t" #'telega-chatbuf-attach-sticker
+        :map telega-msg-button-map
+        "k" nil)
 
   (load! "+telega-auto-input-method")
 
@@ -64,7 +65,7 @@
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
+    :side 'right :size 120 :select t :ttl t :quit t :modeline t)
 
   (use-package! telega-stories
     :config
