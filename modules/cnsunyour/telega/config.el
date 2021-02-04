@@ -65,7 +65,7 @@
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 120 :select t :ttl t :quit t :modeline t)
+    :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
 
   (use-package! telega-stories
     :config
