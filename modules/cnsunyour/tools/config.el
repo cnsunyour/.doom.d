@@ -79,6 +79,6 @@
       (insert (utf7-decode string t)))))
 
 (use-package! parinfer-rust-mode
-    :hook emacs-list-mode
+    :hook emacs-lisp-mode
     :init
     (setq parinfer-rust-auto-download t))
