@@ -69,6 +69,11 @@
 ;; that only offers “smart mode”, leveraging the parinfer-rust plugin to do most
 ;; of the heavy lifting.
 (use-package! parinfer-rust-mode
-    :hook emacs-lisp-mode
-    :init
-    (setq parinfer-rust-auto-download t))
+  :hook (emacs-lisp-mode
+         clojure-mode
+         scheme-mode
+         lisp-mode
+         racket-mode
+         hy-mode)
+  :init
+  (setq parinfer-rust-auto-download t))
