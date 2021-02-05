@@ -26,7 +26,7 @@
       :g "C-!" #'kill-buffer-and-window
       :g "C-S-s-l" #'toggle-truncate-lines
       :g "M-o" #'evil-window-next
-      :g "S-M-o" #'evil-window-prev
+      :g "M-O" #'evil-window-prev
 
       :m "M-j" #'multi-next-line
       :m "M-k" #'multi-previous-line
