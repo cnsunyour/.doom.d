@@ -58,10 +58,10 @@
                            :password (cadr credentials))))
 
 ;; Track Emacs commands frequency
-(use-package! keyfreq
-  :config
-  (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1))
+;; (use-package! keyfreq
+;;   :config
+;;   (keyfreq-mode 1)
+;;   (keyfreq-autosave-mode 1))
 
 ;; Parinfer is a plugin that aims to make writing lisp simple. This library is a
 ;; minimalistic wrapper around "eraserhd/parinfer-rust" to provide an Emacs
