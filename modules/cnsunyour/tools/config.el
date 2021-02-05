@@ -77,3 +77,8 @@
                    (region-beginning) (region-end))))
       (delete-region (region-beginning) (region-end))
       (insert (utf7-decode string t)))))
+
+(use-package! parinfer-rust-mode
+    :hook emacs-list-mode
+    :init
+    (setq parinfer-rust-auto-download t))
