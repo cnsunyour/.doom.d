@@ -62,22 +62,6 @@
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
 
-(defun +utf7-encode-imap-region ()
-  (interactive)
-  (when mark-active
-    (let ((string (buffer-substring-no-properties
-                   (region-beginning) (region-end))))
-      (delete-region (region-beginning) (region-end))
-      (insert (utf7-encode string t)))))
-
-(defun +utf7-decode-imap-region ()
-  (interactive)
-  (when mark-active
-    (let ((string (buffer-substring-no-properties
-                   (region-beginning) (region-end))))
-      (delete-region (region-beginning) (region-end))
-      (insert (utf7-decode string t)))))
-
 (use-package! parinfer-rust-mode
     :hook emacs-lisp-mode
     :init
