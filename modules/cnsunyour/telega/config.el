@@ -13,13 +13,13 @@
     (load! "+ivy-telega"))
 
   :hook
-  (telega-chat-mode . yas-minor-mode-on)
+  ;; (telega-chat-mode . yas-minor-mode-on)
   ;; (telega-chat-mode . visual-line-mode)
   (telega-chat-mode . (lambda ()
                         (set-company-backend! 'telega-chat-mode
-                          (append '(telega-company-emoji
-                                    telega-company-username
-                                    telega-company-hashtag)
+                          (append (list telega-emoji-company-backend
+                                        'telega-company-username
+                                        'telega-company-hashtag)
                                   (when (telega-chat-bot-p telega-chatbuf--chat)
                                     '(telega-company-botcmd))))))
   (telega-load . telega-mode-line-mode)
@@ -33,6 +33,7 @@
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
         telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(photo video animation)
+        telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
         telega-root-fill-column 110
         telega-chat-fill-column 100
