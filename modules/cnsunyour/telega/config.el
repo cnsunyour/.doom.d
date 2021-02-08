@@ -38,6 +38,7 @@
         telega-root-fill-column 110
         telega-chat-fill-column 100
         telega-webpage-fill-column 100
+        telega-symbol-folder "📁"
         telega-chat-input-prompt '((prompt . ">>> ")
                                    (reply . "<<< ")
                                    (edit . "+++ "))
