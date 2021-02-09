@@ -25,6 +25,7 @@
   (telega-load . telega-mode-line-mode)
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
+  (telega-load . telega-stories-mode)
 
   :config
   ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
@@ -57,6 +58,8 @@
 
   (map! :map telega-chat-mode-map
         "C-c C-t" #'telega-chatbuf-attach-sticker
+        :map telega-root-view-map
+        "e" #'telega-view-emacs-stories
         :map telega-msg-button-map
         "k" nil)
 
@@ -68,10 +71,5 @@
     :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
     :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
-
-  (use-package! telega-stories
-    :config
-    (telega-stories-mode 1)
-    (map! :map telega-root-mode-map "v e" 'telega-view-emacs-stories))
 
   (load! "+telega-addition"))
