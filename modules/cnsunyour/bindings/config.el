@@ -19,11 +19,7 @@
   (define-key key-translation-map (kbd "s-0") (kbd "M-0")))
 
 ;; general keybindings
-(map! (:leader
-        (:prefix "b"
-          "h" #'+doom-dashboard/open))
-
-      :g "C-!" #'kill-buffer-and-window
+(map! :g "C-!" #'kill-buffer-and-window
       :g "C-S-s-l" #'toggle-truncate-lines
       :g "M-o" #'evil-window-next
       :g "M-O" #'evil-window-prev
@@ -71,6 +67,7 @@
         :gi [s-return]    #'+default/newline-below
         :gi [s-S-return]  #'+default/newline-above
         :gi [s-backspace] #'doom/backward-kill-to-bol-and-indent))
+
 
 
 ;; smartparens key-binding
