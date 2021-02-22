@@ -54,7 +54,7 @@
 ;;
 ;; Optimize garbage-collect
 ;; Related variable: `gc-cons-threshold'
-(setq gc-cons-threshold 2147483648)
+;; (setq gc-cons-threshold 2147483648)
 ;;
 ;; Execute `garbage-collect' when emacs is idle for a specified time,
 ;; and count the time consumed.
@@ -69,7 +69,7 @@
 ;;                                 (k-time (garbage-collect)))))
 ;;
 ;; Execute `garbage-collect' when emacs is idle for a specified time.
-(run-with-idle-timer 300 t #'garbage-collect)
+;; (run-with-idle-timer 300 t #'garbage-collect)
 
 ;; cleanup trailing whitespaces before save buffers.
 (add-hook! before-save
