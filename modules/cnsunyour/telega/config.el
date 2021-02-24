@@ -26,6 +26,7 @@
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
   (telega-load . telega-stories-mode)
+  (telega-load . telega-autoplay-mode)
 
   :config
   ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
@@ -65,7 +66,11 @@
 
   (load! "+telega-auto-input-method")
 
-  (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs)
+  (set-evil-initial-state!
+    '(telega-root-mode
+      telega-chat-mode
+      telega-image-mode)
+    'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 120 :select t :ttl nil :quit t :modeline t)
