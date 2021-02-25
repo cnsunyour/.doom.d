@@ -35,7 +35,7 @@
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
         telega-open-file-function 'org-open-file
         telega-open-message-as-file '(video video-note)
-        telega-emoji-company-backend 'telega-company-telegram-emoji
+        ;; telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
         telega-root-fill-column 110
         telega-chat-fill-column 100
