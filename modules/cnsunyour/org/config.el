@@ -12,8 +12,7 @@
              counsel-org-clock-history))
 
 ;; 使用xelatex一步生成PDF
-(setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
-                              "xelatex -interaction nonstopmode %f"))
+(setq org-latex-compiler "xelatex")
 
 ;; 预览 org 和 markdown 文件
 (use-package! grip-mode
