@@ -8,7 +8,7 @@
   (kill-emacs . company-tabnine-kill-process)
   (lsp-after-open . (lambda ()
                       (add-to-list 'company-transformers 'company//sort-by-tabnine t)
-                      (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))))
+                      (add-to-list 'company-backends 'company-tabnine)))
   ;; ('after-init . (lambda ()
   ;;                 ;; (add-to-list 'company-backends #'company-tabnine)
   ;;                 ;; (set-company-backend! 'text-mode
