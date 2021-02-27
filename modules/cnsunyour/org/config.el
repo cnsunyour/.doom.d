@@ -14,6 +14,9 @@
 ;; 使用xelatex一步生成PDF
 (setq org-latex-compiler "xelatex")
 
+(setq org-html-head
+      "<link rel='stylesheet' type='text/css' href='https://www.labri.fr/perso/nrougier/GTD/GTD.css' />")
+
 ;; 预览 org 和 markdown 文件
 (use-package! grip-mode
   :defer t
