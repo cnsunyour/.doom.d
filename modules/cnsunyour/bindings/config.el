@@ -19,7 +19,9 @@
   (define-key key-translation-map (kbd "s-0") (kbd "M-0")))
 
 ;; general keybindings
-(map! :g "C-!" #'kill-buffer-and-window
+(map! (:leader (:prefix "b" "h" #'+doom-dashboard/open))
+
+      :g "C-!" #'kill-buffer-and-window
       :g "C-S-s-l" #'toggle-truncate-lines
       :g "M-o" #'evil-window-next
       :g "M-O" #'evil-window-prev
