@@ -56,9 +56,9 @@ unwanted space when exporting org-mode to hugo markdown."
 
 (use-package! rime
   :bind
-  ("C-S-s-j" . #'+rime-convert-string-at-point)
+  ("C-M-S-j" . #'+rime-convert-string-at-point)
   (:map rime-active-mode-map
-   ("C-S-s-j" . #'rime-inline-ascii)
+   ("C-M-S-j" . #'rime-inline-ascii)
    ("C-M-S-s-j" . #'rime-inline-ascii))
   (:map rime-mode-map
    ("C-M-S-s-j" . #'rime-force-enable)

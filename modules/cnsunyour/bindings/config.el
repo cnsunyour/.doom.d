@@ -23,7 +23,7 @@
 (map! (:leader (:prefix "b" "h" #'+doom-dashboard/open))
 
       :g "C-!" #'kill-buffer-and-window
-      :g "C-S-s-l" #'toggle-truncate-lines
+      :g "C-M-S-l" #'toggle-truncate-lines
       :g "M-o" #'evil-window-next
       :g "M-O" #'evil-window-prev
 
