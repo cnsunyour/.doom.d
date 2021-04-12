@@ -62,7 +62,7 @@
   :init
   (map! :leader
         :prefix ("y" . "Translate")
-        "y" #'youdao-dictionary-search-at-point-tooltip
+        "y" #'youdao-dictionary-search-at-point+
         "Y" #'youdao-dictionary-search-at-point
         "p" #'youdao-dictionary-play-voice-at-point
         "P" #'youdao-dictionary-play-voice-from-input)
