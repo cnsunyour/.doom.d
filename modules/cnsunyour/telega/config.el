@@ -25,7 +25,7 @@
   (telega-load . telega-mode-line-mode)
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
-  (telega-load . telega-stories-mode)
+  ;; (telega-load . telega-stories-mode)
   (telega-load . telega-autoplay-mode)
 
   :config
@@ -33,8 +33,9 @@
   ;;                         :type (:@type "proxyTypeSocks5"))))
   (setq telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN))
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
-        telega-open-file-function 'org-open-file
-        telega-open-message-as-file '(video video-note)
+        ;; telega-open-file-function 'org-open-file
+        ;; telega-open-message-as-file '(video video-note)
+        telega-use-docker t
         telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
         telega-root-fill-column 110
@@ -57,8 +58,8 @@
 
   (map! :map telega-chat-mode-map
         "C-c C-t" #'telega-chatbuf-attach-sticker
-        :map telega-root-view-map
-        "e" #'telega-view-emacs-stories
+        ;; :map telega-root-view-map
+        ;; "e" #'telega-view-emacs-stories
         :map telega-msg-button-map
         "k" nil)
 
