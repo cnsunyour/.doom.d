@@ -32,14 +32,6 @@
 ;; Or, you can set it manually now.
 (cnsunyour/set-doom-font)
 
-;; set emoji font
-(add-to-list 'doom-unicode-extra-fonts
-             (if IS-MAC
-                 "Apple Color Emoji"
-               "Noto Color Emoji")
-             t)
-(setq doom-unicode-font (font-spec :family "Symbola"))
-
 (defun cnsunyour/set-splash-image ()
   "Set random splash image."
   (setq fancy-splash-image
