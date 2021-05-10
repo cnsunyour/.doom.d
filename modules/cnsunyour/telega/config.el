@@ -50,10 +50,9 @@
         telega-chat-input-comment-prompt '((prompt . "Comment>>> ")
                                            (reply . "Comment<<< ")
                                            (edit . "Comment+++ "))
-        telega-mode-line-string-format
-        (cl-remove '(:eval (telega-mode-line-icon))
-                   telega-mode-line-string-format
-                   :test #'equal))
+        telega-mode-line-string-format (cl-remove '(:eval (telega-mode-line-icon))
+                                                  telega-mode-line-string-format
+                                                  :test #'equal))
 
   (map! :map telega-chat-mode-map
         "C-c C-t" #'telega-chatbuf-attach-sticker
