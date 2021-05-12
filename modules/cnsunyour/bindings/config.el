@@ -1,8 +1,8 @@
 ;;;  -*- lexical-binding: t; -*-
 
 (when IS-MAC
-  (setq mac-command-modifier 'meta
-        mac-option-modifier 'super))
+  (setq mac-command-modifier 'super
+        mac-option-modifier 'meta))
 
 ;; (when (featurep! :ui workspaces)
 ;;   (global-set-key (kbd "s-[") #'+workspace/switch-left)
