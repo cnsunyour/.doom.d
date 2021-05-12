@@ -9,7 +9,6 @@
 
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
-  (when (featurep! :completion ivy) (load! "+ivy-telega"))
   (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
 
   :hook
@@ -53,6 +52,8 @@
         telega-mode-line-string-format (cl-remove '(:eval (telega-mode-line-icon))
                                                   telega-mode-line-string-format
                                                   :test #'equal))
+
+  (when (featurep! :completion ivy) (load! "+ivy-telega"))
 
   (map! :map telega-chat-mode-map
         "C-c C-t" #'telega-chatbuf-attach-sticker
