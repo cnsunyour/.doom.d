@@ -56,9 +56,9 @@ unwanted space when exporting org-mode to hugo markdown."
 
 (use-package! rime
   :bind
-  ("C-M-S-j" . #'+rime-convert-string-at-point)
+  ("C-s-S-j" . #'+rime-convert-string-at-point)
   (:map rime-active-mode-map
-   ("C-M-S-j" . #'rime-inline-ascii)
+   ("C-s-S-j" . #'rime-inline-ascii)
    ("C-M-S-s-j" . #'rime-inline-ascii))
   (:map rime-mode-map
    ("C-M-S-s-j" . #'rime-force-enable)
@@ -74,7 +74,10 @@ unwanted space when exporting org-mode to hugo markdown."
   :config
   (setq default-input-method "rime"
         rime-user-data-dir (expand-file-name "~/.local/emacs-rime")
-        rime-show-candidate 'message
+        rime-show-candidate 'posframe
+        rime-posframe-style 'simple
+        rime-popup-style 'simple
+        rime-sidewindow-style 'simple
         rime-inline-ascii-trigger 'shift-l)
 
   (add-hook! (org-mode
