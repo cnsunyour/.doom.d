@@ -9,7 +9,6 @@
 
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
-  (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
 
   :hook
   ;; (telega-chat-mode . yas-minor-mode-on)
@@ -28,6 +27,7 @@
   (telega-load . telega-autoplay-mode)
 
   :config
+  (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
   ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
   ;;                         :type (:@type "proxyTypeSocks5"))))
   (setq telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN))
