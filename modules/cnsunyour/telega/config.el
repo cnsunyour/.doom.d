@@ -27,6 +27,11 @@
   (telega-load . telega-autoplay-mode)
 
   :config
+  (evil-collection-translate-key nil 'telega-msg-button-map
+    "f" "r"
+    "F" "r"
+    "r" "R")
+
   (telega-adblock-mode 1)
   (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
   ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
@@ -65,11 +70,7 @@
 
   (load! "+telega-auto-input-method")
 
-  (set-evil-initial-state!
-    '(telega-root-mode
-      telega-chat-mode
-      telega-image-mode)
-    'emacs)
+  ;; (set-evil-initial-state! '(telega-root-mode telega-chat-mode telega-image-mode) 'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 120 :select t :ttl nil :quit 'current :modeline t)
