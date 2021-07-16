@@ -29,7 +29,6 @@
   :config
   (evil-collection-translate-key nil 'telega-msg-button-map
     "f" "r"
-    "F" "r"
     "r" "R")
 
   (telega-adblock-mode 1)
