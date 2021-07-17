@@ -9,6 +9,7 @@
 
   :init
   (unless (display-graphic-p) (setq telega-use-images nil))
+  (pushnew! +evil-collection-disabled-list 'telega)
 
   :hook
   ;; (telega-chat-mode . yas-minor-mode-on)
@@ -23,14 +24,9 @@
   (telega-load . telega-mode-line-mode)
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
-  ;; (telega-load . telega-stories-mode)
   (telega-load . telega-autoplay-mode)
 
   :config
-  (evil-collection-translate-key nil 'telega-msg-button-map
-    "f" "r"
-    "r" "R")
-
   (telega-adblock-mode 1)
   (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
   ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
@@ -62,14 +58,16 @@
 
   (map! :map telega-chat-mode-map
         "C-c C-t" #'telega-chatbuf-attach-sticker
-        ;; :map telega-root-view-map
-        ;; "e" #'telega-view-emacs-stories
         :map telega-msg-button-map
         "k" nil)
 
   (load! "+telega-auto-input-method")
 
-  ;; (set-evil-initial-state! '(telega-root-mode telega-chat-mode telega-image-mode) 'emacs)
+  (set-evil-initial-state! '(telega-root-mode
+                             telega-chat-mode
+                             telega-image-mode
+                             telega-webpage-mode)
+    'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :side 'right :size 120 :select t :ttl nil :quit 'current :modeline t)
