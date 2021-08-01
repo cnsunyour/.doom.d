@@ -74,8 +74,10 @@
 ;; Execute `garbage-collect' when emacs is idle for a specified time.
 ;; (run-with-idle-timer 300 t #'garbage-collect)
 
+;; execute php-cs-fixer before save .php file
 ;; cleanup trailing whitespaces before save buffers.
 (add-hook! before-save
+           #'php-cs-fixer-before-save
            #'delete-trailing-whitespace
            #'whitespace-cleanup)
 
