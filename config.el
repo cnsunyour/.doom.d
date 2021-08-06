@@ -45,12 +45,6 @@
 (when (eq window-system 'mac)
   (setq mac-system-move-file-to-trash-use-finder t))
 
-;; IMO, modern editors have trained a bad habit into us all: a burning need for
-;; completion all the time -- as we type, as we breathe, as we pray to the
-;; ancient ones -- but how often do you *really* need that information? I say
-;; rarely. So opt for manual completion:
-(setq company-idle-delay nil)
-
 ;; Set default directory
 (add-hook! emacs-startup (setq default-directory "~"))
 
