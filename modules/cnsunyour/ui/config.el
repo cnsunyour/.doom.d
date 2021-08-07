@@ -20,6 +20,8 @@
                              (>= (x-display-pixel-height) 1000))
                         16 14)))
     (when font
+      (set-fontset-font t ?中 font nil 'prepend)
+      (set-fontset-font t ?言 font nil 'prepend)
       (add-hook! emacs-startup :append
         (set-fontset-font t 'cjk-misc font nil 'prepend)
         (set-fontset-font t 'han font nil 'prepend))
