@@ -9,4 +9,4 @@
 (package! sdcv
   :recipe (:host github :repo "manateelazycat/sdcv"))
 (package! youdao-dictionary)
-(package! google-translate)
+(package! fanyi)
