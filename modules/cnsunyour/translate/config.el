@@ -30,7 +30,7 @@
         "D" #'sdcv-search-pointer)
   :config
   (setq sdcv-tooltip-timeout 30)
-  (set-popup-rule! "^\\*SDCV\\*" :side 'right :size 0.4 :select t)
+  (set-popup-rule! (regexp-quote sdcv-buffer-name) :side 'right :size 0.4 :select t)
   (set-face-background 'sdcv-tooltip-face nil)
   (set-face-foreground 'sdcv-tooltip-face nil)
   (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic"))
@@ -67,7 +67,7 @@
         "p" #'youdao-dictionary-play-voice-at-point
         "P" #'youdao-dictionary-play-voice-from-input)
   :config
-  (set-popup-rule! "^\\*Youdao Dictionary\\*" :side 'right :size 0.4 :select t)
+  (set-popup-rule! (regexp-quote youdao-dictionary-buffer-name) :side 'right :size 0.4 :select t)
   ;; 设定youdao api id和key
   ;; (let ((credentials (auth-source-user-and-password "youdao-api")))
   ;;   (setq youdao-dictionary-app-key (car credentials)
@@ -104,7 +104,7 @@
     ;; TKK='427110.1469889687'
     (list 427110 1477889687))
 
-  (set-popup-rule! "^\\*Google Translate\\*" :side 'right :size 0.4 :select t)
+  (set-popup-rule! "^\\*Google Translate\\*$" :side 'right :size 0.4 :select t)
 
   (defcustom google-translate-tooltip-name "*google-translate-posframe*"
     "The name of google translate tooltip name."
