@@ -160,38 +160,6 @@
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
 
-
-(use-package! awesome-tab
-  :commands (awesome-tab-mode)
-  :init
-  (defhydra hydra-tab (:pre (awesome-tab-mode t)
-                       :post (awesome-tab-mode -1))
-    "
-   ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc
-  -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
-     ^_k_^   prev group    | _C-a_^^     select first | _b_ switch buffer | _C-k_   kill buffer
-   _h_   _l_ switch tab    | _C-e_^^     select last  | _g_ switch group  | _C-S-k_ kill others in group
-     ^_j_^   next group    | _a_^^       ace jump     | ^^                | ^^
-   ^^0 ~ 9^^ select window | _C-h_/_C-l_ move current | ^^                | ^^
-  -^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
-  "
-    ("h" awesome-tab-backward-tab)
-    ("j" awesome-tab-forward-group)
-    ("k" awesome-tab-backward-group)
-    ("l" awesome-tab-forward-tab)
-    ("a" awesome-tab-ace-jump)
-    ("C-a" awesome-tab-select-beg-tab)
-    ("C-e" awesome-tab-select-end-tab)
-    ("C-h" awesome-tab-move-current-tab-to-left)
-    ("C-l" awesome-tab-move-current-tab-to-right)
-    ("b" ivy-switch-buffer)
-    ("g" awesome-tab-counsel-switch-group)
-    ("C-k" kill-current-buffer)
-    ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
-    ("q" nil "quit"))
-  :bind
-  (("s-t" . hydra-tab/body)))
-
 (use-package! emojify
   :config
   (setq emojify-point-entered-behaviour 'uncover)
