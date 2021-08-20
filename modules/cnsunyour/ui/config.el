@@ -20,12 +20,13 @@
                              (>= (x-display-pixel-height) 1000))
                         16 14)))
     (when font
-      (set-fontset-font t ?中 font nil 'prepend)
-      (set-fontset-font t ?言 font nil 'prepend)
+      (setq doom-font (font-spec :family font :size font-size))
       (add-hook! emacs-startup :append
         (set-fontset-font t 'cjk-misc font nil 'prepend)
         (set-fontset-font t 'han font nil 'prepend))
-      (setq doom-font (font-spec :family font :size font-size)))))
+      (set-fontset-font t ?中 font nil 'prepend)
+      (set-fontset-font t ?言 font nil 'prepend)
+      )))
   ;; (doom/reload-font))))
 ;; Set default font when theme changed.
 ;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
