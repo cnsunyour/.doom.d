@@ -4,28 +4,33 @@
 
 (defun cnsunyour/set-doom-font ()
   "Set random font family and size."
-  (let* ((fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
-                           (cl-remove-duplicates (font-family-list))))
-         (fonts (cl-remove-if
-                 (lambda (elf) (not (member elf fontlist)))
-                 '("Sarasa Mono SC"
-                   "Sarasa Mono Slab SC"
-                   "等距更纱黑体 SC"
-                   "等距更纱黑体 Slab SC"
-                   "Noto Sans Mono CJK SC"
-                   "WenQuanYi Zen Hei Mono"
-                   "文泉驿等宽正黑")))
-         (font (elt fonts (random (length fonts))))
+  (let* (
+         ;; (fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
+         ;;                   (cl-remove-duplicates (font-family-list))))
+         ;; (fonts (cl-remove-if
+         ;;         (lambda (elf) (not (member elf fontlist)))
+         ;;         '("Sarasa Mono SC"
+         ;;           "Sarasa Mono Slab SC"
+         ;;           "等距更纱黑体 SC"
+         ;;           "等距更纱黑体 Slab SC"
+         ;;           "Noto Sans Mono CJK SC"
+         ;;           "WenQuanYi Zen Hei Mono"
+         ;;           "文泉驿等宽正黑")))
+         ;; (font (elt fonts (random (length fonts))))
+         (font "Sarasa Mono SC")
+         (font-variable "Sarasa Gothic SC")
          (font-size (if (and (>= (x-display-pixel-width) 1600)
                              (>= (x-display-pixel-height) 1000))
                         16 14)))
     (when font
-      (setq doom-font (font-spec :family font :size font-size))
+      (setq doom-font (font-spec :family font :size font-size)
+            doom-serif-font (font-spec :family font :size font-size)
+            doom-variable-pitch-font (font-spec :family font-variable :size font-size))
       (add-hook! emacs-startup :append
         (set-fontset-font t 'cjk-misc font nil 'prepend)
         (set-fontset-font t 'han font nil 'prepend))
-      (set-fontset-font t ?中 font nil 'prepend)
-      (set-fontset-font t ?言 font nil 'prepend)
+      ;; (set-fontset-font t ?中 font nil 'prepend)
+      ;; (set-fontset-font t ?言 font nil 'prepend)
       )))
   ;; (doom/reload-font))))
 ;; Set default font when theme changed.
