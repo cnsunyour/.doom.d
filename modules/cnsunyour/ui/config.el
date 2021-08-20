@@ -22,7 +22,7 @@
          (font-size (if (and (>= (x-display-pixel-width) 1600)
                              (>= (x-display-pixel-height) 1000))
                         16 14)))
-    (when font
+    (when (and font font-variable font-size)
       (setq doom-font (font-spec :family font :size font-size)
             doom-serif-font (font-spec :family font :size font-size)
             doom-variable-pitch-font (font-spec :family font-variable :size font-size))
