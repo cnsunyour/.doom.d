@@ -63,10 +63,10 @@
 
   (load! "+telega-auto-input-method")
 
-  (set-evil-initial-state! '(telega-root-mode
-                             telega-chat-mode
-                             telega-image-mode
-                             telega-webpage-mode)
+  (set-evil-initial-state!
+    '(telega-root-mode
+      telega-chat-mode
+      telega-image-mode)
     'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
