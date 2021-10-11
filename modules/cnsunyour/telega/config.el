@@ -27,7 +27,6 @@
   (telega-load . telega-autoplay-mode)
 
   :config
-  (telega-adblock-mode 1)
   (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
   ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
   ;;                         :type (:@type "proxyTypeSocks5"))))
