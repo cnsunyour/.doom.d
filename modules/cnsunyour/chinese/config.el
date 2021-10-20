@@ -74,7 +74,7 @@ unwanted space when exporting org-mode to hugo markdown."
   :config
   (setq default-input-method "rime"
         rime-user-data-dir (expand-file-name "~/.local/emacs-rime")
-        rime-show-candidate 'minibuffer
+        rime-show-candidate 'posframe
         rime-posframe-style 'simple
         rime-popup-style 'simple
         rime-sidewindow-style 'simple
