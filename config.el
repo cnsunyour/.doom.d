@@ -83,3 +83,7 @@
 (after! warnings
   (when (featurep! :emacs undo)
     (add-to-list 'warning-suppress-types '(undo discard-info))))
+
+;; load forge after magit
+(with-eval-after-load 'magit
+  (require 'forge))
