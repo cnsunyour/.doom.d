@@ -36,9 +36,8 @@
         ;; telega-open-message-as-file '(video video-note)
         telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
-        telega-root-fill-column 110
-        telega-chat-fill-column 100
-        telega-webpage-fill-column 100
+        ;; telega-root-fill-column 80
+        ;; telega-chat-fill-column 80
         telega-symbol-folder "📁"
         telega-chat-input-prompt '((prompt . ">>> ")
                                    (reply . "<<< ")
@@ -69,8 +68,8 @@
     'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size 120 :select t :ttl nil :quit 'current :modeline t)
+    :side 'right :size 100 :select t :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :size 120 :select t :ttl nil :quit 'current :modeline t)
+    :side 'right :size 100 :select t :ttl nil :quit 'current :modeline t)
 
   (load! "+telega-addition"))
