@@ -35,7 +35,7 @@
         ;; telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(video video-note)
         telega-emoji-company-backend 'telega-company-telegram-emoji
-        telega-sticker-size '(8 . 48)
+        ;; telega-sticker-size '(8 . 48)
         ;; telega-root-fill-column 80
         ;; telega-chat-fill-column 80
         telega-symbol-folder "📁"
