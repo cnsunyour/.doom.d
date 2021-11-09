@@ -215,3 +215,7 @@
 
 (setq custom-file (expand-file-name ".custom.el" doom-private-dir))
 (load custom-file t)
+
+;; load forge after magit
+(with-eval-after-load 'magit
+  (require 'forge))

@@ -85,7 +85,3 @@
     (add-to-list 'warning-suppress-types '(undo discard-info))))
 
 (setq so-long-max-lines 1000)
-
-;; load forge after magit
-(with-eval-after-load 'magit
-  (require 'forge))
