@@ -84,4 +84,5 @@
   (when (featurep! :emacs undo)
     (add-to-list 'warning-suppress-types '(undo discard-info))))
 
-(setq so-long-max-lines 1000)
+(after! so-long
+  (setq so-long-threshold 1000))
