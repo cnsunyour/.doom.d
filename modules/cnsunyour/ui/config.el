@@ -41,7 +41,7 @@
 (defun cnsunyour/set-splash-image ()
   "Set random splash image."
   (setq fancy-splash-image
-        (let ((banners (directory-files "~/.doom.d/banner"
+        (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
                                         'full
                                         (rx ".png" eos))))
           (elt banners (random (length banners))))))
@@ -113,7 +113,7 @@
              #'auto-dark-emacs/check-and-set-dark-mode))
 
 (when (and IS-MAC (boundp 'ns-system-appearance-change-functions))
-  (defun yh/change-theme(appearance)
+  (defun cnsunyour/change-theme(appearance)
     "Load theme according to the current system appearance."
     (pcase appearance
       ('light
@@ -130,7 +130,7 @@
                             (random (length +list-dark-theme)))
                      +list-dark-theme)
                    t))))
-  (add-hook 'ns-system-appearance-change-functions #'yh/change-theme))
+  (add-hook 'ns-system-appearance-change-functions #'cnsunyour/change-theme))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
