@@ -32,7 +32,7 @@
       ;; (set-fontset-font t ?中 font nil 'prepend)
       ;; (set-fontset-font t ?言 font nil 'prepend)
       )))
-  ;; (doom/reload-font))))
+;; (doom/reload-font))))
 ;; Set default font when theme changed.
 ;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
 ;; Or, you can set it manually now.
@@ -67,30 +67,30 @@
 ;; `window-setup-hook'
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 ;;
-(setq +list-light-theme '(doom-one-light
-                          doom-nord-light
-                          doom-opera-light
-                          doom-tomorrow-day)
-      +list-dark-theme  '(doom-one
-                          doom-vibrant
-                          doom-city-lights
-                          doom-challenger-deep
-                          doom-dracula
-                          doom-gruvbox
-                          doom-horizon
-                          doom-Iosvkem
-                          doom-material
-                          doom-molokai
-                          doom-monokai-classic
-                          doom-monokai-pro
-                          doom-moonlight
-                          doom-oceanic-next
-                          doom-palenight
-                          doom-peacock
-                          doom-rouge
-                          doom-snazzy
-                          doom-spacegrey
-                          doom-tomorrow-night))
+(defconst +list-light-theme '(doom-one-light
+                              doom-nord-light
+                              doom-opera-light
+                              doom-tomorrow-day))
+(defconst +list-dark-theme  '(doom-one
+                              doom-vibrant
+                              doom-city-lights
+                              doom-challenger-deep
+                              doom-dracula
+                              doom-gruvbox
+                              doom-horizon
+                              doom-Iosvkem
+                              doom-material
+                              doom-molokai
+                              doom-monokai-classic
+                              doom-monokai-pro
+                              doom-moonlight
+                              doom-oceanic-next
+                              doom-palenight
+                              doom-peacock
+                              doom-rouge
+                              doom-snazzy
+                              doom-spacegrey
+                              doom-tomorrow-night))
 
 ;; Auto change theme on non-mac OS
 (use-package! theme-changer
@@ -103,7 +103,7 @@
 
 ;; Change theme sync with macOS
 (use-package! auto-dark-emacs
-  :when IS-MAC
+  :when (and IS-MAC (not (boundp 'ns-system-appearance-change-functions)))
   :config
   (setq auto-dark-emacs/light-theme +list-light-theme
         auto-dark-emacs/dark-theme +list-dark-theme
@@ -112,6 +112,24 @@
              :append
              #'auto-dark-emacs/check-and-set-dark-mode))
 
+(when (and IS-MAC (boundp 'ns-system-appearance-change-functions))
+  (defun yh/change-theme(theme-type)
+    "Load theme by `theme-type'."
+    (cond ((eq theme-type 'light)
+           (mapc #'disable-theme custom-enabled-themes)
+           (load-theme (if (listp +list-light-theme)
+                           (elt +list-light-theme
+                                (random (length +list-light-theme)))
+                         +list-light-theme)
+                       t))
+          ((eq theme-type 'dark)
+           (mapc #'disable-theme custom-enabled-themes)
+           (load-theme (if (listp +list-dark-theme)
+                           (elt +list-dark-theme
+                                (random (length +list-dark-theme)))
+                         +list-dark-theme)
+                       t))))
+  (add-hook 'ns-system-appearance-change-functions #'yh/change-theme))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
