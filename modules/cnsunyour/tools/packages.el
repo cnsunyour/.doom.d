@@ -13,4 +13,3 @@
   :recipe (:host github :repo "cnsunyour/emacs-pastebin"))
 ;; (package! keyfreq
 ;;   :recipe (:host github :repo "dacap/keyfreq"))
-(package! parinfer-rust-mode :disable t)

@@ -62,18 +62,3 @@
 ;;   :config
 ;;   (keyfreq-mode 1)
 ;;   (keyfreq-autosave-mode 1))
-
-;; Parinfer is a plugin that aims to make writing lisp simple. This library is a
-;; minimalistic wrapper around "eraserhd/parinfer-rust" to provide an Emacs
-;; minor mode. parinfer-rust-mode aims to be a simpler adaptation of Parinfer
-;; that only offers “smart mode”, leveraging the parinfer-rust plugin to do most
-;; of the heavy lifting.
-(use-package! parinfer-rust-mode
-  :hook (emacs-lisp-mode
-         clojure-mode
-         scheme-mode
-         lisp-mode
-         racket-mode
-         hy-mode)
-  :init
-  (setq parinfer-rust-auto-download t))
