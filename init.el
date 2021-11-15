@@ -9,9 +9,9 @@
 ;; found in modules/README.org.
 
 ;; Limit on depth in eval, apply and funcall before error
-(setq max-lisp-eval-depth 10000)
+;; (setq max-lisp-eval-depth 10000)
 ;; Limit on number of Lisp variable bindings and unwind-protects.
-(setq max-specpdl-size 10000)
+;; (setq max-specpdl-size 10000)
 
 (doom! :input
        ;; chinese
@@ -207,7 +207,7 @@
        org
        ;; tabnine
        telega
-       term
+       ;; term
        tools
        translate
        ui
