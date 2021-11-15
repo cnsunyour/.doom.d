@@ -113,22 +113,23 @@
              #'auto-dark-emacs/check-and-set-dark-mode))
 
 (when (and IS-MAC (boundp 'ns-system-appearance-change-functions))
-  (defun yh/change-theme(theme-type)
-    "Load theme by `theme-type'."
-    (cond ((eq theme-type 'light)
-           (mapc #'disable-theme custom-enabled-themes)
-           (load-theme (if (listp +list-light-theme)
-                           (elt +list-light-theme
-                                (random (length +list-light-theme)))
-                         +list-light-theme)
-                       t))
-          ((eq theme-type 'dark)
-           (mapc #'disable-theme custom-enabled-themes)
-           (load-theme (if (listp +list-dark-theme)
-                           (elt +list-dark-theme
-                                (random (length +list-dark-theme)))
-                         +list-dark-theme)
-                       t))))
+  (defun yh/change-theme(appearance)
+    "Load theme according to the current system appearance."
+    (pcase appearance
+      ('light
+       (mapc #'disable-theme custom-enabled-themes)
+       (load-theme (if (listp +list-light-theme)
+                       (elt +list-light-theme
+                            (random (length +list-light-theme)))
+                     +list-light-theme)
+                   t))
+      ('dark
+       (mapc #'disable-theme custom-enabled-themes)
+       (load-theme (if (listp +list-dark-theme)
+                       (elt +list-dark-theme
+                            (random (length +list-dark-theme)))
+                     +list-dark-theme)
+                   t))))
   (add-hook 'ns-system-appearance-change-functions #'yh/change-theme))
 
 ;; 设定popup的窗口形式为右侧开启，宽度为40%
