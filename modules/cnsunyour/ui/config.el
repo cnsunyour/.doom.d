@@ -184,9 +184,3 @@
 ;; (pushnew! initial-frame-alist '(width . 200) '(height . 48))
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
-
-(use-package! emojify
-  :config
-  (setq emojify-point-entered-behaviour 'uncover)
-  :hook
-  (telega-chat-mode . emojify-mode))
