@@ -154,7 +154,8 @@
        (python
         +lsp
         +pyenv
-        +conda)
+        +conda
+        +pyright)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;; rest              ; Emacs as a REST client
