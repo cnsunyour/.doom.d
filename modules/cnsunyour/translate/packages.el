@@ -3,3 +3,4 @@
 
 (package! youdao-dictionary)
 (package! fanyi)
+(package! go-translate)
