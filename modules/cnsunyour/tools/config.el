@@ -31,7 +31,7 @@
 ;; Automatically save file content
 (use-package! auto-save
   :config
-  (setq auto-save-idle 10
+  (setq auto-save-idle 15
         auto-save-silent nil
         auto-save-delete-trailing-whitespace nil)
   (auto-save-enable))
