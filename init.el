@@ -211,7 +211,7 @@
        org
        ;; tabnine
        telega
-       ;; term
+       term
        tools
        translate
        ui
