@@ -42,12 +42,6 @@
         telega-chat-input-prompt '((prompt . ">>> ")
                                    (reply . "<<< ")
                                    (edit . "+++ "))
-        telega-chat-input-anonymous-prompt '((prompt . "Anonymous>>> ")
-                                             (reply . "Anonymous<<< ")
-                                             (edit . "Anonymous+++ "))
-        telega-chat-input-comment-prompt '((prompt . "Comment>>> ")
-                                           (reply . "Comment<<< ")
-                                           (edit . "Comment+++ "))
         telega-mode-line-string-format (cl-remove '(:eval (telega-mode-line-icon))
                                                   telega-mode-line-string-format
                                                   :test #'equal))
