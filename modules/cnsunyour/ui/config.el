@@ -145,8 +145,8 @@
 ;; (global-visual-line-mode 1)
 
 ;; To fix the issue: Unable to load color "brightblack"
-(after! hl-fill-column
-  (set-face-background 'hl-fill-column-face "#555555"))
+;; (after! hl-fill-column
+;;   (set-face-background 'hl-fill-column-face "#555555"))
 
 ;; (after! doom-modeline
 ;;   (setq doom-modeline-icon t
@@ -157,15 +157,15 @@
 ;;         doom-modeline-enable-word-count t
 ;;         doom-modeline-indent-info t))
 
-(after! lsp-ui
-  (setq lsp-ui-doc-position 'at-point
-        lsp-ui-flycheck-enable t
-        lsp-ui-sideline-ignore-duplicate t
-        lsp-ui-sideline-update-mode 'point
-        lsp-enable-file-watchers nil
-        lsp-ui-doc-enable t)
-  (if (featurep 'xwidget-internal)
-      (setq lsp-ui-doc-use-webkit t)))
+;; (after! lsp-ui
+;;   (setq lsp-ui-doc-position 'at-point
+;;         lsp-ui-flycheck-enable t
+;;         lsp-ui-sideline-ignore-duplicate t
+;;         lsp-ui-sideline-update-mode 'point
+;;         lsp-enable-file-watchers nil
+;;         lsp-ui-doc-enable t)
+;;   (if (featurep 'xwidget-internal)
+;;       (setq lsp-ui-doc-use-webkit t)))
 
 ;; 拆分窗口时默认把焦点定在新窗口，doom为了和vim保持一致，竟然把这点改回去了
 (setq evil-split-window-below t
