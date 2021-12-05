@@ -39,6 +39,7 @@
         ;; telega-root-fill-column 80
         ;; telega-chat-fill-column 80
         telega-symbol-folder "📁"
+        telega-symbol-reply "←"
         telega-chat-input-prompt '((prompt . ">>> ")
                                    (reply . "<<< ")
                                    (edit . "+++ "))
