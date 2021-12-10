@@ -38,6 +38,7 @@
   (map!
    "C-c s u" #'slack-select-unread-rooms
    "C-c s r" #'slack-select-rooms
+   "C-c s t" #'slack-all-threads
    "C-c s i" #'slack-im-select
    "C-c s c" #'slack-channel-select
    "C-c s g" #'slack-group-select)
