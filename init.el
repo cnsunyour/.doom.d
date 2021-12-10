@@ -211,6 +211,7 @@
        org
        ;; tabnine
        telega
+       slack
        term
        tools
        translate
