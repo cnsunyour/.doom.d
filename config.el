@@ -86,3 +86,6 @@
 
 (after! so-long
   (setq so-long-threshold 1000))
+
+(when (featurep! :app rss)
+  (add-hook! 'elfeed-search-mode-hook 'elfeed-update))
