@@ -3,53 +3,44 @@
 (use-cjk-char-width-table 'zh_CN)
 
 (when (display-graphic-p)
-  (defun cnsunyour/set-doom-font ()
-    "Set random font family and size."
-    (let* (
-           ;; (fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
-           ;;                   (cl-remove-duplicates (font-family-list))))
-           ;; (fonts (cl-remove-if
-           ;;         (lambda (elf) (not (member elf fontlist)))
-           ;;         '("Sarasa Mono SC"
-           ;;           "Sarasa Mono Slab SC"
-           ;;           "等距更纱黑体 SC"
-           ;;           "等距更纱黑体 Slab SC"
-           ;;           "Noto Sans Mono CJK SC"
-           ;;           "WenQuanYi Zen Hei Mono"
-           ;;           "文泉驿等宽正黑")))
-           ;; (font (elt fonts (random (length fonts))))
-           (font "Sarasa Mono SC")
-           (font-variable "Sarasa Gothic SC")
-           (font-size (if (and (>= (x-display-pixel-width) 1600)
-                               (>= (x-display-pixel-height) 1000))
-                          16 14)))
-      (when (and font font-variable font-size)
-         (setq doom-font (font-spec :family font :size font-size)
-              doom-serif-font (font-spec :family font :size font-size)
-              doom-variable-pitch-font (font-spec :family font-variable :size font-size))
-         (add-hook! emacs-startup :append
-                   (set-fontset-font t 'cjk-misc font nil 'prepend)
-                   (set-fontset-font t 'han font nil 'prepend)))))
-                   ;; (set-fontset-font t ?中 font nil 'prepend)
-                   ;; (set-fontset-font t ?言 font nil 'prepend)
+  (let* (
+         ;; (fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
+         ;;                   (cl-remove-duplicates (font-family-list))))
+         ;; (fonts (cl-remove-if
+         ;;         (lambda (elf) (not (member elf fontlist)))
+         ;;         '("Sarasa Mono SC"
+         ;;           "Sarasa Mono Slab SC"
+         ;;           "等距更纱黑体 SC"
+         ;;           "等距更纱黑体 Slab SC"
+         ;;           "Noto Sans Mono CJK SC"
+         ;;           "WenQuanYi Zen Hei Mono"
+         ;;           "文泉驿等宽正黑")))
+         ;; (font (elt fonts (random (length fonts))))
+         (font "JetBrains Mono")
+         (font-variable "JetBrains Mono")
+         (font-chinese "PingFang SC")
+         (font-size (if (and (>= (x-display-pixel-width) 1600)
+                             (>= (x-display-pixel-height) 1000))
+                        16 14))
+         )
+    (when (and font font-variable font-size)
+      (setq doom-font (font-spec :family font :size font-size)
+            doom-serif-font (font-spec :family font :size font-size)
+            doom-variable-pitch-font (font-spec :family font-variable :size font-size))
+      (add-hook! emacs-startup :append
+        (set-fontset-font t 'cjk-misc font-chinese nil 'prepend)
+        (set-fontset-font t 'han font-chinese nil 'prepend)
+        ;; (set-fontset-font t ?中 font-chinese nil 'prepend)
+        ;; (set-fontset-font t ?言 font-chinese nil 'prepend)
+        )))
 
-  ;; (doom/reload-font))))
-  ;; Set default font when theme changed.
-  ;; (add-hook 'doom-load-theme-hook #'cnsunyour/set-doom-font)
-  ;; Or, you can set it manually now.
-  (cnsunyour/set-doom-font))
-
-(defun cnsunyour/set-splash-image ()
-  "Set random splash image."
-  (setq fancy-splash-image
-        (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
-                                        'full
-                                        (rx ".png" eos))))
-          (elt banners (random (length banners))))))
-;; Set splash image when theme changed.
-(add-hook 'doom-load-theme-hook #'cnsunyour/set-splash-image)
-;; Or, you can set it manually now.
-;; (cnsunyour/set-splash-image)
+  (add-hook! 'doom-load-theme-hook
+    (setq fancy-splash-image
+          (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
+                                          'full
+                                          (rx ".png" eos))))
+            (elt banners (random (length banners))))))
+  )
 
 ;;
 ;; 每天根据日出日落时间(非macOS)或跟随macOS系统自动换主题
