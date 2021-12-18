@@ -43,8 +43,7 @@
         telega-chat-input-prompt '((prompt . ">>> ")
                                    (reply . "<<< ")
                                    (edit . "+++ "))
-        telega-mode-line-string-format '(" "
-                                         (:eval
+        telega-mode-line-string-format '((:eval
                                           (car
                                            (telega-account-current)))
                                          (:eval
