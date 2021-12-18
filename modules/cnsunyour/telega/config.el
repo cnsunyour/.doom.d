@@ -43,9 +43,16 @@
         telega-chat-input-prompt '((prompt . ">>> ")
                                    (reply . "<<< ")
                                    (edit . "+++ "))
-        telega-mode-line-string-format (cl-remove '(:eval (telega-mode-line-icon))
-                                                  telega-mode-line-string-format
-                                                  :test #'equal))
+        telega-mode-line-string-format '(" "
+                                         (:eval
+                                          (car
+                                           (telega-account-current)))
+                                         (:eval
+                                          (telega-mode-line-online-status))
+                                         (:eval
+                                          (telega-mode-line-unread-unmuted))
+                                         (:eval
+                                          (telega-mode-line-mentions 'messages))))
 
   (when (featurep! :completion ivy) (load! "+ivy-telega"))
 
