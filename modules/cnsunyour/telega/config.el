@@ -31,7 +31,7 @@
   ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
   ;;                         :type (:@type "proxyTypeSocks5"))))
   (setq telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN))
-        telega-use-tracking-for '(or mention (and unread unmuted))
+        ;; telega-use-tracking-for '(or mention (and unread unmuted))
         ;; telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(video video-note)
         telega-emoji-company-backend 'telega-company-telegram-emoji
