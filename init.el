@@ -140,7 +140,6 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml           ; an objective camel
        (org              ; organize your plain life in plain text
-        +brain
         +dragndrop       ; file drag & drop support
         +gnuplot
         +hugo
@@ -148,7 +147,7 @@
         +jupyter
         +pandoc          ; pandoc integration into org's exporter
         +pomodoro
-        +roam
+        +roam2
         +present)        ; using Emacs for presentations
        ;; perl              ; write code no one else can comprehend
        (php +lsp)                ; perl's insecure younger brother
@@ -169,7 +168,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;; (web +lsp)               ; the tubes
+       (web +lsp)               ; the tubes
        ;;vala              ; GObjective-C
 
        :email
