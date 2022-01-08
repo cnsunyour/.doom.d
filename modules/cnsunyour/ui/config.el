@@ -164,7 +164,7 @@
 
 ;; Line numbers are pretty slow all around. The performance boost of
 ;; disabling them outweighs the utility of always keeping them on.
-(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type 'relative)
 
 ;; 调整Mac下窗口和全屏显示方式
 (when (eq window-system 'ns)
