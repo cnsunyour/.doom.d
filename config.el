@@ -90,7 +90,8 @@
 (when (featurep! :app rss)
   (add-hook! 'elfeed-search-mode-hook 'elfeed-update))
 
-(after! php-mode
-  (setq lsp-intelephense-licence-key
-        (auth-source-pick-first-password
-         :host "intelephense")))
+(when (featurep! :lang php +lsp)
+  (after! php-mode
+    (setq lsp-intelephense-licence-key
+          (auth-source-pick-first-password
+           :host "intelephense"))))
