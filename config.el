@@ -95,3 +95,7 @@
     (setq lsp-intelephense-licence-key
           (auth-source-pick-first-password
            :host "intelephense"))))
+
+(setq lsp-intelephense-multi-root nil
+      lsp-pyright-multi-root nil
+      lsp-solargraph-multi-root nil)
