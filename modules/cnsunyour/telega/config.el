@@ -27,10 +27,11 @@
   (telega-load . telega-autoplay-mode)
 
   :config
-  (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
+  (add-hook 'telega-msg-ignore-predicates
+            (telega-match-gen-predicate "msg-" '(sender blocked)))
   ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
   ;;                         :type (:@type "proxyTypeSocks5"))))
-  (setq telega-chat-show-deleted-messages-for '(or pin (me-is-owner OR-ADMIN))
+  (setq telega-chat-show-deleted-messages-for '(me-is-owner OR-ADMIN)
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
         ;; telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(video video-note)
