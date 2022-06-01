@@ -31,18 +31,16 @@
 
 
 (when (display-graphic-p)
-  (make-face 'my-align-for-font)
-  (set-face-font 'my-align-for-font doom-font)
-  (defun my-align-with-sarasa-font ()
+  (make-face 'my-telega-face)
+  (set-face-font 'my-telega-face doom-font)
+
+  (defun telega-buffer-face-mode-variable ()
     (interactive)
-    (set (make-variable-buffer-local 'buffer-face-mode-face) 'my-align-for-font)
+    (set (make-variable-buffer-local 'buffer-face-mode-face) 'my-telega-face)
     (make-variable-buffer-local 'face-font-rescale-alist)
-    ;; make symbols smaller
     (add-to-list 'face-font-rescale-alist '("-Noto Color Emoji-" . 0.8))
     (add-to-list 'face-font-rescale-alist '("-Apple Color Emoji-" . 0.8))
-    (add-to-list 'face-font-rescale-alist '("-Noto Sans Symbols-" . 0.8))
-    (add-to-list 'face-font-rescale-alist '("-Noto Sans Symbols2-" . 0.8))
-    (add-to-list 'face-font-rescale-alist '("-Symbola-" . 0.8))
-    (buffer-face-mode 1))
-  (add-hook! '(telega-root-mode-hook telega-chat-mode-hook)
-             #'my-align-with-sarasa-font))
+    (buffer-face-mode))
+
+  (add-hook 'telega-root-mode-hook 'telega-buffer-face-mode-variable)
+  (add-hook 'telega-chat-mode-hook 'telega-buffer-face-mode-variable))
