@@ -24,6 +24,8 @@
 
       :g "C-!" #'kill-buffer-and-window
       :g "C-s-S-l" #'toggle-truncate-lines
+      :g "M-o" #'evil-window-next
+      :g "M-O" #'evil-window-prev
 
       (:when (featurep! :ui workspaces)
         "C-M-S-s-w" #'=calendar)
