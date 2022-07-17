@@ -18,6 +18,9 @@
 ;;   (define-key key-translation-map (kbd "s-9") (kbd "M-9"))
 ;;   (define-key key-translation-map (kbd "s-0") (kbd "M-0")))
 
+;; add keybindings for dired+ranger
+(when (featurep! :emacs dired +ranger)
+  (setq ranger-key [?\C-\s-p]))
 
 ;; general keybindings
 (map! (:leader (:prefix "b" "h" #'+doom-dashboard/open))
