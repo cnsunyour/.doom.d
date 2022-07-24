@@ -62,3 +62,7 @@
 ;;   :config
 ;;   (keyfreq-mode 1)
 ;;   (keyfreq-autosave-mode 1))
+
+;; use magit-status in vterm
+(after! vterm
+  (add-to-list 'vterm-eval-cmds '("magit-status" magit-status)))
