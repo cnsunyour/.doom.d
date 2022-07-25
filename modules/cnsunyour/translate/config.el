@@ -105,12 +105,16 @@
         gts-default-translator
         (gts-translator
          :picker (gts-noprompt-picker)
-         :engines (list (gts-google-engine))
+         :engines (list (gts-bing-engine)
+                        (gts-google-engine)
+                        (gts-google-rpc-engine))
          :render (gts-buffer-render)))
   (defvar my-gts-translator
     (gts-translator
      :picker (gts-prompt-picker)
-     :engines (list (gts-google-engine))
+     :engines (list (gts-bing-engine)
+                    (gts-google-engine)
+                    (gts-google-rpc-engine))
      :render (gts-buffer-render)))
   (defun my-gts-do-translate()
     (interactive)
