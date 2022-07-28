@@ -66,3 +66,7 @@
 ;; use magit-status in vterm
 (after! vterm
   (add-to-list 'vterm-eval-cmds '("magit-status" magit-status)))
+
+(use-package! ialign
+  :commands ialign
+  :bind ("C-S-s-i" . #'ialign))
