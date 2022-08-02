@@ -212,8 +212,9 @@
        org
        ;; tabnine
        telega
-       slack
-       term
+       ;; ement
+       ;; slack
+       ;; term
        tools
        translate
        ui
