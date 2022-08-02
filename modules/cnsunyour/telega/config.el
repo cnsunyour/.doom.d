@@ -66,10 +66,10 @@
     'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :slot 10 :size (+ telega-chat-fill-column 12) :ttl nil :quit 'current :modeline t)
+    :side 'right :size (+ telega-chat-fill-column 13) :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :side 'right :slot 10 :size (+ telega-chat-fill-column 13) :ttl 10 :quit 'current :modeline t)
+    :side 'right :size (+ telega-chat-fill-column 13) :ttl 10 :quit 'current :modeline t)
   (set-popup-rule! (regexp-quote "*Telega Instant View*")
-    :side 'right :slot 20 :width telega-webpage-fill-column :height 0.5 :ttl 10 :quit t :modeline nil)
+    :side 'right :slot 10 :width telega-webpage-fill-column :height 0.5 :ttl 10 :quit t :modeline nil)
 
   (load! "+telega-addition"))
