@@ -38,6 +38,8 @@
         telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
         ;; telega-chat-fill-column 78
+        telega-root-fill-column (+ telega-chat-fill-column 10)
+        telega-root-auto-fill-mode nil
         telega-symbol-folder "📁"
         telega-symbol-reply "←"
         telega-mode-line-string-format '((:eval
