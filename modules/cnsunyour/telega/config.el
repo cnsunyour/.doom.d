@@ -42,15 +42,10 @@
         telega-root-auto-fill-mode nil
         telega-symbol-folder "📁"
         telega-symbol-reply "←"
-        telega-mode-line-string-format '((:eval
-                                          (car
-                                           (telega-account-current)))
-                                         (:eval
-                                          (telega-mode-line-online-status))
-                                         (:eval
-                                          (telega-mode-line-unread-unmuted))
-                                         (:eval
-                                          (telega-mode-line-mentions 'messages))))
+        telega-mode-line-string-format (remove
+                                        '(:eval (telega-mode-line-icon))
+                                        telega-mode-line-string-format)
+        )
 
   (when (featurep! :completion ivy) (load! "+ivy-telega"))
 
