@@ -4,10 +4,8 @@
 (use-package! telega
   :defer t
 
-  :bind-keymap*
-  ("C-c t" . telega-prefix-map)
-
   :init
+  (define-key global-map (kbd "C-c t") telega-prefix-map)
   (unless (display-graphic-p) (setq telega-use-images nil))
   (pushnew! +evil-collection-disabled-list 'telega)
 
