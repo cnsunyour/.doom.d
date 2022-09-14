@@ -19,7 +19,7 @@
 
 
 (use-package! mu4e-alert
-  :when (featurep! :email mu4e)
+  :when (modulep! :email mu4e)
   :after mu4e
   :config
   (setq doom-modeline-mu4e t
@@ -30,7 +30,7 @@
   (mu4e-alert-enable-mode-line-display))
 
 ;; mu4e
-(when (featurep! :email mu4e)
+(when (modulep! :email mu4e)
   (setenv "XAPIAN_CJK_NGRAM" "1")
 
   (after! mu4e
@@ -189,7 +189,7 @@
 
 
 ;; notmuch
-(when (featurep! :email notmuch)
+(when (modulep! :email notmuch)
   (after! notmuch
     (setq +notmuch-sync-backend 'offlineimap)
     (setq +notmuch-mail-folder "~/.mail")))

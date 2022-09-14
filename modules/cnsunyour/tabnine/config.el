@@ -3,7 +3,7 @@
 
 ;; tabnine，一个非常牛的补全插件
 (use-package! company-tabnine
-  :when (featurep! :completion company)
+  :when (modulep! :completion company)
   :hook
   (kill-emacs . company-tabnine-kill-process)
   (lsp-after-open . (lambda ()

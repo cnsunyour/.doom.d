@@ -4,7 +4,7 @@
   (setq mac-command-modifier 'super
         mac-option-modifier 'meta))
 
-;; (when (featurep! :ui workspaces)
+;; (when (modulep! :ui workspaces)
 ;;   (global-set-key (kbd "s-[") #'+workspace/switch-left)
 ;;   (global-set-key (kbd "s-]") #'+workspace/switch-right)
 ;;   (define-key key-translation-map (kbd "s-1") (kbd "M-1"))
@@ -19,7 +19,7 @@
 ;;   (define-key key-translation-map (kbd "s-0") (kbd "M-0")))
 
 ;; add keybindings for dired+ranger
-(when (featurep! :emacs dired +ranger)
+(when (modulep! :emacs dired +ranger)
   (setq ranger-key [?\C-\s-p]))
 
 ;; general keybindings
@@ -30,16 +30,16 @@
       :g "M-o" #'evil-window-next
       :g "M-O" #'evil-window-prev
 
-      (:when (featurep! :ui workspaces)
+      (:when (modulep! :ui workspaces)
         "C-M-S-s-w" #'=calendar)
 
-      (:when (featurep! :app rss)
+      (:when (modulep! :app rss)
         "C-M-S-s-r" #'=rss)
 
-      (:when (featurep! :email mu4e)
+      (:when (modulep! :email mu4e)
         "C-M-S-s-e" #'=mu4e)
 
-      (:when (featurep! :email notmuch)
+      (:when (modulep! :email notmuch)
         "C-M-S-s-e" #'=notmuch)
 
       (:map evil-treemacs-state-map

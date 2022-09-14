@@ -45,7 +45,7 @@
                                         telega-mode-line-string-format)
         )
 
-  (when (featurep! :completion ivy) (load! "+ivy-telega"))
+  (when (modulep! :completion ivy) (load! "+ivy-telega"))
 
   (map! :map telega-chat-mode-map
         "C-c C-t" #'telega-chatbuf-attach-sticker
@@ -65,6 +65,6 @@
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
     :side 'right :size (+ telega-chat-fill-column 13) :ttl 10 :quit 'current :modeline t)
   (set-popup-rule! (regexp-quote "*Telega Instant View*")
-    :side 'right :slot 10 :width telega-webpage-fill-column :height 0.5 :ttl 10 :quit t :modeline nil)
+    :side 'left :width telega-webpage-fill-column :height 0.5 :ttl 10 :quit t :modeline nil)
 
   (load! "+telega-addition"))

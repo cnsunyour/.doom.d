@@ -81,16 +81,16 @@
       which-key-idle-secondary-delay 0.0)
 
 (after! warnings
-  (when (featurep! :emacs undo)
+  (when (modulep! :emacs undo)
     (add-to-list 'warning-suppress-types '(undo discard-info))))
 
 (after! so-long
   (setq so-long-threshold 1000))
 
-(when (featurep! :app rss)
+(when (modulep! :app rss)
   (add-hook! 'elfeed-search-mode-hook 'elfeed-update))
 
-(when (featurep! :lang php +lsp)
+(when (modulep! :lang php +lsp)
   (after! php-mode
     (setq lsp-intelephense-licence-key
           (auth-source-pick-first-password
