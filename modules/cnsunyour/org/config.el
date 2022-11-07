@@ -7,6 +7,14 @@
 ;; and kandread's doom-emacs config
 ;; https://github.com/kandread/doom-emacs-private
 
+(use-package! company-org-block
+  :when (modulep! :completion company)
+  :after (org company)
+  :custom
+  (company-org-block-edit-style 'auto) ;; 'auto, 'prompt, or 'inline
+  :config
+  (set-company-backend! 'org-mode 'company-org-block))
+
 (use-package! counsel-org-clock
   :commands (counsel-org-clock-context
              counsel-org-clock-history))
