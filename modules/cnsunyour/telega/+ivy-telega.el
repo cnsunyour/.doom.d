@@ -48,6 +48,7 @@
       :desc "Telega next important chat"
       "C-c SPC" (cmd! (let ((current-prefix-arg '(16)))
                         (call-interactively #'ivy-telega-chat-with)))
+      :desc "Telega next important chat"
       "C-c C-SPC" (cmd! (let ((current-prefix-arg '(16)))
                         (call-interactively #'ivy-telega-chat-with)))
       )
