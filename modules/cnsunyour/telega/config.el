@@ -12,8 +12,6 @@
   :hook
   ;; (telega-chat-mode . yas-minor-mode-on)
   ;; (telega-chat-mode . visual-line-mode)
-  (telega-root-mode . (lambda () (toggle-truncate-lines -1)))
-  (telega-chat-mode . (lambda () (toggle-truncate-lines -1)))
   (telega-chat-mode . (lambda ()
                         (set-company-backend! 'telega-chat-mode
                           (append (list telega-emoji-company-backend
