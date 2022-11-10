@@ -29,12 +29,9 @@
         "dD" #'dash-at-point-with-docset))
 
 ;; Automatically save file content
-(use-package! auto-save
+(use-package! super-save
   :config
-  (setq auto-save-idle 15
-        auto-save-silent nil
-        auto-save-delete-trailing-whitespace nil)
-  (auto-save-enable))
+  (super-save-mode +1))
 
 ;; neopastebin -- emacs pastebin interface
 (use-package! neopastebin

@@ -6,8 +6,7 @@
 (package! dash-at-point)
 ;; (package! posframe)
 (package! alert)
-(package! auto-save
-  :recipe (:host github :repo "manateelazycat/auto-save"))
+(package! super-save)
 (package! neopastebin
   :pin "1e088e75ae1b332f51b9bc3cd65eb3df3d3c4609"
   :recipe (:host github :repo "cnsunyour/emacs-pastebin"))
