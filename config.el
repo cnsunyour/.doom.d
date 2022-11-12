@@ -68,13 +68,6 @@
 ;; Execute `garbage-collect' when emacs is idle for a specified time.
 ;; (run-with-idle-timer 300 t #'garbage-collect)
 
-;; execute php-cs-fixer before save .php file
-;; cleanup trailing whitespaces before save buffers.
-(add-hook! before-save
-           #'php-cs-fixer-before-save
-           #'delete-trailing-whitespace
-           #'whitespace-cleanup)
-
 (setenv "SSH_AUTH_SOCK" "/Users/yaohui/.gnupg/S.gpg-agent.ssh")
 
 (setq which-key-idle-delay 1.0
@@ -91,11 +84,13 @@
   (add-hook! 'elfeed-search-mode-hook 'elfeed-update))
 
 (when (modulep! :lang php +lsp)
+  (add-hook! before-save #'php-cs-fixer-before-save)
   (after! php-mode
     (setq lsp-intelephense-licence-key
           (auth-source-pick-first-password
            :host "intelephense"))))
 
-(setq lsp-intelephense-multi-root nil
-      lsp-pyright-multi-root nil
-      lsp-solargraph-multi-root nil)
+(when (modulep! :tools lsp)
+  (setq lsp-intelephense-multi-root nil
+        lsp-pyright-multi-root nil
+        lsp-solargraph-multi-root nil))
