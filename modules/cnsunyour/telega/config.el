@@ -34,7 +34,7 @@
         ;; telega-open-message-as-file '(video video-note)
         telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
-        ;; telega-chat-fill-column 78
+        telega-chat-fill-column 88
         telega-root-fill-column (+ telega-chat-fill-column 10)
         telega-root-auto-fill-mode nil
         telega-symbol-folder "📁"
@@ -61,7 +61,7 @@
     'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'right :size (+ telega-chat-fill-column 13) :ttl nil :quit 'current :modeline t)
+    :side 'right :size (+ telega-root-fill-column 3) :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
     :side 'right :size (+ telega-chat-fill-column 13) :ttl 10 :quit 'current :modeline t)
   (set-popup-rule! (regexp-quote "*Telega Instant View*")
