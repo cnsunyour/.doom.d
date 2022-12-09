@@ -38,6 +38,7 @@
         telega-chat-fill-column 88
         telega-root-fill-column (+ telega-chat-fill-column 10)
         telega-root-auto-fill-mode nil
+        telega-translate-to-language-by-default "zh"
         telega-mode-line-string-format (remove
                                         '(:eval (telega-mode-line-icon))
                                         telega-mode-line-string-format))
