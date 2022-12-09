@@ -16,23 +16,28 @@
          ;;           "WenQuanYi Zen Hei Mono"
          ;;           "文泉驿等宽正黑")))
          ;; (font (elt fonts (random (length fonts))))
-         (font "JetBrains Mono")
-         (font-variable "JetBrains Mono")
-         (font-chinese "PingFang SC")
+         (font "Sarasa Mono SC")
+         (font-chinese "Sarasa Mono SC")
          (font-size (if (and (>= (x-display-pixel-width) 1600)
                              (>= (x-display-pixel-height) 1000))
-                        16 14))
-         )
-    (when (and font font-variable font-size)
-      (setq doom-font (font-spec :family font :size font-size)
-            doom-serif-font (font-spec :family font :size font-size)
-            doom-variable-pitch-font (font-spec :family font-variable :size font-size))
-      (add-hook! emacs-startup :append
-        (set-fontset-font t 'cjk-misc font-chinese nil 'prepend)
-        (set-fontset-font t 'han font-chinese nil 'prepend)
-        ;; (set-fontset-font t ?中 font-chinese nil 'prepend)
-        ;; (set-fontset-font t ?言 font-chinese nil 'prepend)
-        )))
+                        18 16)))
+    (setq doom-font (font-spec :family font :size font-size))
+    (add-hook! emacs-startup :append
+               ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
+               ;; (set-fontset-font t 'symbol "Apple Color Emoji" nil 'prepend)
+               ;; (set-fontset-font t 'symbol "Symbola" nil 'append)
+               ;; (set-fontset-font t 'symbol "Noto Color Emoji" nil 'prepend)
+               ;; (set-fontset-font t 'symbol "Liberation Mono" nil 'prepend)
+               ;; (set-fontset-font t 'symbol "Noto Sans Symbols2" nil 'prepend)
+               ;; (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+               ;; (set-fontset-font t 'symbol "Twitter Color Emoji" nil 'prepend)
+               ;; (set-fontset-font t 'symbol "FreeSerif" nil 'prepend)
+               ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
+               (set-fontset-font t 'han font-chinese nil 'prepend)
+               (set-fontset-font t 'kana font-chinese nil 'prepend)
+               (set-fontset-font t 'hangul font-chinese nil 'prepend)
+               (set-fontset-font t 'cjk-misc font-chinese nil 'prepend))
+    )
 
   (add-hook! 'doom-load-theme-hook
     (setq fancy-splash-image
