@@ -14,7 +14,8 @@
                         (set-company-backend! 'telega-chat-mode
                           (append (list telega-emoji-company-backend
                                         'telega-company-username
-                                        'telega-company-hashtag)
+                                        'telega-company-hashtag
+                                        'telega-company-markdown-precode)
                                   (when (telega-chat-bot-p telega-chatbuf--chat)
                                     '(telega-company-botcmd))))))
   (telega-load . telega-mode-line-mode)
