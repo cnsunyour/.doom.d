@@ -38,12 +38,9 @@
         telega-chat-fill-column 88
         telega-root-fill-column (+ telega-chat-fill-column 10)
         telega-root-auto-fill-mode nil
-        telega-symbol-folder "📁"
-        telega-symbol-reply "←"
         telega-mode-line-string-format (remove
                                         '(:eval (telega-mode-line-icon))
-                                        telega-mode-line-string-format)
-        )
+                                        telega-mode-line-string-format))
 
   (when (modulep! :completion ivy) (load! "+ivy-telega"))
 
