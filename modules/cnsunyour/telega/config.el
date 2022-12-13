@@ -47,9 +47,7 @@
 
   (map! :map telega-chat-mode-map
         "C-c C-e" #'telega-chatbuf-attach-sticker
-        "C-c C-t" #'telega-auto-translate-mode
-        :map telega-msg-button-map
-        "k" nil)
+        "C-c C-t" #'telega-auto-translate-mode)
 
   (load! "+telega-auto-input-method")
 
