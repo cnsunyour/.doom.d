@@ -94,3 +94,9 @@
   (setq lsp-intelephense-multi-root nil
         lsp-pyright-multi-root nil
         lsp-solargraph-multi-root nil))
+
+(after! magit
+  (require 'forge)
+  (setq magit-revision-show-gravatars t))
+
+(load (expand-file-name ".private.el" doom-user-dir) t)

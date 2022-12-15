@@ -24,6 +24,7 @@ auto-save-list
 tramp
 .\#*
 .custom.el
+.private.el
 
 # Org-mode
 .org-id-locations
