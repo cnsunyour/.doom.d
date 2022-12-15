@@ -219,9 +219,5 @@
        ui
        love)
 
-(setq custom-file (expand-file-name ".custom.el" doom-private-dir))
+(setq custom-file (expand-file-name ".custom.el" doom-user-dir))
 (load custom-file t)
-
-;; load forge after magit
-(with-eval-after-load 'magit
-  (require 'forge))
