@@ -13,3 +13,5 @@
 ;; (package! keyfreq
 ;;   :recipe (:host github :repo "dacap/keyfreq"))
 (package! ialign)
+(package! chatgpt
+  :recipe (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el")))
