@@ -10,23 +10,17 @@
                                           (rx ".png" eos))))
             (elt banners (random (length banners))))))
 
-  (setq doom-symbol-fallback-font-families
-        (cl-remove-duplicates
-         (append doom-symbol-fallback-font-families
-                 '("Segoe UI Symbol"
-                   "Apple Symbols"
-                   "Noto Sans Symbols 2"
-                   "Symbola"))
-         :test #'equal)
-        doom-emoji-fallback-font-families
-        (cl-remove-duplicates
-         (append doom-emoji-fallback-font-families
-                 '("Apple Color Emoji"
+  (dolist (symbol '("Segoe UI Symbol"
+                    "Apple Symbols"
+                    "Noto Sans Symbols 2"
+                    "Symbola"))
+    (add-to-list 'doom-symbol-fallback-font-families symbol t))
+  (dolist (emoji '("Apple Color Emoji"
                    "Segoe UI Emoji"
                    "Twitter Color Emoji"
                    "Noto Color Emoji"
                    "Noto Emoji"))
-         :test #'equal))
+    (add-to-list 'doom-emoji-fallback-font-families emoji t))
 
   (let* ((fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
                            (cl-remove-duplicates (font-family-list) :test #'equal)))
