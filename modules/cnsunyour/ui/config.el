@@ -3,6 +3,13 @@
 (use-cjk-char-width-table 'zh_CN)
 
 (when (display-graphic-p)
+  (add-hook! 'doom-load-theme-hook
+    (setq fancy-splash-image
+          (let ((banners (directory-files (expand-file-name "banner" doom-user-dir)
+                                          'full
+                                          (rx ".png" eos))))
+            (elt banners (random (length banners))))))
+
   (let* (
          ;; (fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
          ;;                   (cl-remove-duplicates (font-family-list))))
@@ -22,30 +29,37 @@
                              (>= (x-display-pixel-height) 1000))
                         18 16)))
     (setq doom-font (font-spec :family font :size font-size))
-    (add-hook! emacs-startup :append
-               ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
-               ;; (set-fontset-font t 'symbol "Apple Color Emoji" nil 'prepend)
-               ;; (set-fontset-font t 'symbol "Symbola" nil 'append)
-               ;; (set-fontset-font t 'symbol "Noto Color Emoji" nil 'prepend)
-               ;; (set-fontset-font t 'symbol "Liberation Mono" nil 'prepend)
-               ;; (set-fontset-font t 'symbol "Noto Sans Symbols2" nil 'prepend)
-               ;; (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
-               ;; (set-fontset-font t 'symbol "Twitter Color Emoji" nil 'prepend)
-               ;; (set-fontset-font t 'symbol "FreeSerif" nil 'prepend)
-               ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
-               (set-fontset-font t 'han font-chinese nil 'prepend)
-               (set-fontset-font t 'kana font-chinese nil 'prepend)
-               (set-fontset-font t 'hangul font-chinese nil 'prepend)
-               (set-fontset-font t 'cjk-misc font-chinese nil 'prepend))
-    )
+    (add-to-list 'doom-symbol-fallback-font-families "Twitter Color Emoji" t)
+    (add-to-list 'doom-emoji-fallback-font-families "Twitter Color Emoji" t)
+    (when (fboundp 'set-fontset-font)
+      (add-hook! emacs-startup :append
+                 ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
+                 ;; (set-fontset-font t 'symbol "Apple Color Emoji" nil 'prepend)
+                 ;; (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+                 ;; (set-fontset-font t 'symbol "Twitter Color Emoji" nil 'prepend)
+                 ;; (set-fontset-font t 'symbol "Noto Color Emoji" nil 'prepend)
+                 ;; (set-fontset-font t 'symbol "Noto Sans Symbols2" nil 'prepend)
+                 ;; (set-fontset-font t 'symbol "Symbola" nil 'append)
+                 ;; (set-fontset-font t 'symbol "Liberation Mono" nil 'prepend)
+                 ;; (set-fontset-font t 'symbol "FreeSerif" nil 'prepend)
+                 ;; (set-fontset-font t 'emoji "Apple Color Emoji" nil 'prepend)
+                 ;; (set-fontset-font t 'emoji "Segoe UI Emoji" nil 'append)
+                 ;; (set-fontset-font t 'emoji "Twitter Color Emoji" nil 'prepend)
+                 ;; (set-fontset-font t 'emoji "Noto Color Emoji" nil 'prepend)
+                 ;; (set-fontset-font t 'emoji "Noto Sans Symbols2" nil 'prepend)
+                 ;; (set-fontset-font t 'emoji "Symbola" nil 'append)
+                 ;; (set-fontset-font t 'emoji "Liberation Mono" nil 'prepend)
+                 ;; (set-fontset-font t 'emoji "FreeSerif" nil 'prepend)
 
-  (add-hook! 'doom-load-theme-hook
-    (setq fancy-splash-image
-          (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
-                                          'full
-                                          (rx ".png" eos))))
-            (elt banners (random (length banners))))))
-  )
+                 (let ((fn (doom-rpartial #'member (font-family-list))))
+                   (when-let (font-emoji (cl-find-if fn doom-emoji-fallback-font-families))
+                     (set-fontset-font t 'emoji font-emoji)))
+
+                 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
+                 (set-fontset-font t 'han font-chinese nil 'prepend)
+                 (set-fontset-font t 'kana font-chinese nil 'prepend)
+                 (set-fontset-font t 'hangul font-chinese nil 'prepend)
+                 (set-fontset-font t 'cjk-misc font-chinese nil 'prepend)))))
 
 ;;
 ;; 每天根据日出日落时间(非macOS)或跟随macOS系统自动换主题
