@@ -10,6 +10,24 @@
                                           (rx ".png" eos))))
             (elt banners (random (length banners))))))
 
+  (setq doom-symbol-fallback-font-families
+        (cl-remove-duplicates
+         (append doom-symbol-fallback-font-families
+                 '("Segoe UI Symbol"
+                   "Apple Symbols"
+                   "Noto Sans Symbols 2"
+                   "Symbola"))
+         :test #'equal)
+        doom-emoji-fallback-font-families
+        (cl-remove-duplicates
+         (append doom-emoji-fallback-font-families
+                 '("Apple Color Emoji"
+                   "Segoe UI Emoji"
+                   "Twitter Color Emoji"
+                   "Noto Color Emoji"
+                   "Noto Emoji"))
+         :test #'equal))
+
   (let* (
          ;; (fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
          ;;                   (cl-remove-duplicates (font-family-list))))
@@ -29,28 +47,9 @@
                              (>= (x-display-pixel-height) 1000))
                         18 16)))
     (setq doom-font (font-spec :family font :size font-size))
-    (add-to-list 'doom-symbol-fallback-font-families "Twitter Color Emoji" t)
-    (add-to-list 'doom-emoji-fallback-font-families "Twitter Color Emoji" t)
     (when (fboundp 'set-fontset-font)
       (add-hook! emacs-startup :append
                  ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
-                 ;; (set-fontset-font t 'symbol "Apple Color Emoji" nil 'prepend)
-                 ;; (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
-                 ;; (set-fontset-font t 'symbol "Twitter Color Emoji" nil 'prepend)
-                 ;; (set-fontset-font t 'symbol "Noto Color Emoji" nil 'prepend)
-                 ;; (set-fontset-font t 'symbol "Noto Sans Symbols2" nil 'prepend)
-                 ;; (set-fontset-font t 'symbol "Symbola" nil 'append)
-                 ;; (set-fontset-font t 'symbol "Liberation Mono" nil 'prepend)
-                 ;; (set-fontset-font t 'symbol "FreeSerif" nil 'prepend)
-                 ;; (set-fontset-font t 'emoji "Apple Color Emoji" nil 'prepend)
-                 ;; (set-fontset-font t 'emoji "Segoe UI Emoji" nil 'append)
-                 ;; (set-fontset-font t 'emoji "Twitter Color Emoji" nil 'prepend)
-                 ;; (set-fontset-font t 'emoji "Noto Color Emoji" nil 'prepend)
-                 ;; (set-fontset-font t 'emoji "Noto Sans Symbols2" nil 'prepend)
-                 ;; (set-fontset-font t 'emoji "Symbola" nil 'append)
-                 ;; (set-fontset-font t 'emoji "Liberation Mono" nil 'prepend)
-                 ;; (set-fontset-font t 'emoji "FreeSerif" nil 'prepend)
-
                  (let ((fn (doom-rpartial #'member (font-family-list))))
                    (when-let (font-emoji (cl-find-if fn doom-emoji-fallback-font-families))
                      (set-fontset-font t 'emoji font-emoji)))
