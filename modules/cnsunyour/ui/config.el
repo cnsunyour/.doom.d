@@ -28,21 +28,19 @@
                    "Noto Emoji"))
          :test #'equal))
 
-  (let* (
-         ;; (fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
-         ;;                   (cl-remove-duplicates (font-family-list))))
-         ;; (fonts (cl-remove-if
-         ;;         (lambda (elf) (not (member elf fontlist)))
-         ;;         '("Sarasa Mono SC"
-         ;;           "Sarasa Mono Slab SC"
-         ;;           "等距更纱黑体 SC"
-         ;;           "等距更纱黑体 Slab SC"
-         ;;           "Noto Sans Mono CJK SC"
-         ;;           "WenQuanYi Zen Hei Mono"
-         ;;           "文泉驿等宽正黑")))
-         ;; (font (elt fonts (random (length fonts))))
-         (font "Sarasa Mono SC")
-         (font-chinese "Sarasa Mono SC")
+  (let* ((fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
+                           (cl-remove-duplicates (font-family-list) :test #'equal)))
+         (fonts (cl-remove-if
+                 (lambda (elf) (not (member elf fontlist)))
+                 '("Sarasa Mono SC"
+                   "Sarasa Mono Slab SC"
+                   "等距更纱黑体 SC"
+                   "等距更纱黑体 Slab SC"
+                   "Noto Sans Mono CJK SC"
+                   "WenQuanYi Zen Hei Mono"
+                   "文泉驿等宽正黑")))
+         (font (elt fonts (random (length fonts))))
+         (font-chinese font)
          (font-size (if (and (>= (x-display-pixel-width) 1600)
                              (>= (x-display-pixel-height) 1000))
                         18 16)))
