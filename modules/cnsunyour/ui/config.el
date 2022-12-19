@@ -22,17 +22,21 @@
                    "Noto Emoji"))
     (add-to-list 'doom-emoji-fallback-font-families emoji t))
 
+  ;; (let* ((font "Unifont")
   (let* ((fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
                            (cl-remove-duplicates (font-family-list) :test #'equal)))
          (fonts (cl-remove-if
                  (lambda (elf) (not (member elf fontlist)))
                  '("Sarasa Mono SC"
-                   "Sarasa Mono Slab SC"
                    "等距更纱黑体 SC"
+                   "Sarasa Mono Slab SC"
                    "等距更纱黑体 Slab SC"
-                   "Noto Sans Mono CJK SC"
+                   "WenQuanYi Micro Hei Mono"
+                   "文泉驿等宽微米黑"
                    "WenQuanYi Zen Hei Mono"
-                   "文泉驿等宽正黑")))
+                   "文泉驿等宽正黑"
+                   "Unifont"
+                   "Noto Sans Mono CJK SC")))
          (font (elt fonts (random (length fonts))))
          (font-chinese font)
          (font-size (if (and (>= (x-display-pixel-width) 1600)
