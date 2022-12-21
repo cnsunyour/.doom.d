@@ -62,6 +62,10 @@
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
     :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 13) :ttl 10 :quit 'current :modeline t)
   (set-popup-rule! (regexp-quote "*Telega Instant View*")
-    :slot 20 :vslot 10 :side 'right :height 0.5 :ttl 10 :quit t :modeline nil)
+    :slot 20 :vslot 10 :side 'right :height .5 :ttl 10 :quit t :modeline nil :select t)
+  (set-popup-rule! (regexp-quote "*Telega User*")
+    :slot 20 :vslot 10 :side 'right :height .5 :ttl 10 :quit t :modeline nil :select t)
+  (set-popup-rule! (regexp-quote "*Telegram Chat Info*")
+    :slot 20 :vslot 10 :side 'right :height .5 :ttl 10 :quit t :modeline nil :select t)
 
   (load! "+telega-addition"))
