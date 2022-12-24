@@ -3,84 +3,92 @@
 (use-cjk-char-width-table 'zh_CN)
 
 (when (display-graphic-p)
+  (defcustom my-ui-fonts '("Sarasa Mono SC"
+                           "等距更纱黑体 SC"
+                           "Sarasa Mono Slab SC"
+                           "等距更纱黑体 Slab SC"
+                           "WenQuanYi Micro Hei Mono"
+                           "文泉驿等宽微米黑"
+                           "WenQuanYi Zen Hei Mono"
+                           "文泉驿等宽正黑"
+                           "Unifont"
+                           "Noto Sans Mono CJK SC")
+    "Font lists used in my private custom ui config."
+    :group 'my-ui
+    :type '(list string))
+
+  (defcustom my-ui-font-zh nil
+    "Chinese font used in my private custom ui config."
+    :group 'my-ui
+    :type 'string)
+
+  (defcustom my-ui-fonts-symbol '("Segoe UI Symbol"
+                                  "Apple Symbols"
+                                  "Noto Sans Symbols 2"
+                                  "Symbola")
+    "Symbol fonts used in my private custom ui config."
+    :group 'my-ui
+    :type 'list)
+
+  (defcustom my-ui-fonts-emoji '("Apple Color Emoji"
+                                 "Segoe UI Emoji"
+                                 "Twitter Color Emoji"
+                                 "Noto Color Emoji"
+                                 "Noto Emoji")
+    "Emoji fonts used in my private custom ui config."
+    :group 'my-ui
+    :type 'list)
+
+  (defcustom my-ui-fonts-math '("Latin Modern Math"
+                                "Cambria Math"
+                                "Noto Sans Math")
+    "Math fonts used in my private custom ui config."
+    :group 'my-ui
+    :type 'list)
+
+  (dolist (symbol my-ui-fonts-symbol)
+    (add-to-list 'doom-symbol-fallback-font-families symbol t))
+
+  (dolist (emoji my-ui-fonts-emoji)
+    (add-to-list 'doom-emoji-fallback-font-families emoji t))
+
+  (when-let* ((unique-font-list (mapcar (lambda (str) (decode-coding-string str 'utf-8))
+                                        (cl-remove-duplicates (font-family-list) :test #'equal)))
+              (filtered-fonts (if (and my-ui-fonts (listp 'my-ui-fonts))
+                                  (cl-remove-if
+                                   (lambda (elf) (not (member elf unique-font-list)))
+                                   my-ui-fonts)
+                                my-ui-fonts))
+              (font (if (and filtered-fonts (listp filtered-fonts))
+                        (elt filtered-fonts (random (length filtered-fonts)))
+                      filtered-fonts))
+              (font-chinese (if my-ui-font-zh
+                                my-ui-font-zh
+                              font))
+              (font-size (if (and (>= (x-display-pixel-width) 1600)
+                                  (>= (x-display-pixel-height) 1000))
+                             18 16)))
+    (setq doom-font (font-spec :family font :size font-size))
+    (when (fboundp 'set-fontset-font)
+      (add-hook! emacs-startup :append
+                 ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
+                 (let ((fn (doom-rpartial #'member (font-family-list))))
+                   (when-let ((font-emoji (cl-find-if fn doom-emoji-fallback-font-families)))
+                     (set-fontset-font t 'emoji font-emoji))
+                   (when-let ((font-math (cl-find-if fn my-ui-fonts-math)))
+                     (set-fontset-font t 'mathematical font-math)))
+
+                 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
+                 (dolist (script '(han kana hangul cjk-misc))
+                   (set-fontset-font t script font-chinese nil 'prepend)))))
+
   (add-hook! 'doom-load-theme-hook
     (setq fancy-splash-image
           (let ((banners (directory-files (expand-file-name "banner" doom-user-dir)
                                           'full
                                           (rx ".png" eos))))
             (elt banners (random (length banners))))))
-
-  (dolist (symbol '("Segoe UI Symbol"
-                    "Apple Symbols"
-                    "Noto Sans Symbols 2"
-                    "Symbola"))
-    (add-to-list 'doom-symbol-fallback-font-families symbol t))
-  (dolist (emoji '("Apple Color Emoji"
-                   "Segoe UI Emoji"
-                   "Twitter Color Emoji"
-                   "Noto Color Emoji"
-                   "Noto Emoji"))
-    (add-to-list 'doom-emoji-fallback-font-families emoji t))
-
-  (defcustom my-ui-random nil
-    "Whether to use random font in my private custom ui config."
-    :group 'my-ui
-    :type 'boolean)
-  (defcustom my-ui-font-list '("Sarasa Mono SC"
-                               "等距更纱黑体 SC"
-                               "Sarasa Mono Slab SC"
-                               "等距更纱黑体 Slab SC"
-                               "WenQuanYi Micro Hei Mono"
-                               "文泉驿等宽微米黑"
-                               "WenQuanYi Zen Hei Mono"
-                               "文泉驿等宽正黑"
-                               "Unifont"
-                               "Noto Sans Mono CJK SC")
-    "Font list are random used in my private custom ui config."
-    :group 'my-ui
-    :type 'list)
-  (defcustom my-ui-font "Iosevka"
-    "My private custom font name."
-    :group 'my-ui
-    :type 'string)
-  (defcustom my-ui-font-zh "Sarasa Mono SC"
-    "My private custom font name for chinese text."
-    :group 'my-ui
-    :type 'string)
-
-  (let* ((fonts (if my-ui-random
-                    (cl-remove-if
-                     (lambda (elf)
-                       (not (member elf
-                                    (mapcar (lambda (str)
-                                              (decode-coding-string str 'utf-8))
-                                            (cl-remove-duplicates
-                                             (font-family-list)
-                                             :test #'equal)))))
-                     my-ui-font-list)
-                  nil))
-         (font (if my-ui-random
-                   (elt fonts (random (length fonts)))
-                 my-ui-font))
-         (font-chinese (if my-ui-random
-                           font
-                         my-ui-font-zh))
-         (font-size (if (and (>= (x-display-pixel-width) 1600)
-                             (>= (x-display-pixel-height) 1000))
-                        18 16)))
-    (setq doom-font (font-spec :family font :size font-size))
-    (when (fboundp 'set-fontset-font)
-      (add-hook! emacs-startup :append
-                 ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
-                 (let ((fn (doom-rpartial #'member (font-family-list))))
-                   (when-let (font-emoji (cl-find-if fn doom-emoji-fallback-font-families))
-                     (set-fontset-font t 'emoji font-emoji)))
-
-                 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
-                 (set-fontset-font t 'han font-chinese nil 'prepend)
-                 (set-fontset-font t 'kana font-chinese nil 'prepend)
-                 (set-fontset-font t 'hangul font-chinese nil 'prepend)
-                 (set-fontset-font t 'cjk-misc font-chinese nil 'prepend)))))
+  )
 
 ;;
 ;; 每天根据日出日落时间(非macOS)或跟随macOS系统自动换主题
