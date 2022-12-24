@@ -35,7 +35,7 @@
         ;; telega-open-message-as-file '(video video-note)
         telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
-        telega-chat-fill-column 88
+        ;; telega-chat-fill-column 88
         telega-root-fill-column (+ telega-chat-fill-column 10)
         telega-root-auto-fill-mode nil
         telega-translate-to-language-by-default "zh"
