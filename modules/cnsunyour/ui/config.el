@@ -22,23 +22,49 @@
                    "Noto Emoji"))
     (add-to-list 'doom-emoji-fallback-font-families emoji t))
 
-  ;; (let* ((font "Unifont")
-  (let* ((fontlist (mapcar (lambda (str) (decode-coding-string str 'utf-8))
-                           (cl-remove-duplicates (font-family-list) :test #'equal)))
-         (fonts (cl-remove-if
-                 (lambda (elf) (not (member elf fontlist)))
-                 '("Sarasa Mono SC"
-                   "等距更纱黑体 SC"
-                   "Sarasa Mono Slab SC"
-                   "等距更纱黑体 Slab SC"
-                   "WenQuanYi Micro Hei Mono"
-                   "文泉驿等宽微米黑"
-                   "WenQuanYi Zen Hei Mono"
-                   "文泉驿等宽正黑"
-                   "Unifont"
-                   "Noto Sans Mono CJK SC")))
-         (font (elt fonts (random (length fonts))))
-         (font-chinese font)
+  (defcustom my-ui-random nil
+    "Whether to use random font in my private custom ui config."
+    :group 'my-ui
+    :type 'boolean)
+  (defcustom my-ui-font-list '("Sarasa Mono SC"
+                               "等距更纱黑体 SC"
+                               "Sarasa Mono Slab SC"
+                               "等距更纱黑体 Slab SC"
+                               "WenQuanYi Micro Hei Mono"
+                               "文泉驿等宽微米黑"
+                               "WenQuanYi Zen Hei Mono"
+                               "文泉驿等宽正黑"
+                               "Unifont"
+                               "Noto Sans Mono CJK SC")
+    "Font list are random used in my private custom ui config."
+    :group 'my-ui
+    :type 'list)
+  (defcustom my-ui-font "Iosevka"
+    "My private custom font name."
+    :group 'my-ui
+    :type 'string)
+  (defcustom my-ui-font-zh "Sarasa Mono SC"
+    "My private custom font name for chinese text."
+    :group 'my-ui
+    :type 'string)
+
+  (let* ((fonts (if my-ui-random
+                    (cl-remove-if
+                     (lambda (elf)
+                       (not (member elf
+                                    (mapcar (lambda (str)
+                                              (decode-coding-string str 'utf-8))
+                                            (cl-remove-duplicates
+                                             (font-family-list)
+                                             :test #'equal)))))
+                     my-ui-font-list)
+                  nil))
+         (font (if my-ui-random
+                   (elt fonts (random (length fonts)))
+                 my-ui-font))
+         (font-chinese (if my-ui-random
+                           font
+                         my-ui-font-zh))
          (font-size (if (and (>= (x-display-pixel-width) 1600)
                              (>= (x-display-pixel-height) 1000))
                         18 16)))
