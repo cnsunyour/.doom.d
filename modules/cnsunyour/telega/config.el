@@ -10,6 +10,8 @@
   (pushnew! +evil-collection-disabled-list 'telega)
 
   :hook
+  ;; (telega-chat-mode . yas-minor-mode-on)
+  ;; (telega-chat-mode . visual-line-mode)
   (telega-chat-mode . (lambda ()
                         (set-company-backend! 'telega-chat-mode
                           (append (list telega-emoji-company-backend
@@ -22,7 +24,6 @@
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
   (telega-load . telega-autoplay-mode)
-  (telega-load . global-telega-squash-message-mode)
 
   :config
   (add-hook 'telega-msg-ignore-predicates
