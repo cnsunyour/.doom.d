@@ -58,21 +58,21 @@
   ;; set task states
   (setq org-todo-keywords
         '((sequence "TODO(t!)"
-                    "NEXT(n!)"
-                    "STRT(s!)"
-                    "WAIT(w@/!)"
-                    "|"
-                    "DONE(d!)"
-                    "ABRT(a@/!)")))
-  (setq org-todo-keyword-faces
+           "NEXT(n!)"
+           "STRT(s!)"
+           "WAIT(w@/!)"
+           "|"
+           "DONE(d!)"
+           "ABRT(a@/!)"))
+        org-todo-keyword-faces
         '(("TODO" :foreground "orange"       :weight bold)
           ("NEXT" :foreground "yellow"       :weight bold)
           ("STRT" :foreground "white"        :weight bold)
           ("WAIT" :foreground "brown"        :weight bold)
           ("DONE" :foreground "forest green" :weight bold)
-          ("ABRT" :foreground "red"          :weight bold)))
-  ;; set tags
-  (setq org-tag-persistent-alist
+          ("ABRT" :foreground "red"          :weight bold))
+        ;; set tags
+        org-tag-persistent-alist
         '(("FLAGGED"    . ?f)
           ("@Office"    . ?o)
           ("@Home"      . ?h)
@@ -80,169 +80,109 @@
           ("@Computer"  . ?c)
           ("@Mobile"    . ?m)
           ("@Errands"   . ?e)
-          ("@Lunchtime" . ?l)))
-  (setq org-tag-alist
+          ("@Lunchtime" . ?l))
+        org-tag-alist
         '(("墩墩" . ?d)
           ("信用卡")
           ("技术")
-          ("生活")))
-  ;; trigger task states
-  (setq org-todo-state-tags-triggers
+          ("生活"))
+        ;; trigger task states
+        org-todo-state-tags-triggers
         '(("ABRT" ("ABRT" . t))
           ("WAIT" ("WAIT" . t))
           (done ("WAIT"))
           ("TODO" ("WAIT") ("ABRT"))
           ("NEXT" ("WAIT") ("ABRT"))
           ("STRT" ("WAIT") ("ABRT"))
-          ("DONE" ("WAIT") ("ABRT"))))
-  ;; exclude PROJ tag from being inherited
-  (setq org-tags-exclude-from-inheritance '("PROJ"))
-  ;; show inherited tags in agenda view
-  (setq org-agenda-show-inherited-tags t)
-  ;; set default notes file
-  ;; (setq org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory))
-  ;; (setq +org-capture-todo-file (expand-file-name "todo.org" org-gtd-directory))
-  ;; (setq +org-capture-projects-file (expand-file-name "projects.org" org-gtd-directory))
-  ;; (setq +org-capture-notes-file (expand-file-name "notes.org" org-directory))
-  ;; (setq +org-capture-journal-file (expand-file-name "journal.org" org-directory))
-  ;; set capture templates
-  (after! org-capture
-    (defun org-new-task-capture-template ()
-      "Returns `org-capture' template string for new task.
-See `org-capture-templates' for more information."
-      (let ((title (read-string "Task Name: "))) ;Prompt to enter the post title
-        (mapconcat #'identity
-                   `(,(concat "* TODO [#C] " title)
-                     ":PROPERTIES:"
-                     ":Created: %U"
-                     ":END:"
-                     "　%?\n")          ;Place the cursor here finally
-                   "\n")))
-    (defun org-hugo-new-subtree-post-capture-template ()
-      "Returns `org-capture' template string for new Hugo post.
-See `org-capture-templates' for more information."
-      (let* ((title (read-string "Post Title: ")) ;Prompt to enter the post title
-             (fname (org-hugo-slug title)))
-        (mapconcat #'identity
-                   `(,(concat "* " title)
-                     ":PROPERTIES:"
-                     ":Created: %U"
-                     ,(concat ":EXPORT_FILE_NAME: " fname)
-                     ":EXPORT_DATE: %<%4Y-%2m-%2d>"
-                     ":EXPORT_HUGO_SLUG: hugo-bundles"
-                     ,(concat ":EXPORT_HUGO_BUNDLE: %<%4Y-%2m-%2d>_" fname)
-                     ":END:"
-                     "　%?\n")          ;Place the cursor here finally
-                   "\n")))
-    (defun remove-item-from-org-capture-templates (shortcut)
-      (dolist (item org-capture-templates)
-        (when (string= (car item) shortcut)
-          (setq org-capture-templates (cl-remove item org-capture-templates)))))
-    (remove-item-from-org-capture-templates "t")
-    (remove-item-from-org-capture-templates "n")
-    (remove-item-from-org-capture-templates "j")
-    (pushnew! org-capture-templates
-              '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
-                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
-                (function org-hugo-new-subtree-post-capture-template)
-                :prepend t :clock-in t :clock-resume t :kill-buffer t)
-              '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
-                ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
-                (function org-hugo-new-subtree-post-capture-template)
-                :prepend t :clock-in t :clock-resume t :kill-buffer t)
-              '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
-                ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
-                (function org-new-task-capture-template)
-                :prepend t :clock-in t :clock-resume t :kill-buffer t)))
-  ;; set archive tag
-  ;; (setq org-archive-tag "ARCHIVE")
-  ;; set archive file
-  (setq org-archive-location "::* Archived Tasks")
-  ;; refiling targets include any file contributing to the agenda - up to 2 levels deep
-  (setq org-refile-targets '((nil :maxlevel . 3)
-                             (org-agenda-files :level . 1)))
-  ;; show refile targets simultaneously
-  (setq org-outline-path-complete-in-steps nil)
-  ;; use full outline paths for refile targets
-  (setq org-refile-use-outline-path 'file)
-  ;; allow refile to create parent tasks with confirmation
-  (setq org-refile-allow-creating-parent-nodes 'confirm)
-  ;; exclude done tasks from refile targets
-  (setq org-refile-target-verify-function #'+org-gtd/verify-refile-target)
-  ;; include agenda archive files when searching for things
-  (setq org-agenda-text-search-extra-files (quote (agenda-archives)))
-  ;; resume clocking when emacs is restarted
-  (org-clock-persistence-insinuate)
-  ;; change tasks to NEXT when clocking in
-  (setq org-clock-in-switch-to-state #'+org-gtd/clock-in-to-next)
-  ;; separate drawers for clocking and logs
-  (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
-  ;; insert state change notes and time stamps into a drawer
-  (setq org-log-into-drawer t)
-  ;; clock out when moving task to a done state
-  (setq org-clock-out-when-done t)
-  ;; save the running clock and all clock history when exiting Emacs, load it on startup
-  (setq org-clock-persist t)
-  ;; do not prompt to resume an active clock
-  (setq org-clock-persist-query-resume nil)
-  ;; enable auto clock resolution for finding open clocks
-  (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-  ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
-  (setq org-clock-out-remove-zero-time-clocks t)
-  ;; show agenda as the only window
-  (setq org-agenda-window-setup 'current-window)
-  ;; define stuck projects
-  (setq org-stuck-projects '("+LEVEL=2/-DONE-ABRT" ("TODO" "NEXT" "STRT") ("@Launchtime") "\\<IGNORE\\>"))
-  ;; perform actions before finalizing agenda view
-  (add-hook 'org-agenda-finalize-hook
-            (lambda ()
-              (setq appt-message-warning-time 10        ;; warn 10 min in advance
-                    appt-display-diary nil              ;; do not display diary when (appt-activate) is called
-                    appt-display-mode-line t            ;; show in the modeline
-                    appt-display-format 'window         ;; display notification in window
-                    calendar-mark-diary-entries-flag t) ;; mark diary entries in calendar
-              (org-agenda-to-appt)                      ;; copy all agenda schedule to appointments
-              (appt-activate 1)))
-  ;; exclude archived tasks from agenda view
-  (setq org-agenda-tag-filter-preset '("-ARCHIVE"))
-  ;; disable compact block agenda view
-  (setq org-agenda-compact-blocks nil)
-  ;; block tasks that have unfinished subtasks
-  (setq org-enforce-todo-dependencies t)
-  ;; dont't dim blocked tasks in agenda
-  (setq org-agenda-dim-blocked-tasks nil)
-  ;; inhibit startup when preparing agenda buffer
-  (setq org-agenda-inhibit-startup nil)
-  ;; limit number of days before showing a future deadline
-  (setq org-deadline-warning-days 7)
-  ;; Number of days to include in overview display.
-  (setq org-agenda-span 'week)
-  ;; retain ignore options in tags-todo search
-  (setq org-agenda-tags-todo-honor-ignore-options t)
-  ;; hide certain tags from agenda view
-  (setq org-agenda-hide-tags-regexp (regexp-opt '("PROJ" "REFILE")))
-  ;; remove completed deadline tasks from the agenda view
-  (setq org-agenda-skip-deadline-if-done t)
-  ;; remove completed scheduled tasks from the agenda view
-  (setq org-agenda-skip-scheduled-if-done t)
-  ;; remove completed items from search results
-  (setq org-agenda-skip-timestamp-if-done t)
-  ;; skip scheduled delay when entry also has a deadline.
-  (setq org-agenda-skip-scheduled-delay-if-deadline t)
-  ;; 设置超过Headline的重复任务不再显示
-  (setq org-agenda-skip-scheduled-if-deadline-is-shown 'repeated-after-deadline)
-  ;; include entries from the Emacs diary
-  (setq org-agenda-include-diary nil)
-  ;; custom diary file to org-ddirectory
-  (setq diary-file (expand-file-name "diary" org-directory))
-  ;; 使用最后的clock-out时间作为条目关闭时间
-  (setq org-use-last-clock-out-time-as-effective-time t)
-  ;; 设置为DONE或ABRT状态时，会生成CLOSED时间戳
-  (setq org-log-done 'time)
-  ;; 代码块语法高亮
-  (setq org-src-fontify-natively t)
-  ;; custom agenda commands
-  (setq org-agenda-custom-commands
+          ("DONE" ("WAIT") ("ABRT")))
+        ;; exclude PROJ tag from being inherited
+        org-tags-exclude-from-inheritance '("PROJ")
+        ;; show inherited tags in agenda view
+        org-agenda-show-inherited-tags t
+        ;; set default notes file
+        ;; org-default-notes-file (expand-file-name "inbox.org" org-gtd-directory)
+        ;; +org-capture-todo-file (expand-file-name "todo.org" org-gtd-directory)
+        ;; +org-capture-projects-file (expand-file-name "projects.org" org-gtd-directory)
+        ;; +org-capture-notes-file (expand-file-name "notes.org" org-directory)
+        ;; +org-capture-journal-file (expand-file-name "journal.org" org-directory)
+
+        ;; set archive tag
+        ;; (setq org-archive-tag "ARCHIVE")
+        ;; set archive file
+        org-archive-location "::* Archived Tasks"
+        ;; refiling targets include any file contributing to the agenda - up to 2 levels deep
+        org-refile-targets '((nil :maxlevel . 3)
+                             (org-agenda-files :level . 1))
+        ;; show refile targets simultaneously
+        org-outline-path-complete-in-steps nil
+        ;; use full outline paths for refile targets
+        org-refile-use-outline-path 'file
+        ;; allow refile to create parent tasks with confirmation
+        org-refile-allow-creating-parent-nodes 'confirm
+        ;; exclude done tasks from refile targets
+        org-refile-target-verify-function #'+org-gtd/verify-refile-target
+        ;; include agenda archive files when searching for things
+        org-agenda-text-search-extra-files (quote (agenda-archives))
+        ;; change tasks to NEXT when clocking in
+        org-clock-in-switch-to-state #'+org-gtd/clock-in-to-next
+        ;; separate drawers for clocking and logs
+        org-drawers (quote ("PROPERTIES" "LOGBOOK"))
+        ;; insert state change notes and time stamps into a drawer
+        org-log-into-drawer t
+        ;; clock out when moving task to a done state
+        org-clock-out-when-done t
+        ;; save the running clock and all clock history when exiting Emacs, load it on startup
+        org-clock-persist t
+        ;; do not prompt to resume an active clock
+        org-clock-persist-query-resume nil
+        ;; enable auto clock resolution for finding open clocks
+        org-clock-auto-clock-resolution (quote when-no-clock-is-running)
+        ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
+        org-clock-out-remove-zero-time-clocks t
+        ;; show agenda as the only window
+        org-agenda-window-setup 'current-window
+        ;; define stuck projects
+        org-stuck-projects '("+LEVEL=2/-DONE-ABRT" ("TODO" "NEXT" "STRT") ("@Launchtime") "\\<IGNORE\\>")
+        ;; exclude archived tasks from agenda view
+        org-agenda-tag-filter-preset '("-ARCHIVE")
+        ;; disable compact block agenda view
+        org-agenda-compact-blocks nil
+        ;; block tasks that have unfinished subtasks
+        org-enforce-todo-dependencies t
+        ;; dont't dim blocked tasks in agenda
+        org-agenda-dim-blocked-tasks nil
+        ;; inhibit startup when preparing agenda buffer
+        org-agenda-inhibit-startup nil
+        ;; limit number of days before showing a future deadline
+        org-deadline-warning-days 7
+        ;; Number of days to include in overview display.
+        org-agenda-span 'week
+        ;; retain ignore options in tags-todo search
+        org-agenda-tags-todo-honor-ignore-options t
+        ;; hide certain tags from agenda view
+        org-agenda-hide-tags-regexp (regexp-opt '("PROJ" "REFILE"))
+        ;; remove completed deadline tasks from the agenda view
+        org-agenda-skip-deadline-if-done t
+        ;; remove completed scheduled tasks from the agenda view
+        org-agenda-skip-scheduled-if-done t
+        ;; remove completed items from search results
+        org-agenda-skip-timestamp-if-done t
+        ;; skip scheduled delay when entry also has a deadline.
+        org-agenda-skip-scheduled-delay-if-deadline t
+        ;; 设置超过Headline的重复任务不再显示
+        org-agenda-skip-scheduled-if-deadline-is-shown 'repeated-after-deadline
+        ;; include entries from the Emacs diary
+        org-agenda-include-diary nil
+        ;; custom diary file to org-ddirectory
+        diary-file (expand-file-name "diary" org-directory)
+        ;; 使用最后的clock-out时间作为条目关闭时间
+        org-use-last-clock-out-time-as-effective-time t
+        ;; 设置为DONE或ABRT状态时，会生成CLOSED时间戳
+        org-log-done 'time
+        ;; 代码块语法高亮
+        org-src-fontify-natively t
+        ;; custom agenda commands
+        org-agenda-custom-commands
         '(("r" "Archivable" todo "DONE|ABRT"
            ((org-agenda-overriding-header "Tasks to Archive:")
             (org-tags-match-list-sublevels nil)))
@@ -294,7 +234,70 @@ See `org-capture-templates' for more information."
                         (org-agenda-todo-ignore-scheduled t)
                         (org-agenda-todo-ignore-deadlines t)
                         (org-agenda-todo-ignore-timestamp t)
-                        (org-agenda-todo-ignore-with-date t))))))))
+                        (org-agenda-todo-ignore-with-date t)))))))
+
+  ;; resume clocking when emacs is restarted
+  (org-clock-persistence-insinuate)
+  ;; perform actions before finalizing agenda view
+  (add-hook 'org-agenda-finalize-hook
+            (lambda ()
+              (setq appt-message-warning-time 10        ;; warn 10 min in advance
+                    appt-display-diary nil              ;; do not display diary when (appt-activate) is called
+                    appt-display-mode-line t            ;; show in the modeline
+                    appt-display-format 'window         ;; display notification in window
+                    calendar-mark-diary-entries-flag t) ;; mark diary entries in calendar
+              (org-agenda-to-appt)                      ;; copy all agenda schedule to appointments
+              (appt-activate 1)))
+
+  ;; set capture templates
+  (after! org-capture
+    (defun org-new-task-capture-template ()
+      "Returns `org-capture' template string for new task.
+See `org-capture-templates' for more information."
+      (let ((title (read-string "Task Name: "))) ;Prompt to enter the post title
+        (mapconcat #'identity
+                   `(,(concat "* TODO [#C] " title)
+                     ":PROPERTIES:"
+                     ":Created: %U"
+                     ":END:"
+                     "　%?\n")          ;Place the cursor here finally
+                   "\n")))
+    (defun org-hugo-new-subtree-post-capture-template ()
+      "Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information."
+      (let* ((title (read-string "Post Title: ")) ;Prompt to enter the post title
+             (fname (org-hugo-slug title)))
+        (mapconcat #'identity
+                   `(,(concat "* " title)
+                     ":PROPERTIES:"
+                     ":Created: %U"
+                     ,(concat ":EXPORT_FILE_NAME: " fname)
+                     ":EXPORT_DATE: %<%4Y-%2m-%2d>"
+                     ":EXPORT_HUGO_SLUG: hugo-bundles"
+                     ,(concat ":EXPORT_HUGO_BUNDLE: %<%4Y-%2m-%2d>_" fname)
+                     ":END:"
+                     "　%?\n")          ;Place the cursor here finally
+                   "\n")))
+    (defun remove-item-from-org-capture-templates (shortcut)
+      (dolist (item org-capture-templates)
+        (when (string= (car item) shortcut)
+          (setq org-capture-templates (cl-remove item org-capture-templates)))))
+    (remove-item-from-org-capture-templates "t")
+    (remove-item-from-org-capture-templates "n")
+    (remove-item-from-org-capture-templates "j")
+    (pushnew! org-capture-templates
+              '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
+                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
+                (function org-hugo-new-subtree-post-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t)
+              '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
+                ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
+                (function org-hugo-new-subtree-post-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t)
+              '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
+                ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
+                (function org-new-task-capture-template)
+                :prepend t :clock-in t :clock-resume t :kill-buffer t))))
 
 ;; set different line spacing on org-agenda view
 (defun my:org-agenda-time-grid-spacing ()
