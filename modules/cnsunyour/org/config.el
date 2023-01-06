@@ -63,22 +63,13 @@
                     "WAIT(w@/!)"
                     "|"
                     "DONE(d!)"
-                    "ABRT(a@/!)")
-          (sequence "[ ](T)"
-                    "[-](S)"
-                    "[?](W)"
-                    "|"
-                    "[X](D)")))
+                    "ABRT(a@/!)")))
   (setq org-todo-keyword-faces
         '(("TODO" :foreground "orange"       :weight bold)
-          ("[ ]"  :foreground "orange"       :weight bold)
           ("NEXT" :foreground "yellow"       :weight bold)
           ("STRT" :foreground "white"        :weight bold)
-          ("[-]"  :foreground "white"        :weight bold)
           ("WAIT" :foreground "brown"        :weight bold)
-          ("[?]"  :foreground "brown"        :weight bold)
           ("DONE" :foreground "forest green" :weight bold)
-          ("[X]"  :foreground "forest green" :weight bold)
           ("ABRT" :foreground "red"          :weight bold)))
   ;; set tags
   (setq org-tag-persistent-alist
