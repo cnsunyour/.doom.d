@@ -207,7 +207,6 @@
        editor
        ;; (:if IS-MAC email)
        ;; irc
-       ;; weechat
        org
        ;; tabnine
        telega
