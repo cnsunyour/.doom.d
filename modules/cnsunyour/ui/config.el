@@ -79,7 +79,7 @@
                      (set-fontset-font t 'mathematical font-math)))
 
                  ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
-                 (dolist (script '(han kana hangul cjk-misc))
+                 (dolist (script '(han kana hangul cjk-misc bopomofo))
                    (set-fontset-font t script font-chinese nil 'prepend)))))
 
   (add-hook! vterm-mode
