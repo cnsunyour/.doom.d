@@ -82,6 +82,10 @@
                  (dolist (script '(han kana hangul cjk-misc))
                    (set-fontset-font t script font-chinese nil 'prepend)))))
 
+  (add-hook! vterm-mode
+    (setq buffer-face-mode-face '((:family "Iosevka Nerd Font")))
+    (buffer-face-mode))
+
   (add-hook! 'doom-load-theme-hook
     (setq fancy-splash-image
           (let ((banners (directory-files (expand-file-name "banner" doom-user-dir)
