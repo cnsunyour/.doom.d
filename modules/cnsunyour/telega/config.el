@@ -70,3 +70,9 @@
     :slot 20 :vslot 10 :side 'right :height .5 :ttl 10 :quit t :modeline nil :select t)
 
   (load! "+telega-addition"))
+
+
+(use-package! telega-bridge-bot
+  :after telega
+  :config
+  (telega-bridge-bot-replace-user))
