@@ -70,7 +70,7 @@
                              18 16)))
     (setq doom-font (font-spec :family font :size font-size))
     (when (fboundp 'set-fontset-font)
-      (add-hook! emacs-startup :append
+      (add-hook! '(emacs-startup-hook rime-mode-hook) :append
                  ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
                  (let ((fn (doom-rpartial #'member (font-family-list))))
                    (when-let ((font-emoji (cl-find-if fn doom-emoji-fallback-font-families)))
@@ -80,7 +80,14 @@
 
                  ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
                  (dolist (script '(han kana hangul cjk-misc bopomofo))
-                   (set-fontset-font t script font-chinese nil 'prepend)))))
+                   (set-fontset-font t script font-chinese)))))
+
+  (when (and my-ui-font-zh
+             (fboundp 'doom-adjust-font-size)
+             (fboundp 'set-fontset-font))
+    (define-advice doom-adjust-font-size (:after (&rest _) reset-chinese-font)
+      (dolist (script '(han kana hangul cjk-misc bopomofo))
+        (set-fontset-font t script my-ui-font-zh))))
 
   (add-hook! vterm-mode
     (setq buffer-face-mode-face '((:family "Iosevka Nerd Font")))
@@ -92,7 +99,7 @@
                                           'full
                                           (rx ".png" eos))))
             (elt banners (random (length banners))))))
-  )
+  ) ;; when (display-graphic-p)
 
 ;;
 ;; 每天根据日出日落时间(非macOS)或跟随macOS系统自动换主题
