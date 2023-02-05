@@ -11,6 +11,8 @@
                            "文泉驿等宽微米黑"
                            "WenQuanYi Zen Hei Mono"
                            "文泉驿等宽正黑"
+                           "LXGW WenKai Mono"
+                           "霞鹜文楷等宽"
                            "Unifont"
                            "Noto Sans Mono CJK SC")
     "Font lists used in my private custom ui config."
