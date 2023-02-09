@@ -22,6 +22,40 @@
 (when (modulep! :emacs dired +ranger)
   (setq ranger-key [?\C-\s-p]))
 
+;; add hydra keybindings for evil-mc
+(when (and (modulep! :editor evil)
+           (modulep! :editor multiple-cursors))
+  (defhydra hydra-evil-mc (:color blue :hint nil)
+    "
+ _M_ all match          _m_ here           _u_ undo
+ _n_ next match         _j_ next line      _s_ suspend
+ _p_ prev match         _k_ previous line  _r_ resume
+ _N_ skip & next match  _H_ first cursor   _q_ quit
+ _P_ skip & prev match  _L_ last cursor    _O_ quit
+    "
+    ("m" evil-mc-make-cursor-here :exit nil)
+    ("M" evil-mc-make-all-cursors :exit nil)
+    ("n" evil-mc-make-and-goto-next-match :exit nil)
+    ("p" evil-mc-make-and-goto-prev-match :exit nil)
+    ("N" evil-mc-skip-and-goto-next-match :exit nil)
+    ("P" evil-mc-skip-and-goto-prev-match :exit nil)
+    ("j" evil-mc-make-cursor-move-next-line :exit nil)
+    ("k" evil-mc-make-cursor-move-prev-line :exit nil)
+    ("H" evil-mc-make-and-goto-first-cursor :exit nil)
+    ("L" evil-mc-make-and-goto-last-cursor :exit nil)
+    ("u" evil-mc-undo-last-added-cursor :exit nil)
+    ("r" evil-mc-resume-cursors)
+    ("s" evil-mc-pause-cursors)
+    ("O" evil-mc-undo-all-cursors)
+    ("q" evil-mc-undo-all-cursors))
+
+  (evil-define-key* '(normal visual) 'global
+    (kbd "M") 'hydra-evil-mc/body)
+
+  (evil-define-key* 'visual evil-mc-key-map
+    "A" 'evil-mc-make-cursor-in-visual-selection-end
+    "I" 'evil-mc-make-cursor-in-visual-selection-beg))
+
 ;; general keybindings
 (map! (:leader (:prefix "b" "h" #'+doom-dashboard/open))
 
