@@ -77,3 +77,12 @@
   (set-popup-rule! (regexp-quote "*ChatGPT*")
     :side 'bottom :size .5 :ttl nil :quit t :modeline nil)
   :bind ("C-c q" . chatgpt-query))
+
+(use-package! nyan-mode
+  :after doom-modeline
+  :custom
+  (nyan-minimum-window-width 100)
+  (nyan-animate-nyancat t)
+  (nyan-wavy-trail t)
+  :hook
+  (doom-modeline-mode . nyan-mode))
