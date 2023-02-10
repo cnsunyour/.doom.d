@@ -7,19 +7,19 @@
 ;;   ;; Always insert `real' space in org-mode.
 ;;   (setq-hook! 'org-mode-hook pangu-spacing-real-insert-separtor t))
 
-(use-package! fcitx
-  :config
-  (when (fcitx-check-status)
-    (fcitx-prefix-keys-setup)
-    (fcitx-prefix-keys-turn-on)
-    (fcitx-M-x-turn-on)
-    (fcitx-shell-command-turn-on)
-    (fcitx-eval-expression-turn-on)
-    (fcitx-read-funcs-turn-on)
-    (fcitx-evil-turn-on)
-    (fcitx-aggressive-minibuffer-turn-on)
-    (fcitx-org-speed-command-turn-on)
-    (fcitx-isearch-turn-on)))
+;; (use-package! fcitx
+;;   :config
+;;   (when (fcitx-check-status)
+;;     (fcitx-prefix-keys-setup)
+;;     (fcitx-prefix-keys-turn-on)
+;;     (fcitx-M-x-turn-on)
+;;     (fcitx-shell-command-turn-on)
+;;     (fcitx-eval-expression-turn-on)
+;;     (fcitx-read-funcs-turn-on)
+;;     (fcitx-evil-turn-on)
+;;     (fcitx-aggressive-minibuffer-turn-on)
+;;     (fcitx-org-speed-command-turn-on)
+;;     (fcitx-isearch-turn-on)))
 
 (use-package! ace-pinyin
   :after avy
