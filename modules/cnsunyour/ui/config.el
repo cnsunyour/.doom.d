@@ -24,26 +24,26 @@
     :group 'my-ui
     :type 'string)
 
-  (defcustom my-ui-fonts-symbol '("Segoe UI Symbol"
+  (defcustom my-ui-fonts-symbol '("Noto Sans Symbols 2"
+                                  "Segoe UI Symbol"
                                   "Apple Symbols"
-                                  "Noto Sans Symbols 2"
                                   "Symbola")
     "Symbol fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
 
-  (defcustom my-ui-fonts-emoji '("Apple Color Emoji"
+  (defcustom my-ui-fonts-emoji '("Noto Color Emoji"
+                                 "Apple Color Emoji"
                                  "Segoe UI Emoji"
                                  "Twitter Color Emoji"
-                                 "Noto Color Emoji"
                                  "Noto Emoji")
     "Emoji fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
 
-  (defcustom my-ui-fonts-math '("Latin Modern Math"
-                                "Cambria Math"
-                                "Noto Sans Math")
+  (defcustom my-ui-fonts-math '("Noto Sans Math"
+                                "Latin Modern Math"
+                                "Cambria Math")
     "Math fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
@@ -56,10 +56,9 @@
 
   (when-let* ((unique-font-list (mapcar (lambda (str) (decode-coding-string str 'utf-8))
                                         (cl-remove-duplicates (font-family-list) :test #'equal)))
+              (fn (lambda (elf) (not (member elf unique-font-list))))
               (filtered-fonts (if (and my-ui-fonts (listp 'my-ui-fonts))
-                                  (cl-remove-if
-                                   (lambda (elf) (not (member elf unique-font-list)))
-                                   my-ui-fonts)
+                                  (cl-remove-if fn my-ui-fonts)
                                 my-ui-fonts))
               (font (if (and filtered-fonts (listp filtered-fonts))
                         (elt filtered-fonts (random (length filtered-fonts)))
@@ -72,24 +71,29 @@
                              18 16)))
     (setq doom-font (font-spec :family font :size font-size))
     (when (fboundp 'set-fontset-font)
-      (add-hook! '(emacs-startup-hook rime-mode-hook) :append
+      (add-hook! 'emacs-startup-hook :append
                  ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
-                 (let ((fn (doom-rpartial #'member (font-family-list))))
-                   (when-let ((font-emoji (cl-find-if fn doom-emoji-fallback-font-families)))
-                     (set-fontset-font t 'emoji font-emoji))
-                   (when-let ((font-math (cl-find-if fn my-ui-fonts-math)))
-                     (set-fontset-font t 'mathematical font-math)))
+                 (dolist (font-symbol (nreverse (cl-remove-if fn doom-symbol-fallback-font-families)))
+                   (set-fontset-font t 'unicode font-symbol nil 'prepend)
+                   (set-fontset-font t 'symbol font-symbol nil 'prepend)
+                   (set-fontset-font t 'emoji font-symbol nil 'prepend))
+                 (dolist (font-emoji (nreverse (cl-remove-if fn doom-emoji-fallback-font-families)))
+                   (set-fontset-font t 'unicode font-emoji nil 'prepend)
+                   (set-fontset-font t 'symbol font-emoji nil 'prepend)
+                   (set-fontset-font t 'emoji font-emoji nil 'prepend))
+                 (dolist (font-math (nreverse (cl-remove-if fn my-ui-fonts-math)))
+                   (set-fontset-font t 'mathematical font-math nil 'prepend))
 
                  ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
                  (dolist (script '(han kana hangul cjk-misc bopomofo))
-                   (set-fontset-font t script font-chinese)))))
+                   (set-fontset-font t script font-chinese nil 'prepend)))))
 
-  (when (and my-ui-font-zh
-             (fboundp 'doom-adjust-font-size)
-             (fboundp 'set-fontset-font))
+  (when (and (fboundp 'doom-adjust-font-size)
+             (fboundp 'set-fontset-font)
+             my-ui-font-zh)
     (define-advice doom-adjust-font-size (:after (&rest _) reset-chinese-font)
       (dolist (script '(han kana hangul cjk-misc bopomofo))
-        (set-fontset-font t script my-ui-font-zh))))
+        (set-fontset-font t script my-ui-font-zh nil 'prepend))))
 
   (add-hook! vterm-mode
     (setq buffer-face-mode-face '((:family "Iosevka Nerd Font")))
