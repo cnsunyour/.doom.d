@@ -4,26 +4,19 @@
 
 (when (display-graphic-p)
   (defcustom my-ui-fonts '("Sarasa Mono SC"
-                           "等距更纱黑体 SC"
                            "Sarasa Mono Slab SC"
-                           "等距更纱黑体 Slab SC"
                            "WenQuanYi Micro Hei Mono"
-                           "文泉驿等宽微米黑"
                            "WenQuanYi Zen Hei Mono"
-                           "文泉驿等宽正黑"
                            "LXGW WenKai Mono"
-                           "霞鹜文楷等宽"
                            "Unifont"
                            "Noto Sans Mono CJK SC")
     "Font lists used in my private custom ui config."
     :group 'my-ui
     :type '(list string))
-
   (defcustom my-ui-font-zh nil
     "Chinese font used in my private custom ui config."
     :group 'my-ui
     :type 'string)
-
   (defcustom my-ui-fonts-symbol '("Noto Sans Symbols 2"
                                   "Segoe UI Symbol"
                                   "Apple Symbols"
@@ -31,7 +24,6 @@
     "Symbol fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
-
   (defcustom my-ui-fonts-emoji '("Noto Color Emoji"
                                  "Apple Color Emoji"
                                  "Segoe UI Emoji"
@@ -40,29 +32,31 @@
     "Emoji fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
-
   (defcustom my-ui-fonts-math '("Noto Sans Math"
                                 "Latin Modern Math"
                                 "Cambria Math")
     "Math fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
+  (defcustom my-ui-fonts-egyptian '("Noto Sans Egyptian Hieroglyphs"
+                                    "Noto Sans EgyptHiero")
+    "Egyptian fonts used in my private custom ui config."
+    :group 'my-ui
+    :type 'list)
+
+  (defvar fontset-scripts-zh '(han kana hangul cjk-misc bopomofo)
+    "ZH fontset script name list for `set-fontset-font'")
+  (defvar fontset-scripts-symbol '(unicode symbol emoji)
+    "symbol/emoji/unicode script name list for `set-fontset-font'")
 
   (dolist (symbol my-ui-fonts-symbol)
     (add-to-list 'doom-symbol-fallback-font-families symbol t))
-
   (dolist (emoji my-ui-fonts-emoji)
     (add-to-list 'doom-emoji-fallback-font-families emoji t))
 
-  (when-let* ((unique-font-list (mapcar (lambda (str) (decode-coding-string str 'utf-8))
-                                        (cl-remove-duplicates (font-family-list) :test #'equal)))
-              (fn (lambda (elf) (not (member elf unique-font-list))))
-              (filtered-fonts (if (and my-ui-fonts (listp 'my-ui-fonts))
-                                  (cl-remove-if fn my-ui-fonts)
-                                my-ui-fonts))
-              (font (if (and filtered-fonts (listp filtered-fonts))
-                        (elt filtered-fonts (random (length filtered-fonts)))
-                      filtered-fonts))
+  (when-let* ((font (if (and my-ui-fonts (listp my-ui-fonts))
+                        (elt my-ui-fonts (random (length my-ui-fonts)))
+                      my-ui-fonts))
               (font-chinese (if my-ui-font-zh
                                 my-ui-font-zh
                               font))
@@ -71,32 +65,30 @@
                              18 16)))
     (setq doom-font (font-spec :family font :size font-size))
     (when (fboundp 'set-fontset-font)
-      (add-hook! 'emacs-startup-hook :append
-                 ;; Emoji: 😄, 🤦, 🏴󠁧󠁢󠁳󠁣󠁴󠁿
-                 (dolist (font-symbol (nreverse (cl-remove-if fn doom-symbol-fallback-font-families)))
-                   (set-fontset-font t 'unicode font-symbol nil 'prepend)
-                   (set-fontset-font t 'symbol font-symbol nil 'prepend)
-                   (set-fontset-font t 'emoji font-symbol nil 'prepend))
-                 (dolist (font-emoji (nreverse (cl-remove-if fn doom-emoji-fallback-font-families)))
-                   (set-fontset-font t 'unicode font-emoji nil 'prepend)
-                   (set-fontset-font t 'symbol font-emoji nil 'prepend)
-                   (set-fontset-font t 'emoji font-emoji nil 'prepend))
-                 (dolist (font-math (nreverse (cl-remove-if fn my-ui-fonts-math)))
-                   (set-fontset-font t 'mathematical font-math nil 'prepend))
+      (add-hook! '(emacs-startup-hook rime-mode-hook) :append
+        (dolist (script fontset-scripts-symbol)
+          (dolist (font-symbol doom-symbol-fallback-font-families)
+            (set-fontset-font t script font-symbol nil 'append))
+          (dolist (font-emoji doom-emoji-fallback-font-families)
+            (set-fontset-font t script font-emoji nil 'append)))
 
-                 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
-                 (dolist (script '(han kana hangul cjk-misc bopomofo))
-                   (set-fontset-font t script font-chinese nil 'prepend)))))
+        (dolist (font-math my-ui-fonts-math)
+          (set-fontset-font t 'mathematical font-math nil 'append))
+        (dolist (font-egyptian my-ui-fonts-egyptian)
+          (set-fontset-font t 'egyptian font-egyptian nil 'append))
 
-  (when (and (fboundp 'doom-adjust-font-size)
-             (fboundp 'set-fontset-font)
-             my-ui-font-zh)
+        (dolist (script fontset-scripts-zh)
+          (set-fontset-font t script font-chinese nil 'prepend)))))
+
+  (when (and my-ui-font-zh
+             (fboundp 'doom-adjust-font-size)
+             (fboundp 'set-fontset-font))
     (define-advice doom-adjust-font-size (:after (&rest _) reset-chinese-font)
-      (dolist (script '(han kana hangul cjk-misc bopomofo))
+      (dolist (script fontset-scripts-zh)
         (set-fontset-font t script my-ui-font-zh nil 'prepend))))
 
-  (add-hook! vterm-mode
-    (setq buffer-face-mode-face '((:family "Iosevka Nerd Font")))
+  (add-hook! 'vterm-mode-hook
+    (setq-local buffer-face-mode-face '((:family "Iosevka Nerd Font")))
     (buffer-face-mode))
 
   (add-hook! 'doom-load-theme-hook
