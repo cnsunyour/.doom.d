@@ -52,9 +52,10 @@
 ;;
 ;; `org' private config
 ;;
+;; define key of org-agenda
+(map! :leader :desc "Org Agenda" "a" #'org-agenda)
+;;
 (after! org
-  ;; define key of org-agenda
-  (map! :leader :desc "Org Agenda" "a" #'org-agenda)
   ;; set task states
   (setq org-todo-keywords
         '((sequence "TODO(t!)"
