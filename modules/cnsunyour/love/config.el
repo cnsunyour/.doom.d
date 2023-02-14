@@ -2,7 +2,6 @@
 
 (defun cnsunyour/lover-live-time (name year month day hour minute second)
   "Display the live time of my true love."
-  (interactive)
   (let* ((birth-time (encode-time second minute hour day month year))
          (live-time  (time-subtract (current-time) birth-time))
          (lt-secs    (float-time live-time)))
