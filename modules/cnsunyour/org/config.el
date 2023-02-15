@@ -108,7 +108,7 @@
         ;; +org-capture-journal-file (expand-file-name "journal.org" org-directory)
 
         ;; set archive tag
-        ;; (setq org-archive-tag "ARCHIVE")
+        org-archive-tag "ARCHIVE"
         ;; set archive file
         org-archive-location "::* Archived Tasks"
         ;; refiling targets include any file contributing to the agenda - up to 2 levels deep
@@ -261,7 +261,7 @@ See `org-capture-templates' for more information."
                      ":PROPERTIES:"
                      ":Created: %U"
                      ":END:"
-                     "　%?\n")          ;Place the cursor here finally
+                     "%?\n")          ;Place the cursor here finally
                    "\n")))
     (defun org-hugo-new-subtree-post-capture-template ()
       "Returns `org-capture' template string for new Hugo post.
@@ -277,7 +277,7 @@ See `org-capture-templates' for more information."
                      ":EXPORT_HUGO_SLUG: hugo-bundles"
                      ,(concat ":EXPORT_HUGO_BUNDLE: %<%4Y-%2m-%2d>_" fname)
                      ":END:"
-                     "　%?\n")          ;Place the cursor here finally
+                     "%?\n")          ;Place the cursor here finally
                    "\n")))
     (defun remove-item-from-org-capture-templates (shortcut)
       (dolist (item org-capture-templates)
