@@ -17,30 +17,27 @@
     "Chinese font used in my private custom ui config."
     :group 'my-ui
     :type 'string)
-  (defcustom my-ui-fonts-symbol '("Noto Sans Symbols 2"
-                                  "Segoe UI Symbol"
+  (defcustom my-ui-fonts-symbol '("Segoe UI Symbol"
                                   "Apple Symbols"
+                                  "Noto Sans Symbols 2"
                                   "Symbola")
     "Symbol fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
-  (defcustom my-ui-fonts-emoji '("Noto Color Emoji"
-                                 "Apple Color Emoji"
+  (defcustom my-ui-fonts-emoji '("Apple Color Emoji"
                                  "Segoe UI Emoji"
                                  "Twitter Color Emoji"
+                                 "Noto Color Emoji"
                                  "Noto Emoji")
     "Emoji fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
-  (defcustom my-ui-fonts-math '("Noto Sans Math"
-                                "Latin Modern Math"
-                                "Cambria Math")
-    "Math fonts used in my private custom ui config."
-    :group 'my-ui
-    :type 'list)
-  (defcustom my-ui-fonts-egyptian '("Noto Sans Egyptian Hieroglyphs"
-                                    "Noto Sans EgyptHiero")
-    "Egyptian fonts used in my private custom ui config."
+  (defcustom my-ui-fonts-unicode '("Latin Modern Math"
+                                   "Cambria Math"
+                                   "Noto Sans Math"
+                                   "Noto Sans Egyptian Hieroglyphs"
+                                   "Noto Sans EgyptHiero")
+    "All other unicode fonts used in my private custom ui config."
     :group 'my-ui
     :type 'list)
 
@@ -67,15 +64,13 @@
     (when (fboundp 'set-fontset-font)
       (add-hook! 'emacs-startup-hook :append
         (dolist (script fontset-scripts-symbol)
-          (dolist (font-symbol doom-symbol-fallback-font-families)
-            (set-fontset-font t script font-symbol nil 'append))
           (dolist (font-emoji doom-emoji-fallback-font-families)
-            (set-fontset-font t script font-emoji nil 'append)))
+            (set-fontset-font t script font-emoji nil 'append))
+          (dolist (font-symbol doom-symbol-fallback-font-families)
+            (set-fontset-font t script font-symbol nil 'append)))
 
-        (dolist (font-math my-ui-fonts-math)
-          (set-fontset-font t 'mathematical font-math nil 'append))
-        (dolist (font-egyptian my-ui-fonts-egyptian)
-          (set-fontset-font t 'egyptian font-egyptian nil 'append))
+        (dolist (font-unicode my-ui-fonts-unicode)
+          (set-fontset-font t 'unicode font-unicode nil 'append))
 
         (dolist (script fontset-scripts-zh)
           (set-fontset-font t script font-chinese nil 'prepend)))))
