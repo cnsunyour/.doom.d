@@ -3,12 +3,12 @@
 
 (defcustom +telega--chat-cn-list nil
   "`telega' 里中文对话列表，用于自动切换到中文输入。"
-  :type 'list
+  :type '(repeat integer)
   :group 'telega)
 
 (defcustom +telega--chat-en-list nil
   "`telega' 里英文对话列表，用于自动切换到英文输入。"
-  :type 'list
+  :type '(repeat integer)
   :group 'telega)
 
 (defun +telega--save-encn-list ()
