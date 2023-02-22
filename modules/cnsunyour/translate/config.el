@@ -11,7 +11,7 @@
         "p" #'youdao-dictionary-play-voice-at-point
         "P" #'youdao-dictionary-play-voice-from-input)
   :config
-  (set-popup-rule! (regexp-quote youdao-dictionary-buffer-name) :side 'right :size 0.5 :select t)
+  (set-popup-rule! (regexp-quote youdao-dictionary-buffer-name) :side 'right :size 80 :select t :quit t)
   ;; 设定youdao api id和key
   (let ((credentials (auth-source-user-and-password "youdao-api")))
     (setq youdao-dictionary-app-key (car credentials)
@@ -30,7 +30,7 @@
         "f" #'fanyi-dwim2
         "F" #'fanyi-dwim)
   :config
-  (set-popup-rule! (regexp-quote fanyi-buffer-name) :side 'right :size 0.5 :select t))
+  (set-popup-rule! (regexp-quote fanyi-buffer-name) :side 'right :size 80 :select t :quit t))
 
 
 (use-package! go-translate
@@ -44,7 +44,7 @@
         "g" #'gts-do-translate
         "G" #'my-gts-do-translate)
   :config
-  (set-popup-rule! (regexp-quote gts-buffer-name) :side 'right :size 0.5 :select t)
+  (set-popup-rule! (regexp-quote gts-buffer-name) :side 'right :size 80 :select t :quit t)
   (setq gts-translate-list '(("en" "zh") ("zh" "en"))
         gts-default-translator
         (gts-translator
