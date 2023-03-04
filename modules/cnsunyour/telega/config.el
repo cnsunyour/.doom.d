@@ -72,7 +72,4 @@
   (load! "+telega-addition"))
 
 
-(use-package! telega-bridge-bot
-  :after telega
-  :config
-  (telega-bridge-bot-replace-user))
+(use-package! telega-bridge-bot :after telega)
