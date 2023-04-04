@@ -24,6 +24,7 @@
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
   (telega-load . telega-autoplay-mode)
+  (telega-load . telega-transient-mode)
 
   :config
   ;; (add-hook 'telega-msg-ignore-predicates
