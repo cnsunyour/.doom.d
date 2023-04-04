@@ -208,7 +208,7 @@
        ;; (:if IS-MAC email)
        ;; irc
        org
-       ;; tabnine
+       tabnine
        telega
        ;; ement
        ;; slack
