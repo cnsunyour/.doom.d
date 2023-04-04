@@ -209,6 +209,7 @@
        ;; irc
        org
        tabnine
+       colipot
        telega
        ;; ement
        ;; slack
