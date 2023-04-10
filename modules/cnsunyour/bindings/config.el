@@ -61,8 +61,8 @@
 
       :g "C-!" #'kill-buffer-and-window
       :g "C-s-S-l" #'toggle-truncate-lines
-      :g "M-o" #'evil-window-next
-      :g "M-O" #'evil-window-prev
+      :g "M-o" #'next-window-any-frame
+      :g "M-O" #'previous-window-any-frame
 
       (:when (modulep! :ui workspaces)
         "C-M-S-s-w" #'=calendar)
