@@ -10,9 +10,10 @@
   (pushnew! +evil-collection-disabled-list 'telega)
 
   :hook
-  ;; (telega-chat-mode . yas-minor-mode-on)
-  ;; (telega-chat-mode . visual-line-mode)
+  (telega-root-mode . (lambda ()
+                        (setq-local truncate-lines nil)))
   (telega-chat-mode . (lambda ()
+                        (setq-local truncate-lines nil)
                         (set-company-backend! 'telega-chat-mode
                           (append (list telega-emoji-company-backend
                                         'telega-company-username

@@ -42,7 +42,7 @@
     (unless (local-variable-p 'face-font-rescale-alist)
       (make-local-variable 'face-font-rescale-alist))
     (dolist (emoji doom-emoji-fallback-font-families)
-      (add-to-list 'face-font-rescale-alist (cons (concat "-" emoji "-") 0.8)))
+      (add-to-list 'face-font-rescale-alist (cons (concat "-" emoji "-") 0.75)))
     (buffer-face-mode))
 
   (add-hook 'telega-chat-mode-hook 'telega-buffer-face-mode-variable))
