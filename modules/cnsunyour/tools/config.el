@@ -76,3 +76,19 @@
   (nyan-wavy-trail t)
   :hook
   (doom-modeline-mode . nyan-mode))
+
+(use-package! gptel
+  :defer t
+  :hook
+  (gptel-mode . (lambda ()
+                  (evil-change-state 'emacs)))
+  :config
+  (set-popup-rule! (regexp-quote "*ChatGPT*")
+    :side 'left :size 80 :select t :quit t)
+  (setq gptel-api-key (auth-source-pick-first-password
+                       :host "openai.com"
+                       :user "chatgpt"))
+  (define-advice gptel-curl--get-args
+      (:around (orig-func &rest args) add-proxy)
+    (let ((res (apply orig-func args)))
+      (cons "-xhttp://127.0.0.1:7890" res))))

@@ -15,3 +15,4 @@
 (package! ialign)
 (package! nyan-mode
   :pin "09904af23adb839c6a9c1175349a1fb67f5b4370")
+(package! gptel)
