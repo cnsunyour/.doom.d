@@ -81,6 +81,7 @@
   :defer t
   :hook
   (gptel-mode . (lambda ()
+                  (display-line-numbers-mode -1)
                   (evil-change-state 'emacs)))
   :config
   (set-popup-rule! (regexp-quote "*ChatGPT*")
