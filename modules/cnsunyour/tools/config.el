@@ -83,9 +83,14 @@
   (gptel-mode . (lambda ()
                   (display-line-numbers-mode -1)
                   (evil-change-state 'emacs)))
+  (gptel-post-response . (lambda ()
+                           (pcase (buffer-local-value 'major-mode (current-buffer))
+                             ('org-mode (org-next-visible-heading 1) (org-end-of-line))
+                             ('markdown-mode (markdown-outline-next) (end-of-line)))))
   :config
+  (setq gptel-default-mode 'markdown-mode)
   (set-popup-rule! (regexp-quote "*ChatGPT*")
-    :side 'left :size 80 :select t :quit t)
+    :side 'left :size 80 :select t :quit 'current)
   (setq gptel-api-key (auth-source-pick-first-password
                        :host "openai.com"
                        :user "chatgpt"))
