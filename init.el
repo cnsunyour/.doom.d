@@ -153,7 +153,6 @@
        ;;purescript        ; javascript, but functional
        (python
         +lsp
-        +pyenv
         +conda
         +pyright)
        ;;qt                ; the 'cutest' gui framework ever
