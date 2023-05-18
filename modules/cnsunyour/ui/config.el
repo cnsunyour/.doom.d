@@ -62,7 +62,7 @@
                              18 16)))
     (setq doom-font (font-spec :family font :size font-size))
     (when (fboundp 'set-fontset-font)
-      (add-hook! 'emacs-startup-hook :append
+      (add-hook! 'after-setting-font-hook :append
         (dolist (script fontset-scripts-symbol)
           (dolist (font-emoji doom-emoji-fallback-font-families)
             (set-fontset-font t script font-emoji nil 'append))
