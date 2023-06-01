@@ -43,8 +43,13 @@
                                         '(:eval (telega-mode-line-icon))
                                         telega-mode-line-string-format))
 
-  (when (modulep! :completion ivy) (load! "+ivy-telega"))
-
+  (map! :desc "Telega all chats"
+        "C-c c" #'telega-chat-with
+        :desc "Telega important chats"
+        "C-c v" #'telega-switch-important-chat
+        :desc "Telega next important chat"
+        "C-c SPC" (cmd! (let ((current-prefix-arg '(4)))
+                          (call-interactively #'telega-switch-important-chat))))
   (map! :map telega-chat-mode-map
         "C-c C-e" #'telega-chatbuf-attach-sticker
         "C-c C-t" #'telega-auto-translate-mode)
