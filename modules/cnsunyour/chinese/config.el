@@ -153,53 +153,38 @@ input scheme to convert to Chinese."
   (load! "+rime-predicates"))
 
 
-;; Support pinyin in Ivy
+;; let `ivy-read' support chinese pinyin
 ;; Input prefix ';' to match pinyin
 ;; Refer to  https://github.com/abo-abo/swiper/issues/919 and
 ;; https://github.com/pengpengxp/swiper/wiki/ivy-support-chinese-pinyin
 (use-package! pinyinlib
   :when (modulep! :completion ivy)
-  :commands (pinyinlib-build-regexp-string)
-  :init
-  (with-no-warnings
-    (defun ivy--regex-pinyin (str)
-      "The regex builder wrapper to support pinyin."
-      (or (pinyin-to-utf8 str)
-          (and (fboundp '+ivy-prescient-non-fuzzy)
-               (+ivy-prescient-non-fuzzy str))
-          (ivy--regex-plus str)))
+  :config
+  (defun re-builder-pinyin (str)
+    (or (pinyin-to-utf8 str)
+        (ivy--regex-plus str)
+        (ivy--regex-ignore-order)))
 
-    (defun my-pinyinlib-build-regexp-string (str)
-      "Build a pinyin regexp sequence from STR."
-      (cond ((equal str ".*") ".*")
-            (t (pinyinlib-build-regexp-string str t))))
+  (setq ivy-re-builders-alist
+        '((t . re-builder-pinyin)))
 
-    (defun my-pinyin-regexp-helper (str)
-      "Construct pinyin regexp for STR."
-      (cond ((equal str " ") ".*")
-            ((equal str "") nil)
-            (t str)))
+  (defun my-pinyinlib-build-regexp-string (str)
+    (cond ((equal str ".*") ".*")
+          (t (pinyinlib-build-regexp-string str t))))
 
-    (defun pinyin-to-utf8 (str)
-      "Convert STR to UTF-8."
-      (cond ((equal 0 (length str)) nil)
-            ((equal (substring str 0 1) ";")
-             (mapconcat
-              #'my-pinyinlib-build-regexp-string
-              (remove nil (mapcar
-                           #'my-pinyin-regexp-helper
-                           (split-string
-                            (replace-regexp-in-string ";" "" str)
-                            "")))
-              ""))
-            (t nil)))
+  (defun my-pinyin-regexp-helper (str)
+    (cond ((equal str " ") ".*")
+          ((equal str "") nil)
+          (t str)))
 
-    (mapcar
-     (lambda (item)
-       (let ((key (car item))
-             (value (cdr item)))
-         (when (member value '(+ivy-prescient-non-fuzzy
-                               ivy--regex-plus))
-           (setf (alist-get key ivy-re-builders-alist)
-                 #'ivy--regex-pinyin))))
-     ivy-re-builders-alist)))
+  (defun pinyin-to-utf8 (str)
+    (cond ((equal 0 (length str)) nil)
+          ((equal (substring str 0 1) ";")
+           (mapconcat 'my-pinyinlib-build-regexp-string
+                      (remove nil (mapcar 'my-pinyin-regexp-helper
+                                          (split-string
+                                           (replace-regexp-in-string ";" "" str)
+                                           "")))
+                      ""))
+          nil))
+  )
