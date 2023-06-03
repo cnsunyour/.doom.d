@@ -74,7 +74,7 @@
        vterm             ; another terminals in Emacs
 
        :checkers
-       (syntax)              ; tasing you for every semicolon you forget
+       syntax              ; tasing you for every semicolon you forget
        ;; spell             ; tasing you for misspelling mispelling
        ;; grammar           ; tasing grammar mistake every you make
 
@@ -89,6 +89,7 @@
        gist              ; interacting with github gists
        (lookup +dictionary +docsets)
        (lsp +peek)
+       tree-sitter
        (magit +forge)             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        (pass +auth)              ; password manager for nerds
@@ -106,7 +107,7 @@
        :lang
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
-       (cc +lsp)               ; C/C++/Obj-C madness
+       (cc +tree-sitter)               ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;; common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -119,22 +120,20 @@
        emacs-lisp        ; drown in parentheses
        ;;ess               ; emacs speaks statistics
        ;;fsharp           ; ML stands for Microsoft's Language
-       (go +lsp)               ; the hipster dialect
+       (go +lsp +tree-sitter)               ; the hipster dialect
        ;;(haskell        ; a language that's lazier than I am
        ;;+intero)
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        (java +lsp +tree-sitter)
-       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
+       (json +lsp +tree-sitter)
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       (latex
-        +latexmk
-        +cdlatex
-        +lsp)             ; writing papers in Emacs has never been so fun
+       (latex +latexmk +cdlatex +lsp)             ; writing papers in Emacs has never been so fun
        ;;ledger            ; an accounting system in Emacs
-       (lua +lsp)               ; one-based indices? one-based indices
-       markdown          ; writing docs for people to ignore
+       (lua +lsp +tree-sitter)               ; one-based indices? one-based indices
+       (markdown +grip)          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml           ; an objective camel
@@ -148,24 +147,21 @@
         +pomodoro
         +present)        ; using Emacs for presentations
        ;; perl              ; write code no one else can comprehend
-       (php +lsp)                ; perl's insecure younger brother
+       (php +lsp +tree-sitter)                ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python
-        +lsp
-        +conda
-        +pyright)
+       (python +lsp +conda +pyright +tree-sitter)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;; rest              ; Emacs as a REST client
        ;;ruby            ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (rust +lsp +tree-sitter)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       (sh +lsp)                ; she sells {ba,z,fi}sh shells on the C xor
+       (sh +lsp +tree-sitter +fish)                ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       (web +lsp)               ; the tubes
+       (web +lsp +tree-sitter)               ; the tubes
        ;;vala              ; GObjective-C
 
        :email

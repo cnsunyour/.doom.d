@@ -18,18 +18,11 @@
       "<link rel='stylesheet' type='text/css' href='https://www.labri.fr/perso/nrougier/GTD/GTD.css' />")
 
 ;; 预览 org 和 markdown 文件
-(use-package! grip-mode
-  :defer t
-  :commands (grip-mode)
-  :init
-  (map! (:map (markdown-mode-map org-mode-map)
-          :localleader
-          "v" #'grip-mode))
-  :config
+(after! grip-mode
   ;; Use embedded webkit to previe
   (setq grip-preview-use-webkit t)
   ;; Setup xwidget window popup rule
-  (set-popup-rule! "*xwidget" :side 'right :size .50 :select nil :quit t)
+  (set-popup-rule! (regexp-quote "*xwidget") :side 'right :size .50 :select nil :quit t)
   ;; Setup github username and token for API auth
   (let ((credentials (auth-source-user-and-password "mygrip")))
     (setq grip-github-user (car credentials)
