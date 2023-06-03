@@ -18,7 +18,13 @@
       "<link rel='stylesheet' type='text/css' href='https://www.labri.fr/perso/nrougier/GTD/GTD.css' />")
 
 ;; 预览 org 和 markdown 文件
-(after! grip-mode
+(use-package! grip-mode
+  :defer t
+  :init
+  (map! :map (markdown-mode-map org-mode-map)
+        :localleader
+        :desc "grip-mode" "v" #'grip-mode)
+  :config
   ;; Use embedded webkit to previe
   (setq grip-preview-use-webkit t)
   ;; Setup xwidget window popup rule
