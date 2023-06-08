@@ -208,7 +208,6 @@
        telega
        ;; ement
        ;; slack
-       ;; term
        tools
        translate
        ui
