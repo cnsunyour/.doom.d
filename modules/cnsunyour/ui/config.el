@@ -111,30 +111,44 @@
 ;; `window-setup-hook'
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 ;;
-(defconst +list-light-theme '(doom-one-light
+(defconst +list-light-theme '(doom-ayu-light
+                              doom-earl-grey
+                              doom-feather-light
+                              doom-flatwhite
                               doom-nord-light
+                              doom-one-light
                               doom-opera-light
+                              doom-plain
                               doom-tomorrow-day))
-(defconst +list-dark-theme  '(doom-one
-                              doom-vibrant
-                              doom-city-lights
+(defconst +list-dark-theme  '(doom-ayu-mirage
                               doom-challenger-deep
+                              doom-city-lights
+                              doom-dark+
                               doom-dracula
+                              doom-feather-dark
                               doom-gruvbox
+                              doom-henna
                               doom-horizon
                               doom-Iosvkem
+                              doom-lantern
+                              doom-laserwave
+                              doom-manegarm
                               doom-material
                               doom-molokai
                               doom-monokai-classic
                               doom-monokai-pro
                               doom-moonlight
                               doom-oceanic-next
+                              doom-one
                               doom-palenight
                               doom-peacock
                               doom-rouge
                               doom-snazzy
                               doom-spacegrey
-                              doom-tomorrow-night))
+                              doom-tokyo-night
+                              doom-tomorrow-night
+                              doom-vibrant
+                              doom-xcode))
 
 ;; Auto change theme on non-mac OS
 (use-package! theme-changer
