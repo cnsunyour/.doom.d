@@ -90,11 +90,7 @@
   :config
   (setq gptel-default-mode 'markdown-mode)
   (set-popup-rule! (regexp-quote "*ChatGPT*")
-    :side 'left :size 80 :select t :quit 'current)
+    :side 'left :size 100 :select t :quit 'current)
   (setq gptel-api-key (auth-source-pick-first-password
                        :host "openai.com"
-                       :user "chatgpt"))
-  (define-advice gptel-curl--get-args
-      (:around (orig-func &rest args) add-proxy)
-    (let ((res (apply orig-func args)))
-      (cons "-xhttp://127.0.0.1:7890" res))))
+                       :user "chatgpt")))
