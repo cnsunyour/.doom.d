@@ -208,10 +208,11 @@
        telega
        ;; ement
        ;; slack
-       ;; term
+       term
        tools
        translate
        ui
+       embark
        love)
 
 (setq custom-file (expand-file-name ".custom.el" doom-user-dir))

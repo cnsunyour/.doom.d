@@ -82,9 +82,9 @@
       (dolist (script fontset-scripts-zh)
         (set-fontset-font t script my-ui-font-zh nil 'prepend))))
 
-  (add-hook! 'vterm-mode-hook
-    (setq-local buffer-face-mode-face '((:family "Iosevka Nerd Font")))
-    (buffer-face-mode))
+  ;; (add-hook! 'vterm-mode-hook
+  ;;   (setq-local buffer-face-mode-face '((:family "Iosevka Nerd Font")))
+  ;;   (buffer-face-mode))
 
   (add-hook! 'doom-load-theme-hook
     (setq fancy-splash-image
@@ -242,3 +242,5 @@
 ;; (pushnew! initial-frame-alist '(width . 200) '(height . 48))
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
+
+(use-package! nerd-icons)

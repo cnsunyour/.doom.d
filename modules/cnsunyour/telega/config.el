@@ -7,7 +7,14 @@
   :init
   (define-key global-map (kbd "C-c t") telega-prefix-map)
   (unless (display-graphic-p) (setq telega-use-images nil))
-  (pushnew! +evil-collection-disabled-list 'telega)
+  (when (modulep! :editor evil)
+    (cl-pushnew 'telega +evil-collection-disabled-list :test #'equal)
+    (setq evil-collection-mode-list (remove 'telega evil-collection-mode-list))
+    (set-evil-initial-state!
+      '(telega-root-mode
+        telega-chat-mode
+        telega-image-mode)
+      'emacs))
 
   :hook
   (telega-chat-mode . (lambda ()
@@ -55,12 +62,6 @@
         "C-c C-t" #'telega-auto-translate-mode)
 
   (load! "+telega-auto-input-method")
-
-  (set-evil-initial-state!
-    '(telega-root-mode
-      telega-chat-mode
-      telega-image-mode)
-    'emacs)
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :slot 10 :vslot 10 :side 'right :size (+ telega-root-fill-column 3) :ttl nil :quit 'current :modeline t)

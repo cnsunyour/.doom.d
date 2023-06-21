@@ -99,4 +99,13 @@
   (require 'forge)
   (setq magit-revision-show-gravatars t))
 
+(when (modulep! :editor evil)
+  (setq evil-magic 'very-magic)
+  (setq evil-ex-search-vim-style-regexp t)
+  (evil-select-search-module 'evil-search-module 'evil-search))
+
+(use-package! emacs-gc-stats
+  :config
+  (add-hook! 'emacs-startup-hook #'emacs-gc-stats-mode))
+
 (load (expand-file-name ".private.el" doom-user-dir) t)
