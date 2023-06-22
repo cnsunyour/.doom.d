@@ -111,14 +111,12 @@
 ;; `window-setup-hook'
 ;; 只有放在module config.el files之后，doom-init-ui-hook之前才能正常执行
 ;;
-(defconst +list-light-theme '(doom-ayu-light
-                              doom-earl-grey
+(defconst +list-light-theme '(doom-earl-grey
                               doom-feather-light
                               doom-flatwhite
                               doom-nord-light
                               doom-one-light
                               doom-opera-light
-                              doom-plain
                               doom-tomorrow-day))
 (defconst +list-dark-theme  '(doom-ayu-mirage
                               doom-challenger-deep
