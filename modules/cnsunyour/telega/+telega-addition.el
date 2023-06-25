@@ -32,7 +32,6 @@
 
 (when (display-graphic-p)
   (make-face 'my-telega-face)
-  (set-face-font 'my-telega-face doom-font)
 
   (defun telega-buffer-face-mode-variable ()
     (interactive)

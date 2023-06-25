@@ -51,47 +51,46 @@
   (dolist (emoji my-ui-fonts-emoji)
     (add-to-list 'doom-emoji-fallback-font-families emoji t))
 
-  (when-let* ((font (if (and my-ui-fonts (listp my-ui-fonts))
-                        (elt my-ui-fonts (random (length my-ui-fonts)))
-                      my-ui-fonts))
-              (font-chinese (if my-ui-font-zh
-                                my-ui-font-zh
-                              font))
-              (font-size (if (and (>= (x-display-pixel-width) 1600)
-                                  (>= (x-display-pixel-height) 1000))
-                             18 16)))
-    (setq doom-font (font-spec :family font :size font-size))
-    (when (fboundp 'set-fontset-font)
-      (add-hook! 'after-setting-font-hook :append
-        (dolist (script fontset-scripts-symbol)
-          (dolist (font-emoji doom-emoji-fallback-font-families)
-            (set-fontset-font t script font-emoji nil 'append))
-          (dolist (font-symbol doom-symbol-fallback-font-families)
-            (set-fontset-font t script font-symbol nil 'append)))
+  (add-hook! 'after-setting-font-hook :append
+    (dolist (script fontset-scripts-symbol)
+      (dolist (font-emoji doom-emoji-fallback-font-families)
+        (set-fontset-font t script font-emoji nil 'append))
+      (dolist (font-symbol doom-symbol-fallback-font-families)
+        (set-fontset-font t script font-symbol nil 'append)))
 
-        (dolist (font-unicode my-ui-fonts-unicode)
-          (set-fontset-font t 'unicode font-unicode nil 'append))
+    (dolist (font-unicode my-ui-fonts-unicode)
+      (set-fontset-font t 'unicode font-unicode nil 'append)))
 
-        (dolist (script fontset-scripts-zh)
-          (set-fontset-font t script font-chinese nil 'prepend)))))
-
-  (when (and my-ui-font-zh
-             (fboundp 'doom-adjust-font-size)
-             (fboundp 'set-fontset-font))
+  (when (and my-ui-font-zh (fboundp 'doom-adjust-font-size))
     (define-advice doom-adjust-font-size (:after (&rest _) reset-chinese-font)
       (dolist (script fontset-scripts-zh)
         (set-fontset-font t script my-ui-font-zh nil 'prepend))))
 
-  ;; (add-hook! 'vterm-mode-hook
-  ;;   (setq-local buffer-face-mode-face '((:family "Iosevka Nerd Font")))
-  ;;   (buffer-face-mode))
-
   (add-hook! 'doom-load-theme-hook
+    (when-let* ((font (if (and my-ui-fonts (listp my-ui-fonts))
+                          (elt my-ui-fonts (random (length my-ui-fonts)))
+                        my-ui-fonts))
+                (font-chinese (if my-ui-font-zh
+                                  my-ui-font-zh
+                                font))
+                (font-size (if (and (>= (x-display-pixel-width) 1600)
+                                    (>= (x-display-pixel-height) 1000))
+                               18 16)))
+      (setq doom-font (font-spec :family font :size font-size))
+      (add-hook! 'after-setting-font-hook :append
+        (dolist (script fontset-scripts-zh)
+          (set-fontset-font t script font-chinese nil 'prepend)))
+      (doom/reload-font))
+
     (setq fancy-splash-image
           (let ((banners (directory-files (expand-file-name "banner" doom-user-dir)
                                           'full
                                           (rx ".png" eos))))
             (elt banners (random (length banners))))))
+
+  ;; (add-hook! 'vterm-mode-hook
+  ;;   (setq-local buffer-face-mode-face '((:family "Iosevka Nerd Font")))
+  ;;   (buffer-face-mode))
   ) ;; when (display-graphic-p)
 
 ;;
