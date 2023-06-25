@@ -90,7 +90,4 @@
   :config
   (setq gptel-default-mode 'markdown-mode)
   (set-popup-rule! (regexp-quote "*ChatGPT*")
-    :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-api-key (auth-source-pick-first-password
-                       :host "openai.com"
-                       :user "chatgpt")))
+    :side 'left :size 100 :select t :quit 'current))
