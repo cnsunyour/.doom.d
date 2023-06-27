@@ -151,8 +151,7 @@
 (use-package! theme-changer
   :unless IS-MAC
   :config
-  (add-hook! after-init
-             :append
+  (add-hook! after-init :append
              (change-theme +list-light-theme
                            +list-dark-theme)))
 
@@ -163,8 +162,7 @@
   (setq auto-dark-emacs/light-theme +list-light-theme
         auto-dark-emacs/dark-theme +list-dark-theme
         auto-dark-emacs/polling-interval-seconds 15)
-  (add-hook! after-init
-             :append
+  (add-hook! after-init :append
              #'auto-dark-emacs/check-and-set-dark-mode))
 
 (when (and IS-MAC (boundp 'ns-system-appearance-change-functions))
@@ -227,7 +225,7 @@
 
 ;; Line numbers are pretty slow all around. The performance boost of
 ;; disabling them outweighs the utility of always keeping them on.
-(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type 'relative)
 
 ;; 调整Mac下窗口和全屏显示方式
 (when (eq window-system 'ns)
