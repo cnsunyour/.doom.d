@@ -125,7 +125,7 @@
        ;;+intero)
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       (java +lsp +tree-sitter)
+       ;; (java +lsp +tree-sitter)
        (javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
        (json +lsp +tree-sitter)
        ;;julia             ; a better, faster MATLAB
@@ -212,7 +212,7 @@
        tools
        translate
        ui
-       embark
+       ;; embark
        love)
 
 (setq custom-file (expand-file-name ".custom.el" doom-user-dir))
