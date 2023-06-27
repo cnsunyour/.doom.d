@@ -2,10 +2,11 @@
 
 
 (use-package! company-tabnine
-  :when (and (modulep! :completion company)
-             (modulep! :tools lsp))
+  :when (modulep! :completion company)
   :init
-  (setq +lsp-company-backends
-        (if (modulep! :editor snippets)
-            '(:separate company-tabnine company-capf company-yasnippet)
-          '(:separate company-tabnine company-capf))))
+  (let ((backends (if (modulep! :editor snippets)
+                      '(:separate company-tabnine company-capf company-yasnippet)
+                    '(:separate company-tabnine company-capf))))
+    (when (modulep! :tools lsp)
+      (setq +lsp-company-backends backends))
+    (set-company-backend! 'prog-mode backends)))
