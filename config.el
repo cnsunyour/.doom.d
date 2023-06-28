@@ -108,4 +108,10 @@
   :config
   (add-hook! 'emacs-startup-hook #'emacs-gc-stats-mode))
 
+;; set the last used bookmark as the default bookmark
+(defadvice bookmark-jump (after bookmark-jump activate)
+  (let ((latest (bookmark-get-bookmark bookmark)))
+    (setq bookmark-alist (delq latest bookmark-alist))
+    (add-to-list 'bookmark-alist latest)))
+
 (load (expand-file-name ".private.el" doom-user-dir) t)
