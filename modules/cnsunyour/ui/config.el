@@ -61,11 +61,6 @@
     (dolist (font-unicode my-ui-fonts-unicode)
       (set-fontset-font t 'unicode font-unicode nil 'append)))
 
-  (when (and my-ui-font-zh (fboundp 'doom-adjust-font-size))
-    (define-advice doom-adjust-font-size (:after (&rest _) reset-chinese-font)
-      (dolist (script fontset-scripts-zh)
-        (set-fontset-font t script my-ui-font-zh nil 'prepend))))
-
   (add-hook! 'doom-load-theme-hook
     (when-let* ((font (if (and my-ui-fonts (listp my-ui-fonts))
                           (elt my-ui-fonts (random (length my-ui-fonts)))
@@ -77,10 +72,15 @@
                                     (>= (x-display-pixel-height) 1000))
                                18 16)))
       (setq doom-font (font-spec :family font :size font-size))
-      (add-hook! 'after-setting-font-hook :append
-        (dolist (script fontset-scripts-zh)
-          (set-fontset-font t script font-chinese nil 'prepend)))
-      (doom/reload-font))
+      (doom/reload-font)
+
+      (dolist (script fontset-scripts-zh)
+        (set-fontset-font t script font-chinese nil 'prepend))
+
+      (when (fboundp 'doom-adjust-font-size)
+        (define-advice doom-adjust-font-size (:after (&rest _) reset-chinese-font)
+          (dolist (script fontset-scripts-zh)
+            (set-fontset-font t script font-chinese nil 'prepend)))))
 
     (setq fancy-splash-image
           (let ((banners (directory-files (expand-file-name "banner" doom-user-dir)
