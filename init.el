@@ -150,7 +150,7 @@
        (php +lsp +tree-sitter)                ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp +conda +pyright +tree-sitter)
+       (python +conda +cython +lsp +pyright +tree-sitter)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;; rest              ; Emacs as a REST client
