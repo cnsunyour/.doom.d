@@ -8,8 +8,6 @@
                            "WenQuanYi Micro Hei Mono"
                            "WenQuanYi Zen Hei Mono"
                            "LXGW WenKai Mono"
-                           "FZLanTingHeiPro_GB18030"
-                           "FZLTHPro Global"
                            "Unifont"
                            "Noto Sans Mono CJK SC")
     "Font lists used in my private custom ui config."
