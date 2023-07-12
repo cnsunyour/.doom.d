@@ -104,11 +104,6 @@
   (setq evil-ex-search-vim-style-regexp t)
   (evil-select-search-module 'evil-search-module 'evil-search))
 
-(use-package! emacs-gc-stats
-  :config
-  (add-hook! 'emacs-startup-hook #'emacs-gc-stats-mode))
-
-;; set the last used bookmark as the default bookmark
 (defadvice bookmark-jump (after bookmark-jump activate)
   (let ((latest (bookmark-get-bookmark bookmark)))
     (setq bookmark-alist (delq latest bookmark-alist))
