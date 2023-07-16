@@ -16,6 +16,3 @@
 (package! nyan-mode
   :pin "09904af23adb839c6a9c1175349a1fb67f5b4370")
 (package! gptel)
-(package! mediainfo-mode
-  :pin "9edee007c6bc7e5f96b466477575de1c8ef8507e"
-  :recipe (:host github :repo "xFA25E/mediainfo-mode"))
