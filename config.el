@@ -109,4 +109,6 @@
     (setq bookmark-alist (delq latest bookmark-alist))
     (add-to-list 'bookmark-alist latest)))
 
+(use-package! nerd-icons)
+
 (load (expand-file-name ".private.el" doom-user-dir) t)

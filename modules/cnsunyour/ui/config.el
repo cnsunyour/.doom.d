@@ -237,5 +237,3 @@
 ;; (pushnew! initial-frame-alist '(width . 200) '(height . 48))
 (add-hook 'window-setup-hook #'toggle-frame-maximized t)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
-
-(use-package! nerd-icons)
