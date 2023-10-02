@@ -10,11 +10,7 @@
   (when (modulep! :editor evil)
     (cl-pushnew 'telega +evil-collection-disabled-list :test #'equal)
     (setq evil-collection-mode-list (remove 'telega evil-collection-mode-list))
-    (set-evil-initial-state!
-      '(telega-root-mode
-        telega-chat-mode
-        telega-image-mode)
-      'emacs))
+    (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs))
 
   :hook
   (telega-chat-mode . (lambda ()
