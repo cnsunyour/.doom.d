@@ -62,7 +62,7 @@
        ;; word-wrap
 
        :emacs
-       (dired +ranger +icons)
+       ;; (dired +dirvish +icons)
        electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)
        vc                ; version-control and Emacs, sitting in a tree
@@ -80,7 +80,7 @@
 
        :tools
        ;; ansible
-       (debugger +lsp)          ; FIXME stepping through code, to help you add bugs
+       ;; (debugger +lsp)          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        (docker +lsp)
        editorconfig      ; let someone else argue about tabs vs spaces
@@ -107,6 +107,7 @@
        :lang
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
+       (beancount +lsp)
        (cc +tree-sitter)               ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;; common-lisp       ; if you've seen one lisp, you've seen them all
@@ -196,10 +197,11 @@
 
        :cnsunyour
        bindings
-       beancount
+       ;; beancount
        blog
        calendar
        chinese
+       (dired +dirvish +icons)
        ;; ebook
        editor
        ;; (:if IS-MAC email)
