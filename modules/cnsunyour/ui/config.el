@@ -7,8 +7,6 @@
                            "Sarasa Mono Slab SC"
                            "WenQuanYi Micro Hei Mono"
                            "WenQuanYi Zen Hei Mono"
-                           "LXGW WenKai Mono"
-                           "Unifont"
                            "Noto Sans Mono CJK SC")
     "Font lists used in my private custom ui config."
     :group 'my-ui
