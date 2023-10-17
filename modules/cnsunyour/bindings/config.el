@@ -64,6 +64,10 @@
       :g "M-o" #'next-window-any-frame
       :g "M-O" #'previous-window-any-frame
 
+      (:map dired-mode-map
+        :n "h" #'dired-up-directory
+        :n "l" #'dired-find-file)
+
       (:when (modulep! :ui workspaces)
         "C-M-S-s-w" #'=calendar)
 
