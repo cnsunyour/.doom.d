@@ -208,7 +208,7 @@
        ;; irc
        org
        tabnine
-       colipot
+       copilot
        telega
        ;; ement
        ;; slack

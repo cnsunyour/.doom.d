@@ -1,5 +1,5 @@
 ;; -*- no-byte-compile: t; -*-
-;;; cnsunyour/colipot/packages.el
+;;; cnsunyour/copilot/packages.el
 
 (package! copilot
   :recipe (:host github

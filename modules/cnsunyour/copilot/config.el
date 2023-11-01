@@ -1,4 +1,4 @@
-;;; cnsunyour/colipot/config.el -*- lexical-binding: t; -*-
+;;; cnsunyour/copilot/config.el -*- lexical-binding: t; -*-
 
 
 (use-package! copilot
