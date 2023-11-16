@@ -13,14 +13,6 @@
     (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs))
 
   :hook
-  (telega-chat-mode . (lambda ()
-                        (set-company-backend! 'telega-chat-mode
-                          (append (list telega-emoji-company-backend
-                                        'telega-company-username
-                                        'telega-company-hashtag
-                                        'telega-company-markdown-precode)
-                                  (when (telega-chat-bot-p telega-chatbuf--chat)
-                                    '(telega-company-botcmd))))))
   (telega-load . telega-mode-line-mode)
   (telega-load . global-telega-url-shorten-mode)
   (telega-load . global-telega-mnz-mode)
@@ -30,17 +22,12 @@
   :config
   ;; (add-hook 'telega-msg-ignore-predicates
   ;;           (telega-match-gen-predicate "msg-" '(sender blocked)))
-  ;; (setq telega-proxies (list '(:server "127.0.0.1" :port 1086 :enable t
-  ;;                         :type (:@type "proxyTypeSocks5"))))
   (setq telega-chat-show-deleted-messages-for '(me-is-owner OR-ADMIN)
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
         telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(video video-note)
         telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
-        ;; telega-chat-fill-column 88
-        telega-root-fill-column (+ telega-chat-fill-column 2)
-        telega-root-auto-fill-mode nil
         telega-translate-to-language-by-default "zh"
         telega-mode-line-string-format (remove
                                         '(:eval (telega-mode-line-icon))
@@ -60,7 +47,7 @@
   (load! "+telega-auto-input-method")
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :slot 10 :vslot 10 :side 'right :size (+ telega-root-fill-column 3) :ttl nil :quit 'current :modeline t)
+    :slot 10 :vslot 10 :side 'right :size (+ telega-root-fill-column 1) :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
     :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 5) :ttl 10 :quit 'current :modeline t)
   (set-popup-rule! (regexp-quote "*Telega Instant View*")
