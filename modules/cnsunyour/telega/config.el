@@ -39,7 +39,7 @@
         telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
         ;; telega-chat-fill-column 88
-        telega-root-fill-column (+ telega-chat-fill-column 10)
+        telega-root-fill-column (+ telega-chat-fill-column 2)
         telega-root-auto-fill-mode nil
         telega-translate-to-language-by-default "zh"
         telega-mode-line-string-format (remove
@@ -62,7 +62,7 @@
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
     :slot 10 :vslot 10 :side 'right :size (+ telega-root-fill-column 3) :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 13) :ttl 10 :quit 'current :modeline t)
+    :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 5) :ttl 10 :quit 'current :modeline t)
   (set-popup-rule! (regexp-quote "*Telega Instant View*")
     :slot 20 :vslot 10 :side 'right :height .5 :ttl 10 :quit t :modeline nil :select t)
   (set-popup-rule! (regexp-quote "*Telega User*")
