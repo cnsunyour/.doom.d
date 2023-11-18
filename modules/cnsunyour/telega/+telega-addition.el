@@ -28,20 +28,3 @@
             (list '(type supergroup) "[" "]")
             (list '(type channel)    "<" ">")
             (list 'all               "[" "]")))
-
-
-(when (display-graphic-p)
-  (make-face 'my-telega-face)
-
-  (defun telega-buffer-face-mode-variable ()
-    (interactive)
-    (if (local-variable-p 'buffer-face-mode-face)
-        (setq buffer-face-mode-face 'my-telega-face)
-      (setq-local buffer-face-mode-face 'my-telega-face))
-    (unless (local-variable-p 'face-font-rescale-alist)
-      (make-local-variable 'face-font-rescale-alist))
-    (dolist (emoji doom-emoji-fallback-font-families)
-      (add-to-list 'face-font-rescale-alist (cons (concat "-" emoji "-") 0.75)))
-    (buffer-face-mode))
-
-  (add-hook 'telega-chat-mode-hook 'telega-buffer-face-mode-variable))

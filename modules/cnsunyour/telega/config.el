@@ -26,9 +26,9 @@
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
         telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(video video-note)
-        telega-emoji-company-backend 'telega-company-telegram-emoji
         telega-sticker-size '(8 . 48)
         telega-translate-to-language-by-default "zh"
+        telega-avatar-workaround-gaps-for `(return t)
         telega-mode-line-string-format (remove
                                         '(:eval (telega-mode-line-icon))
                                         telega-mode-line-string-format))
