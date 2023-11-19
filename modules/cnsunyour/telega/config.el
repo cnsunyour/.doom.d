@@ -45,7 +45,7 @@
                `(too-long-link
                  :regexp "^\\(https?://\\)\\(.\\{60\\}\\).*?$"
                  :symbol ""
-                 :replace "\\2...")
+                 :replace "\\1\\2...")
                t)
 
   (map! :desc "Telega all chats"
