@@ -41,9 +41,9 @@
           (getenv "PKG_CONFIG_PATH"))))
 
 ;; 使用系统废纸篓删除文件
-(setq delete-by-moving-to-trash t)
-(when (eq window-system 'mac)
-  (setq mac-system-move-file-to-trash-use-finder t))
+;; (setq delete-by-moving-to-trash t)
+;; (when (eq window-system 'mac)
+;;   (setq mac-system-move-file-to-trash-use-finder t))
 
 ;; Set default directory
 (add-hook! emacs-startup (setq default-directory "~"))
