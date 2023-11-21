@@ -20,8 +20,8 @@
   (telega-load . telega-transient-mode)
 
   :config
-  ;; (add-hook 'telega-msg-ignore-predicates
-  ;;           (telega-match-gen-predicate "msg-" '(sender blocked)))
+  (add-hook 'telega-msg-ignore-predicates
+            (telega-match-gen-predicate 'msg '(sender is-blocked)))
   (setq telega-chat-show-deleted-messages-for '(me-is-owner OR-ADMIN)
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
         telega-open-file-function 'org-open-file
