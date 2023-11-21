@@ -57,7 +57,9 @@
                           (call-interactively #'telega-switch-important-chat))))
   (map! :map telega-chat-mode-map
         "C-c C-e" #'telega-chatbuf-attach-sticker
-        "C-c C-t" #'telega-auto-translate-mode)
+        :prefix ("C-c C-t" . "Telega chat topic")
+        "C-t" #'telega-chatbuf-filter-by-topic
+        "C-c" #'telega-chatbuf-thread-cancel)
 
   (load! "+telega-auto-input-method")
 
