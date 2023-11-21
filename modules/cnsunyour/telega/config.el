@@ -48,18 +48,22 @@
                  :replace "\\1\\2...")
                t)
 
-  (map! :desc "Telega all chats"
-        "C-c c" #'telega-chat-with
-        :desc "Telega important chats"
-        "C-c v" #'telega-switch-important-chat
-        :desc "Telega next important chat"
-        "C-c SPC" (cmd! (let ((current-prefix-arg '(4)))
-                          (call-interactively #'telega-switch-important-chat))))
-  (map! :map telega-chat-mode-map
-        "C-c C-e" #'telega-chatbuf-attach-sticker
-        :prefix ("C-c C-t" . "Telega chat topic")
-        "C-t" #'telega-chatbuf-filter-by-topic
-        "C-c" #'telega-chatbuf-thread-cancel)
+  (map! (:prefix "C-c"
+         :desc "Telega all chats"
+         "c" #'telega-chat-with
+         :desc "Telega important chats"
+         "v" #'telega-switch-important-chat
+         :desc "Telega next important chat"
+         "SPC" (cmd! (let ((current-prefix-arg '(4)))
+                       (call-interactively #'telega-switch-important-chat))))
+        (:map telega-chat-mode-map
+         :desc "Telega chat send sticker"
+         "C-c C-e" #'telega-chatbuf-attach-sticker
+         (:prefix ("C-t" . "Telega chat topic")
+          :desc "Telega filter by chat topic"
+          "C-t" #'telega-chatbuf-filter-by-topic
+          :desc "Telega clear chat topic"
+          "C-c" #'telega-chatbuf-thread-cancel)))
 
   (load! "+telega-auto-input-method")
 
