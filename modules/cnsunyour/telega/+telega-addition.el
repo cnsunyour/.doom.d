@@ -44,7 +44,7 @@
 ;; add some rules to shorten urls
 (add-to-list 'telega-url-shorten-regexps
              `(bilibili
-               :regexp "^https?://\\(?:\\w+\\.\\)?bilibili.com/\\(.+\\)\\?.*$"
+               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?bilibili.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol #("󰷝" 0 1
                          (face
                           (:family "FontAwesome" :height 1.2)
@@ -57,7 +57,7 @@
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(reddit
-               :regexp "^https?://\\(?:www\\.\\)?reddit.com/\\(.+\\)/\\(.*\\)"
+               :regexp "^https?://\\(?:www\\.\\)?reddit.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol #("" 0 1
                          (face
                           (:family "FontAwesome" :height 1.2)
@@ -66,12 +66,12 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "\\1/\\2")
+               :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(redd.it
-               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?redd.it/\\(.*\\)\\?.*$"
-               :symbol #("󰑍" 0 1
+               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?redd.it/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :symbol #("" 0 1
                          (face
                           (:family "FontAwesome" :height 1.2)
                           font-lock-face
@@ -83,7 +83,7 @@
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(emacs-china
-               :regexp "^https?://\\(?:www\\.\\)?emacs-china.org/\\(.+\\)/\\(.*\\)"
+               :regexp "^https?://\\(?:www\\.\\)?emacs-china.org/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol #("" 0 1
                          (face
                           (:family "FontAwesome" :height 1.2)
@@ -92,7 +92,7 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "\\1/\\2")
+               :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(too-long-link
