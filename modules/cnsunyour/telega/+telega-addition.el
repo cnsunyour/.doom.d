@@ -62,6 +62,32 @@
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
+             `(stackoverflow
+               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?stackoverflow.com/questions/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
+               :replace "#\\1")
+             t)
+(add-to-list 'telega-url-shorten-regexps
+             `(stackexchange
+               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?stackexchange.com/questions/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
+               :replace "#\\1")
+             t)
+(add-to-list 'telega-url-shorten-regexps
              `(telegram
                :regexp "^https?://t.me/\\(.+\\)$"
                :symbol #("" 0 1
