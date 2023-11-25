@@ -122,7 +122,7 @@
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(other-link
-               :regexp "^https?://\\(.+\\)$"
+               :regexp "^https?://\\(.+[^/?]\\)[/?]?$"
                :symbol #("" 0 1
                          (face
                           (:family "FontAwesome" :height 1.2)
