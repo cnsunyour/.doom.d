@@ -89,7 +89,7 @@
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(too-long-link
-               :regexp "^https?://\\(.\\{60\\}\\).*?$"
+               :regexp "^https?://\\(?:www.\\)?\\(.\\{60\\}\\).*?$"
                :symbol #("" 0 1
                          (face
                           (:family "FontAwesome" :height 1.2)
@@ -102,7 +102,7 @@
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(other-link
-               :regexp "^https?://\\(.+[^/?]\\)[/?]?$"
+               :regexp "^https?://\\(?:www.\\)?\\(.+[^/?]\\)[/?]?$"
                :symbol #("" 0 1
                          (face
                           (:family "FontAwesome" :height 1.2)
