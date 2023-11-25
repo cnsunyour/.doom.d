@@ -26,27 +26,11 @@
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
         telega-open-file-function 'org-open-file
         ;; telega-open-message-as-file '(video video-note)
-        telega-sticker-size '(8 . 48)
         telega-translate-to-language-by-default "zh"
         telega-avatar-workaround-gaps-for `(return t)
-        telega-symbols-emojify (assq-delete-all 'checkmark telega-symbols-emojify)
-        telega-symbols-emojify (assq-delete-all 'heavy-checkmark telega-symbols-emojify)
-        telega-symbol-checkmark (nerd-icons-codicon "nf-cod-check")
-        telega-symbol-heavy-checkmark (nerd-icons-codicon "nf-cod-check_all")
-        telega-symbol-reply (nerd-icons-faicon "nf-fa-reply")
-        telega-symbol-reply-quote (nerd-icons-faicon "nf-fa-reply_all")
-        telega-symbol-forward (nerd-icons-mdicon "nf-md-comment_arrow_right_outline")
-        telega-symbol-right-arrow (nerd-icons-codicon "nf-cod-arrow_right")
         telega-mode-line-string-format (remove
                                         '(:eval (telega-mode-line-icon))
                                         telega-mode-line-string-format))
-
-  (add-to-list 'telega-url-shorten-regexps
-               `(too-long-link
-                 :regexp "^\\(https?://\\)\\(.\\{60\\}\\).*?$"
-                 :symbol ""
-                 :replace "\\1\\2...")
-               t)
 
   (map! (:prefix "C-c"
          :desc "Telega all chats"
