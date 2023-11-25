@@ -82,6 +82,19 @@
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
+             `(telegram
+               :regexp "^https?://t.me/\\(.+\\)$"
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
+               :replace "tg:\\1")
+             t)
+(add-to-list 'telega-url-shorten-regexps
              `(emacs-china
                :regexp "^https?://\\(?:www\\.\\)?emacs-china.org/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol #("" 0 1
@@ -106,4 +119,17 @@
                           (raise -0.24)
                           rear-nonsticky t))
                :replace "\\1...")
+             t)
+(add-to-list 'telega-url-shorten-regexps
+             `(other-link
+               :regexp "^https?://\\(.+\\)$"
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
+               :replace "\\1")
              t)
