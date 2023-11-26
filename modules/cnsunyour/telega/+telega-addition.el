@@ -23,6 +23,20 @@
 
 ;; add some rules to shorten urls
 (add-to-list 'telega-url-shorten-regexps
+             `(github-gist
+               :regexp "^https?://gist.github.com/\\(.+\\)/\\(.*\\)"
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
+               :replace "Gist#\\1/\\2"
+               :svg-icon ("fa-brands/github-octocat.svg" :scale 0.72))
+             t)
+(add-to-list 'telega-url-shorten-regexps
              `(bilibili
                :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?bilibili.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol #("󰷝" 0 1
