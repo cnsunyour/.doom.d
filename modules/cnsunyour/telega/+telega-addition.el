@@ -31,55 +31,55 @@
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(gnu-mailing-list-archive
-               :regexp "^https?://lists\\.gnu\\.org/archive/html/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://lists.gnu.org/archive/html/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol ""
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(twitter
-               :regexp "^https?://\\(?:www\\.\\)?(?:twitter|x).com/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:www.\\)?\\(?:twitter\\|x\\).com/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol "󰕄"
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(facebook
-               :regexp "^https?://\\(?:www\\.\\)?facebook.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:www.\\)?facebook.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol "󰈌"
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(bilibili-video
-               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?bilibili.com/video/\\(.+[^/?]\\)[/?]?"
+               :regexp "^https?://\\(?:\\w+.\\)?bilibili.com/video/\\(.+[^/?]\\)[/?]?"
                :symbol "󰷝"
                :replace "B站#\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(bilibili
-               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?bilibili.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:\\w+.\\)?bilibili.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol "󰷝"
                :replace "B站:\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(reddit
-               :regexp "^https?://\\(?:www\\.\\)?reddit.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:www.\\)?reddit.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol ""
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(redd.it
-               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?redd.it/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:\\w+.\\)?redd.it/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol ""
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(stackoverflow
-               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?stackoverflow.com/questions/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:\\w+.\\)?stackoverflow.com/questions/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol ""
                :replace "#\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(stackexchange
-               :regexp "^https?://\\(?:[a-zA-Z0-9-_]+\\.\\)?stackexchange.com/questions/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:\\w+.\\)?stackexchange.com/questions/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol ""
                :replace "#\\1")
              t)
@@ -91,7 +91,7 @@
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(emacs-china
-               :regexp "^https?://\\(?:www\\.\\)?emacs-china.org/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:www.\\)?emacs-china.org/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol ""
                :replace "\\1")
              t)
