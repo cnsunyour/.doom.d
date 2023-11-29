@@ -30,6 +30,12 @@
                :svg-icon ("fa-brands/github-octocat.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
+             `(gnu-mailing-list-archive
+               :regexp "^https?://lists\\.gnu\\.org/archive/html/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :symbol ""
+               :replace "\\1")
+             t)
+(add-to-list 'telega-url-shorten-regexps
              `(twitter
                :regexp "^https?://\\(?:www\\.\\)?(?:twitter|x).com/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol "󰕄"
