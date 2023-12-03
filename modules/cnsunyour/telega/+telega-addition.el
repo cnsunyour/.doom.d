@@ -23,6 +23,19 @@
 
 ;; add some rules to shorten urls
 (add-to-list 'telega-url-shorten-regexps
+             `(youtube-short :regexp "^https?://www.youtube.com/shorts/\\([^?]+\\).+"
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
+               :replace "YouTube#\\1"
+               :svg-icon ("fa-brands/youtube-rgb.svg" :scale 0.6))
+             t)
+(add-to-list 'telega-url-shorten-regexps
              `(github-gist
                :regexp "^https?://gist.github.com/\\(.+\\)/\\(.+[^/?]\\)[/?]?"
                :symbol ""
