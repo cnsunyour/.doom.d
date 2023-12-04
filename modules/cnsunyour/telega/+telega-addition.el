@@ -50,9 +50,9 @@
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(twitter
-               :regexp "^https?://\\(?:www.\\)?\\(?:twitter\\|x\\).com/\\([^?]+\\)\\(?:\\?.*\\)?$"
+               :regexp "^https?://\\(?:www.\\)?\\(?:twitter\\|x\\).com/\\(.+\\)/status/\\([^?]+\\)\\(?:\\?.*\\)?$"
                :symbol "󰕄"
-               :replace "\\1")
+               :replace "\\1#\\2")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(facebook
