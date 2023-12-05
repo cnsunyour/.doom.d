@@ -41,8 +41,6 @@
          "SPC" (cmd! (let ((current-prefix-arg '(4)))
                        (call-interactively #'telega-switch-important-chat))))
         (:map telega-chat-mode-map
-         :desc "Telega chat send sticker"
-         "C-c C-e" #'telega-chatbuf-attach-sticker
          (:prefix ("C-t" . "Telega chat topic")
           :desc "Telega filter by chat topic"
           "C-t" #'telega-chatbuf-filter-by-topic
