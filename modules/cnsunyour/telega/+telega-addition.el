@@ -38,85 +38,183 @@
 (add-to-list 'telega-url-shorten-regexps
              `(github-gist
                :regexp "^https?://gist.github.com/\\(.+\\)/\\(.+[^/?]\\)[/?]?"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "Gist:\\1/\\2"
                :svg-icon ("fa-brands/github-octocat.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(gnu-mailing-list-archive
                :regexp "^https?://lists.gnu.org/archive/html/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(twitter
                :regexp "^https?://\\(?:www.\\)?\\(?:twitter\\|x\\).com/\\(.+\\)/status/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol "󰕄"
+               :symbol #("󰕄" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "\\1#\\2")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(facebook
                :regexp "^https?://\\(?:www.\\)?facebook.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol "󰈌"
+               :symbol #("󰈌" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(bilibili-video
                :regexp "^https?://\\(?:\\w+.\\)?bilibili.com/video/\\(.+[^/?]\\)[/?]?"
-               :symbol "󰷝"
+               :symbol #("󰟴" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "B站#\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(bilibili
                :regexp "^https?://\\(?:\\w+.\\)?bilibili.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol "󰷝"
+               :symbol #("󰟴" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "B站:\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(reddit
                :regexp "^https?://\\(?:www.\\)?reddit.com/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(redd.it
                :regexp "^https?://\\(?:\\w+.\\)?redd.it/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(stackoverflow
                :regexp "^https?://\\(?:\\w+.\\)?stackoverflow.com/questions/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "#\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(stackexchange
                :regexp "^https?://\\(?:\\w+.\\)?stackexchange.com/questions/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "#\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(telegram
                :regexp "^https?://t.me/\\(.+\\)$"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "tg:\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(emacs-china
                :regexp "^https?://\\(?:www.\\)?emacs-china.org/\\([^?]+\\)\\(?:\\?.*\\)?$"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "\\1")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(too-long-link
                :regexp "^https?://\\(?:www.\\)?\\(.\\{60\\}\\).*?$"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "\\1...")
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(other-link
                :regexp "^https?://\\(?:www.\\)?\\(.+[^/?]\\)[/?]?"
-               :symbol ""
+               :symbol #("" 0 1
+                         (face
+                          (:family "FontAwesome" :height 1.2)
+                          font-lock-face
+                          (:family "FontAwesome" :height 1.2)
+                          display
+                          (raise -0.24)
+                          rear-nonsticky t))
                :replace "\\1")
              t)
