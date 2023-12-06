@@ -9,8 +9,22 @@
 (add-hook 'telega-root-mode-hook 'lg-telega-root-mode)
 (add-hook 'telega-chat-update-hook 'lg-telega-chat-update)
 
+
+(define-advice telega-etc-file (:override (filename) check-custom-etc-path-a)
+  "Check if FILENAME exists in custom etc/ directory."
+  (let ((new-path (expand-file-name (concat "etc/" filename) doom-user-dir)))
+    ;; Check if a file exists at the new path
+    (if (file-exists-p new-path)
+        ;; If it does, return new-path.
+        new-path
+      ;; If it does not, fall back to the original function telega-etc-file.
+      ;; advice--cd*r is an internal function used for calling the original unadvised function
+      ;; from within an advice. Here, it is used to fall back to the original behavior of telega-etc-file.
+      (funcall (advice--cd*r (indirect-function 'telega-etc-file)) filename))))
+
 ;; customize some icons/stickers/urls
 (setq telega-sticker-size '(8 . 48)
+      telega-url-shorten-use-images nil
       telega-symbols-emojify (assq-delete-all 'checkmark telega-symbols-emojify)
       telega-symbols-emojify (assq-delete-all 'heavy-checkmark telega-symbols-emojify)
       telega-symbol-checkmark (nerd-icons-codicon "nf-cod-check")
@@ -18,8 +32,7 @@
       telega-symbol-reply (nerd-icons-faicon "nf-fa-reply")
       telega-symbol-reply-quote (nerd-icons-faicon "nf-fa-reply_all")
       telega-symbol-forward (nerd-icons-mdicon "nf-md-comment_arrow_right_outline")
-      telega-symbol-right-arrow (nerd-icons-codicon "nf-cod-arrow_right")
-      telega-url-shorten-use-images nil)
+      telega-symbol-right-arrow (nerd-icons-codicon "nf-cod-arrow_right"))
 
 ;; add some rules to shorten urls
 (add-to-list 'telega-url-shorten-regexps
@@ -73,7 +86,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "\\1#\\2")
+               :replace "\\1#\\2"
+               :svg-icon ("fa-brands/twitter.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(facebook
@@ -86,7 +100,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "\\1")
+               :replace "\\1"
+               :svg-icon ("fa-brands/facebook.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(bilibili-video
@@ -99,7 +114,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "B站#\\1")
+               :replace "B站#\\1"
+               :svg-icon ("fa-brands/bilibili.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(bilibili
@@ -112,7 +128,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "B站:\\1")
+               :replace "B站:\\1"
+               :svg-icon ("fa-brands/bilibili.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(reddit
@@ -125,7 +142,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "\\1")
+               :replace "\\1"
+               :svg-icon ("fa-brands/reddit.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(redd.it
@@ -138,7 +156,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "\\1")
+               :replace "\\1"
+               :svg-icon ("fa-brands/reddit.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(stackoverflow
@@ -151,7 +170,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "#\\1")
+               :replace "#\\1"
+               :svg-icon ("fa-brands/stack-overflow.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(stackexchange
@@ -164,7 +184,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "#\\1")
+               :replace "#\\1"
+               :svg-icon ("fa-brands/stack-exchange.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(telegram
@@ -177,7 +198,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "tg:\\1")
+               :replace "tg:\\1"
+               :svg-icon ("fa-brands/telegram.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(emacs-china
@@ -203,7 +225,8 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "\\1...")
+               :replace "\\1..."
+               :svg-icon ("fa-brands/link.svg" :scale 0.72))
              t)
 (add-to-list 'telega-url-shorten-regexps
              `(other-link
@@ -216,5 +239,6 @@
                           display
                           (raise -0.24)
                           rear-nonsticky t))
-               :replace "\\1")
+               :replace "\\1"
+               :svg-icon ("fa-brands/link.svg" :scale 0.72))
              t)
