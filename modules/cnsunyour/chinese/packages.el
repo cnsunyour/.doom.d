@@ -9,4 +9,5 @@
 (package! cns
   :recipe (:host github
            :repo "kanglmf/emacs-chinese-word-segmentation"
-           :pre-build ("env" "CXX=clang++" "make")))
+           :pre-build ("make")
+           :files (:defaults "cnws" "cppjieba/dict")))

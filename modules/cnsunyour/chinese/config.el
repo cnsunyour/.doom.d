@@ -195,6 +195,9 @@ input scheme to convert to Chinese."
   :hook
   (find-file . cns-auto-enable)
   :config
-  (let ((repodir (concat doom-local-dir "straight/repos/emacs-chinese-word-segmentation/")))
+  (let ((repodir (concat (file-name-as-directory straight-base-dir)
+                         "straight/"
+                         (file-name-as-directory straight-build-dir)
+                         "cns/")))
     (setq cns-prog (concat repodir "cnws")
-          cns-dict-directory (concat repodir "cppjieba/dict"))))
+          cns-dict-directory (concat repodir "dict"))))
