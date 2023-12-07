@@ -6,3 +6,7 @@
 ;; (package! fcitx)
 (package! ace-pinyin)
 (package! pinyinlib)
+(package! cns
+  :recipe (:host github
+           :repo "kanglmf/emacs-chinese-word-segmentation"
+           :pre-build ("env" "CXX=clang++" "make")))

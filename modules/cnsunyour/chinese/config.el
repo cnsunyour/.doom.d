@@ -175,5 +175,26 @@ input scheme to convert to Chinese."
                                            (replace-regexp-in-string ";" "" str)
                                            "")))
                       ""))
-          nil))
-  )
+          nil)))
+
+
+;; 基于 结巴分词 的 Emacs 中文分词 工具，实现了以中文词语为单位的移动和编辑。
+;;
+;; +---------------+----------------------+--------------------------+
+;; | key binding   | default command      | cns-mode command         |
+;; +---------------+----------------------+--------------------------+
+;; | M-b           | (backward-word)      | (cns-backward-word)      |
+;; | M-f           | (forward-word)       | (cns-forward-word)       |
+;; | C-<backspace> | (backward-kill-word) | (cns-backward-kill-word) |
+;; | M-DEL         | (backward-kill-word) | (cns-backward-kill-word) |
+;; | C-<delete>    | (kill-word)          | (cns-kill-word)          |
+;; | M-d           | (kill-word)          | (cns-kill-word)          |
+;; | M-t           | (transpose-words)    | (cns-transpose-words)    |
+;; +---------------+----------------------+--------------------------+
+(use-package! cns
+  :hook
+  (find-file . cns-auto-enable)
+  :config
+  (let ((repodir (concat doom-local-dir "straight/repos/emacs-chinese-word-segmentation/")))
+    (setq cns-prog (concat repodir "cnws")
+          cns-dict-directory (concat repodir "cppjieba/dict"))))
