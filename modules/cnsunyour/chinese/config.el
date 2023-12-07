@@ -179,7 +179,6 @@ input scheme to convert to Chinese."
 
 
 ;; 基于 结巴分词 的 Emacs 中文分词 工具，实现了以中文词语为单位的移动和编辑。
-;;
 ;; +---------------+----------------------+--------------------------+
 ;; | key binding   | default command      | cns-mode command         |
 ;; +---------------+----------------------+--------------------------+
@@ -195,9 +194,17 @@ input scheme to convert to Chinese."
   :hook
   (find-file . cns-auto-enable)
   :config
-  (let ((repodir (concat (file-name-as-directory straight-base-dir)
-                         "straight/"
-                         (file-name-as-directory straight-build-dir)
-                         "cns/")))
-    (setq cns-prog (concat repodir "cnws")
-          cns-dict-directory (concat repodir "dict"))))
+  (let ((cnsbasedir (expand-file-name
+                     "cns"
+                     (expand-file-name
+                      straight-build-dir
+                      (expand-file-name
+                       "straight"
+                       straight-base-dir)))))
+    (setq cns-prog (expand-file-name "cnws" cnsbasedir)
+          cns-dict-directory (expand-file-name "cppjieba/dict" cnsbasedir))
+    (unless (file-exists-p cns-prog)
+      (let ((default-directory cnsbasedir))
+        (if (zerop (shell-command "make"))
+            (message "cnws compiled successfully.")
+          (error "cnws compile failed."))))))
