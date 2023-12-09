@@ -91,3 +91,17 @@
   (setq gptel-default-mode 'markdown-mode)
   (set-popup-rule! (regexp-quote "*ChatGPT*")
     :side 'left :size 100 :select t :quit 'current))
+
+(use-package! atomic-chrome
+  :custom
+  (atomic-chrome-buffer-open-style 'frame)
+  (atomic-chrome-url-major-mode-alist
+   '(("github\\.com" . gfm-mode)
+     ("emacs-china\\.org" . gfm-mode)
+     ("stackoverflow\\.com" . gfm-mode)
+     ("stackexchange\\.com" . gfm-mode)
+     ("reddit\\.com" . gfm-mode)
+     ("wikipedia\\.org" . gfm-mode)
+     ("emacs\\.stackexchange\\.com" . gfm-mode)))
+  :config
+  (atomic-chrome-start-server))
