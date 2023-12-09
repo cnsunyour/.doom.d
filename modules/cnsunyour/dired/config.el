@@ -31,7 +31,7 @@
          (idp-is-gnu-ls?
           (and idp (= 0 (process-file idp nil nil nil "--version")))))
     (setq dired-listing-switches
-          "-l --almost-all --human-readable --group-directories-first")
+          "-l --almost-all --human-readable --group-directories-first -v")
     (setq insert-directory-program
           (cond
            ;; just use GNU ls if found
