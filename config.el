@@ -77,9 +77,6 @@
   (when (modulep! :emacs undo)
     (add-to-list 'warning-suppress-types '(undo discard-info))))
 
-(after! so-long
-  (setq so-long-threshold 1000))
-
 (when (modulep! :app rss)
   (add-hook! 'elfeed-search-mode-hook 'elfeed-update))
 
@@ -89,11 +86,6 @@
     (setq lsp-intelephense-licence-key
           (auth-source-pick-first-password
            :host "intelephense"))))
-
-(when (modulep! :tools lsp)
-  (setq lsp-intelephense-multi-root nil
-        lsp-pyright-multi-root nil
-        lsp-solargraph-multi-root nil))
 
 (after! magit
   (require 'forge)
