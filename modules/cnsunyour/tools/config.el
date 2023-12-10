@@ -30,6 +30,9 @@
 
 ;; Automatically save file content
 (use-package! super-save
+  :custom
+  (super-save-delete-trailing-whitespace 'except-current-line)
+  (super-save-all-buffers t)
   :config
   (super-save-mode +1))
 
