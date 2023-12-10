@@ -109,6 +109,9 @@
   :after-call dired-noselect dired dired-jump
   :init
   (after! dired (dirvish-override-dired-mode))
+  :custom
+  (dirvish-redisplay-debounce 0.5)
+  (dirvish-reuse-session nil)
   :config
   (setq dirvish-cache-dir (concat doom-cache-dir "dirvish/"))
   (set-popup-rule! "^ ?\\*Dirvish.*" :ignore t)
