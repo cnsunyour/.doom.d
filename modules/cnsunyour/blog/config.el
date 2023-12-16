@@ -3,6 +3,18 @@
 (after! ox-hugo
   (setq org-hugo-section "post"))
 
+(use-package! easy-hugo
+  :bind
+  ("C-c C-e" . easy-hugo)
+  (:map easy-hugo-mode-map
+        ("?" . easy-hugo-menu))
+  :custom
+  (easy-hugo-basedir "~/hugo/")
+  (easy-hugo-url "https://cnsunyour.github.io")
+  :config
+  (setq easy-hugo-no-help t)
+  (easy-hugo-enable-menu))
+
 ;; (use-package! org2blog
 ;;   :defer t
 ;;   :config
