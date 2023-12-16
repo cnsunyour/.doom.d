@@ -4,14 +4,11 @@
   (setq org-hugo-section "post"))
 
 (use-package! easy-hugo
-  :bind
-  ("C-c C-e" . easy-hugo)
-  (:map easy-hugo-mode-map
-        ("?" . easy-hugo-menu))
   :custom
   (easy-hugo-basedir "~/hugo/")
   (easy-hugo-url "https://cnsunyour.github.io")
   :config
+  (evil-set-initial-state 'easy-hugo-mode 'emacs)
   (setq easy-hugo-no-help t)
   (easy-hugo-enable-menu))
 
