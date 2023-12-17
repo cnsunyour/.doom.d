@@ -4,6 +4,8 @@
   (setq org-hugo-section "post"))
 
 (use-package! easy-hugo
+  :bind
+  ("C-c b" . easy-hugo)
   :custom
   (easy-hugo-basedir "~/hugo/")
   (easy-hugo-url "https://cnsunyour.github.io")
