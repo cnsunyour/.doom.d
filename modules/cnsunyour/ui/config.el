@@ -56,6 +56,10 @@
       (dolist (font-symbol doom-symbol-fallback-font-families)
         (set-fontset-font t script font-symbol nil 'append)))
 
+    (dolist (font-marchen '("BabelStone Marchen"
+                            "Noto Sans Marchen"))
+      (set-fontset-font t 'marchen font-marchen nil 'append))
+
     (dolist (font-unicode my-ui-fonts-unicode)
       (set-fontset-font t 'unicode font-unicode nil 'append)))
 
