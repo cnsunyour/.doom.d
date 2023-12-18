@@ -93,3 +93,10 @@
      ("emacs\\.stackexchange\\.com" . gfm-mode)))
   :config
   (atomic-chrome-start-server))
+
+(use-package! git-messenger
+  :bind
+  ("C-x v p" . git-messenger:popup-message)
+  :custom
+  (git-messenger:use-magit-popup t)
+  (git-messenger:show-detail t))

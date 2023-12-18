@@ -16,3 +16,8 @@
 (package! nyan-mode
   :pin "09904af23adb839c6a9c1175349a1fb67f5b4370")
 (package! atomic-chrome)
+(package! git-messenger
+  :pin "063efe38b23894efe081917d8058869cff03393b"
+  :recipe (:host github :repo "cnsunyour/git-messenger"
+           :local-repo "~/Develop/git-messenger"
+           :remote "emacsorphanage/git-messenger"))
