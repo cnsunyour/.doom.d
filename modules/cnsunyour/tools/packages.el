@@ -18,6 +18,6 @@
   :pin "09904af23adb839c6a9c1175349a1fb67f5b4370")
 (package! atomic-chrome)
 (package! git-messenger
-  :pin "01c430b67f24d227ccd94fc0173a5c30e00d9b29"
+  :pin "ae479927df8f1f79604da552930909e147605ebc"
   :recipe (:host github :repo "cnsunyour/git-messenger"
            :remote "emacsorphanage/git-messenger"))
