@@ -273,18 +273,15 @@ See `org-capture-templates' for more information."
                      ":Created: %U"
                      ,(concat ":EXPORT_FILE_NAME: " fname)
                      ":EXPORT_DATE: %<%4Y-%2m-%2d>"
-                     ":EXPORT_HUGO_SLUG: hugo-bundles"
-                     ,(concat ":EXPORT_HUGO_BUNDLE: %<%4Y-%2m-%2d>_" fname)
+                     ,(concat ":EXPORT_HUGO_SLUG: " fname)
+                     ":EXPORT_HUGO_BUNDLE: %<%4Y/%2m/%2d>"
                      ":END:"
                      "%?\n")          ;Place the cursor here finally
                    "\n")))
-    (defun remove-item-from-org-capture-templates (shortcut)
+    (dolist (shortcut '("t" "n" "j"))
       (dolist (item org-capture-templates)
         (when (string= (car item) shortcut)
           (setq org-capture-templates (cl-remove item org-capture-templates)))))
-    (remove-item-from-org-capture-templates "t")
-    (remove-item-from-org-capture-templates "n")
-    (remove-item-from-org-capture-templates "j")
     (pushnew! org-capture-templates
               '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
                 ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
