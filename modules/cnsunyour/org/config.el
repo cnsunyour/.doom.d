@@ -346,3 +346,6 @@ See `org-capture-templates' for more information."
     (add-hook 'org-pomodoro-killed-hook
               (lambda ()
                 (notify-osx "Pomodoro Killed" "One does not simply kill a pomodoro!")))))
+
+(after! org-crypt
+  (cl-pushnew org-crypt-tag-matcher org-tags-exclude-from-inheritance))
