@@ -18,6 +18,7 @@
   (telega-load . global-telega-mnz-mode)
   (telega-load . telega-autoplay-mode)
   (telega-load . telega-transient-mode)
+  (telega-load . telega-adblock-mode)
 
   :config
   (add-hook 'telega-msg-ignore-predicates
