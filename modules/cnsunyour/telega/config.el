@@ -60,5 +60,6 @@
 
   (load! "+telega-addition"))
 
+(use-package! telega-dired-dwim)
 
 (use-package! telega-bridge-bot :after telega)
