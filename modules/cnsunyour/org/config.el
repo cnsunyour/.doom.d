@@ -256,11 +256,12 @@
 See `org-capture-templates' for more information."
       (let ((title (read-string "Task Name: "))) ;Prompt to enter the post title
         (mapconcat #'identity
-                   `(,(concat "* TODO [#C] " title)
+                   `(,(concat "* TODO [ ] " title)
                      ":PROPERTIES:"
                      ":Created: %U"
                      ":END:"
-                     "%?\n")          ;Place the cursor here finally
+                     "%?\n"
+                     "%a\n")          ;Place the cursor here finally
                    "\n")))
     (defun org-hugo-new-subtree-post-capture-template ()
       "Returns `org-capture' template string for new Hugo post.
@@ -276,7 +277,8 @@ See `org-capture-templates' for more information."
                      ,(concat ":EXPORT_HUGO_SLUG: " fname)
                      ":EXPORT_HUGO_BUNDLE: %<%4Y/%2m/%2d>"
                      ":END:"
-                     "%?\n")          ;Place the cursor here finally
+                     "%?\n"
+                     "%a\n")          ;Place the cursor here finally
                    "\n")))
     (dolist (shortcut '("t" "n" "j"))
       (dolist (item org-capture-templates)
@@ -284,16 +286,13 @@ See `org-capture-templates' for more information."
           (setq org-capture-templates (cl-remove item org-capture-templates)))))
     (pushnew! org-capture-templates
               '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
-                ;; "* %^{Journal Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
-                (function org-hugo-new-subtree-post-capture-template)
+                #'org-hugo-new-subtree-post-capture-template
                 :prepend t :clock-in t :clock-resume t :kill-buffer t)
               '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
-                ;; "* %^{Notes Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n%?\n"
-                (function org-hugo-new-subtree-post-capture-template)
+                #'org-hugo-new-subtree-post-capture-template
                 :prepend t :clock-in t :clock-resume t :kill-buffer t)
               '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
-                ;; "* TODO [#B] %^{Todo Topic}\n:PROPERTIES:\n:Created: %U\n:END:\n"
-                (function org-new-task-capture-template)
+                #'org-new-task-capture-template
                 :prepend t :clock-in t :clock-resume t :kill-buffer t))))
 
 ;; set different line spacing on org-agenda view
