@@ -6,6 +6,17 @@
   :defer t
   :mode
   ("\\.epub\\'" . nov-mode)
+  :custom
+  (nov-text-width 80)
   :config
-  (setq nov-text-width 80)
   (evil-set-initial-state 'nov-mode 'emacs))
+
+(use-package! djvu
+  :defer t
+  :config
+  (set-evil-initial-state!
+    '(djvu-read-mode
+      djvu-script-mode
+      djvu-outline-mode
+      djvu-image-mode)
+    'emacs))

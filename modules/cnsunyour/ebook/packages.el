@@ -3,3 +3,4 @@
 
 
 (package! nov)
+(package! djvu)
