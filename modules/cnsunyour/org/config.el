@@ -348,3 +348,6 @@ See `org-capture-templates' for more information."
 
 (after! org-crypt
   (cl-pushnew org-crypt-tag-matcher org-tags-exclude-from-inheritance))
+
+(after! org-noter
+  (setq org-noter-notes-search-path (list (expand-file-name "noter/" org-directory))))
