@@ -93,7 +93,7 @@
        (magit +forge)             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        (pass +auth)              ; password manager for nerds
-       pdf               ; pdf enhancements
+       ;; pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
@@ -143,7 +143,8 @@
         +crypt
         +gnuplot
         +hugo
-        +journal
+        ;; +journal
+        ;; +noter
         +pandoc          ; pandoc integration into org's exporter
         +pomodoro
         +present)        ; using Emacs for presentations
