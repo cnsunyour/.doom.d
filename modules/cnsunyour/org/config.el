@@ -272,10 +272,9 @@ See `org-capture-templates' for more information."
                    `(,(concat "* " title)
                      ":PROPERTIES:"
                      ":Created: %U"
-                     ,(concat ":EXPORT_FILE_NAME: " fname)
+                     ":EXPORT_FILE_NAME: index"
                      ":EXPORT_DATE: %<%4Y-%2m-%2d>"
-                     ,(concat ":EXPORT_HUGO_SLUG: " fname)
-                     ":EXPORT_HUGO_BUNDLE: %<%4Y/%2m/%2d>"
+                     ,(concat ":EXPORT_HUGO_BUNDLE: %<%4Y/%2m/%2d>/" fname)
                      ":END:"
                      "%?\n"
                      "%a\n")          ;Place the cursor here finally
