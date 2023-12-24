@@ -47,6 +47,7 @@
       (list org-gtd-directory
             (+org-capture-todo-file)
             (expand-file-name +org-capture-projects-file org-directory)))
+(setq-default org-attach-id-dir (expand-file-name "attach/" org-directory))
 
 ;;
 ;; `org' private config
