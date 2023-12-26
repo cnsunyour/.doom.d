@@ -7,7 +7,10 @@
                   (display-line-numbers-mode -1)
                   (evil-change-state 'emacs)))
   (gptel-post-stream . gptel-auto-scroll)
-  (gptel-post-response . gptel-end-of-response)
+  (gptel-post-response . (lambda ()
+                           (pcase (buffer-local-value 'major-mode (current-buffer))
+                             ('org-mode (org-next-visible-heading 1) (org-end-of-line))
+                             ('markdown-mode (markdown-outline-next) (end-of-line)))))
   :custom
   (gptel-default-mode 'markdown-mode)
   :config
