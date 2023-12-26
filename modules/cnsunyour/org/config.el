@@ -83,10 +83,10 @@
           ("@Errands"   . ?e)
           ("@Lunchtime" . ?l))
         org-tag-alist
-        '(("墩墩" . ?d)
-          ("信用卡")
-          ("技术")
-          ("生活"))
+        '(("Family" . ?D)
+          ("Finance" . ?F)
+          ("Tech" . ?T)
+          ("Life" . ?L))
         ;; trigger task states
         org-todo-state-tags-triggers
         '(("ABRT" ("ABRT" . t))
