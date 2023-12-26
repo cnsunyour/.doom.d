@@ -2,6 +2,5 @@
 ;;; cnsunyour/copilot/packages.el
 
 (package! copilot
-  :recipe (:host github
-           :repo "zerolfx/copilot.el"
-           :files ("*.el" "dist")))
+  :recipe (:host github :repo "zerolfx/copilot.el"
+           :files (:defaults "dist")))
