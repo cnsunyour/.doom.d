@@ -83,10 +83,10 @@
           ("@Errands"   . ?e)
           ("@Lunchtime" . ?l))
         org-tag-alist
-        '(("Family" . ?D)
-          ("Finance" . ?F)
-          ("Tech" . ?T)
-          ("Life" . ?L))
+        '(("@Family" . ?H)
+          ("@Finance" . ?F)
+          ("@Tech" . ?T)
+          ("@Life" . ?L))
         ;; trigger task states
         org-todo-state-tags-triggers
         '(("ABRT" ("ABRT" . t))
