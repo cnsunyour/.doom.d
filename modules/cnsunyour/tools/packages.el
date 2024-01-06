@@ -21,3 +21,4 @@
   :pin "ae479927df8f1f79604da552930909e147605ebc"
   :recipe (:host github :repo "cnsunyour/git-messenger"
            :remote "emacsorphanage/git-messenger"))
+(package! blamer)
