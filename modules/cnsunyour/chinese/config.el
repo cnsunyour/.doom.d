@@ -74,9 +74,6 @@ unwanted space when exporting org-mode to hugo markdown."
    ("C-`" . #'rime-send-keybinding)
    ("C-~" . #'rime-send-keybinding)
    ("C-S-`" . #'rime-send-keybinding))
-  ;; :hook
-  ;; ((after-init kill-emacs) . (lambda ()
-  ;;                              (ignore-errors (rime-sync))))
   :config
   (setq default-input-method "rime"
         rime-user-data-dir (expand-file-name "~/.local/emacs-rime")
@@ -191,8 +188,7 @@ input scheme to convert to Chinese."
 ;; | M-t           | (transpose-words)    | (cns-transpose-words)    |
 ;; +---------------+----------------------+--------------------------+
 (use-package! cns
-  :hook
-  (find-file . cns-auto-enable)
+  :hook (find-file . cns-auto-enable)
   :config
   (let ((cnsbasedir (expand-file-name
                      "cns"

@@ -73,12 +73,11 @@
 
 (use-package! nyan-mode
   :after doom-modeline
+  :hook (doom-modeline-mode . nyan-mode)
   :custom
   (nyan-minimum-window-width 100)
   (nyan-animate-nyancat t)
-  (nyan-wavy-trail t)
-  :hook
-  (doom-modeline-mode . nyan-mode))
+  (nyan-wavy-trail t))
 
 (use-package! atomic-chrome
   :custom

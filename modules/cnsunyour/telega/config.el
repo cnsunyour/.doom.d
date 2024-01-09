@@ -12,13 +12,12 @@
     (setq evil-collection-mode-list (remove 'telega evil-collection-mode-list))
     (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs))
 
-  :hook
-  (telega-load . telega-mode-line-mode)
-  (telega-load . global-telega-url-shorten-mode)
-  (telega-load . global-telega-mnz-mode)
-  (telega-load . telega-autoplay-mode)
-  (telega-load . telega-transient-mode)
-  (telega-load . telega-adblock-mode)
+  :hook ((telega-load . telega-mode-line-mode)
+         (telega-load . global-telega-url-shorten-mode)
+         (telega-load . global-telega-mnz-mode)
+         (telega-load . telega-autoplay-mode)
+         (telega-load . telega-transient-mode)
+         (telega-load . telega-adblock-mode))
 
   :config
   (add-hook 'telega-msg-ignore-predicates

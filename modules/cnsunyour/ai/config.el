@@ -2,12 +2,11 @@
 
 (use-package! gptel
   :defer t
-  :hook
-  (gptel-mode . (lambda ()
-                  (display-line-numbers-mode -1)
-                  (evil-change-state 'emacs)))
-  (gptel-post-stream . gptel-auto-scroll)
-  (gptel-post-response . (lambda () (gptel-end-of-response 1)))
+  :hook ((gptel-mode . (lambda ()
+                         (display-line-numbers-mode -1)
+                         (evil-change-state 'emacs)))
+         (gptel-post-stream . gptel-auto-scroll)
+         (gptel-post-response . (lambda () (gptel-end-of-response 1))))
   :custom
   (gptel-default-mode 'markdown-mode)
   :config
@@ -35,10 +34,9 @@
   :after (org)
   :commands (org-ai-mode
              org-ai-global-mode)
+  :hook (org-mode . org-ai-mode) ; enable org-ai in org-mode
   :custom
   (org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
-  :hook
-  (org-mode . org-ai-mode) ; enable org-ai in org-mode
   :init
   (org-ai-global-mode) ; installs global keybindings on C-c M-a
   :config

@@ -99,8 +99,7 @@
 
 
 (use-package! diredfl
-  :hook (dired-mode . diredfl-mode)
-  :hook (dirvish-directory-view-mode . diredfl-mode))
+  :hook ((dired-mode dirvish-directory-view-mode) . diredfl-mode))
 
 
 (use-package! dirvish
