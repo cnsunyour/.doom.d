@@ -93,7 +93,7 @@
   :config
   (atomic-chrome-start-server))
 
-(use-package blamer
+(use-package! blamer
   :defer 20
   :bind
   ("s-i" . blamer-show-posframe-commit-info)
