@@ -96,7 +96,7 @@
 (use-package! blamer
   :defer 20
   :bind
-  ("s-i" . blamer-show-posframe-commit-info)
+  ("C-x v p" . blamer-show-posframe-commit-info)
   :custom
   (blamer-idle-time 0.3)
   (blamer-min-offset 70)
