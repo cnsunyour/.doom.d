@@ -2,14 +2,14 @@
 
 (use-package! gptel
   :defer t
-  :hook ((gptel-mode . (lambda ()
-                         (display-line-numbers-mode -1)
-                         (evil-change-state 'emacs)))
-         (gptel-post-stream . gptel-auto-scroll)
-         (gptel-post-response . (lambda () (gptel-end-of-response 1))))
   :custom
   (gptel-default-mode 'markdown-mode)
   :config
+  (add-hook! 'gptel-mode-hook
+    (display-line-numbers-mode -1)
+    (evil-change-state 'emacs))
+  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (set-popup-rule! (regexp-quote "*ChatGPT*")
     :side 'left :size 100 :select t :quit 'current))
 
