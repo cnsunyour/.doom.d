@@ -50,9 +50,9 @@
   (load! "+telega-auto-input-method")
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 11) :ttl nil :quit 'current :modeline t)
+    :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 4) :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 11) :ttl 10 :quit 'current :modeline t)
+    :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 4) :ttl 10 :quit 'current :modeline t)
   (set-popup-rule! (regexp-quote "*Telega User*")
     :slot 20 :vslot 10 :side 'right :height .5 :ttl 10 :quit t :modeline nil :select t)
   (set-popup-rule! (regexp-quote "*Telegram Chat Info*")
