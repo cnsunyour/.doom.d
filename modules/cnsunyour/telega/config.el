@@ -18,10 +18,9 @@
          (telega-load . telega-autoplay-mode)
          (telega-load . telega-transient-mode)
          (telega-load . telega-adblock-mode)
-         (telega-chat-mode . (lambda () (telega-chat-auto-fill-mode -1))))
-
-  :custom
-  (telega-chat-fill-column 86)
+         (telega-chat-mode . (lambda ()
+                               (setq-local visual-fill-column-extra-text-width
+                                           '(0 . 2)))))
 
   :config
   (add-hook 'telega-msg-ignore-predicates
@@ -54,9 +53,9 @@
   (load! "+telega-auto-input-method")
 
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 4) :ttl nil :quit 'current :modeline t)
+    :slot 10 :vslot 10 :side 'right :size 90 :ttl nil :quit 'current :modeline t)
   (set-popup-rule! "^◀[^◀\[]*[\[({<].+[\])}>]"
-    :slot 10 :vslot 10 :side 'right :size (+ telega-chat-fill-column 4) :ttl 10 :quit 'current :modeline t)
+    :slot 10 :vslot 10 :side 'right :size 90 :ttl 10 :quit 'current :modeline t)
   (set-popup-rule! (regexp-quote "*Telega User*")
     :slot 20 :vslot 10 :side 'right :height .5 :ttl 10 :quit t :modeline nil :select t)
   (set-popup-rule! (regexp-quote "*Telegram Chat Info*")
