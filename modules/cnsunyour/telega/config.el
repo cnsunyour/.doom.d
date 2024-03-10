@@ -18,10 +18,10 @@
          (telega-load . telega-autoplay-mode)
          (telega-load . telega-transient-mode)
          (telega-load . telega-adblock-mode)
-         (telega-chat-mode . (telega-chat-auto-fill-mode -1)))
+         (telega-chat-mode . (lambda () (telega-chat-auto-fill-mode -1))))
 
   :custom
-  ;; (telega-chat-fill-column 86)
+  (telega-chat-fill-column 86)
 
   :config
   (add-hook 'telega-msg-ignore-predicates
