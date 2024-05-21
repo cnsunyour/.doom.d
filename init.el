@@ -62,7 +62,7 @@
        ;; word-wrap
 
        :emacs
-       ;; (dired +dirvish +icons)
+       (dired +icons)
        electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)
        vc                ; version-control and Emacs, sitting in a tree
@@ -82,7 +82,7 @@
        ;; ansible
        ;; (debugger +lsp)          ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       (docker +lsp)
+       ;; (docker +lsp)
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -107,7 +107,7 @@
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
        (beancount +lsp)
-       (cc +tree-sitter)               ; C/C++/Obj-C madness
+       (cc +lsp +tree-sitter)               ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;; common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -200,22 +200,22 @@
        blog
        calendar
        chinese
-       (dired +dirvish +icons)
+       ;; (dired +dirvish +icons)
        ebook
        editor
        ;; (:if IS-MAC email)
        ;; irc
        org
        tabnine
-       copilot
+       ;; copilot
        telega
        ;; ement
        ;; slack
        term
        tools
-       translate
+       ;; translate
        ui
-       ai
+       ;; ai
        ;; embark
        love)
 
