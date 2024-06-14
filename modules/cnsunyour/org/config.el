@@ -350,8 +350,3 @@ See `org-capture-templates' for more information."
 (after! org-noter
   (setq org-noter-notes-search-path (list (expand-file-name "noter/" org-directory)))
   (org-noter-enable-update-renames))
-
-(use-package! org-modern
-  :after org
-  :hook ((org-mode . org-modern-mode)
-         (org-agenda-finalize . org-modern-agenda)))
