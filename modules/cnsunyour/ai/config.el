@@ -2,8 +2,6 @@
 
 (use-package! gptel
   :defer t
-  :custom
-  (gptel-default-mode 'markdown-mode)
   :config
   (add-hook! 'gptel-mode-hook
     (display-line-numbers-mode -1)
@@ -32,11 +30,11 @@
 
 (use-package org-ai
   :after (org)
-  :commands (org-ai-mode
-             org-ai-global-mode)
-  :hook (org-mode . org-ai-mode) ; enable org-ai in org-mode
-  :custom
-  (org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
+  :commands
+  (org-ai-mode
+   org-ai-global-mode)
+  :hook
+  (org-mode . org-ai-mode) ; enable org-ai in org-mode
   :init
   (org-ai-global-mode) ; installs global keybindings on C-c M-a
   :config

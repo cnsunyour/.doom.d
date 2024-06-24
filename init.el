@@ -215,7 +215,7 @@
        tools
        ;; translate
        ui
-       ;; ai
+       ai
        ;; embark
        love)
 
