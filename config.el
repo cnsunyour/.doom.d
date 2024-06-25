@@ -84,8 +84,7 @@
   (add-hook! before-save #'php-cs-fixer-before-save)
   (after! php-mode
     (setq lsp-intelephense-licence-key
-          (auth-source-pick-first-password
-           :host "intelephense"))))
+          (auth-info-password (car (auth-source-search :host "intelephense"))))))
 
 (after! magit
   (require 'forge)
