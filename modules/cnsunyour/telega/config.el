@@ -41,7 +41,7 @@
          :desc "Telega important chats"
          "v" #'telega-switch-important-chat
          :desc "Telega next important chat"
-         "SPC" (cmd! (let ((current-prefix-arg '(4)))
+         "SPC" (λ! (let ((current-prefix-arg '(4)))
                        (call-interactively #'telega-switch-important-chat))))
         (:map telega-chat-mode-map
          (:prefix ("C-t" . "Telega chat topic")
