@@ -17,7 +17,7 @@
 
 (use-package! ai-blog
   :demand t
-  :after (gptel easy-hugo)
+  :after gptel easy-hugo
   :config
   (setq ai-blog-dall-e-api-key
         (auth-source-pick-first-password :host "api.openai.com")
@@ -28,8 +28,8 @@
         ai-blog-bing-api-key
         (auth-source-pick-first-password :host "bing-api")))
 
-(use-package org-ai
-  :after (org)
+(use-package! org-ai
+  :after org
   :commands
   (org-ai-mode
    org-ai-global-mode)
@@ -42,8 +42,14 @@
 
 (use-package! magit-gptcommit
   :demand t
-  :after gptel magit
+  :after magit
+  :bind
+  (:map git-commit-mode-map
+        ("C-c C-g" . magit-gptcommit-commit-accept))
+  :init
+  (require 'llm-openai)
   :config
+  (setq llm-warn-on-nonfree nil)
 
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
@@ -52,6 +58,4 @@
 
   ;; Add gptcommit transient commands to `magit-commit'
   ;; Eval (transient-remove-suffix 'magit-commit '(1 -1)) to remove gptcommit transient commands
-  (magit-gptcommit-status-buffer-setup)
-  :bind (:map git-commit-mode-map
-              ("C-c C-g" . magit-gptcommit-commit-accept)))
+  (magit-gptcommit-status-buffer-setup))
