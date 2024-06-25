@@ -7,9 +7,7 @@
     (display-line-numbers-mode -1)
     (evil-change-state 'emacs))
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
-  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-  (set-popup-rule! (regexp-quote "*Gemini*")
-    :side 'left :size 100 :select t :quit 'current))
+  (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
 
 (use-package! gptel-extensions
   :demand t
