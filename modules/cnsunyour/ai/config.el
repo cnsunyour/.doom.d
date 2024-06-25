@@ -27,6 +27,7 @@
         (auth-info-password (car (auth-source-search :host "bing-api")))))
 
 (use-package! org-ai
+  :demand t
   :after org
   :commands
   (org-ai-mode
