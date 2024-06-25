@@ -9,3 +9,4 @@
 (package! org-ai
   :recipe (:host github :repo "rksm/org-ai"
            :files (:defaults "snippets")))
+(package! magit-gptcommit)
