@@ -12,12 +12,12 @@
   (slack-register-team
    :name "pterdev"
    :default t
-   :token (auth-info-password (car (auth-source-search
-                                    :host "my.slack.com"
-                                    :user "sunyour@gmail.com")))
-   :cookie (auth-info-password (car (auth-source-search
-                                     :host "my.slack.com"
-                                     :user "sunyour@gmail.com^cookie")))
+   :token (auth-source-pick-first-password
+           :host "my.slack.com"
+           :user "sunyour@gmail.com")
+   :cookie (auth-source-pick-first-password
+            :host "my.slack.com"
+            :user "sunyour@gmail.com^cookie")
    :subscribed-channels '(admin
                           announcements
                           cicd

@@ -18,13 +18,13 @@
   :after gptel easy-hugo
   :config
   (setq ai-blog-dall-e-api-key
-        (auth-info-password (car (auth-source-search :host "api.openai.com" :user "apikey")))
+        (auth-source-pick-first-password :host "api.openai.com")
         ai-blog-pexels-api-key
-        (auth-info-password (car (auth-source-search :host "pexels-api")))
+        (auth-source-pick-first-password :host "pexels-api")
         ai-blog-google-api-key
-        (auth-info-password (car (auth-source-search :host "google-api(serpapi)")))
+        (auth-source-pick-first-password :host "google-api(serpapi)")
         ai-blog-bing-api-key
-        (auth-info-password (car (auth-source-search :host "bing-api")))))
+        (auth-source-pick-first-password :host "bing-api")))
 
 (use-package! org-ai
   :demand t
@@ -45,6 +45,8 @@
   :bind
   (:map git-commit-mode-map
         ("C-c C-g" . magit-gptcommit-commit-accept))
+  :init
+  (require 'llm-openai)
   :config
   (setq llm-warn-on-nonfree nil)
 
