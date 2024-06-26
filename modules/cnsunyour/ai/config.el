@@ -3,6 +3,14 @@
 (use-package! gptel
   :defer t
   :config
+  (setq gptel-model "gemini-1.5-pro-latest"
+        gptel-backend (gptel-make-gemini "Gemini"
+                        :key (auth-source-pick-first-password
+                              :host "gemini"
+                              :user "apikey")
+                        :stream t))
+  (set-popup-rule! (regexp-quote "*Gemini*")
+    :side 'left :size 100 :select t :quit 'current)
   (add-hook! 'gptel-mode-hook
     (display-line-numbers-mode -1)
     (evil-change-state 'emacs))
@@ -30,8 +38,8 @@
   :demand t
   :after org
   :commands
-  (org-ai-mode
-   org-ai-global-mode)
+  org-ai-mode
+  org-ai-global-mode
   :hook
   (org-mode . org-ai-mode) ; enable org-ai in org-mode
   :init
@@ -45,10 +53,15 @@
   :bind
   (:map git-commit-mode-map
         ("C-c C-g" . magit-gptcommit-commit-accept))
-  :init
-  (require 'llm-openai)
   :config
-  (setq llm-warn-on-nonfree nil)
+  (setq llm-warn-on-nonfree nil
+        magit-gptcommit-llm-provider (progn
+                                       (require 'llm-gemini)
+                                       (make-llm-gemini
+                                        :key (auth-source-pick-first-password
+                                              :host "gemini"
+                                              :user "apikey")
+                                        :chat-model "gemini-1.5-pro-latest")))
 
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
