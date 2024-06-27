@@ -5,9 +5,7 @@
   :config
   (setq gptel-model "gemini-1.5-pro-latest"
         gptel-backend (gptel-make-gemini "Gemini"
-                        :key (auth-source-pick-first-password
-                              :host "gemini"
-                              :user "apikey")
+                        :key #'gptel-api-key
                         :stream t))
   (set-popup-rule! (regexp-quote "*Gemini*")
     :side 'left :size 100 :select t :quit 'current)
