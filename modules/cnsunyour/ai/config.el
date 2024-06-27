@@ -60,7 +60,7 @@
                                        (require 'llm-gemini)
                                        (make-llm-gemini
                                         :key (auth-source-pick-first-password
-                                              :host "gemini"
+                                              :host "generativelanguage.googleapis.com"
                                               :user "apikey")
                                         :chat-model "gemini-1.5-pro-latest")))
 
