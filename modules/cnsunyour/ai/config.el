@@ -21,16 +21,7 @@
 
 (use-package! ai-blog
   :demand t
-  :after gptel easy-hugo
-  :config
-  (setq ai-blog-dall-e-api-key
-        (auth-source-pick-first-password :host "api.openai.com")
-        ai-blog-pexels-api-key
-        (auth-source-pick-first-password :host "pexels-api")
-        ai-blog-google-api-key
-        (auth-source-pick-first-password :host "google-api(serpapi)")
-        ai-blog-bing-api-key
-        (auth-source-pick-first-password :host "bing-api")))
+  :after gptel easy-hugo)
 
 (use-package! org-ai
   :demand t
