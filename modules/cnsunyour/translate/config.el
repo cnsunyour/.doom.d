@@ -7,11 +7,10 @@
   (map! :leader
         :prefix ("y" . "Translate")
         "y" #'youdao-dictionary-search-at-point-posframe
-        "Y" #'youdao-dictionary-search-at-point
-        "p" #'youdao-dictionary-play-voice-at-point
-        "P" #'youdao-dictionary-play-voice-from-input)
+        "Y" #'youdao-dictionary-search-at-point)
   :config
-  (set-popup-rule! (regexp-quote youdao-dictionary-buffer-name) :side 'right :size 80 :select t :quit t)
+  (set-popup-rule! (regexp-quote youdao-dictionary-buffer-name)
+    :side 'right :size 100 :select t :quit 'current)
   ;; Enable Cache
   (setq url-automatic-caching t)
   ;; Enable Chinese word segmentation support (支持中文分词)
@@ -26,36 +25,46 @@
         "f" #'fanyi-dwim2
         "F" #'fanyi-dwim)
   :config
-  (set-popup-rule! (regexp-quote fanyi-buffer-name) :side 'right :size 80 :select t :quit t))
+  (set-popup-rule! (regexp-quote fanyi-buffer-name)
+    :side 'right :size 100 :select t :quit 'current))
 
 
 (use-package! go-translate
   :defer t
-  :commands
-  (gts-do-translate
-   my-gts-do-translate)
   :init
   (map! :leader
         :prefix ("y" . "Translate")
-        "g" #'gts-do-translate
-        "G" #'my-gts-do-translate)
+        "g" #'gt-do-translate
+        "G" (cmd! (gt-do-translate t)))
   :config
-  (set-popup-rule! (regexp-quote gts-buffer-name) :side 'right :size 80 :select t :quit t)
-  (setq gts-translate-list '(("en" "zh") ("zh" "en"))
-        gts-default-translator
-        (gts-translator
-         :picker (gts-noprompt-picker)
-         :engines (list (gts-bing-engine)
-                        (gts-google-engine)
-                        (gts-google-rpc-engine))
-         :render (gts-buffer-render)))
-  (defvar my-gts-translator
-    (gts-translator
-     :picker (gts-prompt-picker)
-     :engines (list (gts-bing-engine)
-                    (gts-google-engine)
-                    (gts-google-rpc-engine))
-     :render (gts-buffer-render)))
-  (defun my-gts-do-translate()
-    (interactive)
-    (gts-translate my-gts-translator)))
+  (set-popup-rule! (regexp-quote gt-buffer-render-buffer-name)
+    :side 'right :size 100 :select t :quit 'current)
+  (load! "gt-engine-azure-openai.el")
+  (setq gt-preset-translators
+        `((ts-1 . ,(gt-translator
+                    :taker (gt-taker :langs '(en zh) :text 'word :pick nil)
+                    :engines (list (gt-deepl-engine :if 'not-word)
+                                   (gt-azure-openai-engine :if 'not-word :stream t)
+                                   (gt-bing-engine :if 'not-word)
+                                   (gt-google-engine :if 'not-word)
+                                   (gt-youdao-dict-engine :if '(and word (or src:zh tgt:zh)))
+                                   (gt-youdao-suggest-engine :if '(and word src:en)))
+                    :render (gt-buffer-render)))
+          (ts-2 . ,(gt-translator
+                    :taker (gt-taker :langs '(en zh) :text 'paragraph :pick nil)
+                    :engines (list (gt-deepl-engine :if 'not-word)
+                                   (gt-azure-openai-engine :if 'not-word :stream t)
+                                   (gt-bing-engine :if 'not-word)
+                                   (gt-google-engine :if 'not-word)
+                                   (gt-youdao-dict-engine :if '(and word (or src:zh tgt:zh)))
+                                   (gt-youdao-suggest-engine :if '(and word src:en)))
+                    :render (gt-buffer-render)))
+          (ts-3 . ,(gt-translator
+                    :taker (gt-taker :langs '(en zh) :text 'buffer :pick 'paragraph)
+                    :engines (list (gt-deepl-engine :if 'not-word)
+                                   (gt-azure-openai-engine :if 'not-word :stream t)
+                                   (gt-bing-engine :if 'not-word)
+                                   (gt-google-engine :if 'not-word)
+                                   (gt-youdao-dict-engine :if '(and word (or src:zh tgt:zh)))
+                                   (gt-youdao-suggest-engine :if '(and word src:en)))
+                    :render (gt-buffer-render))))))

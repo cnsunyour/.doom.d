@@ -213,7 +213,7 @@
        ;; slack
        term
        tools
-       ;; translate
+       translate
        ui
        ai
        ;; embark
