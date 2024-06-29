@@ -1,4 +1,4 @@
-;;; gt-engine-azure-openai.el --- Engine for Azure-Openai -*- lexical-binding: t -*-
+;;; gt-engine-azure-openai.el --- Engine for Azure-OpenAI -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2024 lorniu <lorniu@gmail.com>
 ;; Author: lorniu <lorniu@gmail.com>
@@ -29,19 +29,19 @@
 (require 'gt-extension)
 
 (defgroup go-translate-azure-openai nil
-  "Configs for Azure-Openai engine."
+  "Configs for Azure-OpenAI engine."
   :group 'go-translate)
 
 
 ;;; Components
 
 (defclass gt-azure-openai-engine (gt-engine)
-  ((tag         :initform 'Azure-Openai)
+  ((tag         :initform 'Azure-OpenAI)
    (host        :initarg :host :initform nil)
    (model       :initarg :model :initform nil)
    (temperature :initarg :temperature :initform nil)
    (key         :initarg :key :initform 'apikey
-                :documentation "The apikey of Azure-Openai.
+                :documentation "The apikey of Azure-OpenAI.
 Can also put into .authinfo file as:
   machine api.openai.com login apikey password ***")))
 
@@ -49,12 +49,12 @@ Can also put into .authinfo file as:
 ;;; Translate
 
 (defcustom gt-azure-openai-host nil
-  "API host of Azure-Openai."
+  "API host of Azure-OpenAI."
   :type 'string
   :group 'go-translate-azure-openai)
 
 (defcustom gt-azure-openai-key nil
-  "Auth Key of Azure-Openai. Recommend to save in .authinfo file instead."
+  "Auth Key of Azure-OpenAI. Recommend to save in .authinfo file instead."
   :type 'string
   :group 'go-translate-azure-openai)
 
@@ -64,7 +64,7 @@ Can also put into .authinfo file as:
   :group 'go-translate-azure-openai)
 
 (defcustom gt-azure-openai-temperature 0.8
-  "Temperature of Azure-Openai."
+  "Temperature of Azure-OpenAI."
   :type 'number
   :group 'go-translate-azure-openai)
 
