@@ -101,4 +101,10 @@
     (setq bookmark-alist (delq latest bookmark-alist))
     (add-to-list 'bookmark-alist latest)))
 
+(use-package! popwin
+  :bind-keymap
+  ("C-c q" . popwin:keymap)
+  :config
+  (popwin-mode 1))
+
 (load (expand-file-name ".private.el" doom-user-dir) t)

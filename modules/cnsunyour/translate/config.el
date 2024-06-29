@@ -7,10 +7,11 @@
   (map! :leader
         :prefix ("y" . "Translate")
         "y" #'youdao-dictionary-search-at-point-posframe
-        "Y" #'youdao-dictionary-search-at-point)
+        "Y" #'youdao-dictionary-search-from-input)
+  (set-evil-initial-state! 'youdao-dictionary-mode 'emacs)
   :config
-  (set-popup-rule! (regexp-quote youdao-dictionary-buffer-name)
-    :side 'right :size 100 :select t :quit 'current)
+  ;; Integrate with popwin-el (https://github.com/m2ym/popwin-el)
+  (push youdao-dictionary-buffer-name popwin:special-display-config)
   ;; Enable Cache
   (setq url-automatic-caching t)
   ;; Enable Chinese word segmentation support (支持中文分词)
