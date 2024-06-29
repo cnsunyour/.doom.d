@@ -39,7 +39,6 @@
   :config
   (set-popup-rule! (regexp-quote gt-buffer-render-buffer-name)
     :side 'right :size 100 :select t :quit 'current)
-  (load! "gt-engine-azure-openai.el")
   (setq gt-preset-translators
         `((ts-word . ,(gt-translator
                        :taker (gt-taker :langs '(en zh) :text 'word :pick nil)
