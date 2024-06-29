@@ -44,7 +44,7 @@
         `((ts-word . ,(gt-translator
                        :taker (gt-taker :langs '(en zh) :text 'word :pick nil)
                        :engines (list (gt-deepl-engine :if 'not-word)
-                                      (gt-azure-openai-engine :if 'not-word :stream t)
+                                      (gt-azure-openai-engine :if 'not-word)
                                       (gt-bing-engine :if 'not-word)
                                       (gt-google-engine :if 'not-word)
                                       (gt-youdao-dict-engine :if '(and word (or src:zh tgt:zh)))
@@ -53,7 +53,7 @@
           (ts-sentence . ,(gt-translator
                            :taker (gt-taker :langs '(en zh) :text 'sentence :pick nil)
                            :engines (list (gt-deepl-engine :if 'not-word)
-                                          (gt-azure-openai-engine :if 'not-word :stream t)
+                                          (gt-azure-openai-engine :if 'not-word)
                                           (gt-bing-engine :if 'not-word)
                                           (gt-google-engine :if 'not-word)
                                           (gt-youdao-dict-engine :if '(and word (or src:zh tgt:zh)))
@@ -62,7 +62,7 @@
           (ts-paragraph . ,(gt-translator
                             :taker (gt-taker :langs '(en zh) :text 'paragraph :pick nil)
                             :engines (list (gt-deepl-engine :if 'not-word)
-                                           (gt-azure-openai-engine :if 'not-word :stream t)
+                                           (gt-azure-openai-engine :if 'not-word)
                                            (gt-bing-engine :if 'not-word)
                                            (gt-google-engine :if 'not-word)
                                            (gt-youdao-dict-engine :if '(and word (or src:zh tgt:zh)))
@@ -71,7 +71,7 @@
           (ts-buffer . ,(gt-translator
                          :taker (gt-taker :langs '(en zh) :text 'buffer :pick 'paragraph)
                          :engines (list (gt-deepl-engine :if 'not-word)
-                                        (gt-azure-openai-engine :if 'not-word :stream t)
+                                        (gt-azure-openai-engine :if 'not-word)
                                         (gt-bing-engine :if 'not-word)
                                         (gt-google-engine :if 'not-word)
                                         (gt-youdao-dict-engine :if '(and word (or src:zh tgt:zh)))
