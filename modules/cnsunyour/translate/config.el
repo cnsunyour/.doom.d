@@ -6,7 +6,7 @@
   :init
   (map! :leader
         :prefix ("y" . "Translate")
-        "y" #'youdao-dictionary-search-at-point-posframe
+        "y" #'youdao-dictionary-search-at-point
         "Y" #'youdao-dictionary-search-from-input)
   (set-evil-initial-state! 'youdao-dictionary-mode 'emacs)
   :config
