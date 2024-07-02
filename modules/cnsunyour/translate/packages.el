@@ -4,4 +4,8 @@
 (package! names)
 (package! youdao-dictionary)
 (package! fanyi)
-(package! go-translate)
+(package! go-translate
+  :recipe (:host github
+           :fork "cnsunyour"
+           :local-repo "~/Develop/go-translate"
+           :repo "lorniu/go-translate"))

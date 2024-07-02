@@ -10,3 +10,8 @@
   :recipe (:host github :repo "rksm/org-ai"
            :files (:defaults "snippets")))
 (package! magit-gptcommit)
+(package! llm
+  :recipe (:host github
+           :fork "cnsunyour"
+           :local-repo "~/Develop/llm"
+           :repo "ahyatt/llm"))
