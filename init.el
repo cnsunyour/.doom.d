@@ -200,7 +200,7 @@
        calendar
        chinese
        ;; (dired +dirvish +icons)
-       ebook
+       ;; ebook
        editor
        ;; (:if IS-MAC email)
        ;; irc
