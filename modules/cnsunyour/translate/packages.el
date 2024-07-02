@@ -3,7 +3,6 @@
 
 (package! names)
 (package! youdao-dictionary)
-(package! fanyi)
 (package! go-translate
   :recipe (:host github
            :fork "cnsunyour"

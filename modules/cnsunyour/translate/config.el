@@ -18,18 +18,6 @@
   (setq youdao-dictionary-use-chinese-word-segmentation t))
 
 
-(use-package! fanyi
-  :defer t
-  :init
-  (map! :leader
-        :prefix ("y" . "Translate")
-        "f" #'fanyi-dwim2
-        "F" #'fanyi-dwim)
-  :config
-  (set-popup-rule! (regexp-quote fanyi-buffer-name)
-    :side 'right :size 100 :select t :quit 'current))
-
-
 (use-package! go-translate
   :defer t
   :init
