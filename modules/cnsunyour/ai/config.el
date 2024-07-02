@@ -44,15 +44,6 @@
   (:map magit-status-mode-map
         ("C-c C-g" . magit-gptcommit-generate))
   :config
-  (setq llm-warn-on-nonfree nil
-        magit-gptcommit-llm-provider (progn
-                                       (require 'llm-gemini)
-                                       (make-llm-gemini
-                                        :key (auth-source-pick-first-password
-                                              :host "generativelanguage.googleapis.com"
-                                              :user "apikey")
-                                        :chat-model "gemini-1.5-pro-latest")))
-
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
   ;; `magit-gptcommit-generate' should only execute on magit status buffer currently
