@@ -23,7 +23,7 @@
       (funcall (advice--cd*r (indirect-function 'telega-etc-file)) filename))))
 
 ;; customize some icons/stickers/urls
-(setq telega-sticker-size '(8 . 48)
+(setq
       ;; telega-symbols-emojify (assq-delete-all 'checkmark telega-symbols-emojify)
       ;; telega-symbols-emojify (assq-delete-all 'heavy-checkmark telega-symbols-emojify)
       ;; telega-symbol-checkmark (nerd-icons-codicon "nf-cod-check")
