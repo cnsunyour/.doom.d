@@ -5,8 +5,7 @@
   :init
   (map! :leader
         :prefix ("y" . "Translate")
-        "g" #'gt-do-translate
-        "G" (cmd! (gt-do-translate t)))
+        "y" #'gt-do-translate)
   :config
   (set-popup-rule! (regexp-quote gt-buffer-render-buffer-name)
     :side 'right :size 100 :select t :quit 'current)
