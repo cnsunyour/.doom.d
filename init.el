@@ -199,7 +199,6 @@
        blog
        calendar
        chinese
-       ;; (dired +dirvish +icons)
        ;; ebook
        editor
        ;; (:if IS-MAC email)
