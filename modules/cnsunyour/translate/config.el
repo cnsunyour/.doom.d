@@ -1,23 +1,5 @@
 ;;; ~/.doom.d/+translate.el -*- lexical-binding: t; -*-
 
-;; 有道词典
-(use-package! youdao-dictionary
-  :defer t
-  :init
-  (map! :leader
-        :prefix ("y" . "Translate")
-        "y" #'youdao-dictionary-search-at-point
-        "Y" #'youdao-dictionary-search-from-input)
-  (set-evil-initial-state! 'youdao-dictionary-mode 'emacs)
-  :config
-  ;; Integrate with popwin-el (https://github.com/m2ym/popwin-el)
-  (push youdao-dictionary-buffer-name popwin:special-display-config)
-  ;; Enable Cache
-  (setq url-automatic-caching t)
-  ;; Enable Chinese word segmentation support (支持中文分词)
-  (setq youdao-dictionary-use-chinese-word-segmentation t))
-
-
 (use-package! go-translate
   :defer t
   :init
