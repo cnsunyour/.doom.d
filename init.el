@@ -199,7 +199,6 @@
        blog
        calendar
        chinese
-       ;; ebook
        editor
        ;; (:if IS-MAC email)
        ;; irc
