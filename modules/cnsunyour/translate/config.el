@@ -2,9 +2,10 @@
 
 (use-package! go-translate
   :defer t
+  :bind
+  ("C-c y" . gt-do-translate)
   :init
   (map! :leader
-        :prefix ("y" . "Translate")
         "y" #'gt-do-translate)
   :config
   (set-popup-rule! (regexp-quote gt-buffer-render-buffer-name)
