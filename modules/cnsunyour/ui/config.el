@@ -5,8 +5,6 @@
 (when (display-graphic-p)
   (defcustom my-ui-fonts '("Sarasa Mono SC"
                            "Sarasa Mono Slab SC"
-                           "WenQuanYi Micro Hei Mono"
-                           "WenQuanYi Zen Hei Mono"
                            "Noto Sans Mono CJK SC")
     "Font lists used in my private custom ui config."
     :group 'my-ui
