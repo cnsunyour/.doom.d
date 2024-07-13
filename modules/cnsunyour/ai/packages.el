@@ -13,5 +13,4 @@
 (package! llm
   :recipe (:host github
            :fork "cnsunyour"
-           :local-repo "~/Develop/llm"
            :repo "ahyatt/llm"))
