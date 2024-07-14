@@ -11,6 +11,7 @@
            :files (:defaults "snippets")))
 (package! magit-gptcommit)
 (package! llm
+  :pin "94ee93112d85938dc6bf0b8c8dcf7fc668617796"
   :recipe (:host github
            :fork "cnsunyour"
            :repo "ahyatt/llm"))
