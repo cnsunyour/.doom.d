@@ -3,16 +3,22 @@
 (use-package! gptel
   :defer t
   :config
+  (set-popup-rule! (regexp-quote "*Gemini*")
+    :side 'left :size 100 :select t :quit 'current)
+  (setq gptel-model "gemini-1.5-pro-latest"
+        gptel-backend (gptel-make-gemini "Gemini"
+                        :key #'gptel-api-key
+                        :stream t))
+
   (set-popup-rule! (regexp-quote "*Moonshot*")
     :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-model "moonshot-v1-8k"
-        gptel-backend (gptel-make-openai "Moonshot"
-                        :host "api.moonshot.cn"
-                        :key #'gptel-api-key
-                        :models '("moonshot-v1-8k"
-                                  "moonshot-v1-32k"
-                                  "moonshot-v1-128k")
-                        :stream t))
+  (gptel-make-openai "Moonshot"
+    :host "api.moonshot.cn"
+    :key #'gptel-api-key
+    :models '("moonshot-v1-8k"
+              "moonshot-v1-32k"
+              "moonshot-v1-128k")
+    :stream t)
 
   (set-popup-rule! (regexp-quote "*DeepSeek*")
     :side 'left :size 100 :select t :quit 'current)
@@ -21,12 +27,6 @@
     :key #'gptel-api-key
     :models '("deepseek-chat"
               "deepseek-coder")
-    :stream t)
-
-  (set-popup-rule! (regexp-quote "*Gemini*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-gemini "Gemini"
-    :key #'gptel-api-key
     :stream t)
 
   (add-hook! 'gptel-mode-hook
