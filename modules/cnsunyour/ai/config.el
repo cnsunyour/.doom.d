@@ -10,6 +10,12 @@
                         :key #'gptel-api-key
                         :stream t))
 
+  (set-popup-rule! (regexp-quote "*Claude*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-anthropic "Claude"
+    :key #'gptel-api-key
+    :stream t)
+
   (set-popup-rule! (regexp-quote "*Moonshot*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "Moonshot"
