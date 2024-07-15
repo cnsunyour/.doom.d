@@ -14,12 +14,21 @@
                                   "moonshot-v1-128k")
                         :stream t))
 
+  (set-popup-rule! (regexp-quote "*DeepSeek*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-openai "DeepSeek"
+    :host "api.deepseek.com"
+    :key #'gptel-api-key
+    :models '("deepseek-chat"
+              "deepseek-coder")
+    :stream t)
+
   (set-popup-rule! (regexp-quote "*Gemini*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-gemini "Gemini"
     :key #'gptel-api-key
     :stream t)
- 
+
   (add-hook! 'gptel-mode-hook
     (display-line-numbers-mode -1)
     (evil-change-state 'emacs))
