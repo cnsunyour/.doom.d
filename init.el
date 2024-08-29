@@ -61,7 +61,7 @@
        ;; word-wrap
 
        :emacs
-       (dired +icons)
+       (dired +dirvish +icons)
        electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)
        vc                ; version-control and Emacs, sitting in a tree
@@ -149,7 +149,7 @@
        (php +lsp +tree-sitter)                ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +conda +cython +lsp +pyright +tree-sitter)
+       (python +cython +lsp +pyright +tree-sitter)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;; rest              ; Emacs as a REST client
