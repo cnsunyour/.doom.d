@@ -15,3 +15,5 @@
            :fork "cnsunyour"
            :local-repo "~/Develop/llm"
            :repo "ahyatt/llm"))
+(package! codeium
+  :recipe (:host github :repo "Exafunction/codeium.el"))
