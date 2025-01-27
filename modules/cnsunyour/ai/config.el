@@ -3,12 +3,22 @@
 (use-package! gptel
   :defer t
   :config
+  (set-popup-rule! (regexp-quote "*DeepSeek*")
+    :side 'left :size 100 :select t :quit 'current)
+  (setq gptel-model 'deepseek-chat
+        gptel-backend (gptel-make-openai "DeepSeek"
+                        :host "api.deepseek.com"
+                        :endpoint "/chat/completions"
+                        :key #'gptel-api-key
+                        :models '(deepseek-chat
+                                  deepseek-reasoner)
+                        :stream t))
+
   (set-popup-rule! (regexp-quote "*Gemini*")
     :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-model "gemini-1.5-pro-latest"
-        gptel-backend (gptel-make-gemini "Gemini"
-                        :key #'gptel-api-key
-                        :stream t))
+  (gptel-make-gemini "Gemini"
+    :key #'gptel-api-key
+    :stream t)
 
   (set-popup-rule! (regexp-quote "*Claude*")
     :side 'left :size 100 :select t :quit 'current)
@@ -26,15 +36,6 @@
               "moonshot-v1-128k")
     :stream t)
 
-  (set-popup-rule! (regexp-quote "*DeepSeek*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "DeepSeek"
-    :host "api.deepseek.com"
-    :key #'gptel-api-key
-    :models '("deepseek-chat"
-              "deepseek-coder")
-    :stream t)
-
   (add-hook! 'gptel-mode-hook
     (display-line-numbers-mode -1)
     (evil-change-state 'emacs))
@@ -45,21 +46,23 @@
   :demand t
   :after gptel)
 
-(use-package! ai-blog
-  :demand t
-  :after gptel easy-hugo)
-
 (use-package! org-ai
   :demand t
   :after org
   :commands
   org-ai-mode
   org-ai-global-mode
+  :custom
+  (org-ai-default-chat-model "deepseek-chat")
+  (org-ai-chat-models '("deepseek-chat"
+                        "deepseek-reasoner"))
   :hook
   (org-mode . org-ai-mode) ; enable org-ai in org-mode
   :init
   (org-ai-global-mode) ; installs global keybindings on C-c M-a
   :config
+  (setq org-ai-openai-chat-endpoint "https://api.deepseek.com/chat/completions"
+        org-ai-openai-completion-endpoint "https://api.deepseek.com/chat/completions")
   (org-ai-install-yasnippets)) ; if you are using yasnippet and want `ai` snippets
 
 (use-package! magit-gptcommit
@@ -70,6 +73,14 @@
   (:map magit-status-mode-map
         ("C-c C-g" . magit-gptcommit-generate))
   :config
+  (require 'llm-openai)
+  (setq magit-gptcommit-llm-provider (make-llm-openai-compatible
+                                      :url "https://api.deepseek.com/chat/completions"
+                                      :key (auth-source-pick-first-password
+                                            :host "api.deepseek.com"
+                                            :user "apikey")
+                                      :chat-model "deepseek-chat"))
+
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
   ;; `magit-gptcommit-generate' should only execute on magit status buffer currently
