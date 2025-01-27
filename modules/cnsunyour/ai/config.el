@@ -94,11 +94,10 @@
 (use-package! codeium
     :init
     ;; use globally
-    (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
+    ;; (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
     ;; or on a hook
-    ;; (add-hook 'python-mode-hook
-    ;;     (lambda ()
-    ;;         (setq-local completion-at-point-functions '(codeium-completion-at-point))))
+    (add-hook! 'prog-mode-hook
+               (pushnew! completion-at-point-functions #'codeium-completion-at-point))
 
     ;; if you want multiple completion backends, use cape (https://github.com/minad/cape):
     ;; (add-hook 'python-mode-hook
