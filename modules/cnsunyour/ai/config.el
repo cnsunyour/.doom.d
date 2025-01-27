@@ -19,9 +19,9 @@
   (gptel-make-openai "Moonshot"
     :host "api.moonshot.cn"
     :key #'gptel-api-key
-    :models '("moonshot-v1-8k"
-              "moonshot-v1-32k"
-              "moonshot-v1-128k")
+    :models '(moonshot-v1-8k
+              moonshot-v1-32k
+              moonshot-v1-128k)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*Gemini*")
@@ -42,15 +42,15 @@
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '("openai/gpt-4o"
-              "openai/o1"
-              "anthropic/claude-3.5-sonnet"
-              "anthropic/claude-3-5-haiku"
-              "anthropic/claude-3-opus"
-              "google/gemini-pro-1.5"
-              "google/gemini-pro-vision"
-              "deepseek/deepseek-chat"
-              "deepseek/deepseek-coder")
+    :models '(openai/gpt-4o
+              openai/o1
+              anthropic/claude-3.5-sonnet
+              anthropic/claude-3-5-haiku
+              anthropic/claude-3-opus
+              google/gemini-pro-1.5
+              google/gemini-pro-vision
+              deepseek/deepseek-chat
+              deepseek/deepseek-coder)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
