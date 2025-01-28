@@ -14,6 +14,11 @@
                                   deepseek-reasoner)
                         :stream t))
 
+  ;; remove default ChatGPT provider from backends
+  (dolist (item gptel--known-backends)
+    (if (string= (car item) "ChatGPT")
+        (setq gptel--known-backends (cl-remove item gptel--known-backends))))
+
   (set-popup-rule! (regexp-quote "*Moonshot*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "Moonshot"
