@@ -8,7 +8,5 @@
   :recipe (:host github :repo "rksm/org-ai"
            :files (:defaults "snippets")))
 (package! magit-gptcommit)
-(package! llm
-  :recipe (:host github :repo "ahyatt/llm"))
 (package! codeium
   :recipe (:host github :repo "Exafunction/codeium.el"))
