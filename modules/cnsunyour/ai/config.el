@@ -97,11 +97,11 @@
   :config
   (require 'llm-openai)
   (setq magit-gptcommit-llm-provider (make-llm-openai-compatible
-                                      :url "https://api.deepseek.com/chat/completions"
+                                      :url "https://openrouter.ai/api/v1/"
                                       :key (auth-source-pick-first-password
-                                            :host "api.deepseek.com"
+                                            :host "openrouter.ai"
                                             :user "apikey")
-                                      :chat-model "deepseek-chat"))
+                                      :chat-model "deepseek/deepseek-chat"))
 
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
