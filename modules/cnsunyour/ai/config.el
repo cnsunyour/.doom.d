@@ -50,12 +50,12 @@
     :models '(openai/gpt-4o
               openai/o1
               anthropic/claude-3.5-sonnet
-              anthropic/claude-3-5-haiku
+              anthropic/claude-3.5-haiku
               anthropic/claude-3-opus
-              google/gemini-pro-1.5
-              google/gemini-pro-vision
+              google/gemini-2.0-flash-exp:free
+              google/gemini-2.0-flash-thinking-exp:free
               deepseek/deepseek-chat
-              deepseek/deepseek-coder)
+              deepseek/deepseek-r1)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
