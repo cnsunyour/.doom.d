@@ -110,3 +110,4 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/emacs,elisp,git,macos
+.aider*
