@@ -168,3 +168,31 @@
             (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (point))))
     (setq codeium/document/text 'my-codeium/document/text)
     (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
+
+(use-package! aider
+  :config
+  (setenv "DEEPSEEK_API_KEY" (auth-source-pick-first-password
+                              :host "api.deepseek.com"
+                              :user "apikey"))
+  (setenv "OPENROUTER_API_KEY" (auth-source-pick-first-password
+                                :host "openrouter.ai"
+                                :user "apikey"))
+  (setenv "ANTHROPIC_API_KEY" (auth-source-pick-first-password
+                               :host "api.anthropic.com"
+                               :user "apikey"))
+  (setenv "GEMINI_API_KEY" (auth-source-pick-first-password
+                            :host "generativelanguage.googleapis.com"
+                            :user "apikey"))
+  :custom
+  (aider-popular-models '("deepseek/deepseek-chat"
+                          "deepseek/deepseek-reasoner"
+                          "openrouter/deepseek/deepseek-chat"
+                          "openrouter/deepseek/deepseek-r1"
+                          "openrouter/openai/gpt-4o"
+                          "openrouter/openai/o1"
+                          "openrouter/anthropic/claude-3.5-sonnet"
+                          "openrouter/anthropic/claude-3-5-haiku"
+                          "openrouter/anthropic/claude-3-opus"
+                          "openrouter/google/gemini-pro-1.5"
+                          "openrouter/google/gemini-pro-vision"))
+  (aider-args '("--no-auto-commits" "--deepseek")))
