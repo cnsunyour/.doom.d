@@ -171,6 +171,9 @@
 
 (use-package! aider
   :config
+  (setenv "http_proxy")  (setenv "HTTP_PROXY")
+  (setenv "https_proxy") (setenv "HTTPS_PROXY")
+  (setenv "all_proxy")   (setenv "ALL_PROXY")
   (setenv "DEEPSEEK_API_KEY" (auth-source-pick-first-password
                               :host "api.deepseek.com"
                               :user "apikey"))
