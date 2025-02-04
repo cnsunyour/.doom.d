@@ -41,6 +41,17 @@
     :key #'gptel-api-key
     :stream t)
 
+  (set-popup-rule! (regexp-quote "*SiliconFlow*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-openai "SiliconFlow"
+    :host "api.siliconflow.cn"
+    :key #'gptel-api-key
+    :models '(deepseek-ai/DeepSeek-V3
+              deepseek-ai/DeepSeek-R1
+              Qwen/Qwen2.5-32B-Instruct
+              Qwen/Qwen2.5-72B-Instruct)
+    :stream t)
+
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
