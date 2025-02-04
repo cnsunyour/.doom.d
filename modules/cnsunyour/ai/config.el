@@ -47,15 +47,18 @@
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(openai/gpt-4o
+    :models '(deepseek/deepseek-chat
+              deepseek/deepseek-r1
+              qwen/qwen-turbo
+              qwen/qwen-plus
+              qwen/qwen-max
+              openai/gpt-4o
               openai/o1
               anthropic/claude-3.5-sonnet
               anthropic/claude-3.5-haiku
               anthropic/claude-3-opus
               google/gemini-2.0-flash-exp:free
-              google/gemini-2.0-flash-thinking-exp:free
-              deepseek/deepseek-chat
-              deepseek/deepseek-r1)
+              google/gemini-2.0-flash-thinking-exp:free)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
