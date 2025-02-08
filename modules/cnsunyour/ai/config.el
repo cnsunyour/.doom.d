@@ -215,4 +215,4 @@
                           "openrouter/anthropic/claude-3-opus"
                           "openrouter/google/gemini-pro-1.5"
                           "openrouter/google/gemini-pro-vision"))
-  (aider-args '("--no-auto-commits" "--deepseek")))
+  (aider-args '("--deepseek")))
