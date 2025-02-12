@@ -183,7 +183,7 @@
     (setq codeium/document/text 'my-codeium/document/text)
     (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
 
-(use-package! aider
+(use-package! aidermacs
   :config
   (setenv "http_proxy")  (setenv "HTTP_PROXY")
   (setenv "https_proxy") (setenv "HTTPS_PROXY")
@@ -200,19 +200,21 @@
   (setenv "GEMINI_API_KEY" (auth-source-pick-first-password
                             :host "generativelanguage.googleapis.com"
                             :user "apikey"))
+  :bind
+  ("C-c a" . #'aidermacs-transient-menu)
   :custom
-  (aider-popular-models '("deepseek/deepseek-chat"
-                          "deepseek/deepseek-reasoner"
-                          "openrouter/deepseek/deepseek-chat"
-                          "openrouter/deepseek/deepseek-r1"
-                          "openrouter/qwen/qwen-turbo"
-                          "openrouter/qwen/qwen-plus"
-                          "openrouter/qwen/qwen-max"
-                          "openrouter/openai/gpt-4o"
-                          "openrouter/openai/o1"
-                          "openrouter/anthropic/claude-3.5-sonnet"
-                          "openrouter/anthropic/claude-3-5-haiku"
-                          "openrouter/anthropic/claude-3-opus"
-                          "openrouter/google/gemini-pro-1.5"
-                          "openrouter/google/gemini-pro-vision"))
-  (aider-args '("--deepseek")))
+  (aidermacs-popular-models '("deepseek/deepseek-chat"
+                              "deepseek/deepseek-reasoner"
+                              "openrouter/deepseek/deepseek-chat"
+                              "openrouter/deepseek/deepseek-r1"
+                              "openrouter/qwen/qwen-turbo"
+                              "openrouter/qwen/qwen-plus"
+                              "openrouter/qwen/qwen-max"
+                              "openrouter/openai/gpt-4o"
+                              "openrouter/openai/o1"
+                              "openrouter/anthropic/claude-3.5-sonnet"
+                              "openrouter/anthropic/claude-3-5-haiku"
+                              "openrouter/anthropic/claude-3-opus"
+                              "openrouter/google/gemini-pro-1.5"
+                              "openrouter/google/gemini-pro-vision"))
+  (aidermacs-args '("--deepseek")))
