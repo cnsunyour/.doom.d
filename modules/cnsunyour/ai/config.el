@@ -184,6 +184,7 @@
     (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
 
 (use-package! aidermacs
+  :defer t
   :config
   (setenv "http_proxy")  (setenv "HTTP_PROXY")
   (setenv "https_proxy") (setenv "HTTPS_PROXY")
