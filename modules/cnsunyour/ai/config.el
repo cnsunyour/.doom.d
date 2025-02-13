@@ -19,28 +19,6 @@
     (if (string= (car item) "ChatGPT")
         (setq gptel--known-backends (cl-remove item gptel--known-backends))))
 
-  (set-popup-rule! (regexp-quote "*Moonshot*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "Moonshot"
-    :host "api.moonshot.cn"
-    :key #'gptel-api-key
-    :models '(moonshot-v1-8k
-              moonshot-v1-32k
-              moonshot-v1-128k)
-    :stream t)
-
-  (set-popup-rule! (regexp-quote "*Gemini*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-gemini "Gemini"
-    :key #'gptel-api-key
-    :stream t)
-
-  (set-popup-rule! (regexp-quote "*Claude*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-anthropic "Claude"
-    :key #'gptel-api-key
-    :stream t)
-
   (set-popup-rule! (regexp-quote "*SiliconFlow*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "SiliconFlow"
@@ -78,8 +56,8 @@
               anthropic/claude-3.5-sonnet
               anthropic/claude-3.5-haiku
               anthropic/claude-3-opus
-              google/gemini-2.0-flash-exp:free
-              google/gemini-2.0-flash-thinking-exp:free)
+              google/gemini-2.0-flash-001
+              google/gemini-pro-1.5)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
