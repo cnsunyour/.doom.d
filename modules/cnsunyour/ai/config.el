@@ -53,11 +53,13 @@
               qwen/qwen-max
               openai/gpt-4o
               openai/o1
+              openai/o3-mini
               anthropic/claude-3.5-sonnet
               anthropic/claude-3.5-haiku
               anthropic/claude-3-opus
-              google/gemini-2.0-flash-001
-              google/gemini-pro-1.5)
+              google/gemini-2.0-pro-exp-02-05:free
+              google/gemini-2.0-flash-thinking-exp:free
+              google/gemini-2.0-flash-001)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
