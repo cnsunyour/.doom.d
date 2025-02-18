@@ -51,9 +51,9 @@
               qwen/qwen-turbo
               qwen/qwen-plus
               qwen/qwen-max
-              openai/gpt-4o
+              openai/chatgpt-4o-latest
               openai/o1
-              openai/o3-mini
+              openai/o3-mini-high
               anthropic/claude-3.5-sonnet
               anthropic/claude-3.5-haiku
               anthropic/claude-3-opus
