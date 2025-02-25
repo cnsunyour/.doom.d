@@ -30,16 +30,6 @@
               Qwen/Qwen2.5-72B-Instruct)
     :stream t)
 
-  (set-popup-rule! (regexp-quote "*GitHub*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "GitHub"
-    :host "models.github.ai"
-    :endpoint "/inference/chat/completions"
-    :key #'gptel-api-key
-    :models '(gpt-4o
-              DeepSeek-R1)
-    :stream t)
-
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
@@ -54,7 +44,7 @@
               openai/chatgpt-4o-latest
               openai/o1
               openai/o3-mini-high
-              anthropic/claude-3.5-sonnet
+              anthropic/claude-3.7-sonnet
               anthropic/claude-3.5-haiku
               anthropic/claude-3-opus
               google/gemini-2.0-pro-exp-02-05:free
@@ -105,7 +95,7 @@
                                       :key (auth-source-pick-first-password
                                             :host "openrouter.ai"
                                             :user "apikey")
-                                      :chat-model "deepseek/deepseek-chat"))
+                                      :chat-model "anthropic/claude-3.7-sonnet"))
 
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
