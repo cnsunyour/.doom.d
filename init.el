@@ -202,7 +202,7 @@
        ;; (:if IS-MAC email)
        ;; irc
        org
-       tabnine
+       ;; tabnine
        ;; copilot
        telega
        ;; ement
