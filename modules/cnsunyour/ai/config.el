@@ -44,8 +44,8 @@
               openai/chatgpt-4o-latest
               openai/o1
               openai/o3-mini-high
+              anthropic/claude-3.7-sonnet:thinking
               anthropic/claude-3.7-sonnet
-              anthropic/claude-3.5-haiku
               anthropic/claude-3-opus
               google/gemini-2.0-pro-exp-02-05:free
               google/gemini-2.0-flash-thinking-exp:free
@@ -188,13 +188,9 @@
                               "deepseek/deepseek-reasoner"
                               "openrouter/deepseek/deepseek-chat"
                               "openrouter/deepseek/deepseek-r1"
-                              "openrouter/qwen/qwen-turbo"
-                              "openrouter/qwen/qwen-plus"
-                              "openrouter/qwen/qwen-max"
                               "openrouter/openai/gpt-4o"
                               "openrouter/openai/o1"
-                              "openrouter/anthropic/claude-3.5-sonnet"
-                              "openrouter/anthropic/claude-3-5-haiku"
+                              "openrouter/anthropic/claude-3.7-sonnet"
                               "openrouter/anthropic/claude-3-opus"
                               "openrouter/google/gemini-2.0-flash-001"
                               "openrouter/google/gemini-pro-1.5"))
