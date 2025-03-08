@@ -30,6 +30,17 @@
               Qwen/Qwen2.5-72B-Instruct)
     :stream t)
 
+  (set-popup-rule! (regexp-quote "*GitHub*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-openai "GitHub"
+    :host "models.inference.ai.azure.com"
+    :endpoint "/chat/completions"
+    :key #'gptel-api-key
+    :models '(gpt-4o
+              DeepSeek-V3
+              DeepSeek-R1)
+    :stream t)
+
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
