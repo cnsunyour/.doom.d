@@ -41,6 +41,23 @@
               DeepSeek-R1)
     :stream t)
 
+  (set-popup-rule! (regexp-quote "*ZaiWen*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-openai "ZaiWen"
+    :host "autobak.zaiwen.top"
+    :endpoint "/api/v1/chat/completions"
+    :key #'gptel-api-key
+    :models '(deepseek-chat
+              deepseek-reasoner
+              gpt-4o
+              gpt-o3-mini
+              claude-3-7-sonnet-20250219
+              claude-3-opus-20240229
+              gemini-2.0-flash-exp
+              gemini-1.5-pro
+              grok-beta)
+    :stream t)
+
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
