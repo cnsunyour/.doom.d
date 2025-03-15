@@ -190,21 +190,12 @@
 (use-package! aidermacs
   :defer t
   :config
-  (setenv "http_proxy")  (setenv "HTTP_PROXY")
-  (setenv "https_proxy") (setenv "HTTPS_PROXY")
-  (setenv "all_proxy")   (setenv "ALL_PROXY")
   (setenv "DEEPSEEK_API_KEY" (auth-source-pick-first-password
                               :host "api.deepseek.com"
                               :user "apikey"))
   (setenv "OPENROUTER_API_KEY" (auth-source-pick-first-password
                                 :host "openrouter.ai"
                                 :user "apikey"))
-  (setenv "ANTHROPIC_API_KEY" (auth-source-pick-first-password
-                               :host "api.anthropic.com"
-                               :user "apikey"))
-  (setenv "GEMINI_API_KEY" (auth-source-pick-first-password
-                            :host "generativelanguage.googleapis.com"
-                            :user "apikey"))
   :bind
   ("C-c a" . #'aidermacs-transient-menu)
   :custom
