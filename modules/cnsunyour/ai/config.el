@@ -5,13 +5,9 @@
   :config
   (set-popup-rule! (regexp-quote "*DeepSeek*")
     :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-model 'deepseek-chat
-        gptel-backend (gptel-make-openai "DeepSeek"
-                        :host "api.deepseek.com"
-                        :endpoint "/chat/completions"
+  (setq gptel-model 'deepseek-reasoner
+        gptel-backend (gptel-make-deepseek "DeepSeek"
                         :key #'gptel-api-key
-                        :models '(deepseek-chat
-                                  deepseek-reasoner)
                         :stream t))
 
   ;; remove default ChatGPT provider from backends
