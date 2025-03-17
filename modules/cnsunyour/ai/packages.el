@@ -10,5 +10,4 @@
 (package! magit-gptcommit)
 (package! codeium
   :recipe (:host github :repo "Exafunction/codeium.el"))
-(package! aidermacs
-  :recipe (:host github :repo "MatthewZMD/aidermacs"))
+(package! aidermacs)

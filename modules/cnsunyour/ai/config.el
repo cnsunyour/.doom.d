@@ -197,7 +197,7 @@
                                 :host "openrouter.ai"
                                 :user "apikey"))
   :bind
-  ("C-c a" . #'aidermacs-transient-menu)
+  ("C-c a" . aidermacs-transient-menu)
   :custom
   (aidermacs-popular-models '("deepseek/deepseek-chat"
                               "deepseek/deepseek-reasoner"
