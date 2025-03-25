@@ -52,10 +52,15 @@
           :n "D" #'pastebin-list-buffer-refresh-sort-by-date
           :n "P" #'pastebin-list-buffer-refresh-sort-by-private
           :n "q" #'kill-current-buffer))
-  (let ((credentials (auth-source-user-and-password "pastebin")))
-    (pastebin-create-login :username "cnsunyour"
-                           :dev-key (car credentials)
-                           :password (cadr credentials))))
+    (pastebin-create-login :username (auth-source-pick-first-password
+                                      :host "pastebin.com"
+                                      :user "username")
+                           :dev-key (auth-source-pick-first-password
+                                      :host "pastebin.com"
+                                      :user "dev-key")
+                           :password (auth-source-pick-first-password
+                                      :host "pastebin.com"
+                                      :user "password")))
 
 ;; Track Emacs commands frequency
 ;; (use-package! keyfreq
