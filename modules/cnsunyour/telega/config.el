@@ -2,13 +2,10 @@
 
 ;; telegram client for emacs
 (use-package! telega
+  :defer t
   :init
   (define-key global-map (kbd "C-c t") telega-prefix-map)
   (unless (display-graphic-p) (setq telega-use-images nil))
-  (when (modulep! :editor evil)
-    (cl-pushnew 'telega +evil-collection-disabled-list :test #'equal)
-    (setq evil-collection-mode-list (remove 'telega evil-collection-mode-list))
-    (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs))
 
   :hook
   (telega-load . telega-mode-line-mode)
@@ -17,6 +14,8 @@
   (telega-load . telega-autoplay-mode)
   (telega-load . telega-transient-mode)
   (telega-load . telega-adblock-mode)
+  (telega-root-mode . evil-emacs-state)
+  (telega-chat-mode . evil-emacs-state)
   (telega-chat-mode . (lambda ()
                         (setq-local visual-fill-column-extra-text-width
                                     '(0 . 2))))
