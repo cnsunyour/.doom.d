@@ -9,6 +9,7 @@
 (add-hook 'telega-root-mode-hook 'lg-telega-root-mode)
 (add-hook 'telega-chat-update-hook 'lg-telega-chat-update)
 
+(define-advice telega-chatbuf--sponsored-messages-fetch (:override (&rest _) dont-fetch-sponsor-a))
 
 (define-advice telega-etc-file (:override (filename) check-custom-etc-path-a)
   "Check if FILENAME exists in custom etc/ directory."
