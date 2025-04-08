@@ -144,7 +144,6 @@
         +noter
         +pandoc          ; pandoc integration into org's exporter
         +pomodoro
-        +pretty
         +present)        ; using Emacs for presentations
        ;; perl              ; write code no one else can comprehend
        (php +lsp +tree-sitter)                ; perl's insecure younger brother
