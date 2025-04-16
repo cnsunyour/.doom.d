@@ -33,7 +33,8 @@
     :endpoint "/chat/completions"
     :key #'gptel-api-key
     :models '(gpt-4o
-              DeepSeek-V3
+              gpt-4.1
+              DeepSeek-V3-0324
               DeepSeek-R1)
     :stream t)
 
@@ -48,6 +49,7 @@
               gpt-4o
               gpt-o3-mini
               claude-3-7-sonnet-20250219
+              claude-3-7-sonnet-thinking-all
               claude-3-opus-20240229
               gemini-2.0-flash-exp
               gemini-1.5-pro
@@ -59,8 +61,8 @@
   (gptel-make-openai "ChatGPT"
     :host "api.oaipro.com"
     :key #'gptel-api-key
-    :models '(gpt-4o
-              chatgpt-4o-latest
+    :models '(chatgpt-4o-latest
+              gpt-4.1
               gpt-4.5-preview
               o1
               o3-mini)
@@ -91,16 +93,22 @@
     :models '(deepseek/deepseek-chat-v3-0324
               deepseek/deepseek-r1
               openai/chatgpt-4o-latest
+              openai/gpt-4.1
               openai/gpt-4.5-preview
               openai/o1
+              openai/o3-mini
               openai/o3-mini-high
+              openai/o3
+              openai/o4-mini
+              openai/o4-mini-high
               openai/o1-pro
               anthropic/claude-3.7-sonnet
               anthropic/claude-3.7-sonnet:thinking
               anthropic/claude-3-opus
+              x-ai/grok-3-beta
               google/gemini-2.0-flash-001
               google/gemini-2.0-flash-thinking-exp:free
-              google/gemini-2.5-pro-exp-03-25:free)
+              google/gemini-2.5-pro-preview-03-25)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
