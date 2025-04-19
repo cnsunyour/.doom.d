@@ -242,6 +242,7 @@
                               "openrouter/openai/o1"
                               "openrouter/anthropic/claude-3.7-sonnet"
                               "openrouter/anthropic/claude-3-opus"
+                              "openrouter/x-ai/grok-3-beta"
                               "openrouter/google/gemini-2.0-flash-001"
                               "openrouter/google/gemini-pro-1.5"))
   (aidermacs-args '("--model" "openrouter/anthropic/claude-3.7-sonnet")))
