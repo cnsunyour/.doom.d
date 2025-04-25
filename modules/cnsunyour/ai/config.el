@@ -65,7 +65,8 @@
               gpt-4.1
               gpt-4.5-preview
               o1
-              o3-mini)
+              o3
+              o4-mini)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*Gemini*")
