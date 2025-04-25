@@ -15,29 +15,6 @@
     (if (string= (car item) "ChatGPT")
         (setq gptel--known-backends (cl-remove item gptel--known-backends))))
 
-  (set-popup-rule! (regexp-quote "*SiliconFlow*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "SiliconFlow"
-    :host "api.siliconflow.cn"
-    :key #'gptel-api-key
-    :models '(deepseek-ai/DeepSeek-V3
-              deepseek-ai/DeepSeek-R1
-              Qwen/Qwen2.5-32B-Instruct
-              Qwen/Qwen2.5-72B-Instruct)
-    :stream t)
-
-  (set-popup-rule! (regexp-quote "*GitHub*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "GitHub"
-    :host "models.inference.ai.azure.com"
-    :endpoint "/chat/completions"
-    :key #'gptel-api-key
-    :models '(gpt-4o
-              gpt-4.1
-              DeepSeek-V3-0324
-              DeepSeek-R1)
-    :stream t)
-
   (set-popup-rule! (regexp-quote "*ZaiWen*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "ZaiWen"
