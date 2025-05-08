@@ -243,3 +243,6 @@
                :replace "\\1"
                :svg-icon ("fa-brands/link.svg" :scale 0.72))
              t)
+
+(require 'telega-dired-dwim)
+(require 'telega-bridge-bot)
