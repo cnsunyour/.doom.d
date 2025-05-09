@@ -6,10 +6,11 @@
   :init
   (define-key global-map (kbd "C-c t") telega-prefix-map)
   (unless (display-graphic-p) (setq telega-use-images nil))
+  (after! evil
+    (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs))
   (after! evil-collection
     (cl-pushnew 'telega +evil-collection-disabled-list :test #'equal)
-    (setq evil-collection-mode-list (remove 'telega evil-collection-mode-list))
-    (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs))
+    (setq evil-collection-mode-list (remove 'telega evil-collection-mode-list)))
 
   :hook
   (telega-load . telega-mode-line-mode)
