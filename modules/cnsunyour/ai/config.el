@@ -24,13 +24,17 @@
     :models '(deepseek-chat
               deepseek-reasoner
               gpt-4o
-              gpt-o3-mini
+              gpt_o3
+              gpt4_1
+              gpt4.5
+              o1-all
+              o1-pro
               claude-3-7-sonnet-20250219
               claude-3-7-sonnet-thinking-all
               claude-3-opus-20240229
-              gemini-2.0-flash-exp
-              gemini-1.5-pro
-              grok-beta)
+              gemini_2_5_flash
+              gemini_2_5_pro
+              grok3)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*ChatGPT*")
@@ -57,9 +61,8 @@
   (gptel-make-anthropic "Claude"
     :host "api.oaipro.com"
     :key #'gptel-api-key
-    :models '(claude-3-7-sonnet-20250219-thinking
-              claude-3-7-sonnet-20250219
-              claude-3-opus-20240229)
+    :models '(claude-sonnet-4-20250514
+              claude-opus-4-20250514)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*OpenRouter*")
@@ -80,13 +83,12 @@
               openai/o4-mini
               openai/o4-mini-high
               openai/o1-pro
-              anthropic/claude-3.7-sonnet
-              anthropic/claude-3.7-sonnet:thinking
-              anthropic/claude-3-opus
+              anthropic/claude-sonnet-4
+              anthropic/claude-opus-4
               x-ai/grok-3-beta
-              google/gemini-2.0-flash-001
-              google/gemini-2.0-flash-thinking-exp:free
-              google/gemini-2.5-pro-preview-03-25)
+              google/gemini-2.5-flash-preview-05-20
+              google/gemini-2.5-flash-preview-05-20:thinking
+              google/gemini-2.5-pro-preview)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
