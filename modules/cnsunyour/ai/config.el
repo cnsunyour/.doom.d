@@ -72,7 +72,7 @@
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
     :models '(deepseek/deepseek-chat-v3-0324
-              deepseek/deepseek-r1
+              deepseek/deepseek-r1-0528
               openai/chatgpt-4o-latest
               openai/gpt-4.1
               openai/gpt-4.5-preview
@@ -83,6 +83,7 @@
               openai/o4-mini
               openai/o4-mini-high
               openai/o1-pro
+              openai/o3-pro
               anthropic/claude-sonnet-4
               anthropic/claude-opus-4
               x-ai/grok-3-beta
