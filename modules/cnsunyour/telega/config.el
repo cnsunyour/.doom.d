@@ -23,6 +23,8 @@
                         (setq-local visual-fill-column-extra-text-width
                                     '(0 . 2))))
 
+  :custom
+  (telega-server-libs-prefix "/usr/local")
   :config
   ;; (add-hook 'telega-msg-ignore-predicates
   ;;           (telega-match-gen-predicate 'msg '(sender is-blocked)))

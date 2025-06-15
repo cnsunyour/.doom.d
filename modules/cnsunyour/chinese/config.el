@@ -78,6 +78,8 @@ unwanted space when exporting org-mode to hugo markdown."
    ("C-`" . #'rime-send-keybinding)
    ("C-~" . #'rime-send-keybinding)
    ("C-S-`" . #'rime-send-keybinding))
+  :custom
+  (rime-librime-root "/usr/local")
   :config
   (setq default-input-method "rime"
         rime-user-data-dir (expand-file-name "~/.local/emacs-rime")
