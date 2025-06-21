@@ -76,20 +76,18 @@
               openai/chatgpt-4o-latest
               openai/gpt-4.1
               openai/gpt-4.5-preview
-              openai/o1
               openai/o3-mini
-              openai/o3-mini-high
-              openai/o3
               openai/o4-mini
-              openai/o4-mini-high
+              openai/o1
+              openai/o3
               openai/o1-pro
               openai/o3-pro
               anthropic/claude-sonnet-4
               anthropic/claude-opus-4
-              x-ai/grok-3-beta
-              google/gemini-2.5-flash-preview-05-20
-              google/gemini-2.5-flash-preview-05-20:thinking
-              google/gemini-2.5-pro-preview)
+              x-ai/grok-3-mini
+              x-ai/grok-3
+              google/gemini-2.5-flash
+              google/gemini-2.5-pro)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
@@ -220,10 +218,11 @@
                               "openrouter/deepseek/deepseek-chat"
                               "openrouter/deepseek/deepseek-r1"
                               "openrouter/openai/gpt-4o"
+                              "openrouter/openai/o3-mini"
                               "openrouter/openai/o1"
                               "openrouter/anthropic/claude-3.7-sonnet"
                               "openrouter/anthropic/claude-3-opus"
-                              "openrouter/x-ai/grok-3-beta"
-                              "openrouter/google/gemini-2.0-flash-001"
-                              "openrouter/google/gemini-pro-1.5"))
+                              "openrouter/google/gemini-2.5-flash"
+                              "openrouter/google/gemini-2.5-pro"
+                              "openrouter/x-ai/grok-3-beta"))
   (aidermacs-args '("--model" "openrouter/anthropic/claude-3.7-sonnet")))
