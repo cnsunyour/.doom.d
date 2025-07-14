@@ -73,19 +73,17 @@
     :key #'gptel-api-key
     :models '(deepseek/deepseek-chat-v3-0324
               deepseek/deepseek-r1-0528
-              openai/chatgpt-4o-latest
+              openai/gpt-4o
               openai/gpt-4.1
               openai/gpt-4.5-preview
-              openai/o3-mini
-              openai/o4-mini
               openai/o1
               openai/o3
               openai/o1-pro
               openai/o3-pro
               anthropic/claude-sonnet-4
               anthropic/claude-opus-4
-              x-ai/grok-3-mini
               x-ai/grok-3
+              x-ai/grok-4
               google/gemini-2.5-flash
               google/gemini-2.5-pro)
     :stream t)
