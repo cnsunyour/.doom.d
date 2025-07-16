@@ -141,29 +141,3 @@
   ;; Add gptcommit transient commands to `magit-commit'
   ;; Eval (transient-remove-suffix 'magit-commit '(1 -1)) to remove gptcommit transient commands
   (magit-gptcommit-status-buffer-setup))
-
-(use-package! aidermacs
-  :defer t
-  :config
-  (setenv "DEEPSEEK_API_KEY" (auth-source-pick-first-password
-                              :host "api.deepseek.com"
-                              :user "apikey"))
-  (setenv "OPENROUTER_API_KEY" (auth-source-pick-first-password
-                                :host "openrouter.ai"
-                                :user "apikey"))
-  :bind
-  ("C-c a" . aidermacs-transient-menu)
-  :custom
-  (aidermacs-popular-models '("deepseek/deepseek-chat"
-                              "deepseek/deepseek-reasoner"
-                              "openrouter/deepseek/deepseek-chat"
-                              "openrouter/deepseek/deepseek-r1"
-                              "openrouter/openai/gpt-4o"
-                              "openrouter/openai/o3-mini"
-                              "openrouter/openai/o1"
-                              "openrouter/anthropic/claude-3.7-sonnet"
-                              "openrouter/anthropic/claude-3-opus"
-                              "openrouter/google/gemini-2.5-flash"
-                              "openrouter/google/gemini-2.5-pro"
-                              "openrouter/x-ai/grok-3-beta"))
-  (aidermacs-args '("--model" "openrouter/anthropic/claude-3.7-sonnet")))
