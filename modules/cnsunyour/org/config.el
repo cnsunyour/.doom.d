@@ -20,6 +20,11 @@
 ;; 预览 org 和 markdown 文件
 (use-package! grip-mode
   :defer t
+  :bind
+  (:map markdown-mode-command-map
+        ("g" . grip-mode))
+  :custom
+  (grip-command 'auto)
   :init
   (map! :map (markdown-mode-map org-mode-map)
         :localleader
