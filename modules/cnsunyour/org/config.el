@@ -17,6 +17,23 @@
 (setq org-html-head
       "<link rel='stylesheet' type='text/css' href='https://www.labri.fr/perso/nrougier/GTD/GTD.css' />")
 
+;; 预览 org 和 markdown 文件
+(use-package! grip-mode
+  :defer t
+  :init
+  (map! :map (markdown-mode-map org-mode-map)
+        :localleader
+        :desc "grip-mode" "v" #'grip-mode)
+  :config
+  ;; Use embedded webkit to previe
+  (setq grip-preview-use-webkit t)
+  ;; Setup xwidget window popup rule
+  (set-popup-rule! (regexp-quote "*xwidget") :side 'right :size .50 :select nil :quit t)
+  ;; Setup github username and token for API auth
+  (let ((credentials (auth-source-user-and-password "mygrip")))
+    (setq grip-github-user (car credentials)
+          grip-github-password (cadr credentials))))
+
 ;;
 ;; `org' pre private config
 ;;
