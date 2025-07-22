@@ -23,18 +23,22 @@
     :key #'gptel-api-key
     :models '(deepseek-chat
               deepseek-reasoner
-              gpt-4o
-              gpt_o3
-              gpt4_1
+              gpt-4.1-mini
+              gpt-4.1
               gpt4.5
-              o1-all
-              o1-pro
-              claude-3-7-sonnet-20250219
-              claude-3-7-sonnet-thinking-all
-              claude-3-opus-20240229
-              gemini_2_5_flash
-              gemini_2_5_pro
-              grok3)
+              openai-o4-mini
+              openai-o3
+              openai-o1-pro
+              claude-4-sonnet
+              claude-4-sonnet-reasoner
+              claude4-opus
+              claude4-opus-thinking
+              gemini-2.5-flash
+              gemini-2.5-pro
+              grok-3
+              grok-3-reasoner
+              grok-3-deepsearch
+              grok-4)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*ChatGPT*")
