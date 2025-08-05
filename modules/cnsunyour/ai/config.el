@@ -46,12 +46,9 @@
   (gptel-make-openai "ChatGPT"
     :host "api.oaipro.com"
     :key #'gptel-api-key
-    :models '(chatgpt-4o-latest
-              gpt-4.1
-              gpt-4.5-preview
+    :models '(gpt-4.1
               o1
-              o3
-              o4-mini)
+              o3)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*Gemini*")
@@ -85,7 +82,7 @@
               openai/o1-pro
               openai/o3-pro
               anthropic/claude-sonnet-4
-              anthropic/claude-opus-4
+              anthropic/claude-opus-4.1
               x-ai/grok-3
               x-ai/grok-4
               google/gemini-2.5-flash
