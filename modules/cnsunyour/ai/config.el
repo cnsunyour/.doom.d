@@ -76,7 +76,7 @@
               deepseek/deepseek-r1-0528
               openai/gpt-4o
               openai/gpt-4.1
-              openai/gpt-4.5-preview
+              openai/gpt-5
               openai/o1
               openai/o3
               openai/o1-pro
