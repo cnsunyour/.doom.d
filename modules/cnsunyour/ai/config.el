@@ -66,16 +66,12 @@
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(deepseek/deepseek-chat-v3-0324
+    :models '(deepseek/deepseek-chat-v3.1
               deepseek/deepseek-r1-0528
-              openai/gpt-4o
-              openai/gpt-4.1
               openai/gpt-5
-              openai/o1
               openai/o3
-              openai/o1-pro
               openai/o3-pro
-              anthropic/claude-sonnet-4
+              anthropic/claude-sonnet-4.5
               anthropic/claude-opus-4.1
               x-ai/grok-3
               x-ai/grok-4
