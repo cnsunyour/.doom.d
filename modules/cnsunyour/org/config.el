@@ -39,6 +39,10 @@
     (setq grip-github-user (car credentials)
           grip-github-password (cadr credentials))))
 
+(use-package! org-supertag
+  :after (org gptel)
+  :config
+  (setq org-supertag-sync-directories (list org-directory)))
 ;;
 ;; `org' pre private config
 ;;
