@@ -1,7 +1,7 @@
 ;;; cnsunyour/tools/config.el -*- lexical-binding: t; -*-
 
 (use-package! gptel
-  :defer t
+  :defer 5
   :config
   (set-popup-rule! (regexp-quote "*DeepSeek*")
     :side 'left :size 100 :select t :quit 'current)
@@ -71,6 +71,7 @@
               openai/gpt-5
               openai/o3
               openai/o3-pro
+              anthropic/claude-haiku-4.5
               anthropic/claude-sonnet-4.5
               anthropic/claude-opus-4.1
               x-ai/grok-3
