@@ -40,7 +40,7 @@
   (gptel-make-openai "ChatGPT"
     :host "api.oaipro.com"
     :key #'gptel-api-key
-    :models '(gpt-4.1
+    :models '(gpt-5
               o1
               o3)
     :stream t)
@@ -56,8 +56,9 @@
   (gptel-make-anthropic "Claude"
     :host "api.oaipro.com"
     :key #'gptel-api-key
-    :models '(claude-sonnet-4-20250514
-              claude-opus-4-20250514)
+    :models '(claude-haiku-4-5-20251001
+              claude-sonnet-4-5-20250929
+              claude-opus-4-1-20250805)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*OpenRouter*")
