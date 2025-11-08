@@ -70,13 +70,18 @@
     :models '(deepseek/deepseek-chat-v3.1
               deepseek/deepseek-r1-0528
               openai/gpt-5
+              openai/gpt-5-pro
               openai/o3
+              openai/o3-deep-research
               openai/o3-pro
               anthropic/claude-haiku-4.5
               anthropic/claude-sonnet-4.5
               anthropic/claude-opus-4.1
               x-ai/grok-3
               x-ai/grok-4
+              perplexity/sonar-pro
+              perplexity/sonar-reasoning-pro
+              perplexity/sonar-pro-search
               google/gemini-2.5-flash
               google/gemini-2.5-pro)
     :stream t)
