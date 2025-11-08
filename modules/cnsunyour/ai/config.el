@@ -25,6 +25,7 @@
               deepseek-reasoner
               gpt-4.1
               gpt4.5
+              o1-all
               openai-o3
               openai-o1-pro
               claude-4-sonnet
