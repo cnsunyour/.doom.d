@@ -18,22 +18,21 @@
   (set-popup-rule! (regexp-quote "*ZaiWen*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "ZaiWen"
-    :host "autobak.zaiwen.top"
-    :endpoint "/api/v1/chat/completions"
+    :host "back.zaiwenai.com"
+    :endpoint "/api/v1/ai/chat/completions"
     :key #'gptel-api-key
-    :models '(deepseek-chat
+    :models '(DeepSeek-V3.1
               deepseek-reasoner
-              gpt-4.1
-              gpt4.5
-              o1-all
-              openai-o3
-              openai-o1-pro
-              claude-4-sonnet
-              claude4-opus
-              gemini-2.5-flash
-              gemini-2.5-pro
-              grok-3
-              grok-4)
+              gpt-5
+              GPT-5-Pro
+              o3-mini
+              o1-pro
+              Claude-Sonnet-4.5
+              Claude-Opus-4.1
+              gemini_2_5_flash
+              gemini_2_5_pro
+              grok3
+              grok4)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*ChatGPT*")
