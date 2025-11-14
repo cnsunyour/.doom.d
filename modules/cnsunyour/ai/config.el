@@ -35,32 +35,6 @@
               grok4)
     :stream t)
 
-  (set-popup-rule! (regexp-quote "*ChatGPT*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "ChatGPT"
-    :host "api.oaipro.com"
-    :key #'gptel-api-key
-    :models '(gpt-5
-              o1
-              o3)
-    :stream t)
-
-  (set-popup-rule! (regexp-quote "*Gemini*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-gemini "Gemini"
-    :key #'gptel-api-key
-    :stream t)
-
-  (set-popup-rule! (regexp-quote "*Claude*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-anthropic "Claude"
-    :host "api.oaipro.com"
-    :key #'gptel-api-key
-    :models '(claude-haiku-4-5-20251001
-              claude-sonnet-4-5-20250929
-              claude-opus-4-1-20250805)
-    :stream t)
-
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
