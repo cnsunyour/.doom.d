@@ -5,6 +5,7 @@
 (when (display-graphic-p)
   (defcustom my-ui-fonts '("Sarasa Mono SC"
                            "LXGW WenKai Mono"
+                           "Maple Mono CN"
                            "Sarasa Mono Slab SC"
                            "Noto Sans Mono CJK SC")
     "Font lists used in my private custom ui config."
