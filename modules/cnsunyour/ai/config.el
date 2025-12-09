@@ -21,18 +21,31 @@
     :host "back.zaiwenai.com"
     :endpoint "/api/v1/ai/chat/completions"
     :key #'gptel-api-key
-    :models '(DeepSeek-V3.1
-              deepseek-reasoner
-              gpt-5
-              GPT-5-Pro
-              o3-mini
-              o1-pro
+    :models '(DeepSeek-V3.2
+              GPT-5.1-Codex
               Claude-Sonnet-4.5
-              Claude-Opus-4.1
-              gemini_2_5_flash
-              gemini_2_5_pro
-              grok3
-              grok4)
+              Claude-Opus-4.5
+              Gemini-3.0-Pro-Thinking
+              Grok-4.1-Fast-Reasoning)
+    :stream t)
+
+  (set-popup-rule! (regexp-quote "*ChatGPT*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-openai "ChatGPT"
+    :host "api.oaipro.com"
+    :key #'gptel-api-key
+    :models '(gpt-5.1
+              o3)
+    :stream t)
+
+  (set-popup-rule! (regexp-quote "*Claude*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-anthropic "Claude"
+    :host "api.oaipro.com"
+    :key #'gptel-api-key
+    :models '(claude-haiku-4-5-20251001
+              claude-sonnet-4-5-20250929
+              claude-opus-4-5-20251101)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*OpenRouter*")
@@ -41,23 +54,16 @@
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(deepseek/deepseek-chat-v3.1
-              deepseek/deepseek-r1-0528
-              openai/gpt-5
-              openai/gpt-5-pro
+    :models '(deepseek/deepseek-v3.2
+              openai/gpt-5.1-codex-max
               openai/o3
               openai/o3-deep-research
               openai/o3-pro
               anthropic/claude-haiku-4.5
               anthropic/claude-sonnet-4.5
-              anthropic/claude-opus-4.1
-              x-ai/grok-3
-              x-ai/grok-4
-              perplexity/sonar-pro
-              perplexity/sonar-reasoning-pro
-              perplexity/sonar-pro-search
-              google/gemini-2.5-flash
-              google/gemini-2.5-pro)
+              anthropic/claude-opus-4.5
+              google/gemini-3-pro-preview
+              x-ai/grok-4)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
