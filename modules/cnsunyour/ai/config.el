@@ -109,7 +109,7 @@
                                       :key (auth-source-pick-first-password
                                             :host "openrouter.ai"
                                             :user "apikey")
-                                      :chat-model "anthropic/claude-sonnet-4"))
+                                      :chat-model "anthropic/claude-haiku-4.5"))
 
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
