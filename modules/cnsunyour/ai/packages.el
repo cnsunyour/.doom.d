@@ -8,3 +8,5 @@
   :recipe (:host github :repo "rksm/org-ai"
            :files (:defaults "snippets")))
 (package! magit-gptcommit)
+(package! claude-code-ide
+  :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
