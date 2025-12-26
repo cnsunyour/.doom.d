@@ -15,18 +15,13 @@
     (if (string= (car item) "ChatGPT")
         (setq gptel--known-backends (cl-remove item gptel--known-backends))))
 
-  (set-popup-rule! (regexp-quote "*ZaiWen*")
+  (set-popup-rule! (regexp-quote "*BigModel*")
     :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "ZaiWen"
-    :host "back.zaiwenai.com"
-    :endpoint "/api/v1/ai/chat/completions"
+  (gptel-make-openai "BigModel"
+    :host "open.bigmodel.cn"
+    :endpoint "/api/coding/paas/v4/chat/completions"
     :key #'gptel-api-key
-    :models '(DeepSeek-V3.2
-              GPT-5.1-Codex
-              Claude-Sonnet-4.5
-              Claude-Opus-4.5
-              Gemini-3.0-Pro-Thinking
-              Grok-4.1-Fast-Reasoning)
+    :models '(GLM-4.7)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*ChatGPT*")
@@ -34,8 +29,7 @@
   (gptel-make-openai "ChatGPT"
     :host "api.oaipro.com"
     :key #'gptel-api-key
-    :models '(gpt-5.1
-              o3)
+    :models '(gpt-5.2)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*Claude*")
@@ -54,12 +48,8 @@
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(deepseek/deepseek-v3.2
-              openai/gpt-5.1-codex-max
-              openai/o3
-              openai/o3-deep-research
-              openai/o3-pro
-              anthropic/claude-haiku-4.5
+    :models '(openai/gpt-5.2
+              openai/gpt-5.2-pro
               anthropic/claude-sonnet-4.5
               anthropic/claude-opus-4.5
               google/gemini-3-pro-preview
