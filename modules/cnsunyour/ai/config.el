@@ -95,6 +95,7 @@
   :init
   (require 'llm-openai)
   :config
+  ;; The reason for using setq instead of customize is to avoid exposing the API key in the .custom file.
   (setq magit-gptcommit-llm-provider (make-llm-openai-compatible
                                       :url "https://openrouter.ai/api/v1/"
                                       :key (auth-source-pick-first-password
