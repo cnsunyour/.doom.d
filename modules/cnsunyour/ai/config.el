@@ -94,15 +94,14 @@
         ("C-c C-g" . magit-gptcommit-generate))
   :init
   (require 'llm-openai)
-  :custom
-  (magit-gptcommit-llm-provider (make-llm-openai-compatible
-                                 :url "https://openrouter.ai/api/v1/"
-                                 :key (auth-source-pick-first-password
-                                       :host "openrouter.ai"
-                                       :user "apikey")
-                                 :chat-model "anthropic/claude-haiku-4.5"))
-
   :config
+  (setq magit-gptcommit-llm-provider (make-llm-openai-compatible
+                                      :url "https://openrouter.ai/api/v1/"
+                                      :key (auth-source-pick-first-password
+                                            :host "openrouter.ai"
+                                            :user "apikey")
+                                      :chat-model "anthropic/claude-haiku-4.5"))
+
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
   ;; `magit-gptcommit-generate' should only execute on magit status buffer currently
