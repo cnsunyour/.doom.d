@@ -7,11 +7,13 @@
   :init
   (define-key global-map (kbd "C-c t") telega-prefix-map)
   (unless (display-graphic-p) (setq telega-use-images nil))
+
   (after! evil
     (set-evil-initial-state! '(telega-root-mode telega-chat-mode) 'emacs))
   (after! evil-collection
     (cl-pushnew 'telega +evil-collection-disabled-list :test #'equal)
     (setq evil-collection-mode-list (remove 'telega evil-collection-mode-list)))
+
   (add-hook! telega-load
              '(telega-mode-line-mode
                global-telega-url-shorten-mode
@@ -21,13 +23,13 @@
   (add-hook! telega-chat-mode
     (setq-local visual-fill-column-extra-text-width
                 '(0 . 2)))
+  ;; (add-hook! 'telega-msg-ignore-predicates
+  ;;   (telega-match-gen-predicate 'msg '(sender is-blocked)))
 
   :custom
   (telega-server-libs-prefix "/usr/local")
 
   :config
-  ;; (add-hook 'telega-msg-ignore-predicates
-  ;;           (telega-match-gen-predicate 'msg '(sender is-blocked)))
   (setq telega-chat-show-deleted-messages-for '(me-is-owner OR-ADMIN)
         ;; telega-use-tracking-for '(or mention (and unread unmuted))
         telega-open-file-function 'org-open-file
