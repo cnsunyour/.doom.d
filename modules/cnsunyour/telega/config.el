@@ -19,7 +19,8 @@
                telega-autoplay-mode
                telega-adblock-mode))
   (add-hook! telega-chat-mode
-    (setq-local visual-fill-column-extra-text-width '(0 . 2)))
+    (setq-local visual-fill-column-extra-text-width
+                '(0 . 2)))
 
   :custom
   (telega-server-libs-prefix "/usr/local")
