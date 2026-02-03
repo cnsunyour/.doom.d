@@ -28,6 +28,8 @@
 
   :custom
   (telega-server-libs-prefix "/usr/local")
+  (telega-root-auto-fill-margin-columns 2)
+  (telega-chat-auto-fill-margin-columns 2)
 
   :config
   (setq telega-chat-show-deleted-messages-for '(me-is-owner OR-ADMIN)
