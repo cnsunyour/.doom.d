@@ -197,7 +197,8 @@ input scheme to convert to Chinese."
   :hook (find-file . cns-auto-enable)
   :config
   (let ((cnsbasedir (f-dirname (locate-library "cns"))))
-    (setq cns-prog (expand-file-name "cnws" cnsbasedir)
+    (setq cns-process-type 'shell
+          cns-prog (expand-file-name "cnws" cnsbasedir)
           cns-dict-directory (expand-file-name "cppjieba/dict" cnsbasedir))
     (unless (file-exists-p cns-prog)
       (let ((default-directory cnsbasedir))
