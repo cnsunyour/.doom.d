@@ -287,16 +287,18 @@ See `org-capture-templates' for more information."
       (dolist (item org-capture-templates)
         (when (string= (car item) shortcut)
           (setq org-capture-templates (cl-remove item org-capture-templates)))))
-    (pushnew! org-capture-templates
-              '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
-                #'org-hugo-new-subtree-post-capture-template
-                :prepend t :clock-in t :clock-resume t :kill-buffer t)
-              '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
-                #'org-hugo-new-subtree-post-capture-template
-                :prepend t :clock-in t :clock-resume t :kill-buffer t)
-              '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
-                #'org-new-task-capture-template
-                :prepend t :clock-in t :clock-resume t :kill-buffer t))))
+    (cl-pushnew '("j" "Keeping Journals" entry (file+olp+datetree +org-capture-journal-file)
+                  #'org-hugo-new-subtree-post-capture-template
+                  :prepend t :clock-in t :clock-resume t :kill-buffer t)
+                org-capture-templates)
+    (cl-pushnew '("n" "Taking Notes" entry (file+olp+datetree +org-capture-notes-file)
+                  #'org-hugo-new-subtree-post-capture-template
+                  :prepend t :clock-in t :clock-resume t :kill-buffer t)
+                org-capture-templates)
+    (cl-pushnew '("t" "New Todo Task" entry (file+headline +org-capture-todo-file "Tasks")
+                  #'org-new-task-capture-template
+                  :prepend t :clock-in t :clock-resume t :kill-buffer t)
+                org-capture-templates)))
 
 ;; set different line spacing on org-agenda view
 (defun my:org-agenda-time-grid-spacing ()
