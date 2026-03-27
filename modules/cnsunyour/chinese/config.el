@@ -78,8 +78,6 @@ unwanted space when exporting org-mode to hugo markdown."
    ("C-`" . #'rime-send-keybinding)
    ("C-~" . #'rime-send-keybinding)
    ("C-S-`" . #'rime-send-keybinding))
-  :custom
-  (rime-librime-root "/usr/local")
   :config
   (setq default-input-method "rime"
         rime-user-data-dir (expand-file-name "~/.local/emacs-rime")
@@ -195,13 +193,23 @@ input scheme to convert to Chinese."
 ;; +---------------+----------------------+--------------------------+
 (use-package! cns
   :hook (find-file . cns-auto-enable)
+  :preface
+  (defun +chinese-compile-cnws ()
+    "Build `cnws' in the cns package directory when needed."
+    (interactive)
+    (let* ((cnsbasedir (f-dirname (locate-library "cns")))
+           (cns-prog (expand-file-name "cnws" cnsbasedir))
+           (default-directory cnsbasedir))
+      (unless (file-exists-p cns-prog)
+        (if (zerop (shell-command "make"))
+            (message "cnws compiled successfully.")
+          (user-error "cnws compile failed.")))
+      cns-prog))
   :config
   (let ((cnsbasedir (f-dirname (locate-library "cns"))))
     (setq cns-process-type 'shell
           cns-prog (expand-file-name "cnws" cnsbasedir)
-          cns-dict-directory (expand-file-name "cppjieba/dict" cnsbasedir))
-    (unless (file-exists-p cns-prog)
-      (let ((default-directory cnsbasedir))
-        (if (zerop (shell-command "make"))
-            (message "cnws compiled successfully.")
-          (error "cnws compile failed."))))))
+          cns-dict-directory (expand-file-name "cppjieba/dict" cnsbasedir)))
+  (define-advice cns-start-process (:before (&rest _) +chinese-ensure-cnws-built)
+    (when (eq cns-process-type 'shell)
+      (+chinese-compile-cnws))))

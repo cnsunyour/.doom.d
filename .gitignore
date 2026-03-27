@@ -111,3 +111,5 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/emacs,elisp,git,macos
 .aider*
+CLAUDE.md
+.serena/

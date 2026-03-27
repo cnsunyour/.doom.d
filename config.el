@@ -19,16 +19,23 @@
                           :resourceDir (string-trim (shell-command-to-string "clang -print-resource-dir")))))))
 
 ;; define environmental variable for some works
-(setenv "PKG_CONFIG_PATH"
-        (replace-regexp-in-string
-         (concat path-separator "+$")
-         ""
-         (concat
-          "/usr/local/opt/libffi/lib/pkgconfig" path-separator
-          "/usr/local/opt/qt/lib/pkgconfig" path-separator
-          "/usr/local/opt/nss/lib/pkgconfig" path-separator
-          "usr/local/opt/zlib/lib/pkgconfig" path-separator
-          (getenv "PKG_CONFIG_PATH"))))
+(let* ((brew-prefix (or (getenv "HOMEBREW_PREFIX")
+                        (and IS-MAC
+                             (cond ((file-directory-p "/opt/homebrew/opt") "/opt/homebrew")
+                                   ((file-directory-p "/usr/local/opt") "/usr/local")))
+                        "/usr/local"))
+       (pkg-config-paths
+        (mapcar (lambda (pkg)
+                  (expand-file-name (format "opt/%s/lib/pkgconfig" pkg) brew-prefix))
+                '("libffi" "qt" "nss" "zlib")))
+       (existing-pkg-config-path (getenv "PKG_CONFIG_PATH")))
+  (setenv "PKG_CONFIG_PATH"
+          (mapconcat #'identity
+                     (append pkg-config-paths
+                             (unless (or (null existing-pkg-config-path)
+                                         (string= existing-pkg-config-path ""))
+                               (list existing-pkg-config-path)))
+                     path-separator)))
 
 ;; 使用系统废纸篓删除文件
 ;; (setq delete-by-moving-to-trash t)
@@ -51,30 +58,29 @@
   (add-hook! 'elfeed-search-mode-hook 'elfeed-update))
 
 (when (modulep! :lang php +lsp)
-  (add-hook! before-save #'php-cs-fixer-before-save)
+  (add-hook! 'php-mode-hook
+    (add-hook 'before-save-hook #'php-cs-fixer-before-save nil t))
+  (add-hook! 'php-ts-mode-hook
+    (add-hook 'before-save-hook #'php-cs-fixer-before-save nil t))
   (after! php-mode
     (setq lsp-intelephense-licence-key
           (auth-source-pick-first-password
            :host "intelephense"))))
 
 (after! magit
-  (require 'forge)
-  (setq magit-revision-show-gravatars t))
+  (require 'forge))
 
 (when (modulep! :editor evil)
   (setq evil-magic 'very-magic)
   (setq evil-ex-search-vim-style-regexp t)
   (evil-select-search-module 'evil-search-module 'evil-search))
 
-(defadvice bookmark-jump (after bookmark-jump activate)
+(define-advice bookmark-jump (:after (bookmark &rest _) reorder-bookmark-a)
   (let ((latest (bookmark-get-bookmark bookmark)))
     (setq bookmark-alist (delq latest bookmark-alist))
     (add-to-list 'bookmark-alist latest)))
 
-(use-package! popwin
-  :bind-keymap
-  ("C-c q" . popwin:keymap)
-  :config
-  (popwin-mode 1))
-
 (load (expand-file-name ".private.el" doom-user-dir) t)
+
+;; Doom 只在 custom-file 未被修改时自动加载，由于 init.el 修改了路径，需要显式加载
+(load (expand-file-name ".custom.el" doom-user-dir) t)

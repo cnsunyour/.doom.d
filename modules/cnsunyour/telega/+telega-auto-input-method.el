@@ -55,17 +55,27 @@
                      (telega-chat-title chat)
                      "\"] is removed from EN/CN chat list."))))
 
-;; Determine the function which has advice is available.
-(unless (fboundp 'telega-chat--pop-to-buffer)
-  (error "Function `telega-chat--pop-to-buffer' is not available."))
-(define-advice telega-chat--pop-to-buffer (:after (chat &rest _) toggle-input-method-a)
-  "在 telega-chat-mode 里根据 chat 名称切换输入法，如果名称包含
-中文，则激活中文输入法，否则关闭中文输入法"
-  (let ((title (telega-chat-title chat))
-        (chatid (plist-get chat :id)))
-    (cond ((member chatid +telega--chat-cn-list) (activate-input-method default-input-method))
-          ((member chatid +telega--chat-en-list) (deactivate-input-method))
-          ((telega-chat-bot-p chat) (deactivate-input-method))
-          ((telega-chat-private-p chat) (activate-input-method default-input-method))
-          ((string-match-p "\\cc" title) (activate-input-method default-input-method))
-          (t (deactivate-input-method)))))
+(defun +telega--toggle-input-method (&optional chat)
+  "在 telega-chat-mode 里根据 CHAT 名称切换输入法。"
+  (let ((chat (or chat telega-chatbuf--chat)))
+    (when chat
+      (let ((title (telega-chat-title chat))
+            (chatid (plist-get chat :id)))
+        (cond ((member chatid +telega--chat-cn-list)
+               (activate-input-method default-input-method))
+              ((member chatid +telega--chat-en-list)
+               (deactivate-input-method))
+              ((telega-chat-bot-p chat)
+               (deactivate-input-method))
+              ((telega-chat-private-p chat)
+               (activate-input-method default-input-method))
+              ((string-match-p "\\cc" title)
+               (activate-input-method default-input-method))
+              (t (deactivate-input-method)))))))
+
+(add-hook 'telega-chat-mode-hook #'+telega--toggle-input-method)
+
+(when (fboundp 'telega-chat--pop-to-buffer)
+  (define-advice telega-chat--pop-to-buffer (:after (chat &rest _) toggle-input-method-a)
+    "在重新打开已有 chat buffer 时同步输入法状态。"
+    (+telega--toggle-input-method chat)))

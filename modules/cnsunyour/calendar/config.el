@@ -14,8 +14,8 @@
         (diary-chinese-anniversary lunar-month lunar-day y mark))
     (diary-chinese-anniversary lunar-month lunar-day year mark)))
 
-(setq calendar-mark-holidays-flag t
-      calendar-week-start-day 1)
+(setopt calendar-mark-holidays-flag t
+        calendar-week-start-day 1)
 
 (use-package! cal-china-x
   :custom
@@ -62,6 +62,5 @@
                                   (holiday-float 11 4 4 "感恩节")
                                   (holiday-fixed 12 25 "圣诞节")))
   :config
-  (setq calendar-mark-holidays-flag t)
   (setq calendar-holidays (append cal-china-x-important-holidays
                                   cal-china-x-general-holidays)))

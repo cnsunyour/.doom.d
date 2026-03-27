@@ -10,11 +10,6 @@
                         :key #'gptel-api-key
                         :stream t))
 
-  ;; remove default ChatGPT provider from backends
-  (dolist (item gptel--known-backends)
-    (if (string= (car item) "ChatGPT")
-        (setq gptel--known-backends (cl-remove item gptel--known-backends))))
-
   (set-popup-rule! (regexp-quote "*BigModel*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "BigModel"
@@ -63,23 +58,25 @@
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
 
 (use-package! gptel-extensions
-  :demand t
   :after gptel)
 
 (use-package! org-ai
-  :demand t
   :after org
   :commands
   org-ai-mode
   org-ai-global-mode
+  :preface
+  (defun +org-ai-enable-global-mode-h ()
+    (unless (bound-and-true-p org-ai-global-mode)
+      (org-ai-global-mode 1))
+    (remove-hook 'org-mode-hook #'+org-ai-enable-global-mode-h))
   :custom
   (org-ai-default-chat-model "deepseek-chat")
   (org-ai-chat-models '("deepseek-chat"
                         "deepseek-reasoner"))
   :hook
   (org-mode . org-ai-mode) ; enable org-ai in org-mode
-  :init
-  (org-ai-global-mode) ; installs global keybindings on C-c M-a
+  (org-mode . +org-ai-enable-global-mode-h) ; install C-c M-a bindings when first needed
   :config
   (setq org-ai-openai-chat-endpoint "https://api.deepseek.com/chat/completions"
         org-ai-openai-completion-endpoint "https://api.deepseek.com/chat/completions")

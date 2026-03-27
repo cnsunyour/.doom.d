@@ -185,5 +185,7 @@ respectively."
              ("C-x {"  . wrap-with-braces)
              ("C-x '"  . wrap-with-single-quotes)
              ("C-x \"" . wrap-with-double-quotes)
-             ("C-x _"  . wrap-with-underscores)
+             ("C-x _"  . (lambda (&optional _arg)
+                           (interactive "P")
+                           (sp-wrap-with-pair "_")))
              ("C-x `"  . wrap-with-back-quotes)))

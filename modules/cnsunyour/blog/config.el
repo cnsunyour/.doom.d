@@ -1,8 +1,8 @@
 ;;; ~/.doom.d/+org2blog.el -*- lexical-binding: t; -*-
 
 (after! ox-hugo
-  (setq org-hugo-base-dir "~/hugo/"
-        org-hugo-section "post"))
+  (setopt org-hugo-base-dir "~/hugo/"
+          org-hugo-section "post"))
 
 (use-package! easy-hugo
   :bind
@@ -10,9 +10,9 @@
   :custom
   (easy-hugo-basedir "~/hugo/")
   (easy-hugo-url "https://sunyour.org")
+  (easy-hugo-no-help t)
   :config
   (evil-set-initial-state 'easy-hugo-mode 'emacs)
-  (setq easy-hugo-no-help t)
   (easy-hugo-enable-menu))
 
 ;; (use-package! org2blog

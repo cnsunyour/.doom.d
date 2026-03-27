@@ -5,6 +5,7 @@
   :defer t
   :init
   (map! :map prog-mode-map "C-c '" #'separedit)
+  :custom
+  (separedit-default-mode 'markdown-mode)
   :config
-  (setq separedit-default-mode 'markdown-mode)
   (set-popup-rule! "^\\*edit-indirect " :side 'right :size .5 :select t :quit nil))
