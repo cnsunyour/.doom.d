@@ -20,16 +20,8 @@
                global-telega-mnz-mode
                telega-autoplay-mode
                telega-adblock-mode))
-  (add-hook! telega-chat-mode
-    (setq-local visual-fill-column-extra-text-width
-                '(0 . 2)))
   ;; (add-hook! 'telega-msg-ignore-predicates
   ;;   (telega-match-gen-predicate 'msg '(sender is-blocked)))
-
-  :custom
-  (telega-server-libs-prefix "/usr/local")
-  (telega-root-auto-fill-margin-columns 2)
-  (telega-chat-auto-fill-margin-columns 2)
 
   :config
   (setq telega-chat-show-deleted-messages-for '(me-is-owner OR-ADMIN)
