@@ -20,6 +20,12 @@
                global-telega-mnz-mode
                telega-autoplay-mode
                telega-adblock-mode))
+  (add-hook! telega-ready
+             (telega--addProxy
+                 '(:server "127.0.0.1"
+                   :port 7891
+                   :type (:@type "proxyTypeSocks5"))
+                 t))
   ;; (add-hook! 'telega-msg-ignore-predicates
   ;;   (telega-match-gen-predicate 'msg '(sender is-blocked)))
 
