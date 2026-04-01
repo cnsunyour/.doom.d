@@ -20,7 +20,7 @@
                global-telega-mnz-mode
                telega-autoplay-mode
                telega-adblock-mode))
-  (add-hook! telega-ready
+  (add-hook! telega-before-auth
              (telega--addProxy
                  '(:server "127.0.0.1"
                    :port 7891
