@@ -109,8 +109,3 @@
   ;; Add gptcommit transient commands to `magit-commit'
   ;; Eval (transient-remove-suffix 'magit-commit '(1 -1)) to remove gptcommit transient commands
   (magit-gptcommit-status-buffer-setup))
-
-(use-package! claude-code-ide
-  :bind ("C-c C-`" . claude-code-ide-menu) ; Set your favorite keybinding
-  :config
-  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
