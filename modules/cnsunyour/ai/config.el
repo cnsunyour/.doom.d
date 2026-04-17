@@ -16,7 +16,7 @@
     :host "open.bigmodel.cn"
     :endpoint "/api/coding/paas/v4/chat/completions"
     :key #'gptel-api-key
-    :models '(GLM-4.7)
+    :models '(glm-5.1)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*ChatGPT*")
@@ -24,7 +24,7 @@
   (gptel-make-openai "ChatGPT"
     :host "api.oaipro.com"
     :key #'gptel-api-key
-    :models '(gpt-5.2)
+    :models '(gpt-5.4)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*Claude*")
@@ -32,9 +32,8 @@
   (gptel-make-anthropic "Claude"
     :host "api.oaipro.com"
     :key #'gptel-api-key
-    :models '(claude-haiku-4-5-20251001
-              claude-sonnet-4-5-20250929
-              claude-opus-4-5-20251101)
+    :models '(claude-sonnet-4-6
+              claude-opus-4-7)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*OpenRouter*")
@@ -43,12 +42,12 @@
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(openai/gpt-5.2
-              openai/gpt-5.2-pro
-              anthropic/claude-sonnet-4.5
-              anthropic/claude-opus-4.5
-              google/gemini-3-pro-preview
-              x-ai/grok-4)
+    :models '(openai/gpt-5.4
+              openai/gpt-5.4-pro
+              anthropic/claude-sonnet-4.6
+              anthropic/claude-opus-4.7
+              google/gemini-3.1-pro-preview
+              x-ai/grok-4.20)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
