@@ -25,12 +25,10 @@
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(openai/gpt-5.4
-              openai/gpt-5.4-pro
+    :models '(openai/gpt-5.5
               anthropic/claude-sonnet-4.6
               anthropic/claude-opus-4.7
-              google/gemini-3.1-pro-preview
-              x-ai/grok-4.20)
+              google/gemini-3.1-pro-preview)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
