@@ -19,23 +19,6 @@
     :models '(glm-5.1)
     :stream t)
 
-  (set-popup-rule! (regexp-quote "*ChatGPT*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "ChatGPT"
-    :host "api.oaipro.com"
-    :key #'gptel-api-key
-    :models '(gpt-5.4)
-    :stream t)
-
-  (set-popup-rule! (regexp-quote "*Claude*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-anthropic "Claude"
-    :host "api.oaipro.com"
-    :key #'gptel-api-key
-    :models '(claude-sonnet-4-6
-              claude-opus-4-7)
-    :stream t)
-
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
