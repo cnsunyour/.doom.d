@@ -5,7 +5,7 @@
   :config
   (set-popup-rule! (regexp-quote "*DeepSeek*")
     :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-model 'deepseek-reasoner
+  (setq gptel-model 'deepseek-v4-pro
         gptel-backend (gptel-make-deepseek "DeepSeek"
                         :key #'gptel-api-key
                         :stream t))
@@ -51,9 +51,8 @@
       (org-ai-global-mode 1))
     (remove-hook 'org-mode-hook #'+org-ai-enable-global-mode-h))
   :custom
-  (org-ai-default-chat-model "deepseek-chat")
-  (org-ai-chat-models '("deepseek-chat"
-                        "deepseek-reasoner"))
+  (org-ai-default-chat-model "deepseek-v4-pro")
+  (org-ai-chat-models '("deepseek-v4-pro"))
   :hook
   (org-mode . org-ai-mode) ; enable org-ai in org-mode
   (org-mode . +org-ai-enable-global-mode-h) ; install C-c M-a bindings when first needed
