@@ -19,6 +19,17 @@
     :models '(glm-5.1)
     :stream t)
 
+  (set-popup-rule! (regexp-quote "*DMXAPI*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-openai "DMXAPI"
+    :host "www.dmxapi.cn"
+    :key #'gptel-api-key
+    :models '(gpt-5.5
+              claude-sonnet-4.6
+              claude-opus-4.7
+              gemini-3.1-pro-preview)
+    :stream t)
+
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
