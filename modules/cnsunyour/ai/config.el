@@ -84,12 +84,12 @@
   :config
   ;; The reason for using setq instead of customize is to avoid exposing the API key in the .custom file.
   (setq magit-gptcommit-llm-provider (make-llm-openai-compatible
-                                      :url "https://api.z.ai/api/coding/paas/v4/"
+                                      :url "https://ark.cn-beijing.volces.com/api/v3/"
                                       :key (auth-source-pick-first-password
-                                            :host "api.z.ai"
+                                            :host "ark.cn-beijing.volces.com"
                                             :user "apikey")
-                                      :embedding-model "embedding-3"
-                                      :chat-model "glm-5.1"))
+                                      :embedding-model "doubao-embedding-large-text-250515"
+                                      :chat-model "doubao-seed-2-0-pro-260215"))
 
   ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
   ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
