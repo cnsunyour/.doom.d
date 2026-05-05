@@ -98,3 +98,17 @@
                    :italic t)))
   :config
   (global-blamer-mode -1))
+
+(use-package! clutch
+  :custom
+  (clutch-connection-alist
+   '(("local-mysql" . (:host "localhost"
+                       :port 3306
+                       :user "root"
+                       :database "mysql"
+                       :backend 'mysql))
+     ("local-pg" . (:host "localhost"
+                    :port 5432
+                    :user "postgres"
+                    :database "postgres"
+                    :backend 'pg)))))
