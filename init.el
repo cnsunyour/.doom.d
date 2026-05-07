@@ -202,17 +202,12 @@
        ;; (:if IS-MAC email)
        ;; irc
        org
-       ;; tabnine
-       ;; copilot
        telega
-       ;; ement
-       ;; slack
        term
        tools
        ;; translate
        ui
        ai
-       ;; embark
        love)
 
 (setq custom-file (expand-file-name ".custom.el" doom-user-dir))
