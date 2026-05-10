@@ -14,13 +14,14 @@
     (cl-pushnew 'telega +evil-collection-disabled-list :test #'equal)
     (setq evil-collection-mode-list (remove 'telega evil-collection-mode-list)))
 
-  (add-hook! telega-load
+  (add-hook! 'telega-chat-mode-hook 'telega-completions-setup-capf)
+  (add-hook! 'telega-load-hook
              '(telega-mode-line-mode
                global-telega-url-shorten-mode
                global-telega-mnz-mode
                telega-autoplay-mode
                telega-adblock-mode))
-  (add-hook! telega-before-auth
+  (add-hook! 'telega-before-auth-hook
              (telega--addProxy
                  '(:server "127.0.0.1"
                    :port 7891
