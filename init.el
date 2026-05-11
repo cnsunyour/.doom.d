@@ -199,8 +199,6 @@
        calendar
        chinese
        editor
-       ;; (:if IS-MAC email)
-       ;; irc
        org
        telega
        term
