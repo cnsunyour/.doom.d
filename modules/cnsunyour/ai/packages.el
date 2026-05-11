@@ -7,4 +7,5 @@
 (package! org-ai
   :recipe (:host github :repo "rksm/org-ai"
            :files (:defaults "snippets")))
-(package! magit-gptcommit)
+(package! gptel-magit
+  :recipe (:host github :repo "roife/gptel-magit"))

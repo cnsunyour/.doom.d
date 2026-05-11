@@ -72,30 +72,6 @@
         org-ai-openai-completion-endpoint "https://api.deepseek.com/chat/completions")
   (org-ai-install-yasnippets)) ; if you are using yasnippet and want `ai` snippets
 
-(use-package! magit-gptcommit
-  :after magit
-  :bind
-  (:map git-commit-mode-map
-        ("C-c C-g" . magit-gptcommit-commit-accept))
-  (:map magit-status-mode-map
-        ("C-c C-g" . magit-gptcommit-generate))
-  :init
-  (require 'llm-openai)
-  :config
-  ;; The reason for using setq instead of customize is to avoid exposing the API key in the .custom file.
-  (setq magit-gptcommit-llm-provider (make-llm-openai-compatible
-                                      :url "https://api.z.ai/api/coding/paas/v4/"
-                                      :key (auth-source-pick-first-password
-                                            :host "api.z.ai"
-                                            :user "apikey")
-                                      :embedding-model "embedding-3"
-                                      :chat-model "glm-5.1"))
-
-  ;; Enable magit-gptcommit-mode to watch staged changes and generate commit message automatically in magit status buffer
-  ;; This mode is optional, you can also use `magit-gptcommit-generate' to generate commit message manually
-  ;; `magit-gptcommit-generate' should only execute on magit status buffer currently
-  (magit-gptcommit-mode 1)
-
-  ;; Add gptcommit transient commands to `magit-commit'
-  ;; Eval (transient-remove-suffix 'magit-commit '(1 -1)) to remove gptcommit transient commands
-  (magit-gptcommit-status-buffer-setup))
+(use-package! gptel-magit
+  :ensure t
+  :hook (magit-mode . gptel-magit-install))
