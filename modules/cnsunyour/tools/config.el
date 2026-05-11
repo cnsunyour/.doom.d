@@ -112,3 +112,8 @@
                     :user "postgres"
                     :database "postgres"
                     :backend 'pg)))))
+
+(after! evil-collection
+  (dolist (item '((magit magit-submodule) magit-repos magit-section magit-todos))
+    (cl-pushnew item +evil-collection-disabled-list :test #'equal)
+    (setq evil-collection-mode-list (remove item evil-collection-mode-list))))
