@@ -117,3 +117,6 @@
   (dolist (item '((magit magit-submodule) magit-repos magit-section magit-todos))
     (cl-pushnew item +evil-collection-disabled-list :test #'equal)
     (setq evil-collection-mode-list (remove item evil-collection-mode-list))))
+
+(after! elfeed
+  (set-evil-initial-state! '(elfeed-show-mode elfeed-search-mode) 'emacs))
