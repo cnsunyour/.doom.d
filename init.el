@@ -203,7 +203,7 @@
        telega
        term
        tools
-       ;; translate
+       translate
        ui
        ai
        love)

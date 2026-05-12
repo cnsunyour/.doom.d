@@ -1,12 +1,15 @@
 ;;; ~/.doom.d/+translate.el -*- lexical-binding: t; -*-
 
-(use-package! go-translate
-  :defer t
+(use-package! gt
+  :ensure t
   :bind
-  ("C-c y" . gt-do-translate)
+  ("C-c y" . gt-translate)
   :init
   (map! :leader
-        "y" #'gt-do-translate)
+        "y" #'gt-translate)
+  :custom
+  (gt-chatgpt-host "https://api.deepseek.com")
+  (gt-chatgpt-model "deepseek-v4-flash")
   :config
   (set-popup-rule! (regexp-quote gt-buffer-render-buffer-name)
     :side 'right :size 100 :select t :quit 'current)
@@ -15,7 +18,7 @@
         `((ts-0 . ,(gt-translator
                     :taker   (list (gt-taker :pick nil :if 'selection)
                                    (gt-taker :text 'paragraph :if (lambda (&rest _) (derived-mode-p 'Info-mode)))
-                                   (gt-taker :text 'buffer :pick 'fresh-word :if 'read-only)
+                                   (gt-taker :text 'buffer :pick 'paragraph :if 'read-only)
                                    (gt-taker))
                     :engines (list (gt-deepl-engine :if 'not-word)
                                    (gt-chatgpt-engine :if 'not-word)
