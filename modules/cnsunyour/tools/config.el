@@ -120,3 +120,5 @@
 
 (after! elfeed
   (set-evil-initial-state! '(elfeed-show-mode elfeed-search-mode) 'emacs))
+
+(set-evil-initial-state! 'image-mode 'emacs)
