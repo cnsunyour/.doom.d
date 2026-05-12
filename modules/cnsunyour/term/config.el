@@ -1,12 +1,10 @@
 ;;; cnsunyour/term/config.el -*- lexical-binding: t; -*-
 
-(after! vterm
-  (when (modulep! :editor evil)
-    (after! evil-collection
-     (cl-pushnew 'vterm +evil-collection-disabled-list :test #'equal)
-     (setq evil-collection-mode-list (remove 'vterm evil-collection-mode-list)))
-    (evil-set-initial-state 'vterm-mode 'emacs)))
-
-(after! eshell
-  (when (modulep! :editor evil)
-    (evil-set-initial-state 'eshell-mode 'emacs)))
+(use-package! ghostel
+  :defer t
+  :ensure t
+  :init
+  (map! :leader
+        "o t" #'ghostel)
+  :config
+  (set-evil-initial-state! 'ghostel-mode 'emacs))
