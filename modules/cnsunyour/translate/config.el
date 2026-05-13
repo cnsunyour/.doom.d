@@ -11,6 +11,11 @@
   (gt-chatgpt-host "https://api.deepseek.com")
   (gt-chatgpt-model "deepseek-v4-flash")
   :config
+  (if (modulep! :editor evil)
+      (add-hook! '(gt-buffer-render-output-hook
+                   gt-posframe-pin-render-output-hook
+                   gt-posframe-pop-render-output-hook)
+                 #'evil-emacs-state))
   (set-popup-rule! (regexp-quote gt-buffer-render-buffer-name)
     :side 'right :size 100 :select t :quit 'current)
   (setq gt-langs '(en zh)
