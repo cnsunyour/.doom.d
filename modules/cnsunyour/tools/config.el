@@ -1,24 +1,10 @@
 ;;; cnsunyour/tools/config.el -*- lexical-binding: t; -*-
 
 
-;; 判断网络是否连通
-(defun internet-up-p (&optional host)
-    (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
-                       (if host host "www.google.com"))))
-
 ;; gpg 可以读取在 emacs 中输入的密码
-(use-package! pinentry :config (pinentry-start))
-
-;; 让flycheck检查载入el文件时从load-path里搜索
-(setq flycheck-emacs-lisp-load-path 'inherit)
-
-;; ispell: fix "zh_CN" dict error
-(after! ispell
-  (ispell-change-dictionary "american" t))
-
-;; docker management
-(after! docker
-  (setq docker-image-run-arguments '("-i" "-t" "--rm")))
+(use-package! pinentry
+  :config
+  (pinentry-start))
 
 ;; Search the word at point with Dash
 (use-package! dash-at-point
@@ -68,10 +54,6 @@
 ;;   (keyfreq-mode 1)
 ;;   (keyfreq-autosave-mode 1))
 
-;; use magit-status in vterm
-(after! vterm
-  (add-to-list 'vterm-eval-cmds '("magit-status" magit-status)))
-
 (use-package! ialign
   :commands ialign
   :bind ("C-S-s-i" . #'ialign))
@@ -112,14 +94,3 @@
                     :user "postgres"
                     :database "postgres"
                     :backend 'pg)))))
-
-(after! evil-collection
-  (dolist (item '((magit magit-submodule) magit-repos magit-section magit-todos))
-    (cl-pushnew item +evil-collection-disabled-list :test #'equal)
-    (setq evil-collection-mode-list (remove item evil-collection-mode-list))))
-
-(after! elfeed
-  (setq elfeed-search-filter "@1-week-ago")
-  (set-evil-initial-state! '(elfeed-show-mode elfeed-search-mode) 'emacs))
-
-(set-evil-initial-state! 'image-mode 'emacs)

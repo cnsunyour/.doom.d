@@ -54,21 +54,11 @@
   (when (modulep! :emacs undo)
     (add-to-list 'warning-suppress-types '(undo discard-info))))
 
-(when (modulep! :app rss)
-  (add-hook! 'elfeed-search-mode-hook 'elfeed-update))
-
 (when (modulep! :lang php +lsp)
-  (add-hook! 'php-mode-hook
-    (add-hook 'before-save-hook #'php-cs-fixer-before-save nil t))
-  (add-hook! 'php-ts-mode-hook
-    (add-hook 'before-save-hook #'php-cs-fixer-before-save nil t))
   (after! php-mode
     (setq lsp-intelephense-licence-key
           (auth-source-pick-first-password
            :host "intelephense"))))
-
-(after! magit
-  (require 'forge))
 
 (when (modulep! :editor evil)
   (setq evil-magic 'very-magic)
@@ -84,3 +74,31 @@
 
 ;; Doom 只在 custom-file 未被修改时自动加载，由于 init.el 修改了路径，需要显式加载
 (load (expand-file-name ".custom.el" doom-user-dir) t)
+
+;; 判断网络是否连通
+(defun internet-up-p (&optional host)
+    (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
+                       (if host host "www.google.com"))))
+
+;; 让flycheck检查载入el文件时从load-path里搜索
+(setq flycheck-emacs-lisp-load-path 'inherit)
+
+;; ispell: fix "zh_CN" dict error
+(after! ispell
+  (ispell-change-dictionary "american" t))
+
+;; docker management
+(after! docker
+  (setq docker-image-run-arguments '("-i" "-t" "--rm")))
+
+(after! evil-collection
+  (dolist (item '((magit magit-submodule) magit-repos magit-section magit-todos))
+    (cl-pushnew item +evil-collection-disabled-list :test #'equal)
+    (setq evil-collection-mode-list (remove item evil-collection-mode-list))))
+
+(after! elfeed
+  ;; (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+  (setq elfeed-search-filter "@1-week-ago")
+  (set-evil-initial-state! '(elfeed-show-mode elfeed-search-mode) 'emacs))
+
+(set-evil-initial-state! 'image-mode 'emacs)
