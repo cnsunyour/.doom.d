@@ -6,5 +6,7 @@
   :init
   (map! :leader
         "o t" #'ghostel)
+  :custom
+  (ghostel-module-auto-install 'download)
   :config
   (set-evil-initial-state! 'ghostel-mode 'emacs))
