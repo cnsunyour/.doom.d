@@ -119,6 +119,7 @@
     (setq evil-collection-mode-list (remove item evil-collection-mode-list))))
 
 (after! elfeed
+  (setq elfeed-search-filter "@1-week-ago")
   (set-evil-initial-state! '(elfeed-show-mode elfeed-search-mode) 'emacs))
 
 (set-evil-initial-state! 'image-mode 'emacs)
