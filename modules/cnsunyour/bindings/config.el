@@ -68,6 +68,9 @@
         :n "h" #'dired-up-directory
         :n "l" #'dired-find-file)
 
+      (:when (modulep! :tools pass)
+        (:leader (:prefix "p" "w" #'pass)))
+
       (:when (modulep! :ui workspaces)
         "C-M-S-s-w" #'=calendar)
 

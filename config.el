@@ -102,3 +102,6 @@
   (set-evil-initial-state! '(elfeed-show-mode elfeed-search-mode) 'emacs))
 
 (set-evil-initial-state! 'image-mode 'emacs)
+
+(after! (:and pass evil)
+  (set-evil-initial-state! '(pass-mode pass-view-mode) 'emacs))
