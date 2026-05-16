@@ -191,7 +191,7 @@
 ;; (set-popup-rule! "^\\*" :side 'right :size 0.5 :select t)
 
 ;; 80列太窄，120列太宽，看着都不舒服，100列正合适
-;; (setq-default fill-column 100)
+(setq-default fill-column 100)
 
 ;; 虚拟换行设置
 ;; (setq-default visual-fill-column-width 120)
