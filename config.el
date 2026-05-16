@@ -91,10 +91,14 @@
 (after! docker
   (setq docker-image-run-arguments '("-i" "-t" "--rm")))
 
-(after! evil-collection
-  (dolist (item '((magit magit-submodule) magit-repos magit-section magit-todos))
-    (cl-pushnew item +evil-collection-disabled-list :test #'equal)
-    (setq evil-collection-mode-list (remove item evil-collection-mode-list))))
+(after! magit
+  (setq git-commit-summary-max-length 70)
+  (unsetq-hook! 'git-commit-mode-hook fill-column 72)
+  (setq-hook! 'git-commit-mode-hook fill-column 92)
+  (after! evil-collection
+    (dolist (item '((magit magit-submodule) magit-repos magit-section magit-todos))
+      (cl-pushnew item +evil-collection-disabled-list :test #'equal)
+      (setq evil-collection-mode-list (remove item evil-collection-mode-list)))))
 
 (after! elfeed
   ;; (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
