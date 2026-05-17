@@ -57,7 +57,8 @@
     "I" 'evil-mc-make-cursor-in-visual-selection-beg))
 
 ;; general keybindings
-(map! (:leader (:prefix "b" "h" #'+doom-dashboard/open))
+(map! (:when (modulep! :ui doom-dashboard)
+        (:leader (:prefix "b" "h" #'+doom-dashboard/open)))
 
       :g "C-!" #'kill-buffer-and-window
       :g "C-s-S-l" #'toggle-truncate-lines
