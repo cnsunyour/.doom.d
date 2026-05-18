@@ -3,21 +3,15 @@
 (use-package! gptel
   :defer 5
   :config
-  (set-popup-rule! (regexp-quote "*DeepSeek*")
-    :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-model 'deepseek-v4-pro
-        gptel-backend (gptel-make-deepseek "DeepSeek"
-                        :key #'gptel-api-key
-                        :stream t))
-
   (set-popup-rule! (regexp-quote "*BigModel*")
     :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "BigModel"
-    :host "open.bigmodel.cn"
-    :endpoint "/api/coding/paas/v4/chat/completions"
-    :key #'gptel-api-key
-    :models '(glm-5.1)
-    :stream t)
+  (setq gptel-model 'glm-5.1
+        gptel-backend (gptel-make-openai "BigModel"
+                        :host "open.bigmodel.cn"
+                        :endpoint "/api/coding/paas/v4/chat/completions"
+                        :key #'gptel-api-key
+                        :models '(glm-5.1)
+                        :stream t))
 
   (set-popup-rule! (regexp-quote "*DMXAPI*")
     :side 'left :size 100 :select t :quit 'current)
