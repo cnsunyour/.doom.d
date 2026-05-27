@@ -101,7 +101,7 @@
       (setq evil-collection-mode-list (remove item evil-collection-mode-list)))))
 
 (after! elfeed
-  ;; (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+  (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
   (setq elfeed-search-filter "@1-week-ago")
   (set-evil-initial-state! '(elfeed-show-mode elfeed-search-mode) 'emacs))
 
