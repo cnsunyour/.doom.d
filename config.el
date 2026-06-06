@@ -102,7 +102,7 @@
 
 (after! elfeed
   (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
-  (setq elfeed-search-filter "@1-week-ago")
+  (setq-default elfeed-search-filter "@1-week-ago")
   (set-evil-initial-state! '(elfeed-show-mode elfeed-search-mode) 'emacs))
 
 (set-evil-initial-state! 'image-mode 'emacs)
