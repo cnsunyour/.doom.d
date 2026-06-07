@@ -98,7 +98,7 @@
        upload            ; map local to remote projects via ssh/ftp
 
        :os
-       (:if IS-MAC macos)  ; improve compatibility with macOS
+       (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
 
        :lang
@@ -165,7 +165,7 @@
        ;;vala              ; GObjective-C
 
        :email
-       ;; (:if IS-MAC (mu4e +gmail))       ; WIP
+       ;; (:if (featurep :system 'macos) (mu4e +gmail))       ; WIP
        ;; notmuch             ; WIP
        ;;(wanderlust +gmail) ; WIP
 

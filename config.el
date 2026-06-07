@@ -11,7 +11,7 @@
 
 ;; init ccls include path
 (after! ccls
-  (when IS-MAC
+  (when (featurep :system 'macos)
     (setq ccls-initialization-options
           `(:clang ,(list :extraArgs ["-isystem/Library/Developer/CommandLineTools/usr/include/c++/v1"
                                       "-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include"
@@ -20,7 +20,7 @@
 
 ;; define environmental variable for some works
 (let* ((brew-prefix (or (getenv "HOMEBREW_PREFIX")
-                        (and IS-MAC
+                        (and (featurep :system 'macos)
                              (cond ((file-directory-p "/opt/homebrew/opt") "/opt/homebrew")
                                    ((file-directory-p "/usr/local/opt") "/usr/local")))
                         "/usr/local"))

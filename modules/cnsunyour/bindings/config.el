@@ -1,6 +1,6 @@
 ;;;  -*- lexical-binding: t; -*-
 
-(when IS-MAC
+(when (featurep :system 'macos)
   (setq mac-command-modifier 'super
         mac-option-modifier 'meta))
 

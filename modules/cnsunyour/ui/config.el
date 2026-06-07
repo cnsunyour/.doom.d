@@ -151,7 +151,7 @@
 
 ;; Auto change theme on non-mac OS
 (use-package! theme-changer
-  :unless IS-MAC
+  :unless (featurep :system 'macos)
   :config
   (add-hook! after-init :append
              (change-theme +list-light-theme
@@ -159,7 +159,7 @@
 
 ;; Change theme sync with macOS
 (use-package! auto-dark-emacs
-  :when (and IS-MAC (not (boundp 'ns-system-appearance-change-functions)))
+  :when (and (featurep :system 'macos) (not (boundp 'ns-system-appearance-change-functions)))
   :config
   (setq auto-dark-emacs/light-theme +list-light-theme
         auto-dark-emacs/dark-theme +list-dark-theme
@@ -167,7 +167,7 @@
   (add-hook! after-init :append
              #'auto-dark-emacs/check-and-set-dark-mode))
 
-(when (and IS-MAC (boundp 'ns-system-appearance-change-functions))
+(when (and (featurep :system 'macos) (boundp 'ns-system-appearance-change-functions))
   (defun cnsunyour/change-theme(appearance)
     "Load theme according to the current system appearance."
     (pcase appearance
