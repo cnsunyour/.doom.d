@@ -5,12 +5,12 @@
   :config
   (set-popup-rule! (regexp-quote "*BigModel*")
     :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-model 'glm-5.1
+  (setq gptel-model 'glm-5.2
         gptel-backend (gptel-make-openai "BigModel"
                         :host "open.bigmodel.cn"
                         :endpoint "/api/coding/paas/v4/chat/completions"
                         :key #'gptel-api-key
-                        :models '(glm-5.1)
+                        :models '(glm-5.2)
                         :stream t))
 
   (set-popup-rule! (regexp-quote "*DMXAPI*")
