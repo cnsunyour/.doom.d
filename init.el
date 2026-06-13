@@ -68,7 +68,7 @@
        undo
 
        :term
-       ;; eshell            ; a consistent, cross-platform shell (WIP)
+       eshell            ; a consistent, cross-platform shell (WIP)
        ;; term              ; terminals in Emacs
        ;; vterm             ; another terminals in Emacs
 
@@ -203,7 +203,7 @@
        telega
        term
        tools
-       translate
+       ;; translate
        ui
        ai
        love)
