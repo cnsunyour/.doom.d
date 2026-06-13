@@ -13,27 +13,17 @@
                         :models '(glm-5.2)
                         :stream t))
 
-  (set-popup-rule! (regexp-quote "*DMXAPI*")
-    :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-openai "DMXAPI"
-    :host "www.dmxapi.cn"
-    :key #'gptel-api-key
-    :models '(gpt-5.5
-              claude-sonnet-4.6
-              claude-opus-4.7
-              gemini-3.1-pro-preview)
-    :stream t)
-
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(openai/gpt-5.5
-              anthropic/claude-sonnet-4.6
-              anthropic/claude-opus-4.7
-              google/gemini-3.1-pro-preview)
+    :models '(~openai/gpt-latest
+              ~anthropic/claude-sonnet-latest
+              ~anthropic/claude-opus-latest
+              ~anthropic/claude-fable-latest
+              ~google/gemini-pro-latest)
     :stream t)
 
   (add-hook! 'gptel-mode-hook
