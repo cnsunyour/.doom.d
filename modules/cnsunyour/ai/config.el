@@ -19,7 +19,8 @@
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(~openai/gpt-latest
+    :models '(openrouter/fusion
+              ~openai/gpt-latest
               ~anthropic/claude-sonnet-latest
               ~anthropic/claude-opus-latest
               ~anthropic/claude-fable-latest
