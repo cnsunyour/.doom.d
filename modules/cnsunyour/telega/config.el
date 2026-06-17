@@ -26,7 +26,7 @@
                  '(:server "127.0.0.1"
                    :port 7891
                    :type (:@type "proxyTypeSocks5"))
-                 t))
+                 :enable-p t))
   ;; (add-hook! 'telega-msg-ignore-predicates
   ;;   (telega-match-gen-predicate 'msg '(sender is-blocked)))
 
