@@ -75,11 +75,6 @@
 ;; Doom 只在 custom-file 未被修改时自动加载，由于 init.el 修改了路径，需要显式加载
 (load (expand-file-name ".custom.el" doom-user-dir) t)
 
-;; 判断网络是否连通
-(defun internet-up-p (&optional host)
-    (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
-                       (if host host "www.google.com"))))
-
 ;; 让flycheck检查载入el文件时从load-path里搜索
 (setq flycheck-emacs-lisp-load-path 'inherit)
 
