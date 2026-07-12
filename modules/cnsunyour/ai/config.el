@@ -13,6 +13,12 @@
                         :models '(glm-5.2)
                         :stream t))
 
+  (set-popup-rule! (regexp-quote "*DeepSeek*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-deepseek "DeepSeek"
+    :key #'gptel-api-key
+    :stream t)
+  
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
@@ -20,10 +26,15 @@
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
     :models '(openrouter/fusion
+              ~moonshotai/kimi-latest
+              ~x-ai/grok-latest
+              ~openai/gpt-mini-latest
               ~openai/gpt-latest
+              ~anthropic/claude-haiku-latest
               ~anthropic/claude-sonnet-latest
               ~anthropic/claude-opus-latest
               ~anthropic/claude-fable-latest
+              ~google/gemini-flash-latest
               ~google/gemini-pro-latest)
     :stream t)
 
