@@ -3,29 +3,32 @@
 (use-package! gptel
   :defer 5
   :config
-  (set-popup-rule! (regexp-quote "*BigModel*")
-    :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-model 'glm-5.2
-        gptel-backend (gptel-make-openai "BigModel"
-                        :host "open.bigmodel.cn"
-                        :endpoint "/api/coding/paas/v4/chat/completions"
-                        :key #'gptel-api-key
-                        :models '(glm-5.2)
-                        :stream t))
-
   (set-popup-rule! (regexp-quote "*DeepSeek*")
     :side 'left :size 100 :select t :quit 'current)
-  (gptel-make-deepseek "DeepSeek"
+  (setq gptel-model 'deepseek-v4-flash
+        gptel-backend (gptel-make-deepseek "DeepSeek"
+                        :key #'gptel-api-key
+                        :stream t))
+
+  (set-popup-rule! (regexp-quote "*Z.AI*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-openai "Z.AI"
+    :host "open.bigmodel.cn"
+    :endpoint "/api/coding/paas/v4/chat/completions"
     :key #'gptel-api-key
+    :models '(glm-5.3)
     :stream t)
-  
+
   (set-popup-rule! (regexp-quote "*OpenRouter*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "OpenRouter"
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :key #'gptel-api-key
-    :models '(openrouter/fusion
+    :models '(openrouter/auto
+              openrouter/pareto-code
+              openrouter/fusion
+              ~deepseek/deepseek-v4-flash-latest
               ~moonshotai/kimi-latest
               ~x-ai/grok-latest
               ~openai/gpt-mini-latest
@@ -58,8 +61,8 @@
       (org-ai-global-mode 1))
     (remove-hook 'org-mode-hook #'+org-ai-enable-global-mode-h))
   :custom
-  (org-ai-default-chat-model "deepseek-v4-pro")
-  (org-ai-chat-models '("deepseek-v4-pro"))
+  (org-ai-default-chat-model "deepseek-v4-clash")
+  (org-ai-chat-models '("deepseek-v4-flash"))
   :hook
   (org-mode . org-ai-mode) ; enable org-ai in org-mode
   (org-mode . +org-ai-enable-global-mode-h) ; install C-c M-a bindings when first needed
