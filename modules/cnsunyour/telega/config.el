@@ -2,6 +2,8 @@
 
 ;; telegram client for emacs
 (use-package! telega
+  :defer t
+
   :init
   (define-key global-map (kbd "C-c t") telega-prefix-map)
   (unless (display-graphic-p) (setq telega-use-images nil))
