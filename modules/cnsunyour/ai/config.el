@@ -29,6 +29,7 @@
               openrouter/pareto-code
               openrouter/fusion
               ~deepseek/deepseek-v4-flash-latest
+              ~z-ai/glm-latest
               ~moonshotai/kimi-latest
               ~x-ai/grok-latest
               ~openai/gpt-mini-latest
