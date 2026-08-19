@@ -19,4 +19,4 @@
 (package! blamer)
 (package! clutch)
 (package! mysql)
-(package! pgsql)
+(package! pg)
