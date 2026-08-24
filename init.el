@@ -123,7 +123,8 @@
        ;;+intero)
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       ;; (java +lsp +tree-sitter)
+       (java +lsp +tree-sitter)
+       (kotlin +lsp +tree-sitter)
        (javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
        (json +lsp +tree-sitter)
        ;;julia             ; a better, faster MATLAB
