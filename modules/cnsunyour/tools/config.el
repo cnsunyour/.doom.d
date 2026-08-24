@@ -94,3 +94,15 @@
                     :port 5432
                     :user "postgres"
                     :database "postgres")))))
+
+(use-package! grip-mode
+  :ensure t
+  :config
+  (setq grip-command 'go-grip) ;; auto, grip, go-grip or mdopen
+  ;; (setq grip-github-password ;; only for `grip' command
+  ;;       (auth-source-pick-first-password
+  ;;        :host "api.github.com"
+  ;;        :user "grip"))
+  :bind
+  (:map markdown-mode-command-map
+        ("g" . grip-mode)))

@@ -20,3 +20,4 @@
 (package! clutch)
 (package! mysql)
 (package! pg)
+(package! grip-mode)
