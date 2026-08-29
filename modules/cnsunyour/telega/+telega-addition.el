@@ -9,6 +9,28 @@
 (add-hook 'telega-root-mode-hook 'lg-telega-root-mode)
 (add-hook 'telega-chat-update-hook 'lg-telega-chat-update)
 
+;; Mark all group chats as read, without opening any chat
+(defun lg-telega-read-all-groups (&optional include-channels-p)
+  "Mark all unread group chats as read, without opening them.
+Run from anywhere while telega is connected (rootbuf is the usual place).
+With prefix arg, also include channels."
+  (interactive "P")
+  (unless (telega-server-live-p)
+    (user-error "Telega is not running"))
+  (let ((chats (telega-filter-chats (telega-chats-list)
+                  `(and (type basicgroup supergroup
+                              ,@(when include-channels-p '(channel)))
+                        (or unread mention unread-reactions unread-polls)))))
+    (if (null chats)
+        (message "Telega: no unread group chats")
+      (when (y-or-n-p
+             (format "Telega: mark all %d unread group chats as read? "
+                     (length chats)))
+        (mapc #'telega-chat-toggle-read chats)
+        (message "Telega: marked %d group chats as read" (length chats))))))
+
+(define-key telega-prefix-map (kbd "R") 'lg-telega-read-all-groups)
+
 (define-advice telega-chatbuf--sponsored-messages-fetch (:override (&rest _) dont-fetch-sponsor-a))
 
 (define-advice telega-etc-file (:override (filename) check-custom-etc-path-a)
