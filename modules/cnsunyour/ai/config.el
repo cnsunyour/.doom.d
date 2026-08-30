@@ -16,7 +16,8 @@
     :host "open.bigmodel.cn"
     :endpoint "/api/coding/paas/v4/chat/completions"
     :key #'gptel-api-key
-    :models '(glm-5.3)
+    :models '(glm-5.3
+              glm-5.3-flash)
     :stream t)
 
   (set-popup-rule! (regexp-quote "*OpenRouter*")
