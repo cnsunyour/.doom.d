@@ -235,6 +235,13 @@
 
   ;; set capture templates
   (after! org-capture
+    ;; ox-hugo 已移除，这里内联其 slug 规则供 capture 模板使用
+    (defun my/org-hugo-slug (title)
+      "Convert TITLE to a URL-friendly slug, in place of `org-hugo-slug'."
+      (let ((slug (downcase title)))
+        (setq slug (replace-regexp-in-string "[^a-z0-9]+" "-" slug))
+        (setq slug (replace-regexp-in-string "-\\{2,\\}" "-" slug))
+        (replace-regexp-in-string "\\`-+\\|-+\\'" "" slug)))
     (defun org-new-task-capture-template ()
       "Returns `org-capture' template string for new task.
 See `org-capture-templates' for more information."
@@ -250,7 +257,7 @@ See `org-capture-templates' for more information."
       "Returns `org-capture' template string for new Hugo post.
 See `org-capture-templates' for more information."
       (let* ((title (read-string "Post Title: ")) ;Prompt to enter the post title
-             (fname (org-hugo-slug title)))
+             (fname (my/org-hugo-slug title)))
         (mapconcat #'identity
                    `(,(concat "* " title)
                      ":PROPERTIES:"
@@ -304,30 +311,6 @@ See `org-capture-templates' for more information."
             (overlay-put ov 'line-height line-height)
             (overlay-put ov 'line-spacing (1- line-height))))))))
 (add-hook 'org-agenda-finalize-hook #'my:org-agenda-time-grid-spacing)
-
-;; terminal-notifier
-(after! org-pomodoro
-  (when (executable-find "terminal-notifier")
-    (defun notify-osx (title message)
-      (call-process "terminal-notifier"
-                    nil 0 nil
-                    "-group" "Emacs"
-                    "-title" title
-                    "-sender" "org.gnu.Emacs"
-                    "-message" message
-                    "-activate" "oeg.gnu.Emacs"))
-    (add-hook 'org-pomodoro-finished-hook
-              (lambda ()
-                (notify-osx "Pomodoro completed!" "Time for a break.")))
-    (add-hook 'org-pomodoro-break-finished-hook
-              (lambda ()
-                (notify-osx "Pomodoro Short Break Finished" "Ready for Another?")))
-    (add-hook 'org-pomodoro-long-break-finished-hook
-              (lambda ()
-                (notify-osx "Pomodoro Long Break Finished" "Ready for Another?")))
-    (add-hook 'org-pomodoro-killed-hook
-              (lambda ()
-                (notify-osx "Pomodoro Killed" "One does not simply kill a pomodoro!")))))
 
 (after! org-crypt
   (cl-pushnew org-crypt-tag-matcher org-tags-exclude-from-inheritance))

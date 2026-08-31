@@ -140,11 +140,9 @@
         +dragndrop       ; file drag & drop support
         +crypt
         +gnuplot
-        +hugo
         +journal
         +noter
         +pandoc          ; pandoc integration into org's exporter
-        +pomodoro
         +present)        ; using Emacs for presentations
        ;; perl              ; write code no one else can comprehend
        (php +lsp +tree-sitter)                ; perl's insecure younger brother

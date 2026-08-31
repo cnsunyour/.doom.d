@@ -1,9 +1,5 @@
 ;;; ~/.doom.d/+org2blog.el -*- lexical-binding: t; -*-
 
-(after! ox-hugo
-  (setopt org-hugo-base-dir "~/hugo/"
-          org-hugo-section "post"))
-
 (use-package! easy-hugo
   :bind
   ("C-c b" . easy-hugo)
