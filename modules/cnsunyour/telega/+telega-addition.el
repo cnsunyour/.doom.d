@@ -29,7 +29,7 @@ With prefix arg, also include channels."
         (mapc #'telega-chat-toggle-read chats)
         (message "Telega: marked %d group chats as read" (length chats))))))
 
-(define-key telega-prefix-map (kbd "R") 'lg-telega-read-all-groups)
+(define-key telega-prefix-map (kbd "r") 'lg-telega-read-all-groups)
 
 (define-advice telega-chatbuf--sponsored-messages-fetch (:override (&rest _) dont-fetch-sponsor-a))
 
