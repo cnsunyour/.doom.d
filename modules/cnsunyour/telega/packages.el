@@ -5,3 +5,4 @@
   :recipe (:files (:defaults "contrib/*.el" "etc" "server" "Makefile")))
 (package! language-detection)
 ;; (package! tracking)
+(package! all-the-icons)
