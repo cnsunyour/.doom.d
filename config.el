@@ -73,7 +73,8 @@
 (load (expand-file-name ".private.el" doom-user-dir) t)
 
 ;; Doom 只在 custom-file 未被修改时自动加载，由于 init.el 修改了路径，需要显式加载
-(load (expand-file-name ".custom.el" doom-user-dir) t)
+(setq custom-file (expand-file-name ".custom.el" doom-user-dir))
+(load custom-file t)
 
 ;; ispell: fix "zh_CN" dict error
 (after! ispell

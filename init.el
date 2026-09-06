@@ -207,4 +207,3 @@
        ai
        love)
 
-(setq custom-file (expand-file-name ".custom.el" doom-user-dir))
