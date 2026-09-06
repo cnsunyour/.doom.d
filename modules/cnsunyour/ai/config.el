@@ -10,6 +10,14 @@
                         :key #'gptel-api-key
                         :stream t))
 
+  (set-popup-rule! (regexp-quote "*Kimi*")
+    :side 'left :size 100 :select t :quit 'current)
+  (gptel-make-openai "Kimi"
+    :host "api.moonshot.cn"
+    :key #'gptel-api-key
+    :models '(kimi-k3)
+    :stream t)
+
   (set-popup-rule! (regexp-quote "*BigModel*")
     :side 'left :size 100 :select t :quit 'current)
   (gptel-make-openai "BigModel"
