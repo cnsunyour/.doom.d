@@ -43,7 +43,10 @@
               ~moonshotai/kimi-latest
               ~x-ai/grok-latest
               ~openai/gpt-mini-latest
-              ~openai/gpt-latest
+              ~openai/gpt-luna-latest
+              ~openai/gpt-terra-latest
+              ~openai/gpt-sol-latest
+              ~openai/gpt-astra-latest
               ~anthropic/claude-haiku-latest
               ~anthropic/claude-sonnet-latest
               ~anthropic/claude-opus-latest
