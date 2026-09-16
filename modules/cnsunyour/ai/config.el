@@ -37,7 +37,8 @@
     :models '(openrouter/auto
               openrouter/pareto-code
               openrouter/fusion
-              ~deepseek/deepseek-v4-flash-latest
+              ~deepseek/deepseek-flash-latest
+              ~deepseek/deepseek-pro-latest
               ~z-ai/glm-flash-latest
               ~z-ai/glm-latest
               ~moonshotai/kimi-latest
