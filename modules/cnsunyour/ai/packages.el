@@ -1,9 +1,8 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; cnsunyour/tools/packages.el
 
-(package! gptel)
-(package! gptel-extensions
-  :recipe (:host github :repo "kamushadenes/gptel-extensions.el"))
+(package! gptel
+  :recipe (:nonrecursive t))
 (package! org-ai
   :recipe (:host github :repo "rksm/org-ai"
            :files (:defaults "snippets")))

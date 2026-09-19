@@ -62,9 +62,6 @@
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
 
-(use-package! gptel-extensions
-  :after gptel)
-
 (use-package! org-ai
   :after org
   :commands
