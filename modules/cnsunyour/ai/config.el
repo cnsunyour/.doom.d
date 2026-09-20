@@ -5,7 +5,7 @@
   :config
   (set-popup-rule! (regexp-quote "*DeepSeek*")
     :side 'left :size 100 :select t :quit 'current)
-  (setq gptel-model 'deepseek-v4-flash
+  (setq gptel-model 'deepseek-flash
         gptel-backend (gptel-make-deepseek "DeepSeek"
                         :key #'gptel-api-key
                         :stream t))
