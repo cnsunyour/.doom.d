@@ -72,7 +72,7 @@
 
 (load (expand-file-name ".private.el" doom-user-dir) t)
 
-;; Doom 只在 custom-file 未被修改时自动加载，由于 init.el 修改了路径，需要显式加载
+;; Doom 只在 custom-file 未被修改时自动加载，由于修改了路径，需要显式加载
 (setq custom-file (expand-file-name ".custom.el" doom-user-dir))
 (load custom-file t)
 
@@ -100,5 +100,9 @@
 
 (set-evil-initial-state! 'image-mode 'emacs)
 
-(after! (:and pass evil)
+(after! pass
   (set-evil-initial-state! '(pass-mode pass-view-mode) 'emacs))
+
+(after! ghostel
+  (setq ghostel-module-auto-install 'download)
+  (set-evil-initial-state! 'ghostel-mode 'emacs))

@@ -68,9 +68,10 @@
        undo
 
        :term
-       eshell            ; a consistent, cross-platform shell (WIP)
+       ;; eshell            ; a consistent, cross-platform shell (WIP)
        ;; term              ; terminals in Emacs
        ;; vterm             ; another terminals in Emacs
+       (ghostel +everywhere)
 
        :checkers
        (syntax +flymake)              ; tasing you for every semicolon you forget
@@ -200,10 +201,9 @@
        editor
        org
        telega
-       term
+       ;; term
        tools
        ;; translate
        ui
        ai
        love)
-
