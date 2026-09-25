@@ -86,3 +86,9 @@
 (use-package! gptel-magit
   :ensure t
   :hook (magit-mode . gptel-magit-install))
+
+(use-package! claude-code-ide
+  :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (setq claude-code-ide-terminal-backend 'ghostel)
+  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
