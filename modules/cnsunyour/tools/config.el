@@ -28,7 +28,7 @@
   :commands (pastebin-list-buffer-refresh
              pastebin-new)
   :config
-  (when (modulep! :editor evil +everywhere)
+  (when (modulep! :editor evil)
     (map! :map pastebin--list-map
           :n "d" #'pastebin-delete-paste-at-point
           :n "r" #'pastebin-list-buffer-refresh
