@@ -36,8 +36,7 @@
           :n "T" #'pastebin-list-buffer-refresh-sort-by-title
           :n "K" #'pastebin-list-buffer-refresh-sort-by-key
           :n "D" #'pastebin-list-buffer-refresh-sort-by-date
-          :n "P" #'pastebin-list-buffer-refresh-sort-by-private
-          :n "q" #'kill-current-buffer))
+          :n "P" #'pastebin-list-buffer-refresh-sort-by-private))
 
   (pastebin-create-login
    :username (auth-source-pick-first-password :host "pastebin.com" :user "username")
