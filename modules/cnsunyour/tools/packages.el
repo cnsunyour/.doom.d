@@ -8,7 +8,7 @@
 (package! alert)
 (package! super-save)
 (package! neopastebin
-  :pin "4294f9c27c543718e1c24c04b47949d1fe0f4ef3"
+  :pin "a744b39e07ac628fdd28bd23e9950697ae764a05"
   :recipe (:host github :repo "cnsunyour/emacs-pastebin"
            :remote "dhilst/emacs-pastebin"))
 ;; (package! keyfreq

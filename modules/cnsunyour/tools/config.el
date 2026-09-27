@@ -38,15 +38,11 @@
           :n "D" #'pastebin-list-buffer-refresh-sort-by-date
           :n "P" #'pastebin-list-buffer-refresh-sort-by-private
           :n "q" #'kill-current-buffer))
-    (pastebin-create-login :username (auth-source-pick-first-password
-                                      :host "pastebin.com"
-                                      :user "username")
-                           :dev-key (auth-source-pick-first-password
-                                      :host "pastebin.com"
-                                      :user "dev-key")
-                           :password (auth-source-pick-first-password
-                                      :host "pastebin.com"
-                                      :user "password")))
+
+  (pastebin-create-login
+   :username (auth-source-pick-first-password :host "pastebin.com" :user "username")
+   :dev-key  (auth-source-pick-first-password :host "pastebin.com" :user "dev-key")
+   :password-auth-source '(:host "pastebin.com" :user "password")))
 
 ;; Track Emacs commands frequency
 ;; (use-package! keyfreq
